@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django import forms
-from recipes.models import Recipe, Ingredients
+from recipes.models import Recipe, Ingredients, Category, Nation
 
 
 class IngredientSerializer(serializers.ModelSerializer):
@@ -13,12 +13,19 @@ class IngredientSerializer(serializers.ModelSerializer):
 class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
-        fields = ('id',
-                  'title',
-                  'description',
-                  'image',
-                  'ingredients',
-                  'cooking_method',
-                  'cooking_time',
-                  'is_published')
+        fields = '__all__'
         model = Recipe
+
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields = "__all__"
+        model = Category
+
+
+class NationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields = '__all__'
+        model = Nation

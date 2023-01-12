@@ -1,35 +1,8 @@
 #### Новое:
 Пока отключил авторизацию.
 
-#####Доступные URL.
-* `/api/v1/recipes/` - GET, POST (Список всех рецептов)
+Добавил фильтрацию, опишу методы мозже :)
 
-
-* `/api/v1/recipes/{id}` - GET, POST, PUT, PATCH, DELETE (Добавление, изменение, удаление рецепта)
-
-
-* `/api/v1/categories/` - GET, POST (Список всех категорий)
-
-
-* `/api/v1/categories/{category_id}` - GET, POST, PUT, PATCH, DELETE (Добавление, изменение, удаление категории)
-
-
-* `/api/v1/categories/{category_id}/recipes/` - GET, POST (Список всех рецептов в этой категории)
-
-
-* `/api/v1/categories/{category_id}/recipes/{recipe_id}` - GET, POST, PUT, PATCH, DELETE (Добавление, изменение, удаление рецепта)
-
-
-* `/api/v1/nations/` - GET, POST (Список национальных кухонь(кухней))
-
-
-* `/api/v1/nations/{nation_id}` - GET, POST, PUT, PATCH, DELETE (Добавление, изменение, удаление кухни)
-
-
-* `/api/v1/nations/{nation_id}/recipes/` - GET, POST (Список всех рецептов в этой кухне)
-
-
-* `/api/v1/nations/{nation_id}/recipes/{recipe_id}` - GET, POST, PUT, PATCH, DELETE (Добавление, изменение, удаление рецепта)
 
 #### Как загрузить проект на удаленный репозиторий:
 

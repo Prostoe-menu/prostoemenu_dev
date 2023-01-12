@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -115,7 +116,9 @@ AUTH_PASSWORD_VALIDATORS = [
 #         'rest_framework.authentication.TokenAuthentication',
 #     ]
 # }
-
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 

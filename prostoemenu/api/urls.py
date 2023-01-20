@@ -6,6 +6,8 @@ from rest_framework.authtoken import views
 from api.views import (RecipesViewSet,
                        IngredientsViewSet)
 
+app_name = 'api'
+
 router = DefaultRouter()
 router.register(r'recipes', RecipesViewSet)
 router.register(r'recipes/(?P<recipe_id>[^/.]+)/ingredients',

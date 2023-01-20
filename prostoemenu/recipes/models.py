@@ -81,6 +81,7 @@ class Recipe(models.Model):
         blank=True,
         null=True
     )
+    # Пока отключил авторов, так как нету регистрации, для удобства Фронтов
     # author = models.ForeignKey(
     #     User, on_delete=models.CASCADE,
     #     related_name='recipes'
@@ -112,6 +113,14 @@ class Recipe(models.Model):
         default=False,
         verbose_name='Опубликовать рецепт'
     )
+    pub_date = models.DateField(
+        auto_now_add=True,
+        verbose_name='Дата публикации',
+        null=True
+    )
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = ['-pub_date']

@@ -1,3 +1,6 @@
+from django.db.models import Q
+from .service import RecipeFilter
+
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.viewsets import ModelViewSet
 
@@ -7,9 +10,10 @@ from recipes.models import Recipe
 
 
 class RecipesViewSet(ModelViewSet):
-    queryset = Recipe.objects.all()
+    queryset = Recipe.objects.filter(is_published=True)
     serializer_class = RecipeSerializer
     filter_backends = [DjangoFilterBackend]
+    # filterset_class = RecipeFilter
     filterset_fields = ['nation',
                         'category',
                         'ingredients',

@@ -28,6 +28,9 @@ share/python-wheels/
 *.egg
 MANIFEST
 prostoemenu/media/
+prostoemenu/templates
+prostoemenu/website
+prostoemenu/core
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

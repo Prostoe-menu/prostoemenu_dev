@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'Biolilbert';
+  font-style: normal;
+  font-weight: 400;
+  src: url("./Biolilbert-Rg.woff2") format("woff2"),
+    url("./Biolilbert-Rg.woff") format("woff"),
+    url("./Biolilbert-Rg.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 300;
+  src: url("./Mulish-Light.woff2") format("woff2"),
+    url("./Mulish-Light.woff") format("woff"),
+    url("./Mulish-Light.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 500;
+  src: url("./Mulish-Medium.woff2") format("woff2"),
+    url("./Mulish-Medium.woff") format("woff"),
+    url("./Mulish-Medium.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 700;
+  src: url("./Mulish-Bold.woff2") format("woff2"),
+    url("./Mulish-Bold.woff") format("woff"),
+    url("./Mulish-Bold.ttf") format("ttf");
+}

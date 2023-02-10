@@ -1,0 +1,29 @@
+.nav {
+  display: flex;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list__item {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.list__link {
+  color: #232323;
+  text-decoration: none;
+  border-bottom: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './toast.module.scss';
 
-const Toast = () => (
+const Toast = ({ children }) => (
   <div className={styles.container}>
-    <p className={styles.text}>Текст уведомления</p>
+    <p className={styles.text}>{children}</p>
     <button type="button" aria-label="close button" className={styles.close} />
   </div>
 );

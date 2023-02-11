@@ -1,0 +1,23 @@
+.title {
+  font-family: 'Biolilbert', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 44px;
+  line-height: 52px;
+  color: #232323;
+  width: 459px;
+  margin: 0;
+  padding: 0;
+  margin-top: 40px;
+  margin-left: 72px;
+}
+
+@media screen and (max-width: 576px) {
+  .title {
+    font-size: 28px;
+    line-height: 32px;
+    width: 293px;
+    margin-top: 36px;
+    margin-left: 16px;
+  }
+}

@@ -35,9 +35,11 @@
   border: none;
 }
 
-.close:hover {
-  cursor: pointer;
-  background-image: url(../../img/closeToast_hover.svg);
+@media (any-hover: hover) {
+  .close:hover {
+    cursor: pointer;
+    background-image: url(../../img/closeToast_hover.svg);
+  }
 }
 
 @media screen and (max-width: 576px) {
@@ -64,6 +66,6 @@
 @media screen and (min-width: 577px) {
   .container {
     bottom: 32px;
-  left: 32px;
+    left: 32px;
   }
 }

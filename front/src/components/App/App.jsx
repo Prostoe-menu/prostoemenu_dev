@@ -5,7 +5,7 @@ import Style from './App.module.scss';
 
 const App = () => (
   <div className={Style.app}>
-    <PageTitle />
+    <PageTitle>Добавить новый рецепт</PageTitle>
     <h1 className={Style.header1}>Сырники из творога Как готовить?</h1>
     <h1 className={Style.header2}>Сырники из творога Как готовить?</h1>
     <p className={Style.paragraph1}>

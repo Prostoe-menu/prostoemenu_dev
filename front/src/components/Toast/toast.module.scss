@@ -26,18 +26,6 @@
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  background-color: transparent;
-  background-image: url(../../img/closeToast.svg);
-  background-repeat: no-repeat;
-  border: none;
-}
-
-.close:hover {
-  cursor: pointer;
-  background-image: url(../../img/closeToast_hover.svg);
 }
 
 @media screen and (max-width: 576px) {
@@ -64,6 +52,6 @@
 @media screen and (min-width: 577px) {
   .container {
     bottom: 32px;
-  left: 32px;
+    left: 32px;
   }
 }

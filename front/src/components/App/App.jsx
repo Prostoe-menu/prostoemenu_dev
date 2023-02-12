@@ -1,12 +1,9 @@
 import React from 'react';
-import Toast from '../Toast/Toast';
-import PageTitle from '../PageTitle/PageTitle';
-import Style from './App.module.scss';
 import RecipeBox from '../RecipeBox/RecipeBox';
+import Style from './App.module.scss';
 
 const App = () => (
   <div className={Style.app}>
-    <PageTitle />
     <RecipeBox>
       <input type="text" placeholder="some text here" />
       <input type="text" placeholder="some text here" />
@@ -32,7 +29,6 @@ const App = () => (
       больше и не меньше 9%. Тесто должно получиться эластичным, чтобы при
       надавливании сырник не треснул на сковородке, а сохранил форму.
     </p>
-    <Toast>Текст уведомления</Toast>
   </div>
 );
 

@@ -5,8 +5,8 @@ import Style from './Nav.module.scss';
 const Nav = ({ navigation }) => (
   <nav className={Style.nav}>
     <ul className={Style.list}>
-      <li className={Style.list__item}>
-        {navigation.map((item) => (
+      {navigation.map((item) => (
+        <li className={Style.list__item}>
           <NavLink
             className={Style.list__link}
             to={item.route}
@@ -15,8 +15,8 @@ const Nav = ({ navigation }) => (
           >
             {item.name}
           </NavLink>
-        ))}
-      </li>
+        </li>
+      ))}
     </ul>
   </nav>
 );

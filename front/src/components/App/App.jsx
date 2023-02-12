@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../Button/Button';
 import Style from './App.module.scss';
 
 const App = () => (
@@ -23,6 +24,21 @@ const App = () => (
       больше и не меньше 9%. Тесто должно получиться эластичным, чтобы при
       надавливании сырник не треснул на сковородке, а сохранил форму.
     </p>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '15px',
+      }}
+    >
+      <Button />
+      <Button />
+      <Button />
+      <Button />
+      <Button />
+      <Button />
+    </div>
   </div>
 );
 

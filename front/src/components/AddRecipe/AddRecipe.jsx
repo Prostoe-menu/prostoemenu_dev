@@ -1,8 +1,46 @@
 import React from 'react';
+import Style from './AddRecipe.module.scss';
 
 const AddRecipe = () => (
-  <main>
-    <h2>Add Recipe Page</h2>
+  <main className={Style.content}>
+    <h1 className={Style.title}>Add Recipe Page</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
+    <h1 className={Style.title}>Just checking if header is fixed</h1>
   </main>
 );
 

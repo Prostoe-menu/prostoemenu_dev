@@ -1,4 +1,5 @@
 import React from 'react';
+import Toast from '../Toast/Toast';
 import Style from './App.module.scss';
 
 const App = () => (
@@ -23,6 +24,7 @@ const App = () => (
       больше и не меньше 9%. Тесто должно получиться эластичным, чтобы при
       надавливании сырник не треснул на сковородке, а сохранил форму.
     </p>
+    <Toast />
   </div>
 );
 

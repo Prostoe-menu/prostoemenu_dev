@@ -28,6 +28,13 @@
   right: 16px;
 }
 
+@media screen and (min-width: 577px) {
+  .container {
+    bottom: 32px;
+    left: 32px;
+  }
+}
+
 @media screen and (max-width: 576px) {
   .container {
     width: calc(100% - 32px);
@@ -46,12 +53,5 @@
   .close {
     top: 12px;
     right: 12px;
-  }
-}
-
-@media screen and (min-width: 577px) {
-  .container {
-    bottom: 32px;
-    left: 32px;
   }
 }

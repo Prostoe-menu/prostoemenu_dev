@@ -1,20 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Style from './Header.module.scss';
 import Logo from '../Logo/Logo';
-import Nav from '../Nav/Nav';
+import Menu from '../Menu/Menu';
 
 const Header = () => {
   const navigation = [
     {
       name: 'Каталог рецептов',
-      route: '/',
+      route: '/catalogue',
       id: 1,
     },
   ];
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const openMenu = () => {
+    setIsMenuOpen(true);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
   return (
     <header className={Style.header}>
-      <Logo />
-      <Nav navigation={navigation} />
+      <Link className={Style.logoLink} to="/">
+        <Logo />
+      </Link>
+      <button
+        className={Style.buttonMenu}
+        type="button"
+        aria-label="Открыть меню"
+        onClick={openMenu}
+      />
+      <Menu navigation={navigation} isOpen={isMenuOpen} onClose={closeMenu} />
     </header>
   );
 };

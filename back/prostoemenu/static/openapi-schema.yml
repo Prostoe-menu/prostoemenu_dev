@@ -1,0 +1,351 @@
+openapi: 3.0.3
+
+
+info:
+  title: 'Street Cats'
+  version: 'version 1'
+
+
+paths:
+
+  /api/users/:
+
+    get:
+      tags:
+        - Пользователи
+
+    post:
+      tags:
+        - Пользователи
+  
+  /api/users/{id}/:
+
+    get:
+      tags:
+        - Пользователи
+
+    patch:
+      tags:
+        - Пользователи
+
+    delete:
+      tags:
+        - Пользователи
+  
+  /api/users/me/:
+
+    get:
+      tags:
+        - Пользователи
+  
+  /api/auth/token/login/:
+
+    post:
+      tags:
+        - Авторизация
+  
+  /api/auth/token/logout/:
+
+    post:
+      tags:
+        - Авторизация
+
+  /api/recipes/:
+
+    get:
+      tags:
+        - Рецепты
+
+    post:
+      tags:
+        - Рецепты
+      security:
+        - Token: []
+      operationId: Создание рецепта
+      description: Создать рецепт от имени авторизованного пользователя
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecipeCreate'
+      # responses:
+      #   '201':
+      #     content:
+      #       application/json:
+      #         schema:
+      #           properties:
+      #             id:
+  
+  /api/recipes/{id}/:
+
+    get:
+      tags:
+        - Рецепты
+
+    patch:
+      tags:
+        - Рецепты
+
+    delete:
+      tags:
+        - Рецепты
+
+ 
+
+
+components:
+
+  schemas:
+
+    CustomUser:
+      description:
+      type: object
+      properties:
+        id:
+        username:
+        email:
+        first_name:
+        last_name:
+
+    CustomUserCreate:
+
+    CustomUserUpdate:
+
+    Recipe:
+      description:
+      type: object
+      properties:
+        id:
+        name:
+        description:
+        cooking_time:
+        pub_date:
+        rating:
+        num_of_votes:
+        quantity:
+        
+
+    RecipeCreate:
+      description: Создание рецепта
+      type: object
+      properties:
+        title:
+          type: string 
+          example: Борщ
+          description: Название блюда
+          pattern: (от 2 до 100 символов)
+        complexity:
+          type: integer 
+          example: 2
+          description: Сложность приготовления
+          pattern: (допустимы цифры от 1 до 3)
+        portion_quantity:
+          type: integer 
+          example: 4
+          description: Количество порций
+          pattern: (допустимы цифры от 1 до 10)
+        total_cooking_time:
+          type: integer
+          example: 180
+          description: Полное время приготовления у плиты
+        stove_cooking_time:
+          type: integer
+          example: 80
+          description: Время приготовления у плиты
+        description:
+          type: string 
+          example: Очень вкусный и красный борщ
+          description: Описание приготовления блюда
+          pattern: (от 10 до 500 символов)
+        image:
+          type: string 
+          example: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg=='
+          description: Изображение блюда, закодированное в формат Base64
+          pattern: (Вес до 5 Мб. Соотношение сторон 4х3, минимальная сторона не менее 600рх)
+        ingredients:
+          type: array 
+          example: [
+            {
+              "name": "Свекла",
+              "quantity": 2,
+              "measurement_unit": "кг"
+            },
+            {
+              "name": "Картофель",
+              "quantity": 4,
+              "measurement_unit": "шт"
+            }
+          ]
+          description: Ингредиенты в рецепте
+          items:
+            $ref: '#/components/schemas/IngredientRecipe'
+          pattern: (Список из ингредиентов, их количества и мерах измерения)
+        steps:
+          type: array 
+          example: [
+            {
+              "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+              "description": "Открываем кастрюлю"
+            },
+            {
+              "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+              "description": "Убираем крышку кастрюли на стол"
+            }
+          ]
+          description: Описание шагов приготовления
+        footnote:
+          type: string 
+          example: Борщ может получится зеленым
+          description: Примечание к рецепту
+          pattern: (Необязательное поле)
+        author_name:
+          type: string
+          example: Афанасий
+          description: Имя автора
+        author_email:
+          type: email
+          example: afan@cool.com
+          description: Емайл автора
+
+      required:
+        - title
+        - complexity
+        - portion_quantity
+        - total_cooking_time
+        - stove_cooking_time
+        - description
+        - image
+        - ingredients
+        - steps
+        - author_name
+        - author_email
+
+
+    RecipeUpdate:
+
+    StepCreate:
+      description: Создание шага рецепта
+      type: object
+      properties:
+        description:
+          type: string
+          example: Открываем кастрюлю
+          description: Описание шага рецепта
+        image:
+          type: string
+          example: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg=='
+          description: Изображение, закодированное в формат Base64
+
+    IngredientRecipe:
+      descriprion: Ингредиент и его количество в рецепте
+      type: object
+      properties:
+        name:
+          type: string
+          example: Свекла
+          description: Название ингредиента
+        quantity:
+          type: integer
+          example: 2
+          description: Количество ингредиента в рецепте
+        measurement_unit:
+          type: string
+          example: "кг"
+          description: Мера измерения ингредиента
+
+    TokenCreate:
+      description: Запрос на получение токена
+      type: object
+      properties:
+        username/email:
+          type: string
+        password:
+          type: string
+
+    TokenResponse:
+      description: Получение токена
+      type: object
+      properties:
+        auth_token:
+          type: string
+
+    ValidationError:
+      description: Ошибка валидации
+      type: object
+      properties:
+        field_name:
+          description: 'Название поля, в котором произошли ошибки. Таких полей может быть несколько'
+          example: [ 'Обязательное поле.' ]
+          type: array
+          items:
+            type: string
+
+    AuthenticationError:
+      description: Пользователь не авторизован
+      type: object
+      properties:
+        detail:
+          description: 'Описание ошибки'
+          example: "Учетные данные не были предоставлены."
+          type: string
+
+    PermissionDenied:
+      description: Недостаточно прав
+      type: object
+      properties:
+        detail:
+          description: 'Описание ошибки'
+          example: "У вас недостаточно прав для выполнения данного действия."
+          type: string
+
+    NotFound:
+      descriptions: Объект не найден
+      type: object
+      properties:
+        detail:
+          description: 'Описание ошибки'
+          example: "Страница не найдена."
+          type: string
+  
+
+  responses:
+
+    ValidationError:
+      description: Ошибка валидации в стандартном формате DRF
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationError'
+
+    AuthenticationError:
+      description: Пользователь не авторизован
+      content:
+        application/json:
+          schema:
+            $ref:'#/components/schemas/AuthenticationError'
+
+    PermissionDenied:
+      description: Недостаточно прав
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PermissionDenied'
+
+    NotFound:
+      description: Объект не найден
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFound'
+  
+
+  securitySchemes:
+
+    Token:
+      description: 'Авторизация по токену. <br>
+      Все запросы от авторизованного пользователя должны выполняться с заголовком: "Authorization: Token <TOKENVALUE>"'
+      type: http
+      scheme: token
+
+

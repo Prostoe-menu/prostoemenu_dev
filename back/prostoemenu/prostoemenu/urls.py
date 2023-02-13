@@ -2,8 +2,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 urlpatterns = [
+    path(
+        'docs/',
+        TemplateView.as_view(template_name='redoc.html',),
+        name='redoc',
+    ),
     path('admin/', admin.site.urls),
     path('', include('recipe.urls')),
     path('api/', include('api.urls')),

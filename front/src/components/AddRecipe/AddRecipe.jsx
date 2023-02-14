@@ -1,9 +1,10 @@
 import React from 'react';
 import Style from './AddRecipe.module.scss';
+import PageTitle from '../PageTitle/PageTitle';
 
 const AddRecipe = () => (
   <main className={Style.content}>
-    <h1 className={Style.title}>Add Recipe Page</h1>
+    <PageTitle>Добавить новый рецепт</PageTitle>
   </main>
 );
 

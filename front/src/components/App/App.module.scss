@@ -1,52 +1,6 @@
-.header1 {
-
-  width: 100%;
-  font-family: 'Biolilbert', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 44px;
-  line-height: 52px;
-}
-
-.header2 {
-
-  width: 100%;
-  font-family: 'Biolilbert', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 36px;
-  line-height: 40px;
-}
-
-.paragraph1 {
-
-  width: 100%;
-  font-family: 'Mulish', sans-serif;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 20px;
-  line-height: 28px;
-  color: #232323;
-}
-
-.paragraph2 {
-
-  width: 100%;
-  font-family: 'Mulish', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 28px;
-  color: #232323;
-}
-
-.paragraph3 {
-
-  width: 100%;
-  font-family: 'Mulish', sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 28px;
-  color: #232323;
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

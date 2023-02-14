@@ -1,4 +1,5 @@
 import React from 'react';
+import PageTitle from '../PageTitle/PageTitle';
 import Button from '../Button/Button';
 import Style from './App.module.scss';
 import { buttons } from '../../utils/constants';
@@ -9,6 +10,7 @@ import arrowLeft from '../../img/arrow-left.svg';
 
 const App = () => (
   <div className={Style.app}>
+    <PageTitle>Добавить новый рецепт</PageTitle>
     <h1 className={Style.header1}>Сырники из творога Как готовить?</h1>
     <h1 className={Style.header2}>Сырники из творога Как готовить?</h1>
     <p className={Style.paragraph1}>

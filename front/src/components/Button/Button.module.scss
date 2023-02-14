@@ -1,5 +1,116 @@
 .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+  height: 48px;
   font-family: 'Mulish';
+  font-weight: 500;
   color: #232323;
   background-color: transparent;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color .6s;
+
+  &_border_yellow {
+    width: 160px;
+    font-size: 16px;
+    line-height: 1.5;
+    border: 1px solid #F1B823;
+
+    img {
+      margin-top: 2px;
+    }
+
+    &:hover {
+      background-color: #FFFAF0;
+    }
+
+    &:active {
+      background-color: #FFF2DA;
+    }
+
+    &:disabled,
+    &[disabled] {
+      color: #818181;
+      background-color: #F6F6F6;
+      border-color: #DBDBDB;
+      cursor: default;
+    }
+  }
+
+  &_border_grey {
+    height: 36px;
+    padding: 8px 24px;
+    font-size: 12px;
+    line-height: 1.67;
+    border: 1px solid #818181;
+
+    &:hover {
+      background-color: #F6F6F6;
+    }
+
+    &:active {
+      background-color: #DBDBDB;
+    }
+
+    &:disabled,
+    &[disabled] {
+      color: #818181;
+      background-color: #F6F6F6;
+      border-color: #DBDBDB;
+      cursor: default;
+    }
+
+  }
+
+  &_bg_yellow {
+    width: 384px;
+    font-weight: 700;
+    color: #fff;
+    background-color: #F1B823;
+
+    &:hover {
+      background-color: #F4A100;
+    }
+
+    &:active {
+      background-color: #F49300;
+    }
+
+    &:disabled,
+    &[disabled] {
+      color: #818181;
+      background-color: #DBDBDB;
+      cursor: default;
+    }
+  }
+
+  &[type="submit"] {
+    width: 260px;
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .button {
+    &_border_grey {
+      width: 328px;
+    }
+
+    &_bg_yellow {
+      width: 296px;
+    }
+
+    &[type="submit"] {
+      width: 329px;
+    }
+  }
+
 }

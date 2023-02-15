@@ -33,7 +33,12 @@ const Header = () => {
         aria-label="Открыть меню"
         onClick={openMenu}
       />
-      <Menu navigation={navigation} isOpen={isMenuOpen} onClose={closeMenu} />
+      <Menu
+        navigation={navigation}
+        isHeader="true"
+        isOpen={isMenuOpen}
+        onClose={closeMenu}
+      />
     </header>
   );
 };

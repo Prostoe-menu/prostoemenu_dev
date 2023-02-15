@@ -1,23 +1,27 @@
 .menu {
-  position: relative;
-  background-color: transparent;
-  visibility: visible;
-  opacity: 1;
+  box-sizing: border-box;
+  background-color: white;
 }
 
 .container {
   box-sizing: border-box;
-  background-color: transparent;
-  padding: 0;
-  left: 0;
-  position: relative;
-  flex-direction: row;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .buttonClose {
+  margin: 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  border: black;
+  align-self: flex-end;
   display: none;
+
+  &_visible {
+    display: block;
+  }
 }
 
 .list {
@@ -32,12 +36,12 @@
   &__item {
     font-family: 'Mulish', sans-serif;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 300;
     font-size: 16px;
     line-height: 24px;
 
-    &_type_footer {
-      font-weight: 300;
+    &_type_header {
+      font-weight: 500;
     }
   }
 
@@ -50,56 +54,53 @@
 
 @media screen and (max-width: 576px) {
   .menu {
-    box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    visibility: hidden;
-    z-index: 10;
-    opacity: 0;
-  }
+    &_type_header {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      visibility: hidden;
+      opacity: 0;
+    }
 
-  .openMenu {
-    visibility: visible;
-    opacity: 1;
+    &_visible {
+      visibility: visible;
+      opacity: 1;
+    }
   }
 
   .container {
-    background-color: white;
-    display: flex;
     flex-direction: column;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 13px;
-  }
 
-  .buttonClose {
-    display: block;
-    margin: 0;
-    padding: 0;
-    width: 22px;
-    height: 22px;
-    border: black;
-    align-self: flex-end;
+    &_type_header {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 13px;
+    }
   }
 
   .nav {
     display: flex;
-    height: 100vh;
     max-width: 576px;
     margin: 0;
     padding: 0;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    &_type_header {
+      height: 100vh;
+    }
   }
 
   .list {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 }

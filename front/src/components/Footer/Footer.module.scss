@@ -23,7 +23,7 @@
   align-items: center;
   list-style: none;
   padding: 0;
-  margin-bottom: 12px;
+  margin: 0 0 12px 0;
 
   &__item {
     font-family: 'Mulish', sans-serif;
@@ -47,6 +47,7 @@
 }
 
 .text {
+  margin: 0;
   font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -56,12 +57,31 @@
 }
 
 @media screen and (max-width: 576px) {
-  .header {
+  .footer {
     max-width: 576px;
-    padding: 12px 16px;
+    padding: 16px 16px 20px 16px;
   }
 
   .logoLink {
     height: 24px;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 36px;
+    margin-bottom: 48px;
+  }
+
+  .list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 32px;
+
+    &__item {
+      padding: 0;
+      border: none;
+    }
   }
 }

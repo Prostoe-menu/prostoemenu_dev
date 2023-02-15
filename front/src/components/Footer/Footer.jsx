@@ -23,7 +23,7 @@ const Footer = () => {
         <Link className={Style.logoLink} to="/">
           <Logo />
         </Link>
-        <Menu navigation={navigation} isFooter="true" />
+        <Menu navigation={navigation} />
       </div>
       <ul className={Style.list}>
         <li className={Style.list__item}>

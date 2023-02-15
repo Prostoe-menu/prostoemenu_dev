@@ -24,27 +24,26 @@
   list-style: none;
   padding: 0;
   margin-bottom: 12px;
-}
 
-.list__item {
-  font-family: 'Mulish', sans-serif;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 20px;
-  padding: 0 16px;
-  border-left: 1px solid #818181;
+  &__item {
+    font-family: 'Mulish', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 0 16px;
+    border-left: 1px solid #818181;
 
-  &:first-of-type {
-    padding-right: 16px;
-    padding-left: 0;
-    border-left: none;
+    &:first-of-type {
+      padding-left: 0;
+      border-left: none;
+    }
   }
-}
 
-.link {
-  text-decoration: none;
-  color: #232323;
+  &__link {
+    text-decoration: none;
+    color: #232323;
+  }
 }
 
 .text {

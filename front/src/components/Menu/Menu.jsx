@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Style from './Menu.module.scss';
 
-const Menu = ({ isOpen, onClose, navigation }) => (
+const Menu = ({ isOpen, onClose, navigation, isFooter }) => (
   <section className={`${Style.menu} ${isOpen && Style.openMenu}`}>
     <div className={Style.container}>
       <button
@@ -14,7 +14,11 @@ const Menu = ({ isOpen, onClose, navigation }) => (
       <nav className={Style.nav}>
         <ul className={Style.list}>
           {navigation.map((item) => (
-            <li className={Style.list__item}>
+            <li
+              className={`${Style.list__item} ${
+                isFooter && Style.list__item_type_footer
+              }`}
+            >
               <NavLink
                 className={Style.list__link}
                 to={item.route}

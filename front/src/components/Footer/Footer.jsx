@@ -23,16 +23,26 @@ const Footer = () => {
         <Link className={Style.logoLink} to="/">
           <Logo />
         </Link>
-        <Menu navigation={navigation} />
+        <Menu navigation={navigation} isFooter="true" />
       </div>
       <ul className={Style.list}>
         <li className={Style.list__item}>
-          <a className={Style.link} href="*">
+          <a
+            className={Style.list__link}
+            href="*"
+            target="_blank"
+            rel="noreferrer"
+          >
             Пользовательское соглашение
           </a>
         </li>
         <li className={Style.list__item}>
-          <a className={Style.link} href="*">
+          <a
+            className={Style.list__link}
+            href="*"
+            target="_blank"
+            rel="noreferrer"
+          >
             Политика конфиденциальности
           </a>
         </li>

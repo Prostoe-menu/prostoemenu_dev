@@ -28,20 +28,24 @@
   justify-content: center;
   align-items: center;
   gap: 72px;
-}
 
-.list__item {
-  font-family: 'Mulish', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-}
+  &__item {
+    font-family: 'Mulish', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
 
-.list__link {
-  color: #232323;
-  text-decoration: none;
-  border-bottom: none;
+    &_type_footer {
+      font-weight: 300;
+    }
+  }
+
+  &__link {
+    color: #232323;
+    text-decoration: none;
+    border-bottom: none;
+  }
 }
 
 @media screen and (max-width: 576px) {

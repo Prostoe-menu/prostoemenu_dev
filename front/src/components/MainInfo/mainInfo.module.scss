@@ -1,0 +1,268 @@
+.wrap {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 8px 16px;
+  width: 576px;
+  height: 40px;
+  background: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  margin-top: 12px;
+}
+
+.title {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #232323;
+  margin: 0;
+  padding: 0;
+  margin-top: 28px;
+}
+
+.name_input {
+  border: none;
+  width: 483px;
+  height: 24px;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  color: #818181;
+  padding: 0;
+}
+
+.name_input:focus {
+  border: none;
+}
+
+.name_input:focus-visible {
+  outline: 0;
+}
+
+.counter {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  color: #818181;
+  margin: 0;
+  padding: 0;
+}
+
+.wrap_count {
+  display: flex;
+}
+
+.complexity {
+  margin-right: 100px;
+}
+
+.stars {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 12px;
+}
+
+.star {
+  background-image: url('../../img/star.svg');
+  background-position: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  margin-right: 16px;
+}
+
+.wrap_counter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-radius: 12px;
+  height: 38px;
+  width: 130px;
+  margin-top: 12px;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  padding: 0 16px;
+}
+
+.buttonplus {
+  background-image: url('../../img/plusButton.png');
+  background-position: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.buttonminus {
+  background-image: url('../../img/minusButton.png');
+  background-position: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.portion {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #818181;
+  margin: 0 20px;
+  padding: 0;
+}
+
+.wrap_alltime {
+  margin-right: 30px;
+}
+
+.wrap_cooktime {
+  margin-left: 5px;
+}
+
+.alltime,
+.cooktime {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #232323;
+  margin: 0;
+  padding: 0;
+  margin-top: 16px;
+  margin-bottom: 12px;
+}
+
+.label {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  color: #232323;
+  margin-right: 20px;
+}
+
+.time {
+  padding: 8px 16px;
+  width: 52px;
+  height: 40px;
+  background: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-right: 3px;
+  text-align: center;
+}
+
+.wrap_description {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 20px;
+  color: #232323;
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+
+.description {
+  margin: 0;
+  padding: 0;
+}
+
+.descinput_wrap {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 12px 16px;
+  width: 576px;
+  height: 160px;
+  background: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  position: relative;
+}
+
+.desc_input {
+  width: 544px;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 20px;
+  color: #818181;
+  border: none;
+  padding: 0;
+  position: relative;
+  resize: none;
+}
+
+.desc_input:focus {
+  border: none;
+}
+
+.desc_input:focus-visible {
+  outline: 0;
+}
+
+.desc_counter {
+  position: relative;
+  right: 0px;
+  top: 12px;
+}
+
+.foto {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+  color: #232323;
+}
+
+.reqlist {
+  color: #f1b823;
+  margin: 0;
+  padding: 0;
+  margin-left: 16px;
+}
+
+.reqlist_item {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 20px;
+  color: #232323;
+  margin-bottom: 10px;
+}
+
+.reqlist_item:last-of-type {
+  margin-bottom: 0;
+}

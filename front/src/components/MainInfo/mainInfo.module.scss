@@ -1,3 +1,44 @@
+%mulish-16-500 {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #232323;
+  margin: 0;
+  padding: 0;
+}
+
+%mulish-16-300 {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+%mulish-12-300 {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+%mulish-12-500 {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+  margin: 0;
+  padding: 0;
+}
+
 .wrap {
   box-sizing: border-box;
   display: flex;
@@ -14,28 +55,16 @@
 }
 
 .title {
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-  color: #232323;
-  margin: 0;
-  padding: 0;
+  @extend %mulish-16-500;
   margin-top: 28px;
 }
 
 .name_input {
+  @extend %mulish-16-300;
   border: none;
   width: 483px;
   height: 24px;
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 24px;
   color: #818181;
-  padding: 0;
 }
 
 .name_input:focus {
@@ -47,17 +76,11 @@
 }
 
 .counter {
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 20px;
+  @extend %mulish-12-300;
   display: flex;
   align-items: center;
   text-align: right;
   color: #818181;
-  margin: 0;
-  padding: 0;
 }
 
 .wrap_count {
@@ -124,15 +147,10 @@
 }
 
 .portion {
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
+  @extend %mulish-16-500;
   text-align: center;
   color: #818181;
   margin: 0 20px;
-  padding: 0;
 }
 
 .wrap_alltime {
@@ -145,24 +163,14 @@
 
 .alltime,
 .cooktime {
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
+  @extend %mulish-16-500;
   color: #232323;
-  margin: 0;
-  padding: 0;
   margin-top: 16px;
   margin-bottom: 12px;
 }
 
 .label {
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 24px;
+  @extend %mulish-16-300;
   color: #232323;
   margin-right: 20px;
 }
@@ -180,11 +188,7 @@
 }
 
 .wrap_description {
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 20px;
+  @extend %mulish-12-300;
   color: #232323;
   margin-top: 12px;
   margin-bottom: 16px;
@@ -210,15 +214,10 @@
 }
 
 .desc_input {
+  @extend %mulish-12-300;
   width: 544px;
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 20px;
   color: #818181;
   border: none;
-  padding: 0;
   position: relative;
   resize: none;
 }
@@ -238,31 +237,29 @@
 }
 
 .foto {
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 20px;
+  @extend %mulish-12-500;
   color: #232323;
 }
 
 .reqlist {
-  color: #f1b823;
   margin: 0;
   padding: 0;
-  margin-left: 16px;
+  margin-left: 10px;
+  list-style-image: url('../../img/list-marker.svg');
 }
 
 .reqlist_item {
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 20px;
+  @extend %mulish-12-300;
   color: #232323;
   margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 5px;
 }
 
 .reqlist_item:last-of-type {
   margin-bottom: 0;
+}
+
+.reqlist_accent {
+  font-weight: bold;
 }

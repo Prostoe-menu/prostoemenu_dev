@@ -17,7 +17,6 @@ const MainInfo = () => {
     <>
       <h2 className={styles.title}>Название рецепта</h2>
       <div className={styles.wrap}>
-        {/* <form className={styles.form} name="recipe-name"> */}
         <input
           className={styles.name_input}
           onChange={nameChange}
@@ -32,8 +31,6 @@ const MainInfo = () => {
           required
         />
         <p className={styles.counter}>{nameCounter} / 100</p>
-        {/* <p className={styles.inputerror}>Error message</p> */}
-        {/* </form> */}
       </div>
       <div className={styles.wrap_count}>
         <div className={styles.complexity}>
@@ -116,7 +113,6 @@ const MainInfo = () => {
         </p>
       </div>
       <div className={styles.descinput_wrap}>
-        {/* <form className={styles.form} name="recipe-name"> */}
         <textarea
           className={styles.desc_input}
           onChange={descChange}
@@ -133,21 +129,14 @@ const MainInfo = () => {
         <p className={`${styles.counter} ${styles.desc_counter}`}>
           {descCounter} / 500
         </p>
-        {/* <p className={styles.inputerror}>Error message</p> */}
-        {/* </form> */}
       </div>
       <p className={styles.title}>Фото готового блюда</p>
       <p className={styles.foto}>Требования к фото:</p>
       <ul className={styles.reqlist}>
-        <li>
-          <span className={styles.reqlist_item}>
-            Форматы JPEG, JPG, PNG или WEBP
-          </span>
-        </li>
-        <li>
-          <span className={styles.reqlist_item}>
-            Размер файла не больше <span>5 мб</span>
-          </span>
+        <li className={styles.reqlist_item}>Форматы JPEG, JPG, PNG или WEBP</li>
+        <li className={styles.reqlist_item}>
+          Размер файла не больше&nbsp;
+          <span className={styles.reqlist_accent}>5 мб</span>
         </li>
       </ul>
     </>

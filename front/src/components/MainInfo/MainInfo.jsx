@@ -4,6 +4,7 @@ import styles from './mainInfo.module.scss';
 const MainInfo = () => {
   const [nameCounter, setNameCounter] = useState(0);
   const [descCounter, setDescCounter] = useState(0);
+  const [portion, setPortion] = useState(0);
 
   function nameChange(event) {
     setNameCounter(event.target.value.length);
@@ -11,6 +12,14 @@ const MainInfo = () => {
 
   function descChange(event) {
     setDescCounter(event.target.value.length);
+  }
+
+  function incrementPortion() {
+    setPortion(portion + 1);
+  }
+
+  function decrementPortion() {
+    setPortion(portion - 1);
   }
 
   return (
@@ -47,13 +56,24 @@ const MainInfo = () => {
             <button
               type="button"
               className={`${styles.button} ${styles.buttonminus}`}
+              onClick={decrementPortion}
+              disabled={portion === 0 && true}
             >
               {' '}
             </button>
-            <p className={styles.portion}>0</p>
+            <p
+              className={
+                portion === 0
+                  ? styles.portion
+                  : `${styles.portion} ${styles.portion_active}`
+              }
+            >
+              {portion}
+            </p>
             <button
               type="button"
               className={`${styles.button} ${styles.buttonplus}`}
+              onClick={incrementPortion}
             >
               {' '}
             </button>
@@ -69,6 +89,7 @@ const MainInfo = () => {
               type="text"
               id="allhours"
               placeholder="0"
+              pattern="[0-23]"
               className={styles.time}
             />
             &nbsp;час(ов)
@@ -78,6 +99,7 @@ const MainInfo = () => {
               type="text"
               id="allminutes"
               placeholder="0"
+              pattern="[0-59]"
               className={styles.time}
             />
             &nbsp;минут
@@ -90,6 +112,7 @@ const MainInfo = () => {
               type="text"
               id="cookhours"
               placeholder="0"
+              pattern="[0-23]"
               className={styles.time}
             />
             &nbsp;час(ов)
@@ -99,6 +122,7 @@ const MainInfo = () => {
               type="text"
               id="cookminutes"
               placeholder="0"
+              pattern="[0-59]"
               className={styles.time}
             />
             &nbsp;минут
@@ -116,7 +140,6 @@ const MainInfo = () => {
         <textarea
           className={styles.desc_input}
           onChange={descChange}
-          rows="5"
           name="recipedesc"
           id="recipedesc"
           placeholder="Описание рецепта"

@@ -54,6 +54,14 @@
   margin-top: 12px;
 }
 
+.wrap:hover {
+  border: 1px solid #818181;
+}
+
+.wrap:focus {
+  border: 1px solid #818181;
+}
+
 .title {
   @extend %mulish-16-500;
   margin-top: 28px;
@@ -125,18 +133,25 @@
 .button {
   background-color: transparent;
   border: none;
-  cursor: pointer;
   width: 16px;
   height: 16px;
   margin: 0;
   padding: 0 16px;
 }
 
+.button:hover {
+  cursor: pointer;
+}
+
 .buttonplus {
-  background-image: url('../../img/plusButton.png');
+  background-image: url('../../img/plusButton.svg');
   background-position: 50%;
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+.buttonplus:hover {
+  background-image: url('../../img/plusButton-active.svg');
 }
 
 .buttonminus {
@@ -146,11 +161,24 @@
   background-repeat: no-repeat;
 }
 
+.buttonminus:hover {
+  background-image: url('../../img/minusButton-active.svg');
+}
+
+.buttonminus:disabled {
+  background-image: url('../../img/minusButton-disabled.png');
+  cursor: auto;
+}
+
 .portion {
   @extend %mulish-16-500;
   text-align: center;
   color: #818181;
   margin: 0 20px;
+}
+
+.portion_active {
+  color: #232323;
 }
 
 .wrap_alltime {
@@ -187,6 +215,18 @@
   text-align: center;
 }
 
+.time:hover {
+  border: 1px solid #818181;
+}
+
+.time:focus {
+  border: 1px solid #818181;
+}
+
+.time:focus-visible {
+  outline: 0;
+}
+
 .wrap_description {
   @extend %mulish-12-300;
   color: #232323;
@@ -213,9 +253,18 @@
   position: relative;
 }
 
+.descinput_wrap:hover {
+  border: 1px solid #818181;
+}
+
+.descinput_wrap:focus {
+  border: 1px solid #818181;
+}
+
 .desc_input {
   @extend %mulish-12-300;
   width: 544px;
+  height: 112px;
   color: #818181;
   border: none;
   position: relative;
@@ -230,10 +279,28 @@
   outline: 0;
 }
 
+.desc_input::-webkit-scrollbar {
+  width: 4px;
+  background: #dbdbdb;
+  border-radius: 2px;
+}
+
+.desc_input::-webkit-scrollbar-thumb {
+  width: 4px;
+  background: #dbdbdb;
+  border-radius: 2px;
+}
+
+.desc_input::-webkit-scrollbar-track {
+  width: 4px;
+  background: #f7f7f7;
+  border-radius: 2px;
+}
+
 .desc_counter {
   position: relative;
   right: 0px;
-  top: 12px;
+  top: 0px;
 }
 
 .foto {

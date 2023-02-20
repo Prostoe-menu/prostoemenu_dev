@@ -2,19 +2,32 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Style from './Menu.module.scss';
 
-const Menu = ({ isOpen, onClose, navigation }) => (
-  <section className={`${Style.menu} ${isOpen && Style.openMenu}`}>
-    <div className={Style.container}>
+const Menu = ({ isOpen, onClose, navigation, isHeader }) => (
+  <section
+    className={`
+      ${Style.menu}
+      ${isHeader && Style.menu_type_header}
+      ${isOpen && Style.menu_visible}`}
+  >
+    <div
+      className={`${Style.container}
+      ${isHeader && Style.container_type_header}`}
+    >
       <button
-        className={Style.buttonClose}
+        className={`${Style.buttonClose}
+        ${isHeader && isOpen && Style.buttonClose_visible}`}
         type="button"
         onClick={onClose}
         aria-label="Закрыть меню"
       />
-      <nav className={Style.nav}>
+      <nav className={`${Style.nav} ${isHeader && Style.nav_type_header}`}>
         <ul className={Style.list}>
           {navigation.map((item) => (
-            <li className={Style.list__item}>
+            <li
+              className={`${Style.list__item} ${
+                isHeader && Style.list__item_type_header
+              }`}
+            >
               <NavLink
                 className={Style.list__link}
                 to={item.route}

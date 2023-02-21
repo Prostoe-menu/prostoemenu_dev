@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 import { buttons } from '../../utils/constants';
 
 import styles from './CookingSteps.module.scss';
-import addIcon from '../../img/add.svg';
+import addIcon from '../../images/add.svg';
 
 const CookingSteps = () => {
   const [initialStepsCount, setInitialStepsCount] = useState(2);

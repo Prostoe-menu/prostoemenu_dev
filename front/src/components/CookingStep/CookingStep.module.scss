@@ -36,28 +36,61 @@
   }
 
   &__input {
+    position: relative;
     margin-right: 17px;
     padding: 12px 16px;
     width: 372px;
     height: 160px;
-    border: 1px solid #DBDBDB;
-    border-radius: 8px;
-    resize: none;
-    box-sizing: border-box;
-    // TODO: Проверить стили для заполненного поля
     font-family: 'Mulish', sans-serif;
     font-size: 12px;
     line-height: 1.6;
     font-weight: 300;
+    color: #818181;
+    border: 1px solid #DBDBDB;
+    border-radius: 8px;
+    resize: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: border-color color .6s .6s;
 
-    // TODO: Состояния ховера, активности и фокуса для текст эреа
+    &:hover {
+      border-color: #818181;
+      transition: border-color .6s;
+    }
 
-    &::placeholder {
-      font-family: 'Mulish', sans-serif;
-      font-size: 12px;
-      line-height: 1.6;
-      font-weight: 300;
-      color: #818181;
+    &:focus,
+    &:active {
+      color: #232323;
+      outline: none;
+    }
+
+    &_error {
+      border-color: #D14941;
+    }
+
+    &::-webkit-scrollbar {
+      // position: absolute;
+      // top: 12px;
+      // right: 16px;
+      width: 4px;
+      // height: 112px;
+    }
+
+    &::-webkit-resizer {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      height: 112px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #F7F7F7;
+      border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #DBDBDB;
+      border-radius: 2px;
     }
   }
 

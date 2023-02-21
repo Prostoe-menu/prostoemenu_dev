@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import { progressBarSteps } from '../../utils/constants';
 
 import styles from './ProgressBar.module.scss';
@@ -17,8 +16,8 @@ const ProgressBar = ({ activeStep }) => (
           }`}
         >
           <div className={styles.progress__round} />
-          <Link to="#" className={styles.progress__text}>
-            {item}
+          <Link to={item.path} className={styles.progress__text}>
+            {item.text}
           </Link>
         </li>
       ))}

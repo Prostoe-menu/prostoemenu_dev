@@ -87,7 +87,13 @@ const PhotoButton = () => {
           </div>
         </div>
       </div>
-      <div className={styles.preview}>{thumbs}</div>
+      <div
+        className={`${styles.preview} ${
+          files.length ? styles.preview_visible : ''
+        }`}
+      >
+        {thumbs}
+      </div>
     </>
   );
 };

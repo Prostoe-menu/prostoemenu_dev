@@ -1,0 +1,89 @@
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 auto;
+  width: 576px;
+
+  &__title {
+    margin: 0;
+    font-family: 'Mulish', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 500;
+    color: #232323;
+  }
+
+  &__fieldset {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    width: 100%;
+    border: none;
+  }
+
+  &__photo {
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+    margin-right: 12px;
+    width: 160px;
+    height: 160px;
+  }
+
+  &__description {
+    position: relative;
+  }
+
+  &__input {
+    margin-right: 17px;
+    padding: 12px 16px;
+    width: 372px;
+    height: 160px;
+    border: 1px solid #DBDBDB;
+    border-radius: 8px;
+    resize: none;
+    box-sizing: border-box;
+    // TODO: Проверить стили для заполненного поля
+    font-family: 'Mulish', sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+    font-weight: 300;
+
+    // TODO: Состояния ховера, активности и фокуса для текст эреа
+
+    &::placeholder {
+      font-family: 'Mulish', sans-serif;
+      font-size: 12px;
+      line-height: 1.6;
+      font-weight: 300;
+      color: #818181;
+    }
+  }
+
+  &__letters-counter {
+    position: absolute;
+    bottom: 12px;
+    right: 32px;
+    font-family: 'Mulish', sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+    font-weight: 300;
+    color: #818181;
+  }
+
+  &__remove-btn {
+    width: 20px;
+    height: 20px;
+    align-self: center;
+    background-color: transparent;
+    border: none;
+    background-image: url('../../img/close_btn.svg');
+    cursor: pointer;
+    opacity: .6;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

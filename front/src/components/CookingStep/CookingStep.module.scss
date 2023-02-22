@@ -66,6 +66,10 @@
 
     &_error {
       border-color: #D14941;
+
+      &+.step__letters-counter {
+        color: #D14941;
+      }
     }
 
     &::-webkit-scrollbar {

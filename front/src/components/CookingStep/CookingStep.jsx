@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PhotoButton from '../PhotoButton/PhotoButton';
+// import PhotoButton from '../PhotoButton/PhotoButton';
 
 import styles from './CookingStep.module.scss';
 
@@ -14,9 +14,7 @@ const CookingStep = ({ stepNumber }) => {
     <div className={styles.step}>
       <h3 className={styles.step__title}>Шаг {stepNumber}</h3>
       <fieldset className={styles.step__fieldset}>
-        <div className={styles.step__photo}>
-          <PhotoButton />
-        </div>
+        <div className={styles.step__photo}>{/* <PhotoButton /> */}</div>
         <div className={styles.step__description}>
           <textarea
             className={styles.step__input}

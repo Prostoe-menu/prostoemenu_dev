@@ -1,5 +1,8 @@
 from django.core.validators import FileExtensionValidator
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 
 class Recipe(models.Model):
@@ -16,6 +19,8 @@ class Recipe(models.Model):
     valid = models.BooleanField(default=False, verbose_name='Прошло модерацию')
     parced = models.BooleanField(default=False, verbose_name='Получено от парсинга')
     complexity = models.CharField(max_length=40, verbose_name='Сложность готовки')
+    is_approved = models.BooleanField(default=False, verbose_name='Проверено')
+    user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='Id автора')
 
     def __str__(self):
        return self.name
@@ -320,3 +325,30 @@ class recipe_comment(models.Model):
         verbose_name = 'Комментарий к рецепту'
         verbose_name_plural = 'Комментарии к рецепту'
         ordering = ['recipe']
+
+class Profile(models.Model):
+    user_id = models.OneToOneField(User, on_delete=models.CASCADE)
+    gender = models.CharField(max_length=10, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    region = models.CharField(max_length=50, blank=True)
+    city = models.CharField(max_length=50, blank=True)
+    photo = models.ImageField(upload_to='user_photo/%Y/%m/%d', verbose_name='Фото пользователя')
+
+    class Meta:
+        ordering = ('user_id',)
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профили'
+
+    def __str__(self):
+        return self.user_id.username + '_profile'
+
+#автосоздание профиля пользователя при добавлении пользователя
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+#автосохранение профиля пользователя при изменении пользователя
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()

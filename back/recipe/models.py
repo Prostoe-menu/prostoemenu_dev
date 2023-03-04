@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator
 from django.db import models
 
@@ -40,7 +41,8 @@ class Step(models.Model):
 
 
 class Photo(models.Model):
-    photo = models.ImageField(upload_to='images/', verbose_name='Фотография',  validators=[FileExtensionValidator( ['jpeg', 'jpg', 'png', 'webp'])])
+    photo = models.ImageField(upload_to='images/', verbose_name='Фотография',
+                              validators=[FileExtensionValidator(['jpeg', 'jpg', 'png', 'webp'])])
 
     def __str__(self):
         return self.name
@@ -91,9 +93,13 @@ class Recipe(models.Model):
     valid = models.BooleanField(default=False, verbose_name='Прошло модерацию')
     parced = models.BooleanField(default=False, verbose_name='Получено от парсинга')
     complexity = models.CharField(max_length=40, verbose_name='Сложность готовки')
+    is_approved = models.BooleanField(default=False, verbose_name='Проверено')
+    user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='Id автора', related_name='recipes')
 
-    #M2M relations
-    ingredient = models.ManyToManyField(Ingredient, through='RecipeIngredients', through_fields=('recipe', 'ingredient'), related_name='ingredients')
+
+    # M2M relations
+    ingredient = models.ManyToManyField(Ingredient, through='RecipeIngredients',
+                                        through_fields=('recipe', 'ingredient'), related_name='ingredients')
     category = models.ManyToManyField(Category, through='RecipeCategories', related_name='categories')
     photo = models.ManyToManyField(Photo, through='RecipePhotos', related_name='photos')
     tag = models.ManyToManyField(Tag, through='RecipeTags', related_name='tags')
@@ -175,14 +181,18 @@ class RecipeTags(models.Model):
 
 class RecipeIngredients(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Номер рецепта')
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, verbose_name='Номер ингредиента', related_name='ingredient')
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, verbose_name='Номер ингредиента',
+                                   related_name='ingredient')
     volume = models.IntegerField(verbose_name='Количество')
     measure = models.CharField(max_length=20, verbose_name='Единица измерения')
 
-    #Alretnative for an ingredient, alternative could be only one
-    ingredient_alternative = models.ForeignKey(Ingredient, on_delete=models.DO_NOTHING, verbose_name='Номер альтернативы', related_name='ingredient_alternative', blank=True, null=True)
+    # Alretnative for an ingredient, alternative could be only one
+    ingredient_alternative = models.ForeignKey(Ingredient, on_delete=models.DO_NOTHING,
+                                               verbose_name='Номер альтернативы', related_name='ingredient_alternative',
+                                               blank=True, null=True)
     ingredient_alternative_volume = models.IntegerField(verbose_name='Количество', blank=True, null=True)
-    ingredient_alternative_measure = models.CharField(max_length=20, verbose_name='Единица измерения', blank=True, null=True)
+    ingredient_alternative_measure = models.CharField(max_length=20, verbose_name='Единица измерения', blank=True,
+                                                      null=True)
 
     def __str__(self):
         return self.recipe.__str__() + " " + self.ingredient.__str__()
@@ -194,11 +204,14 @@ class RecipeIngredients(models.Model):
 
 
 ###################################################################################
-#Global ingredient analogy TBA
+# Global ingredient analogy TBA
 ###################################################################################
 class IngredientAlternatives(models.Model):
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, verbose_name='Номер ингредиента', related_name='ingredient_first')
-    ingredient_alternative = models.ForeignKey(Ingredient, on_delete=models.CASCADE, verbose_name='Номер альтернативы ингредиента', related_name='ingredient_second')
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, verbose_name='Номер ингредиента',
+                                   related_name='ingredient_first')
+    ingredient_alternative = models.ForeignKey(Ingredient, on_delete=models.CASCADE,
+                                               verbose_name='Номер альтернативы ингредиента',
+                                               related_name='ingredient_second')
 
     def __str__(self):
         return self.ingredient.__str__() + " " + self.ingredient_alternative.__str__()
@@ -210,7 +223,7 @@ class IngredientAlternatives(models.Model):
         unique_together = ('ingredient', 'ingredient_alternative')
 
 
-#Feedback
+# Feedback
 class Feedback(models.Model):
     email = models.EmailField()
     message = models.TextField(verbose_name='Сообщение')
@@ -220,7 +233,7 @@ class Feedback(models.Model):
     response = models.URLField(verbose_name='Адрес страницы')
 
 
-#Comment recipe_comment
+# Comment recipe_comment
 class Comment(models.Model):
     text = models.TextField(verbose_name='Текст комментария')
     header = models.CharField(max_length=100, verbose_name='Заголовок')
@@ -228,7 +241,8 @@ class Comment(models.Model):
     email = models.EmailField()
     user_id = models.IntegerField(verbose_name='Номер пользователя')
     description = models.TextField(null=True)
-    photo = models.ImageField(verbose_name='Фото к комментарию', validators=[FileExtensionValidator( ['jpeg', 'jpg', 'png', 'webp'])])
+    photo = models.ImageField(verbose_name='Фото к комментарию',
+                              validators=[FileExtensionValidator(['jpeg', 'jpg', 'png', 'webp'])])
     comment_date = models.DateField(verbose_name='Дата комментария')
 
     recipe = models.ManyToManyField(Recipe, through='RecipeComment')
@@ -253,6 +267,4 @@ class RecipeComment(models.Model):
     class Meta:
         verbose_name = 'Комментарий к рецепту'
         verbose_name_plural = 'Комментарии к рецепту'
-
-
 

@@ -271,7 +271,7 @@ class RecipeComment(models.Model):
         verbose_name_plural = 'Комментарии к рецепту'
 
 class Profile(models.Model):
-    user_id = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profiles')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     gender = models.CharField(max_length=20, null=True)
     birth_date = models.DateField(null=True)
     region = models.CharField(max_length=50, null=True)
@@ -284,7 +284,7 @@ class Profile(models.Model):
         verbose_name_plural = 'Профили'
 
     def __str__(self):
-        return self.user_id.username + '_profile'
+        return self.user.username + '_profile'
 
 #автосоздание профиля пользователя при добавлении пользователя
 @receiver(post_save, sender=User)

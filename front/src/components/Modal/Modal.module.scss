@@ -1,0 +1,48 @@
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.content {
+  box-sizing: border-box;
+  position: relative;
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  padding: 36px;
+}
+
+.closeButtonContainer {
+  position: absolute;
+  top: 36px;
+  right: 36px;
+}
+
+@media screen and (max-width: 576px) {
+  .content {
+    padding: 24px 32px;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .closeButtonContainer {
+    top: 24px;
+    right: 32px;
+  }
+}

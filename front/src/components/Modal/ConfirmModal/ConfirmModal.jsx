@@ -2,7 +2,7 @@ import React from 'react';
 import Style from './ConfirmModal.module.scss';
 import Button from '../../Button/Button';
 
-const ConfirmModal = () => (
+const ConfirmModal = ({ onClickClose }) => (
   <div className={Style.modalContainer}>
     <h2 className={Style.title}>Спасибо!</h2>
     <p className={Style.text}>
@@ -17,6 +17,7 @@ const ConfirmModal = () => (
         isSubmit={false}
         isDisabled={false}
         ariaLabelText="Закрыть модальное окно"
+        onClickBtn={onClickClose}
       >
         Хорошо
       </Button>

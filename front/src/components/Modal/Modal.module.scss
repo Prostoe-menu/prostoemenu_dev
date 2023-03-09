@@ -33,7 +33,21 @@
   right: 36px;
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 280px) {
+  .content {
+    padding: 24px 32px;
+    min-width: 280px;
+    height: 730px;
+    border-radius: 0;
+  }
+
+  .closeButtonContainer {
+    top: 24px;
+    right: 32px;
+  }
+}
+
+@media screen and (min-width: 281px) and (max-width: 576px) {
   .content {
     padding: 24px 32px;
     width: 100vw;

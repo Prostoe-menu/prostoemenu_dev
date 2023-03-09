@@ -98,7 +98,15 @@
   }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 280px) {
+  .button {
+    &_bg_yellow {
+      width: 260px;
+    }
+  }
+}
+
+@media screen and (min-width: 281px) and (max-width: 576px) {
   .button {
     &_border_grey {
       width: 328px;

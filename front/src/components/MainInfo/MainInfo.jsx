@@ -24,7 +24,7 @@ const MainInfo = () => {
 
   return (
     <>
-      <h2 className={styles.title}>Название рецепта</h2>
+      <h3 className={styles.title}>Название рецепта</h3>
       <div className={styles.wrap}>
         <input
           className={styles.name_input}
@@ -41,7 +41,7 @@ const MainInfo = () => {
         />
         <p className={styles.counter}>{nameCounter} / 100</p>
       </div>
-      <div className={styles.wrap_count}>
+      <div className={styles.wrap_complexity}>
         <div className={styles.complexity}>
           <p className={styles.title}>Сложность</p>
           <ul className={styles.stars}>
@@ -55,9 +55,10 @@ const MainInfo = () => {
           <div className={styles.wrap_counter}>
             <button
               type="button"
-              className={`${styles.button} ${styles.buttonminus}`}
+              className={`${styles.button} ${styles.buttonMinus}`}
               onClick={decrementPortion}
               disabled={portion === 0 && true}
+              aria-label="Минус"
             >
               {' '}
             </button>
@@ -72,8 +73,9 @@ const MainInfo = () => {
             </p>
             <button
               type="button"
-              className={`${styles.button} ${styles.buttonplus}`}
+              className={`${styles.button} ${styles.buttonPlus}`}
               onClick={incrementPortion}
+              aria-label="Плюс"
             >
               {' '}
             </button>
@@ -82,8 +84,8 @@ const MainInfo = () => {
       </div>
       <p className={styles.title}>Время приготовления</p>
       <div className={styles.wrap_count}>
-        <div className={styles.wrap_alltime}>
-          <p className={styles.alltime}>Всего</p>
+        <div className={styles.wrap_totalTime}>
+          <h4 className={styles.totalTime}>Всего</h4>
           <label htmlFor="allhours" className={styles.label}>
             <input
               type="text"
@@ -105,8 +107,8 @@ const MainInfo = () => {
             &nbsp;минут
           </label>
         </div>
-        <div className={styles.wrap_cooktime}>
-          <p className={styles.cooktime}>Время &quot;У плиты&quot;</p>
+        <div className={styles.wrap_cookTime}>
+          <p className={styles.cookTime}>Время &quot;У плиты&quot;</p>
           <label htmlFor="cookhours" className={styles.label}>
             <input
               type="text"
@@ -154,7 +156,7 @@ const MainInfo = () => {
         </p>
       </div>
       <p className={styles.title}>Фото готового блюда</p>
-      <p className={styles.foto}>Требования к фото:</p>
+      <p className={styles.fotoReqs}>Требования к фото:</p>
       <ul className={styles.reqlist}>
         <li className={styles.reqlist_item}>Форматы JPEG, JPG, PNG или WEBP</li>
         <li className={styles.reqlist_item}>

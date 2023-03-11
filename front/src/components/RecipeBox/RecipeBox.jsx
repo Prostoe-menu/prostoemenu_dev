@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './recipeBox.module.scss';
 
 const RecipeBox = ({ children }) => (
-  <div className={styles.box}>{children}</div>
+  <section className={styles.box}>{children}</section>
 );
 
 export default RecipeBox;

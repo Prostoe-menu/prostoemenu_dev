@@ -1,0 +1,145 @@
+.additionalInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 32px;
+  gap: 28px;
+
+  max-width: 574px;
+  min-height: 450px;
+
+  border: 1px solid #DBDBDB;
+  border-radius: 20px;
+
+  color: #232323 ;
+}
+
+.additionalInfo__header {
+  margin: 0;
+  font-family: 'Biolilbert';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.14;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 12px;
+
+  max-width: 560px;
+  width: 100%;
+}
+
+.description__subtitle {
+  margin: 0;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.additionalInfo__comment {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 568px;
+
+}
+
+.description__text {
+  margin: 0;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 1.67;
+}
+
+.additionalInfo__textArea {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 12px 16px;
+
+  max-width: 536px;
+  height: 136px;
+  border: 1px solid #DBDBDB;
+  border-radius: 8px;
+
+
+}
+
+.additionalInfo__textAreaText {
+  max-width: 536px;
+  height: 112px;
+  resize: none;
+  border: none;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 20px;
+  width: 100%;
+}
+
+.additionalInfo__textAreaCounter {
+
+  width: 53px;
+  height: 24px;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 1.67;
+  color: #818181;
+  text-align: right;
+}
+
+.description__input {
+  height: 40px;
+  padding: 8px 16px;
+  border: 1px solid #DBDBDB;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.5;
+  width: 100%;
+}
+
+@media screen and (max-width: 576px) {
+
+  .additionalInfo {
+      gap: 24px;
+      border: none;
+  }
+
+  .additionalInfo__header {
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+  }
+
+  .description {
+      gap: 8px;
+
+  }
+
+  .additionalInfo__comment {
+      gap: 12px;
+
+  }
+
+
+  .description__subtitle {
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 1.67;
+  }
+}

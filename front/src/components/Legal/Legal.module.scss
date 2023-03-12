@@ -15,6 +15,9 @@
   }
 
   &__email {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     margin-top: 4px;
     width: 60%;
     font-family: "Mulish", sans-serif;

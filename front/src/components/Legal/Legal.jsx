@@ -1,7 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 
 import styles from './Legal.module.scss';
@@ -23,14 +22,14 @@ const Legal = () => {
       <label className={styles.legal__email} htmlFor="email">
         Укажите вашу электронную почту, так мы сможем сообщить вам, когда ваш
         рецепт будет опубликован.
+        <input
+          className={styles.legal__input}
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Электронная почта*"
+        />
       </label>
-      <input
-        className={styles.legal__input}
-        type="email"
-        name="email"
-        id="email"
-        placeholder="Электронная почта*"
-      />
       <label htmlFor="agreement" className={styles.legal__agreement}>
         <input
           className={styles.legal__input_hide}

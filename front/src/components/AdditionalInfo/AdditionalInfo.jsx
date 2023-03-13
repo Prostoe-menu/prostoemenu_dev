@@ -24,8 +24,8 @@ const AdditionalInfo = () => {
         <div className={styles.additionalInfo__textArea}>
           <textarea
             className={styles.additionalInfo__textAreaText}
-            placeholder={styles.Примечание}
-            name={styles.info}
+            placeholder="Примечание"
+            name="add-info"
             id=""
             cols="30"
             rows="10"

@@ -7,7 +7,6 @@ import AddRecipe from '../AddRecipe/AddRecipe';
 
 import Footer from '../Footer/Footer';
 
-
 const App = () => (
   <div className={Style.app}>
     <Header />
@@ -17,7 +16,6 @@ const App = () => (
     {/* <Toast>Какая-то ошибка</Toast> */}
 
     <Footer />
-
   </div>
 );
 

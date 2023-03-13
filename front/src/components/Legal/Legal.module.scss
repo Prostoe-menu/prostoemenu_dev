@@ -1,0 +1,118 @@
+.legal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 36px auto;
+  max-width: 640px;
+
+  &__title {
+    margin: 0;
+    font-family: "Biolilbert", sans-serif;
+    font-size: 28px;
+    line-height: 32px;
+    font-weight: 400;
+    color: #232323;
+  }
+
+  &__email {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 4px;
+    width: 60%;
+    font-family: "Mulish", sans-serif;
+    font-size: 12px;
+    line-height: 1.67;
+    font-weight: 300;
+    color: #232323;
+  }
+
+  &__input {
+    padding: 8px 16px;
+    width: 100%;
+    height: 40px;
+    font-family: 'Mulish';
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    color: #818181;
+    border: 1px solid #DBDBDB;
+    border-radius: 8px;
+    box-sizing: border-box;
+
+    &:hover {
+      border-color: #818181;
+    }
+
+    &:active,
+    &:focus {
+      color: #232323;
+      outline: none;
+    }
+
+    &_error {
+      border-color: #D14941;
+    }
+
+    &_hide {
+      display: none;
+
+      &:checked {
+        &+.legal__checkbox {
+          background-color: #F1B823;
+          background-image: url('../../images/checked-icon.svg');
+          background-size: contain;
+          background-position: center center;
+          background-repeat: no-repeat;
+          border-color: #F1B823;
+        }
+      }
+
+      &:disabled {
+        &+.legal__checkbox {
+          background-color: #F7F7F7;
+          border-color: #DBDBDB;
+          cursor: default;
+        }
+      }
+    }
+  }
+
+  &__agreement {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Mulish", sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+
+    &:has(.legal__input_hide:disabled) {
+      color: #818181;
+    }
+  }
+
+  &__checkbox {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #DBDBDB;
+    border-radius: 4px;
+    transition: all .6s;
+    cursor: pointer;
+
+    &:hover {
+      border-color: #F1B823;
+    }
+
+    &_error {
+      background-color: #FFD6D3;
+      border-color: #D14941;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .legal {
+    max-width: 546px;
+  }
+}

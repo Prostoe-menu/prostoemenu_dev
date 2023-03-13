@@ -1,11 +1,5 @@
 .photo {
   border-radius: 12px;
-  flex-grow: 1;
-
-  div {
-    width: 100%;
-    height: 100%;
-  }
 
   &__input {
     display: flex;
@@ -14,8 +8,7 @@
     align-items: center;
     padding: 20px 0;
     width: 100%;
-    height: 100%;
-    min-width: 160px;
+    min-height: 104px;
     font-family: 'Mulish';
     font-size: 16px;
     font-weight: 700;
@@ -38,23 +31,22 @@
 
     &_hidden {
       display: none;
-      flex-grow: 0;
     }
   }
 }
 
 .preview {
-  display: none;
+  width: 132px;
   margin: 0 auto;
+
 
   &_visible {
     display: block;
-    flex-grow: 1;
   }
 
   &__container {
     position: relative;
-    min-width: 132px;
+    width: 100%;
     height: 132px;
   }
 
@@ -62,7 +54,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px;
   }
 
   &__remove {

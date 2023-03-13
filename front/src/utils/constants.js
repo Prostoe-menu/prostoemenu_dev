@@ -9,4 +9,23 @@ const buttons = {
   },
 };
 
-export { buttons };
+const progressBarSteps = [
+  {
+    text: 'Основная информация',
+    path: 'main',
+  },
+  {
+    text: 'Ингредиенты',
+    path: 'ingredients',
+  },
+  {
+    text: 'Этапы готовки',
+    path: 'stages',
+  },
+  {
+    text: 'Дополнительная информация',
+    path: 'additional-info',
+  },
+];
+
+export { buttons, progressBarSteps };

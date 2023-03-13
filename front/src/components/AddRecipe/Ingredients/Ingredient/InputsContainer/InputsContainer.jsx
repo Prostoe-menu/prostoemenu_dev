@@ -14,13 +14,15 @@ const Ingredient = () => (
       type="number"
       placeholder="0"
     />
-    <select
-      className={`${Style.input} ${Style.input_type_dropdown}`}
-      name="ingredientMeasure"
-    >
-      <option value="gram">г</option>
-      <option value="gram">г</option>
-    </select>
+    <div className={Style.dropdownContainer}>
+      <select
+        className={`${Style.input} ${Style.input_type_dropdown}`}
+        name="ingredientMeasure"
+      >
+        <option value="gram">г</option>
+        <option value="gram">г</option>
+      </select>
+    </div>
   </div>
 );
 

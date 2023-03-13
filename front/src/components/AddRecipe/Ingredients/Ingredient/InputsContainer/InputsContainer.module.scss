@@ -52,10 +52,21 @@
     width: 144px;
     font-weight: 500;
     color: #232323;
-    position: relative;
 
     select {
-      display: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background: transparent;
+      background-image: url("../../../../../img/add.svg");
+      background-repeat: no-repeat;
+      background-position-x: 100%;
+      background-position-y: 5px;
+      border: 1px solid #dfdfdf;
+      border-radius: 2px;
+      margin-right: 2rem;
+      padding: 1rem;
+      padding-right: 2rem;
     }
   }
 
@@ -91,4 +102,10 @@
     -moz-appearance: textfield;
     appearance: textfield;
   }
+}
+
+.dropdownContainer {
+  display: inline;
+  position: relative;
+  box-sizing: border-box;
 }

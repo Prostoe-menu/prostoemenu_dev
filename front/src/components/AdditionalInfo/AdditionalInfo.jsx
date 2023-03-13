@@ -26,7 +26,6 @@ const AdditionalInfo = () => {
             className={styles.additionalInfo__textAreaText}
             placeholder="Примечание"
             name="add-info"
-            id=""
             cols="30"
             rows="10"
             onChange={handleDescription}

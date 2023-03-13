@@ -1,12 +1,17 @@
 import React from 'react';
 import Style from './AddRecipe.module.scss';
 import PageTitle from '../PageTitle/PageTitle';
-import CookingSteps from '../CookingSteps/CookingSteps';
+import RecipeBox from '../RecipeBox/RecipeBox';
+import RecipeTitle from '../RecipeTitle/RecipeTitle';
+import MainInfo from '../MainInfo/MainInfo';
 
 const AddRecipe = () => (
   <main className={Style.content}>
     <PageTitle>Добавить новый рецепт</PageTitle>
-    <CookingSteps />
+    <RecipeBox>
+      <RecipeTitle>Основная информация *</RecipeTitle>
+      <MainInfo />
+    </RecipeBox>
   </main>
 );
 

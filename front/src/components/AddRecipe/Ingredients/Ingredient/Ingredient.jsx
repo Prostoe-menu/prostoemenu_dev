@@ -9,6 +9,13 @@ const Ingredient = () => (
       <InputsContainer />
       <CloseButton ariaLabelText="Удалить ингредиент" />
     </div>
+    <button
+      type="button"
+      aria-label="Открыть поле для добавления варианта замены"
+      className={Style.button}
+    >
+      Вариант замены
+    </button>
   </div>
 );
 

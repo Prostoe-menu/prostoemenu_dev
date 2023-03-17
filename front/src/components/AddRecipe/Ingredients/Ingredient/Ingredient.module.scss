@@ -1,8 +1,35 @@
-.ingredient {
+.content {
   box-sizing: border-box;
   width: 576px;
+  border-bottom: 1px solid #DBDBDB;
+  padding: 28px 0 20px 0;
+}
+
+.ingredient {
+  box-sizing: border-box;
   display: flex;
   gap: 12px;
   align-items: center;
   justify-content: center;
+}
+
+.button {
+  width: 112px;
+  height: 20px;
+  font-family: 'Mulish', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 1.67;
+  color: #232323;
+  background-color: transparent;
+  background-image: url("../../../../img/arrow-down.svg");
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 50%;
+  border: none;
+  padding: 0;
+  margin-top: 8px;
+  text-align: justify;
+  cursor: pointer;
 }

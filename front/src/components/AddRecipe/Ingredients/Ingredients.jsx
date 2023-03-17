@@ -1,6 +1,6 @@
 import React from 'react';
 import Style from './Ingredients.module.scss';
-// import Ingredient from './Ingredient/Ingredient';
+import Ingredient from './Ingredient/Ingredient';
 import RecipeTitle from '../../RecipeTitle/RecipeTitle';
 import Button from '../../Button/Button';
 import addIcon from '../../../img/add.svg';
@@ -17,7 +17,9 @@ const Ingredients = () => (
         замены».
       </p>
     </div>
-    <div className={Style.ingredientsContainer}>{/* <Ingredient /> */}</div>
+    <div className={Style.ingredientsContainer}>
+      <Ingredient />
+    </div>
     <Button
       btnClassName="button_border_grey"
       isSubmit={false}

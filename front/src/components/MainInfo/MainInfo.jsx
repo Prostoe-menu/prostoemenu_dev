@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './mainInfo.module.scss';
 import Tooltip from '../Tooltip/Tooltip';
+import TooltipDifficultyContent from '../Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
 
 const MainInfo = () => {
   const [nameCounter, setNameCounter] = useState(0);
@@ -48,7 +49,10 @@ const MainInfo = () => {
         <div className={styles.complexity}>
           <div className={styles.tooltipContainer}>
             <p className={styles.title}>Сложность</p>
-            <Tooltip />
+            <Tooltip
+              toolTipContent={<TooltipDifficultyContent />}
+              width="129px"
+            />
           </div>
           <ul className={styles.stars}>
             <li className={styles.star} />
@@ -115,7 +119,13 @@ const MainInfo = () => {
             </label>
           </div>
           <div className={styles.wrap_cookTime}>
-            <p className={styles.cookTime}>Время &quot;У плиты&quot;</p>
+            <div className={styles.tooltipContainer}>
+              <p className={styles.cookTime}>Время &quot;У плиты&quot;</p>
+              <Tooltip
+                toolTipContent="Время активной готовки блюда без учёта того, сколько оно варится, жарится, запекается и т.д."
+                width="173px"
+              />
+            </div>
             <label htmlFor="cookhours" className={styles.label}>
               <input
                 type="text"

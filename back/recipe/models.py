@@ -96,8 +96,8 @@ class Recipe(models.Model):
     parced = models.BooleanField(default=False, verbose_name='Получено от парсинга')
     complexity = models.CharField(max_length=40, verbose_name='Сложность готовки')
     is_approved = models.BooleanField(default=False, verbose_name='Проверено')
-    user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='Id автора', related_name='recipes')
-
+    user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='Id автора',
+                                related_name='recipes')
 
     # M2M relations
     ingredient = models.ManyToManyField(Ingredient, through='RecipeIngredients',
@@ -270,6 +270,7 @@ class RecipeComment(models.Model):
         verbose_name = 'Комментарий к рецепту'
         verbose_name_plural = 'Комментарии к рецепту'
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     gender = models.CharField(max_length=20, null=True)
@@ -286,13 +287,15 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username + '_profile'
 
-#автосоздание профиля пользователя при добавлении пользователя
+
+# автосоздание профиля пользователя при добавлении пользователя
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
-#автосохранение профиля пользователя при изменении пользователя
+
+# автосохранение профиля пользователя при изменении пользователя
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()

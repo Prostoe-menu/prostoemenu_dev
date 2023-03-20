@@ -39,6 +39,13 @@
   padding: 0;
 }
 
+.mainInfo {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
 .wrap {
   box-sizing: border-box;
   display: flex;
@@ -64,7 +71,6 @@
 
 .title {
   @extend %mulish-16-500;
-  margin-top: 28px;
 }
 
 .name_input {
@@ -329,4 +335,10 @@
 
 .reqlist_accent {
   font-weight: bold;
+}
+
+.tooltipContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }

@@ -63,7 +63,7 @@ class RecipePhotoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RecipePhotos
-        fields = ('photo', )
+        fields = ('photo',)
 
 
 class RecipeDisplaySerializer(serializers.ModelSerializer):
@@ -98,6 +98,7 @@ class RecipeDisplaySerializer(serializers.ModelSerializer):
         query_datas = RecipePhotos.objects.select_related('photo').filter(
             recipe=recipe_instance).values('photo__photo')
         return [RecipePhotoSerializer(photo).data for photo in query_datas]
+
 
 ##################################################
 #                                                #
@@ -209,6 +210,7 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
                     step_number=step_data.get('step_number'),
                     description=step_data.get('description'),
                     photo=step_data.get('photo'))
+                    
                 RecipeSteps.objects.create(recipe=recipe, step=step_to_add)
 
             for photo_data in photos_data:

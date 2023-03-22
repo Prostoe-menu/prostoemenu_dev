@@ -17,15 +17,20 @@ class KaitenData(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
-        auth_key = 'Bearer 18d47ac2-41af-4ba9-8501-4fb4a2586a3b'
+        auth_key = os.getenv('KAITEN_TOKEN')
         url = 'https://boyarkin.kaiten.ru/api/latest/cards/?additional_card_fields=description'
-        r = requests.get(url, headers={'Accept': 'application/json', 'Content-Type': 'application/json',
-                                       'Authorization': auth_key})
+        r = requests.get(
+            url,
+            headers={
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': auth_key})
         cards = r.json()
         participants = dict()
 
         for card in cards:
-            if 'members' in card and card['column']['title'] in ['In progress', 'Ready (на проверку)', 'done']:
+            if 'members' in card and card['column']['title'] in [
+                    'In progress', 'Ready (на проверку)', 'done']:
                 for member in card['members']:
                     if member['username'] not in participants:
                         participants[member['username']] = {'name': member['full_name'],
@@ -48,7 +53,8 @@ class KaitenData(APIView):
                             participants[member['username']]['number_of_completed_tasks'] + 1
 
         for participant in participants:
-            serializer = ParticipantCreateSerializer(data=participants[participant])
+            serializer = ParticipantCreateSerializer(
+                data=participants[participant])
 
             if serializer.is_valid():
                 serializer.save()
@@ -56,11 +62,15 @@ class KaitenData(APIView):
         return Response(participants, status=status.HTTP_200_OK)
 
     def put(self, request):
-        auth_key = 'Bearer 18d47ac2-41af-4ba9-8501-4fb4a2586a3b'
-        url = 'https://boyarkin.kaiten.ru/api/latest/cards/?additional_card_fields=description&updated_after=' + str(
-            datetime.now() - timedelta(minutes=2))
-        r = requests.get(url, headers={'Accept': 'application/json', 'Content-Type': 'application/json',
-                                       'Authorization': auth_key})
+        auth_key = os.getenv('KAITEN_TOKEN')
+        url = 'https://boyarkin.kaiten.ru/api/latest/cards/?additional_card_fields=description&updated_after=' + \
+            str(datetime.now() - timedelta(minutes=2))
+        r = requests.get(
+            url,
+            headers={
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': auth_key})
 
         cards = r.json()
         updated_cards = []
@@ -76,16 +86,22 @@ class KaitenData(APIView):
                          'update_date': card['updated']})
 
                     serializer = TaskSerializer(
-                        data={'kaiten_task_id': card['id'], 'name': card['title'], 'status': card['column']['title'],
-                              'description': card['description'],
-                              'create_date': card['created'],
-                              'update_date': card['updated']}, instance=instance)
+                        data={
+                            'kaiten_task_id': card['id'],
+                            'name': card['title'],
+                            'status': card['column']['title'],
+                            'description': card['description'],
+                            'create_date': card['created'],
+                            'update_date': card['updated']},
+                        instance=instance)
 
                     if serializer.is_valid():
                         serializer.save()
                     else:
-                        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-            except:
+                        return Response(
+                            serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
+            except BaseException:
                 updated_cards.append(
                     {'kaiten_task_id': card['id'], 'name': card['title'], 'description': card['description'],
                      'status': 'Innactive DB entry'})

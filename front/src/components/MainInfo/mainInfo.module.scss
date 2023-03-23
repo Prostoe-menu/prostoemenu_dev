@@ -39,6 +39,13 @@
   padding: 0;
 }
 
+.mainInfo {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
 .wrap {
   box-sizing: border-box;
   display: flex;
@@ -61,9 +68,9 @@
     border: 1px solid #818181;
   }
 }
+
 .title {
   @extend %mulish-16-500;
-  margin-top: 28px;
 }
 
 .name_input {
@@ -107,7 +114,7 @@
 }
 
 .star {
-  background-image: url('../../img/star.svg');
+  background-image: url('../../images/star.svg');
   background-position: 50%;
   background-size: contain;
   background-repeat: no-repeat;
@@ -143,28 +150,28 @@
 }
 
 .buttonPlus {
-  background-image: url('../../img/plusButton.svg');
+  background-image: url('../../images/plusButton.svg');
   background-position: 50%;
   background-size: contain;
   background-repeat: no-repeat;
 
   &:hover {
-    background-image: url('../../img/plusButton-active.svg');
+    background-image: url('../../images/plusButton-active.svg');
   }
 }
 
 .buttonMinus {
-  background-image: url('../../img/minusButton.png');
+  background-image: url('../../images/minusButton.png');
   background-position: 50%;
   background-size: contain;
   background-repeat: no-repeat;
 
   &:hover {
-    background-image: url('../../img/minusButton-active.svg');
+    background-image: url('../../images/minusButton-active.svg');
   }
 
   &:disabled {
-    background-image: url('../../img/minusButton-disabled.png');
+    background-image: url('../../images/minusButton-disabled.png');
     cursor: auto;
   }
 }
@@ -311,7 +318,7 @@
   margin: 0;
   padding: 0;
   margin-left: 10px;
-  list-style-image: url('../../img/list-marker.svg');
+  list-style-image: url('../../images/list-marker.svg');
 }
 
 .reqlist_item {
@@ -328,4 +335,10 @@
 
 .reqlist_accent {
   font-weight: bold;
+}
+
+.tooltipContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }

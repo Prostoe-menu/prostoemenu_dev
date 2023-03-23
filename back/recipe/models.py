@@ -140,6 +140,7 @@ class Recipe(models.Model):
         default=False, verbose_name='Проверено')
     user = models.ForeignKey(
         User, null=True,
+        db_column='user',
         on_delete=models.SET_NULL,
         verbose_name='Id автора',
         related_name='recipes')

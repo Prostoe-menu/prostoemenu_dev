@@ -24,7 +24,10 @@ const Ingredients = () => {
       <ul className={Style.ingredients__list}>
         {Array.from({ length: numIngredients }).map(() => (
           <li>
-            <Ingredient deleteIngredient={deleteIngredient} />
+            <Ingredient
+              numIngredients={numIngredients}
+              deleteIngredient={deleteIngredient}
+            />
           </li>
         ))}
       </ul>

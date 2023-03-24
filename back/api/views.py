@@ -72,9 +72,15 @@ class IngredientList(APIView):
                 status=status.HTTP_400_BAD_REQUEST)
 
         ingredients = Ingredient.objects.filter(
-            Q(name__startswith=prefix) | Q(name__icontains=prefix)).distinct()
-        serializer = IngredientSerializer(ingredients, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+            Q(name__startswith=prefix) | Q(name__icontains=prefix)).distinct().order_by('name')
+
+        pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
+        paginator = pagination_class()
+
+        page = paginator.paginate_queryset(ingredients, request, view=self)
+        serializer = IngredientSerializer(page, many=True)
+
+        return paginator.get_paginated_response(serializer.data)
 
 
 class MeasurementList(APIView):

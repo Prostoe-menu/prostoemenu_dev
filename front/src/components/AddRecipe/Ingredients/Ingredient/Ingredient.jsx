@@ -3,7 +3,7 @@ import CloseButton from '../../../CloseButton/CloseButton';
 import Style from './Ingredient.module.scss';
 import InputsContainer from './InputsContainer/InputsContainer';
 
-const Ingredient = () => {
+const Ingredient = ({ deleteIngredient }) => {
   const [isSubstituteHidden, setIsSubstituteHidden] = useState(true);
   const showSubstitute = () => {
     setIsSubstituteHidden(!isSubstituteHidden);
@@ -12,7 +12,10 @@ const Ingredient = () => {
     <div className={Style.content}>
       <div className={Style.ingredient}>
         <InputsContainer />
-        <CloseButton ariaLabelText="Удалить ингредиент" />
+        <CloseButton
+          ariaLabelText="Удалить ингредиент"
+          onClose={deleteIngredient}
+        />
       </div>
       <button
         className={`${Style.button} ${

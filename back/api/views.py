@@ -71,8 +71,8 @@ class IngredientList(APIView):
                 "Length less than 3 characters",
                 status=status.HTTP_400_BAD_REQUEST)
 
-        ingredients = Ingredient.objects.filter(
-            Q(name__startswith=prefix) | Q(name__icontains=prefix)).distinct().order_by('name')
+        ingredients = Ingredient.objects.filter(Q(name__startswith=prefix) | Q(
+            name__icontains=prefix)).distinct().order_by('name')
 
         pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
         paginator = pagination_class()

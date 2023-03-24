@@ -1,6 +1,6 @@
 import React from 'react';
 import Style from './TooltipDifficultyContent.module.scss';
-import starFilled from '../../../img/star-filled  12x12.svg';
+import starFilled from '../../../images/star-filled.svg';
 
 const TooltipDifficultyContent = () => (
   <>

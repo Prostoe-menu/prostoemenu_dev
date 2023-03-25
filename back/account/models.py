@@ -17,7 +17,7 @@ class Profile(models.Model):
         verbose_name='Фото пользователя', null=True)
 
     class Meta:
-        ordering = ('user_id',)
+        ordering = ('user',)
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
 

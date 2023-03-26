@@ -1,5 +1,7 @@
 .container {
   box-sizing: border-box;
+  display: flex;
+  gap: 12px;
 }
 
 .container_hidden {
@@ -16,21 +18,16 @@
   font-style: normal;
   font-weight: 300;
   font-size: 16px;
-  line-height: 24px;
-  color: #818181;
+  line-height: 1.5;
+  color: #232323;
   margin: 0;
-  margin-right: 12px;
-
-  &:last-child {
-    margin-right: 0;
-  }
 
   &::placeholder {
     font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 16px;
-    line-height: 24px;
+    line-height: 1.5;
     color: #818181;
   }
 
@@ -41,7 +38,6 @@
   &:focus {
     outline: none;
     border: 1px solid #818181;
-    color: #232323;
   }
 
   &_type_name {
@@ -49,6 +45,7 @@
   }
 
   &_type_quantity {
+    text-align: center;
     width: 72px;
   }
 
@@ -56,22 +53,10 @@
     width: 144px;
     font-weight: 500;
     color: #232323;
-
-    select {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      background: transparent;
-      background-image: url("../../../../../images/add.svg");
-      background-repeat: no-repeat;
-      background-position-x: 100%;
-      background-position-y: 5px;
-      border: 1px solid #dfdfdf;
-      border-radius: 2px;
-      margin-right: 2rem;
-      padding: 1rem;
-      padding-right: 2rem;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
   }
 
   &::-ms-clear {
@@ -108,8 +93,45 @@
   }
 }
 
-.dropdownContainer {
-  display: inline;
+.dropdownMenu {
+  width: 144px;
   position: relative;
-  box-sizing: border-box;
+
+  &__options {
+    display: none;
+    max-height: 176px;
+    overflow-y: scroll;
+    position: absolute;
+    z-index: 5;
+    box-sizing: border-box;
+    width: 144px;
+    padding: 8px 0;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px 5px rgba(1, 7, 62, 0.08);
+
+    &_visible {
+      display: block;
+    }
+  }
+
+  &__option {
+    display: flex;
+    height: 40px;
+    cursor: pointer;
+    padding: 0 16px;
+    border-radius: 8px;
+    align-items: center;
+    background: #fff;
+    font-family: 'Mulish', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #232323;
+
+    &:hover {
+      background: #FFFAF0;
+    }
+  }
 }

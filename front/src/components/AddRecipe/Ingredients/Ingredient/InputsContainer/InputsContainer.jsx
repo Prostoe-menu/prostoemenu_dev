@@ -31,8 +31,8 @@ const Ingredient = ({ isHidden, isSubstitute = false }) => {
       <div className={Style.dropdownMenu}>
         <div
           className={`${Style.input} ${Style.input_type_dropdown}`}
-          onClick={() => setIsDropdownOpen(true)}
-          onKeyDown={() => setIsDropdownOpen(true)}
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          onKeyDown={() => setIsDropdownOpen(!isDropdownOpen)}
           role="button"
           tabIndex="0"
           aria-label="Открыть меню единиц измерения"

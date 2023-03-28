@@ -1,8 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+
 
 
 class Ingredient(models.Model):
@@ -139,8 +138,9 @@ class Recipe(models.Model):
         max_length=40, verbose_name='Сложность готовки')
     is_approved = models.BooleanField(
         default=False, verbose_name='Проверено')
-    user_id = models.ForeignKey(
+    user = models.ForeignKey(
         User, null=True,
+        db_column='user',
         on_delete=models.SET_NULL,
         verbose_name='Id автора',
         related_name='recipes')
@@ -393,35 +393,3 @@ class RecipeComment(models.Model):
         verbose_name_plural = 'Комментарии к рецепту'
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE,
-        related_name='profile')
-    gender = models.CharField(max_length=20, null=True)
-    birth_date = models.DateField(null=True)
-    region = models.CharField(max_length=50, null=True)
-    city = models.CharField(max_length=50, null=True)
-    photo = models.ImageField(
-        upload_to='user_photo/%Y/%m/%d',
-        verbose_name='Фото пользователя', null=True)
-
-    class Meta:
-        ordering = ('user_id',)
-        verbose_name = 'Профиль'
-        verbose_name_plural = 'Профили'
-
-    def __str__(self):
-        return self.user.username + '_profile'
-
-
-# автосоздание профиля пользователя при добавлении пользователя
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-
-# автосохранение профиля пользователя при изменении пользователя
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()

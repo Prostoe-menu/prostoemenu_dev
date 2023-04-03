@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Style from './Modal.module.scss';
-import CloseButton from '../CloseButton/CloseButton';
+import CloseButton from '../UI/CloseButton/CloseButton';
 import ConfirmModal from './ConfirmModal/ConfirmModal';
 
 const Modal = () => {

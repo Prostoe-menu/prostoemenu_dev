@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 import CookingStep from '../CookingStep/CookingStep';
-import Button from '../Button/Button';
+import Button from '../../UI/Button/Button';
 
-import { buttons } from '../../utils/constants';
+import { buttons } from '../../../utils/constants';
 
 import styles from './CookingSteps.module.scss';
-import addIcon from '../../images/add.svg';
+import addIcon from '../../../images/add.svg';
 
 const CookingSteps = () => {
   const [initialStepsCount, setInitialStepsCount] = useState(2);

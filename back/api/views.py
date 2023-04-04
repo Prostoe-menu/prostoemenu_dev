@@ -17,8 +17,10 @@ class RecipeList(APIView):
     def get(self, request, format=None):
         ingredients_search = request.query_params.getlist(
             "ingredients_search[]")
-        strong_ingredients_search = request.query_params.getlist("strong_ingredients_search[]")
-        name_description_search = request.query_params.get('name_description_search')
+        strong_ingredients_search = request.query_params.getlist(
+            "strong_ingredients_search[]")
+        name_description_search = request.query_params.get(
+            'name_description_search')
         recipe_name_prefix = request.query_params.get('recipe_name_prefix')
         complexity = request.query_params.get('complexity')
         cooking_time_lte = request.query_params.get('cooking_time_lte')
@@ -27,8 +29,14 @@ class RecipeList(APIView):
 
         if ingredients_search:
             recipes = Recipe.objects.prefetch_related('recipeingredients_set__ingredient__ingredients').filter(
-                       reduce(or_, (Q(ingredient__name__contains=ingredient) for ingredient in ingredients_search))).annotate(
-              num_occurences=Count(reduce(or_, (Q(ingredient__name__contains=ingredient) for ingredient in ingredients_search)))).order_by('-num_occurences').filter(num_occurences__lt=len(ingredients_search))
+                reduce(
+                    or_, (Q(
+                        ingredient__name__contains=ingredient) for ingredient in ingredients_search))).annotate(
+                num_occurences=Count(
+                    reduce(
+                        or_, (Q(
+                            ingredient__name__contains=ingredient) for ingredient in ingredients_search)))).order_by('-num_occurences').filter(
+                                num_occurences__lt=len(ingredients_search))
         elif strong_ingredients_search:
             recipes = Recipe.objects.prefetch_related('recipeingredients_set__ingredient__ingredients').filter(
                 reduce(__and__, (Q(ingredient__name__contains=ingredient) for ingredient in strong_ingredients_search))).annotate(

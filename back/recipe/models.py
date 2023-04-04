@@ -267,7 +267,7 @@ class RecipeIngredients(models.Model):
         Ingredient, on_delete=models.CASCADE,
         verbose_name='Номер ингредиента',
         related_name='ingredient')
-    volume = models.IntegerField(
+    volume = models.FloatField(
         verbose_name='Количество')
     measure = models.CharField(
         max_length=20,
@@ -391,5 +391,3 @@ class RecipeComment(models.Model):
     class Meta:
         verbose_name = 'Комментарий к рецепту'
         verbose_name_plural = 'Комментарии к рецепту'
-
-

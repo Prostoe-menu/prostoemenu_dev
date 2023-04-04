@@ -1,4 +1,7 @@
-from django.db.models import Q
+from functools import reduce
+from operator import or_, __and__
+
+from django.db.models import Q, Count
 from rest_framework import status
 from rest_framework.decorators import APIView
 from rest_framework.generics import get_object_or_404
@@ -12,11 +15,44 @@ from rest_framework.response import Response
 
 class RecipeList(APIView):
     def get(self, request, format=None):
-        recipes = Recipe.objects.all()
+        ingredients_search = request.query_params.getlist(
+            "ingredients_search[]")
+        strong_ingredients_search = request.query_params.getlist("strong_ingredients_search[]")
+        name_description_search = request.query_params.get('name_description_search')
+        recipe_name_prefix = request.query_params.get('recipe_name_prefix')
+        complexity = request.query_params.get('complexity')
+        cooking_time_lte = request.query_params.get('cooking_time_lte')
+        cooking_time_gte = request.query_params.get('cooking_time_gte')
+        cooking_time = request.query_params.get('cooking_time')
+
+        if ingredients_search:
+            recipes = Recipe.objects.prefetch_related('recipeingredients_set__ingredient__ingredients').filter(
+                       reduce(or_, (Q(ingredient__name__contains=ingredient) for ingredient in ingredients_search))).annotate(
+              num_occurences=Count(reduce(or_, (Q(ingredient__name__contains=ingredient) for ingredient in ingredients_search)))).order_by('-num_occurences').filter(num_occurences__lt=len(ingredients_search))
+        elif strong_ingredients_search:
+            recipes = Recipe.objects.prefetch_related('recipeingredients_set__ingredient__ingredients').filter(
+                reduce(__and__, (Q(ingredient__name__contains=ingredient) for ingredient in strong_ingredients_search))).annotate(
+                num_occurences=Count(reduce(or_, (Q(ingredient__name__contains=ingredient) for ingredient in
+                                                  strong_ingredients_search)))).order_by('-num_occurences')
+        else:
+            recipes = Recipe.objects.prefetch_related('ingredient').all()
+
+        if name_description_search:
+            recipes = recipes.filter(Q(description__contains=name_description_search) |
+                                     Q(name__contains=name_description_search))
+        if recipe_name_prefix:
+            recipes = recipes.filter(name__startswith=recipe_name_prefix)
+        if complexity:
+            recipes = recipes.filter(complexity=complexity)
+        if cooking_time_lte:
+            recipes = recipes.filter(cooking_time__lte=cooking_time_lte)
+        if cooking_time_gte:
+            recipes = recipes.filter(cooking_time__gte=cooking_time_gte)
+        if cooking_time:
+            recipes = recipes.filter(cooking_time=cooking_time)
 
         pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
         paginator = pagination_class()
-
         page = paginator.paginate_queryset(recipes, request, view=self)
         serializer = RecipeDisplaySerializer(page, many=True)
 

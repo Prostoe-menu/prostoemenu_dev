@@ -1,12 +1,21 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { persistReducer, persistStore } from 'redux-persist';
+import storageSession from 'redux-persist/lib/storage/session';
 import formReducer from './slices/form/formSlice';
 
 const rootReducer = combineReducers({
   form: formReducer,
 });
 
-const store = configureStore({
-  reducer: rootReducer,
+const persistConfig = {
+  key: 'root',
+  storage: storageSession,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
 });
 
-export default store;
+export const persistor = persistStore(store);

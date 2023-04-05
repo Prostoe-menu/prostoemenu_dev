@@ -32,11 +32,11 @@ const formSlice = createSlice({
       state.currentFormStage = 1;
     },
     saveGeneralRecipeInfo: (state, action) => {
-      state.name = action.payload.recipeName;
-      state.difficulty = action.payload;
+      state.recipeName = action.payload.recipeName;
+      state.difficulty = action.payload.difficulty;
       state.servingsNumber = action.payload.servingsNumber;
       state.cookingTime = action.payload.cookingTime;
-      state.timeAtStove = action.payload.cookingTime;
+      state.timeAtStove = action.payload.timeAtStove;
       state.description = action.payload.description;
       state.finishedPhoto = action.payload.finishedDishPhoto;
     },
@@ -83,4 +83,13 @@ const formSlice = createSlice({
   },
 });
 
+export const {
+  changeCurrentStage,
+  resetCurrentStage,
+  saveGeneralRecipeInfo,
+  saveAdditionalInfo,
+  saveCookingSteps,
+  saveIngredients,
+  resetState,
+} = formSlice.actions;
 export default formSlice.reducer;

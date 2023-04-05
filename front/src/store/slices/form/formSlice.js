@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import postRecipe from './formThunk';
 
 const initialState = {
   currentFormStage: 1,
@@ -14,6 +15,10 @@ const initialState = {
   comment: null,
   author: null,
   email: null,
+  isLoading: false,
+  isError: false,
+  isSuccess: false,
+  errorMessage: null,
 };
 
 const formSlice = createSlice({
@@ -60,6 +65,21 @@ const formSlice = createSlice({
       state.author = null;
       state.email = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(postRecipe.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(postRecipe.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(postRecipe.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload;
+      });
   },
 });
 

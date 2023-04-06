@@ -25,14 +25,12 @@ const AdditionalInfo = () => {
           </p>
         </div>
         <div
-          // className={styles.additionalInfo__textArea}
           className={`${styles.additionalInfo__textArea} ${
             errors.addInfo ? `${styles.additionalInfo__textArea_error}` : ''
           }`}
         >
           <textarea
             className={styles.additionalInfo__textAreaText}
-            // eslint-disable-next-line react/jsx-no-duplicate-props
             placeholder="Примечание"
             onChange={handleDescription}
             maxLength="500"
@@ -58,7 +56,6 @@ const AdditionalInfo = () => {
         </div>
         {errors.addInfo && (
           <span className={styles.description__error}>
-            {' '}
             {errors?.addInfo.message || ''}
           </span>
         )}
@@ -92,7 +89,6 @@ const AdditionalInfo = () => {
         />
         {errors.name && (
           <span className={styles.description__error}>
-            {' '}
             {errors?.name.message || 'Поле обязательно к заполнению'}
           </span>
         )}

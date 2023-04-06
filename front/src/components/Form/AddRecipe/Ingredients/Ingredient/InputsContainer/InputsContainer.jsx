@@ -20,11 +20,12 @@ const InputsContainer = () => {
   return (
     <div className={Style.container}>
       <div className={`${Style.dropdownMenu} ${Style.dropdownMenu_type_name}`}>
+        {/* will be updated after api is received */}
         <input
           className={`${Style.input} ${Style.input_type_name}`}
           name="ingredientName"
           placeholder="Начните вводить название"
-          onChange={() => setOpenIngredientDropdown(true)}
+          // onChange={() => setOpenIngredientDropdown(true)}
           autoComplete="off"
         />
         <ul
@@ -32,7 +33,6 @@ const InputsContainer = () => {
             Style.dropdownMenu__options_type_ingredients
           } ${openIngredientDropdown && Style.dropdownMenu__options_visible}`}
         >
-          {/* will be updated after api is received */}
           {ingredients.map((ingredient) => (
             <li className={Style.dropdownMenu__option}>
               <div

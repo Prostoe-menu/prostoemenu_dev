@@ -7,7 +7,7 @@ import Button from '../../Button/Button';
 import addIcon from '../../../images/add.svg';
 
 const Ingredients = () => {
-  const [ingredients, setIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState([{ ingredient: '' }]);
   const addIngredient = () => {
     setIngredients([...ingredients, { id: uuidV4() }]);
   };

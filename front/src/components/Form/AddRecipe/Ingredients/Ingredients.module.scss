@@ -1,5 +1,10 @@
 .ingredients {
+  width: 100%;
   box-sizing: border-box;
+}
+
+.mobileTitle {
+  display: none;
 }
 
 .textContainer {
@@ -28,12 +33,21 @@
   height: 16px;
 }
 
-// @media screen and (max-width: 576px) {
-//   .title {
-//     font-size: 28px;
-//     line-height: 32px;
-//     width: 293px;
-//     margin-top: 36px;
-//     margin-left: 16px;
-//   }
-// }
+@media screen and (max-width: 576px) {
+  .ingredients {
+    margin: 0 auto;
+    max-width: 328px;
+  }
+
+  .mobileTitle {
+    display: inline;
+  }
+
+  .textContainer {
+    margin-top: 12px;
+  }
+
+  .ingredients__list {
+    margin-bottom: 24px;
+  }
+}

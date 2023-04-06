@@ -1,7 +1,8 @@
 .container {
   box-sizing: border-box;
-  display: flex;
+  display: grid;
   gap: 12px;
+  grid-template-areas: "name quantity dropdown";
 }
 
 .input {
@@ -38,11 +39,13 @@
 
   &_type_name {
     width: 304px;
+    grid-area: name;
   }
 
   &_type_quantity {
     text-align: center;
     width: 72px;
+    grid-area: quantity;
   }
 
   &_type_dropdown {
@@ -53,6 +56,7 @@
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+    grid-area: dropdown;
   }
 
   &::-ms-clear {
@@ -128,6 +132,32 @@
 
     &:hover {
       background: #FFFAF0;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .container {
+    grid-template-areas:
+    "name name"
+    "quantity dropdown";
+    row-gap: 12px;
+    column-gap: 8px;
+  }
+
+  .input {
+    &_type_name {
+      width: 296px;
+    }
+
+    &_type_quantity {
+      width: 144px;
+    }
+  }
+
+  .dropdownMenu {
+    &__options {
+      max-height: 176px;
     }
   }
 }

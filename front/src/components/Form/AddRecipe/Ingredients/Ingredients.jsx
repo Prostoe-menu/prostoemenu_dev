@@ -16,7 +16,9 @@ const Ingredients = () => {
   };
   return (
     <section className={Style.ingredients}>
-      <RecipeTitle>Ингредиенты*</RecipeTitle>
+      <RecipeTitle>
+        <span className={Style.mobileTitle}>2. </span>Ингредиенты*
+      </RecipeTitle>
       <div className={Style.textContainer}>
         <p className={Style.text}>
           Добавьте ингредиенты для вашего блюда, укажите их количество.

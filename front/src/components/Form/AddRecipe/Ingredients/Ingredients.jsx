@@ -3,8 +3,8 @@ import { v4 as uuidV4 } from 'uuid';
 import Style from './Ingredients.module.scss';
 import Ingredient from './Ingredient/Ingredient';
 import RecipeTitle from '../../RecipeTitle/RecipeTitle';
-import Button from '../../Button/Button';
-import addIcon from '../../../images/add.svg';
+import Button from '../../../UI/Button/Button';
+import addIcon from '../../../../images/add.svg';
 
 const Ingredients = () => {
   const [ingredients, setIngredients] = useState([{ ingredient: '' }]);

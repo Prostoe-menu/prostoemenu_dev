@@ -1,5 +1,5 @@
 import React from 'react';
-import CloseButton from '../../../CloseButton/CloseButton';
+import CloseButton from '../../../../UI/CloseButton/CloseButton';
 import Style from './Ingredient.module.scss';
 import InputsContainer from './InputsContainer/InputsContainer';
 

@@ -3,7 +3,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Style from './InputsContainer.module.scss';
 import measureInuts from './measure_units';
 
-const Ingredient = ({ isHidden, isSubstitute = false }) => {
+const InputsContainer = () => {
   const [selectedUnit, setSelectedUnit] = useState('г');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -12,19 +12,15 @@ const Ingredient = ({ isHidden, isSubstitute = false }) => {
     setIsDropdownOpen(false);
   };
   return (
-    <div
-      className={`${Style.container} ${
-        isSubstitute && isHidden && Style.container_hidden
-      }`}
-    >
+    <div className={Style.container}>
       <input
         className={`${Style.input} ${Style.input_type_name}`}
-        name={isSubstitute ? 'substituteName' : 'ingredientName'}
+        name="ingredientName"
         placeholder="Начните вводить название"
       />
       <input
         className={`${Style.input} ${Style.input_type_quantity}`}
-        name={isSubstitute ? 'substituteQuantity' : 'ingredientQuantity'}
+        name="ingredientQuantity"
         type="number"
         placeholder="0"
       />
@@ -73,4 +69,4 @@ const Ingredient = ({ isHidden, isSubstitute = false }) => {
   );
 };
 
-export default Ingredient;
+export default InputsContainer;

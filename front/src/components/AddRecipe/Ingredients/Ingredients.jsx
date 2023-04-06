@@ -21,10 +21,6 @@ const Ingredients = () => {
         <p className={Style.text}>
           Добавьте ингредиенты для вашего блюда, укажите их количество.
         </p>
-        <p className={Style.text}>
-          Если ингредиент можно заменить другим, укажите это в поле «Вариант
-          замены».
-        </p>
       </div>
       <ul className={Style.ingredients__list}>
         {ingredients.map((ingredient) => (

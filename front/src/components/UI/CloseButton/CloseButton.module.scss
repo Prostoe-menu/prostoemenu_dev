@@ -2,17 +2,13 @@
   width: 20px;
   height: 20px;
   background-color: transparent;
-  background-image: url('../../images/close_btn.svg');
+  background-image: url('../../../images/close_btn.svg');
   border: none;
-  opacity: .6;
-  transition: opacity .6s;
+  opacity: 0.6;
+  transition: opacity 0.6s;
   cursor: pointer;
 
   &:hover {
     opacity: 1;
-  }
-
-  &_hidden {
-    display: none;
   }
 }

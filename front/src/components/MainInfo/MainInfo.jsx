@@ -1,12 +1,22 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import styles from './mainInfo.module.scss';
 import Tooltip from '../Tooltip/Tooltip';
 import TooltipDifficultyContent from '../Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
+import PhotoButton from '../PhotoButton/PhotoButton';
 
 const MainInfo = () => {
   const [nameCounter, setNameCounter] = useState(0);
   const [descCounter, setDescCounter] = useState(0);
   const [portion, setPortion] = useState(0);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  // eslint-disable-next-line
+  const onSubmit = (data) => console.log(data);
 
   function nameChange(event) {
     setNameCounter(event.target.value.length);
@@ -25,23 +35,36 @@ const MainInfo = () => {
   }
 
   return (
-    <div className={styles.mainInfo}>
+    <form className={styles.mainInfo} onSubmit={handleSubmit(onSubmit)}>
       <div>
         <h3 className={styles.title}>Название рецепта</h3>
         <div className={styles.wrap}>
           <input
+            {...register('recipe', {
+              required: true,
+              minLength: 2,
+              maxLength: 100,
+              pattern: /^[а-яА-Яa-zA-Z-_ ]+$/,
+            })}
             className={styles.name_input}
             onChange={nameChange}
             type="text"
-            name="recipe"
-            id="recipe"
+            // name="recipe"
+            // id="recipe"
             placeholder="Название вашего блюда"
-            minLength="2"
-            maxLength="100"
-            pattern="^[а-яА-Яa-zA-Z-_ ]+$"
+            // minLength="2"
+            // maxLength="100"
+            // pattern="^[а-яА-Яa-zA-Z-_ ]+$"
             data-error-message="Разрешены только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
-            required
+            // required
           />
+          {errors?.recipe?.type === 'required' && <p>This field is required</p>}
+          {errors?.recipe?.type === 'maxLength' && (
+            <p>First name cannot exceed 20 characters</p>
+          )}
+          {errors?.recipe?.type === 'pattern' && (
+            <p>Alphabetical characters only</p>
+          )}
           <p className={styles.counter}>{nameCounter} / 100</p>
         </div>
       </div>
@@ -99,10 +122,11 @@ const MainInfo = () => {
             <h4 className={styles.totalTime}>Всего</h4>
             <label htmlFor="allhours" className={styles.label}>
               <input
+                {...register('allhours', { required: true, pattern: /[0-23]/ })}
                 type="text"
                 id="allhours"
                 placeholder="0"
-                pattern="[0-23]"
+                // pattern="[0-23]"
                 className={styles.time}
               />
               &nbsp;час(ов)
@@ -179,6 +203,7 @@ const MainInfo = () => {
       </div>
       <div>
         <p className={styles.title}>Фото готового блюда</p>
+        <PhotoButton />
         <p className={styles.fotoReqs}>Требования к фото:</p>
         <ul className={styles.reqlist}>
           <li className={styles.reqlist_item}>
@@ -190,7 +215,8 @@ const MainInfo = () => {
           </li>
         </ul>
       </div>
-    </div>
+      <input type="submit" />
+    </form>
   );
 };
 export default MainInfo;

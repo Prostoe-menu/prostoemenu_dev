@@ -1,13 +1,42 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, createRef } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { Cropper } from 'react-cropper';
+import 'cropperjs/dist/cropper.css';
 import styles from './PhotoButton.module.scss';
 
 const PhotoButton = () => {
   const dropZone = useRef();
   const [files, setFiles] = useState([]);
+  const [cropVis, setCropVis] = useState(false);
+  const [cropData, setCropData] = useState(); // возможно эта переменная не понадобится
+  const cropperRef = createRef();
+  // const onChange = (e) => {
+  //   e.preventDefault();
+  //   let filess;
+  //   if (e.dataTransfer) {
+  //     filess = e.dataTransfer.filess;
+  //   } else if (e.target) {
+  //     filess = e.target.filess;
+  //   }
+  //   const reader = new FileReader();
+  //   reader.onload = () => {
+  //     setImage(reader.result);
+  //   };
+  //   reader.readAsDataURL(filess[0]);
+  // };
+
+  const getCropData = () => {
+    if (typeof cropperRef.current?.cropper !== 'undefined') {
+      setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
+      setCropVis(false);
+    }
+  };
+
+  // DROPZONE
+
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       'image/jpeg': ['.jpeg', '.jpg'],
@@ -19,6 +48,7 @@ const PhotoButton = () => {
     multiple: false,
     // File is OK
     onDropAccepted: (acceptedFiles) => {
+      setCropVis(true);
       setFiles(
         acceptedFiles.map((file) =>
           Object.assign(file, {
@@ -40,8 +70,14 @@ const PhotoButton = () => {
     },
   });
 
+  // if (files.length > 0) {
+  //   console.log(cropData);
+  // }
+
   // Удаляем файлы по клику на кнопку на превью
   const handleClickRemovePhoto = () => {
+    setCropVis(false); // убираем Cropper
+    setCropData(); // сбрасываем стейт обрезанной картинки
     setFiles([]);
     dropZone.current.classList.remove(styles.photo__input_hidden);
   };
@@ -49,21 +85,25 @@ const PhotoButton = () => {
   // Превьюшка
   const thumbs = files.map((file) => (
     <div className={styles.preview__container} key={file.name}>
-      <img
-        className={styles.preview__img}
-        src={file.preview}
-        alt="preview"
-        // Revoke data uri after image is loaded
-        onLoad={() => {
-          URL.revokeObjectURL(file.preview);
-        }}
-      />
-      <button
-        type="button"
-        className={styles.preview__remove}
-        aria-label="Remove image"
-        onClick={handleClickRemovePhoto}
-      />
+      {cropData && (
+        <img
+          className={styles.preview__img}
+          src={cropData}
+          alt="preview"
+          // Revoke data uri after image is loaded
+          onLoad={() => {
+            URL.revokeObjectURL(file.preview);
+          }}
+        />
+      )}
+      {cropData && (
+        <button
+          type="button"
+          className={styles.preview__remove}
+          aria-label="Remove image"
+          onClick={handleClickRemovePhoto}
+        />
+      )}
     </div>
   ));
 
@@ -106,6 +146,30 @@ const PhotoButton = () => {
         </div>
       </section>
       <div className={styles.preview}>{thumbs}</div>
+      {cropVis && (
+        <>
+          {' '}
+          <Cropper
+            ref={cropperRef}
+            style={{ height: 400, width: '100%' }}
+            zoomTo={0.5}
+            initialAspectRatio={4 / 3}
+            // preview=".img-preview"
+            src={files[0].preview}
+            viewMode={1}
+            minCropBoxHeight={10}
+            minCropBoxWidth={10}
+            background={false}
+            responsive
+            autoCropArea={1}
+            checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+            guides
+          />
+          <button type="button" onClick={getCropData}>
+            ОБРЭЗАТ
+          </button>
+        </>
+      )}
     </>
   );
 };

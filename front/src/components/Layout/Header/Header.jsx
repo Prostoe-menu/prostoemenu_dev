@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Style from './Header.module.scss';
 import Logo from '../Logo/Logo';
-import Menu from '../Menu/Menu';
+import Menu from '../../Navigation/Menu/Menu';
 
 const Header = () => {
   const navigation = [

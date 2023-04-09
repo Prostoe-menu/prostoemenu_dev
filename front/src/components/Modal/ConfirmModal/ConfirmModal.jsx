@@ -1,6 +1,6 @@
 import React from 'react';
 import Style from './ConfirmModal.module.scss';
-import Button from '../../Button/Button';
+import Button from '../../UI/Button/Button';
 
 const ConfirmModal = ({ onClickClose }) => (
   <div className={Style.modalContainer}>

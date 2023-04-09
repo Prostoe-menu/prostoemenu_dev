@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Style from './Footer.module.scss';
 import Logo from '../Logo/Logo';
-import Menu from '../Menu/Menu';
+import Menu from '../../Navigation/Menu/Menu';
 
 const Footer = () => {
   const navigation = [

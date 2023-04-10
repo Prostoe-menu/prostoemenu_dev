@@ -1,5 +1,7 @@
 import React from 'react';
 
-const FormPage = () => <div>Здесь будет собрана страница с формой</div>;
+import AddRecipe from '../components/Form/AddRecipe/AddRecipe';
+
+const FormPage = () => <AddRecipe />;
 
 export default FormPage;

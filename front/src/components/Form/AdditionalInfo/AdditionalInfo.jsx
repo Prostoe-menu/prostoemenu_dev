@@ -10,9 +10,6 @@ const AdditionalInfo = () => {
 
   return (
     <section className={styles.additionalInfo}>
-      <h2 className={styles.additionalInfo__header}>
-        Дополнительная информация
-      </h2>
       <div className={styles.additionalInfo__comment}>
         <div className={styles.description}>
           <h3 className={styles.description__subtitle}>Примечание </h3>

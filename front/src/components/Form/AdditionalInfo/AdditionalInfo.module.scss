@@ -1,7 +1,6 @@
 $font-header: 'Biolilbert', sans-serif;
 $font-body: 'Mulish', sans-serif;
 
-
 .additionalInfo {
   display: flex;
   flex-direction: column;
@@ -12,11 +11,10 @@ $font-body: 'Mulish', sans-serif;
   max-width: 574px;
   min-height: 450px;
 
-  border: 1px solid #DBDBDB;
-  border-radius: 20px;
+  // border: 1px solid #DBDBDB;
+  // border-radius: 20px;
 
   color: #232323;
-
 
   &__header {
     margin: 0;
@@ -33,7 +31,6 @@ $font-body: 'Mulish', sans-serif;
     gap: 16px;
     width: 100%;
     max-width: 568px;
-
   }
 
   &__textArea {
@@ -44,10 +41,8 @@ $font-body: 'Mulish', sans-serif;
 
     max-width: 536px;
     height: 136px;
-    border: 1px solid #DBDBDB;
+    border: 1px solid #dbdbdb;
     border-radius: 8px;
-
-
   }
 
   &__textAreaText {
@@ -64,7 +59,6 @@ $font-body: 'Mulish', sans-serif;
   }
 
   &__textAreaCounter {
-
     width: 53px;
     height: 24px;
     font-weight: 300;
@@ -73,7 +67,6 @@ $font-body: 'Mulish', sans-serif;
     color: #818181;
     text-align: right;
   }
-
 }
 
 .description {
@@ -87,15 +80,12 @@ $font-body: 'Mulish', sans-serif;
   max-width: 560px;
   width: 100%;
 
-
   &__subtitle {
     margin: 0;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.5;
   }
-
-
 
   &__text {
     margin: 0;
@@ -107,7 +97,7 @@ $font-body: 'Mulish', sans-serif;
   &__input {
     height: 40px;
     padding: 8px 16px;
-    border: 1px solid #DBDBDB;
+    border: 1px solid #dbdbdb;
     border-radius: 8px;
     box-sizing: border-box;
     font-weight: 300;
@@ -115,12 +105,9 @@ $font-body: 'Mulish', sans-serif;
     line-height: 1.5;
     width: 100%;
   }
-
 }
 
-
 @media screen and (max-width: 576px) {
-
   .additionalInfo {
     gap: 24px;
     border: none;
@@ -133,7 +120,6 @@ $font-body: 'Mulish', sans-serif;
 
     &__comment {
       gap: 12px;
-
     }
   }
 
@@ -145,6 +131,5 @@ $font-body: 'Mulish', sans-serif;
       font-size: 12px;
       line-height: 1.67;
     }
-
   }
 }

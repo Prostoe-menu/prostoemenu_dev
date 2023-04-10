@@ -9,13 +9,12 @@ class UserProfileListCreateView(ListCreateAPIView):
     queryset = Profile.objects.all()
     serializer_class = userProfileSerializer
     permission_classes = [IsAuthenticated]
-
     def perform_create(self, serializer):
         user = self.request.user
         serializer.save(user=user)
 
 
-class userProfileDetailView(RetrieveUpdateDestroyAPIView):
+class UserProfileDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Profile.objects.all()
     serializer_class = userProfileSerializer
     permission_classes = [IsOwnerProfileOrReadOnly, IsAuthenticated]

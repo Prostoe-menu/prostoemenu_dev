@@ -39,7 +39,7 @@
     height: 160px;
     display: flex;
     align-items: stretch;
-    border: 1px solid #DBDBDB;
+    border: 1px solid #dbdbdb;
     border-radius: 8px;
   }
 
@@ -55,11 +55,11 @@
     resize: none;
     box-sizing: border-box;
     cursor: pointer;
-    transition: border-color color .6s .6s;
+    transition: border-color color 0.6s 0.6s;
 
     &:hover {
       border-color: #818181;
-      transition: border-color .6s;
+      transition: border-color 0.6s;
     }
 
     &:focus,
@@ -69,10 +69,10 @@
     }
 
     &_error {
-      border-color: #D14941;
+      border-color: #d14941;
 
-      &+.step__letters-counter {
-        color: #D14941;
+      & + .step__letters-counter {
+        color: #d14941;
       }
     }
 
@@ -82,24 +82,23 @@
     }
 
     &::-webkit-scrollbar-track {
-      background-color: #F7F7F7;
+      background-color: #f7f7f7;
       border-radius: 4px;
-      transition: all .6s;
+      transition: all 0.6s;
 
       &:hover {
-        background-color: #DBDBDB;
+        background-color: #dbdbdb;
       }
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: #DBDBDB;
+      background-color: #dbdbdb;
       border-radius: 4px;
-      transition: all .6s;
+      transition: all 0.6s;
 
       &:hover {
         background-color: #818181;
       }
-
     }
   }
 
@@ -121,9 +120,9 @@
     align-self: center;
     background-color: transparent;
     border: none;
-    background-image: url('../../images/close_btn.svg');
+    background-image: url('../../../images/close_btn.svg');
     cursor: pointer;
-    opacity: .6;
+    opacity: 0.6;
 
     &:hover {
       opacity: 1;

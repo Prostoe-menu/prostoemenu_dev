@@ -1,6 +1,7 @@
 .progress {
   margin: 38px 0 0 72px;
   max-width: 312px;
+  cursor: pointer;
 
   &__list {
     display: flex;
@@ -27,24 +28,24 @@
 
     &_active {
       .progress__round {
-        background-color: #F1B823;
+        background-color: #f1b823;
       }
 
       .progress__text {
         color: #232323;
-        background-color: #FFF2DA;
+        background-color: #fff2da;
       }
     }
 
     &_error {
       .progress__text {
-        color: #D14941;
+        color: #d14941;
       }
     }
 
     &_ective_with_error {
       .progress__text {
-        background-color: #FFD6D3;
+        background-color: #ffd6d3;
       }
     }
   }
@@ -54,7 +55,7 @@
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    border: 2px solid #F1B823;
+    border: 2px solid #f1b823;
 
     &::after {
       content: '';
@@ -63,7 +64,7 @@
       left: 11px;
       width: 2px;
       height: 21px;
-      background-color: #F1B823;
+      background-color: #f1b823;
     }
   }
 

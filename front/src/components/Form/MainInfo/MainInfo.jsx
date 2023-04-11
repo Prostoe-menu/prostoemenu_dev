@@ -6,8 +6,13 @@ import Tooltip from '../Tooltip/Tooltip';
 import TooltipDifficultyContent from '../Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
 import PhotoButton from '../../UI/PhotoButton/PhotoButton';
 import Button from '../../UI/Button/Button';
-import { changeCurrentStage } from '../../../store/slices/form/formSlice';
+import {
+  changeCurrentStage,
+  saveGeneralRecipeInfo,
+} from '../../../store/slices/form/formSlice';
 import styles from './mainInfo.module.scss';
+import { buttons } from '../../../utils/constants';
+import arrowRight from '../../../images/arrow-right.svg';
 
 const MainInfo = () => {
   const [nameCounter, setNameCounter] = useState(0);
@@ -23,6 +28,7 @@ const MainInfo = () => {
   } = useForm();
   // eslint-disable-next-line
   const onSubmit = (data) => {
+    dispatch(saveGeneralRecipeInfo(data));
     dispatch(changeCurrentStage(2));
     window.scrollTo({
       top: 0,
@@ -227,7 +233,11 @@ const MainInfo = () => {
           </li>
         </ul>
       </div>
-      <Button isSubmit>далее</Button>
+      <div className={styles.controls}>
+        <Button btnClassName={buttons.withBorder.yellow} isSubmit>
+          далее <img src={arrowRight} alt="стрелка вправо" />
+        </Button>
+      </div>
     </form>
   );
 };

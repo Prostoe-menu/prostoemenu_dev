@@ -133,3 +133,8 @@ $font-body: 'Mulish', sans-serif;
     }
   }
 }
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+}

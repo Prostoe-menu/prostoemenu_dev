@@ -6,26 +6,28 @@ const Button = ({
   isSubmit,
   children,
   isDisabled,
-  // onClickBtn,
+  onClickBtn,
   ariaLabelText,
-}) => (
-  // const handleClickBtn = (evt) => {
-  //   evt.preventDefault();
-  //   onClickBtn();
-  // };
+}) => {
+  const handleClickBtn = (evt) => {
+    evt.preventDefault();
+    onClickBtn();
+  };
 
-  <button
-    className={`${styles.button} ${styles[btnClassName]}`}
-    type={isSubmit ? 'submit' : 'button'}
-    disabled={isDisabled}
-    // onClick={(evt) => handleClickBtn(evt)}
-    aria-label={ariaLabelText}
-  >
-    {
-      // При создании кнопки сюда пишем текст и если нужно добавляем тег img с иконкой
-      children
-    }
-  </button>
-);
+  return (
+    <button
+      className={`${styles.button} ${styles[btnClassName]}`}
+      type={isSubmit ? 'submit' : 'button'}
+      disabled={isDisabled}
+      onClick={isSubmit ? null : handleClickBtn}
+      aria-label={ariaLabelText}
+    >
+      {
+        // При создании кнопки сюда пишем текст и если нужно добавляем тег img с иконкой
+        children
+      }
+    </button>
+  );
+};
 
 export default Button;

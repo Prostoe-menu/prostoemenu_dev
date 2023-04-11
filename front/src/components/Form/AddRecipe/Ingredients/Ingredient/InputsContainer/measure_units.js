@@ -1,4 +1,4 @@
-const measureInuts = [
+const measureUnits = [
   'г',
   'по вкусу',
   'мл',
@@ -21,4 +21,4 @@ const measureInuts = [
   'штука',
 ];
 
-export default measureInuts;
+export default measureUnits;

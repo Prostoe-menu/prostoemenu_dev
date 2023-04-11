@@ -63,8 +63,8 @@ const InputsContainer = () => {
       >
         <div
           className={`${Style.input} ${Style.input_type_dropdown}`}
-          onClick={() => setOpenUnitDropdown(!openUnitDropdown)}
-          onKeyDown={() => setOpenUnitDropdown(!openUnitDropdown)}
+          onClick={() => setOpenUnitDropdown((prevValue) => !prevValue)}
+          onKeyDown={() => setOpenUnitDropdown((prevValue) => !prevValue)}
           role="button"
           tabIndex="0"
           aria-label="Открыть меню единиц измерения"

@@ -102,6 +102,10 @@
   .button {
     &_bg_yellow {
       width: 260px;
+
+      &:hover {
+        background-color: #F1B823;
+      }
     }
   }
 }
@@ -110,6 +114,10 @@
   .button {
     &_border_grey {
       width: 328px;
+
+      &:hover {
+        background-color: white;
+      }
     }
 
     &_bg_yellow {

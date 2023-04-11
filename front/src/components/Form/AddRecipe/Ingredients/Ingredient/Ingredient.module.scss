@@ -1,0 +1,27 @@
+.content {
+  box-sizing: border-box;
+  width: 100%;
+  border-bottom: 1px solid #DBDBDB;
+  padding: 28px 0 20px 0;
+}
+
+.ingredient {
+  box-sizing: border-box;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+@media screen and (max-width: 576px) {
+  .content {
+    padding: 24px 0 16px 0;
+  }
+
+  .ingredient {
+    align-items: flex-start;
+
+    button {
+      margin-top: 10px;
+    }
+  }
+}

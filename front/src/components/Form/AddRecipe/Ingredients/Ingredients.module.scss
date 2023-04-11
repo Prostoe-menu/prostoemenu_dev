@@ -1,0 +1,53 @@
+.ingredients {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mobileTitle {
+  display: none;
+}
+
+.textContainer {
+  margin-top: 20px;
+}
+
+.text {
+  font-family: 'Mulish', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 20px;
+  margin: 0;
+}
+
+.ingredients__list {
+  box-sizing: border-box;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 28px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}
+
+@media screen and (max-width: 576px) {
+  .ingredients {
+    margin: 0 auto;
+    max-width: 328px;
+  }
+
+  .mobileTitle {
+    display: inline;
+  }
+
+  .textContainer {
+    margin-top: 12px;
+  }
+
+  .ingredients__list {
+    margin-bottom: 24px;
+  }
+}

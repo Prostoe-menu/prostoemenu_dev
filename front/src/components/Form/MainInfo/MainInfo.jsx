@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '../Tooltip/Tooltip';
 import TooltipDifficultyContent from '../Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
 import PhotoButton from '../../UI/PhotoButton/PhotoButton';
@@ -20,14 +20,18 @@ const MainInfo = () => {
   const [portion, setPortion] = useState(0);
 
   const dispatch = useDispatch();
+  const { recipeName } = useSelector((state) => state.form);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: { recipeName },
+  });
   // eslint-disable-next-line
   const onSubmit = (data) => {
+    console.log(data);
     dispatch(saveGeneralRecipeInfo(data));
     dispatch(changeCurrentStage(2));
     window.scrollTo({
@@ -58,7 +62,7 @@ const MainInfo = () => {
         <h3 className={styles.title}>Название рецепта</h3>
         <div className={styles.wrap}>
           <input
-            {...register('recipe', {
+            {...register('recipeName', {
               required: true,
               minLength: 2,
               maxLength: 100,

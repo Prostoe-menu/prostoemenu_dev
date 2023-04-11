@@ -12,31 +12,31 @@
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  transition: background-color .6s;
+  transition: background-color 0.6s;
 
   &_border_yellow {
     width: 160px;
     font-size: 16px;
     line-height: 1.5;
-    border: 1px solid #F1B823;
+    border: 1px solid #f1b823;
 
     img {
       margin-top: 2px;
     }
 
     &:hover {
-      background-color: #FFFAF0;
+      background-color: #fffaf0;
     }
 
     &:active {
-      background-color: #FFF2DA;
+      background-color: #fff2da;
     }
 
     &:disabled,
     &[disabled] {
       color: #818181;
-      background-color: #F6F6F6;
-      border-color: #DBDBDB;
+      background-color: #f6f6f6;
+      border-color: #dbdbdb;
       cursor: default;
     }
   }
@@ -49,48 +49,47 @@
     border: 1px solid #818181;
 
     &:hover {
-      background-color: #F6F6F6;
+      background-color: #f6f6f6;
     }
 
     &:active {
-      background-color: #DBDBDB;
+      background-color: #dbdbdb;
     }
 
     &:disabled,
     &[disabled] {
       color: #818181;
-      background-color: #F6F6F6;
-      border-color: #DBDBDB;
+      background-color: #f6f6f6;
+      border-color: #dbdbdb;
       cursor: default;
     }
-
   }
 
   &_bg_yellow {
     width: 384px;
     font-weight: 700;
     color: #fff;
-    background-color: #F1B823;
+    background-color: #f1b823;
 
     &:hover {
-      background-color: #F4A100;
+      background-color: #f4a100;
     }
 
     &:active {
-      background-color: #F49300;
+      background-color: #f49300;
     }
 
     &:disabled,
     &[disabled] {
       color: #818181;
-      background-color: #DBDBDB;
+      background-color: #dbdbdb;
       cursor: default;
     }
   }
 
-  &[type="submit"] {
-    width: 260px;
-  }
+  // &[type='submit'] {
+  //   width: 260px;
+  // }
 
   img {
     width: 20px;
@@ -116,9 +115,8 @@
       width: 296px;
     }
 
-    &[type="submit"] {
-      width: 329px;
-    }
+    // &[type="submit"] {
+    //   width: 329px;
+    // }
   }
-
 }

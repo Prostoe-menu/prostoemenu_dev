@@ -28,11 +28,13 @@ class RecipeIngredientAlternative(serializers.ModelSerializer):
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
     replacement = serializers.SerializerMethodField()
+    ingredient_name = serializers.CharField(
+        source='ingredient.name')  # Showing name instead of id
 
     class Meta:
         model = RecipeIngredients
         fields = ('ingredient', 'volume', 'measure',
-                  'ingredient', 'replacement')
+                  'ingredient_name', 'replacement')
 
     def get_replacement(self, recipe_instance):
         query_datas = RecipeIngredients.objects.select_related(

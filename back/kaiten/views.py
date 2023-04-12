@@ -64,7 +64,7 @@ class KaitenData(APIView):
     def put(self, request):
         auth_key = os.getenv('KAITEN_TOKEN')
         url = 'https://boyarkin.kaiten.ru/api/latest/cards/?additional_card_fields=description&updated_after=' + \
-            str(datetime.now() - timedelta(minutes=2))
+              str(datetime.now() - timedelta(hours=5))
         r = requests.get(
             url,
             headers={

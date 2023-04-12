@@ -1,18 +1,14 @@
 """
 Аутентификация по токену.
-Все доступные эндпоинты библиотеки Djoser перечислены в документации
+Все доступные эндпоинты:
 https://djoser.readthedocs.io/en/latest/base_endpoints.html
-Сейчас используем только:
-- /users/ - создание пользователя (post)
-- /users/activation/ - активация пользователя (post)
-- /token/login/ - логин (post)
-- /token/logout/ - логаут (post)
-- /users/me/ - профиль пользователя
 """
 
-from django.urls import path, include
+from django.urls import path
+from .views import UserProfileListCreateView, UserProfileDetailView
+
 
 urlpatterns = [
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')),
+    path("all-profiles/", UserProfileListCreateView.as_view(), name="all-profiles"),
+    path("profile/<int:pk>/", UserProfileDetailView.as_view(), name="profile"),
 ]

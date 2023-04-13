@@ -21,4 +21,4 @@ class Profile(models.Model):
         verbose_name_plural = 'Профили'
 
     def __str__(self):
-        return self.user.username + '_profile'
+        return f'{self.user}_profile'

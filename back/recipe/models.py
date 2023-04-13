@@ -1,7 +1,8 @@
-from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.contrib.postgres.indexes import GinIndex
+
+from account.models import Profile
 
 
 class Ingredient(models.Model):
@@ -149,9 +150,10 @@ class Recipe(models.Model):
     is_approved = models.BooleanField(
         default=False, verbose_name='Проверено')
     user = models.ForeignKey(
-        User, null=True,
-        db_column='user',
-        on_delete=models.SET_NULL,
+        Profile,
+        # null=True,
+        # db_column='user',
+        on_delete=models.CASCADE,
         verbose_name='Id автора',
         related_name='recipes')
     ingredient = models.ManyToManyField(
@@ -340,9 +342,9 @@ class IngredientAlternatives(models.Model):
 
     def __str__(self):
         return (
-            self.ingredient.__str__() +
-            " " +
-            self.ingredient_alternative.__str__())
+                self.ingredient.__str__() +
+                " " +
+                self.ingredient_alternative.__str__())
 
     class Meta:
         verbose_name = 'Ингредиент для замены'

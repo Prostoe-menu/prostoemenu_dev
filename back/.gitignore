@@ -131,3 +131,4 @@ dmypy.json
 .pyre/
 
 account/user_credentials.txt
+/.idea/

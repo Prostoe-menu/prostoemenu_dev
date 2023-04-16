@@ -1,22 +1,44 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import styles from './mainInfo.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '../Tooltip/Tooltip';
 import TooltipDifficultyContent from '../Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
-import PhotoButton from '../PhotoButton/PhotoButton';
+import PhotoButton from '../../UI/PhotoButton/PhotoButton';
+import Button from '../../UI/Button/Button';
+import {
+  changeCurrentStage,
+  saveGeneralRecipeInfo,
+} from '../../../store/slices/form/formSlice';
+import styles from './mainInfo.module.scss';
+import { buttons } from '../../../utils/constants';
+import arrowRight from '../../../images/arrow-right.svg';
 
 const MainInfo = () => {
   const [nameCounter, setNameCounter] = useState(0);
   const [descCounter, setDescCounter] = useState(0);
   const [portion, setPortion] = useState(0);
+
+  const dispatch = useDispatch();
+  const { recipeName } = useSelector((state) => state.form);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: { recipeName },
+  });
   // eslint-disable-next-line
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    dispatch(saveGeneralRecipeInfo(data));
+    dispatch(changeCurrentStage(2));
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   function nameChange(event) {
     setNameCounter(event.target.value.length);
@@ -40,7 +62,7 @@ const MainInfo = () => {
         <h3 className={styles.title}>Название рецепта</h3>
         <div className={styles.wrap}>
           <input
-            {...register('recipe', {
+            {...register('recipeName', {
               required: true,
               minLength: 2,
               maxLength: 100,
@@ -215,7 +237,11 @@ const MainInfo = () => {
           </li>
         </ul>
       </div>
-      <input type="submit" />
+      <div className={styles.controls}>
+        <Button btnClassName={buttons.withBorder.yellow} isSubmit>
+          далее <img src={arrowRight} alt="стрелка вправо" />
+        </Button>
+      </div>
     </form>
   );
 };

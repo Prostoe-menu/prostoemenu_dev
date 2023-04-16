@@ -19,7 +19,7 @@ const Button = ({
       className={`${styles.button} ${styles[btnClassName]}`}
       type={isSubmit ? 'submit' : 'button'}
       disabled={isDisabled}
-      onClick={(evt) => handleClickBtn(evt)}
+      onClick={isSubmit ? null : handleClickBtn}
       aria-label={ariaLabelText}
     >
       {

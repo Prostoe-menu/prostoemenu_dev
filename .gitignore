@@ -107,7 +107,7 @@ celerybeat.pid
 .env
 .venv
 env/
-venv/
+back/venv/
 ENV/
 env.bak/
 venv.bak/
@@ -131,3 +131,4 @@ dmypy.json
 .pyre/
 
 account/user_credentials.txt
+/.idea/

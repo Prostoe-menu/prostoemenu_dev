@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.contrib.postgres.indexes import GinIndex
@@ -150,7 +151,7 @@ class Recipe(models.Model):
     is_approved = models.BooleanField(
         default=False, verbose_name='Проверено')
     user = models.ForeignKey(
-        Profile,
+        User,
         null=True,
         db_column='user',
         on_delete=models.SET_NULL,

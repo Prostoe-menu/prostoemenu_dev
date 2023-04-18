@@ -30,7 +30,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
 
+    'rest_framework.authtoken',
     'debug_toolbar',
     'recipe',
     'rest_framework',
@@ -38,7 +40,7 @@ INSTALLED_APPS = [
     'api',
     'kaiten',
     'account',
-    'django.contrib.postgres',
+    'djoser',
 ]
 
 REST_FRAMEWORK = {
@@ -157,3 +159,24 @@ MEDIA_URL = '/media/'
 # INTERNAL_IPS = [
 #     "127.0.0.1"
 # ]
+
+
+DJOSER = {
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_URL': '/password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': '/username/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': '/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'SERIALIZERS': {},
+    'LOGIN_FIELD': 'email',
+}
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+# SMTP
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST_USER = 'prostoemenu2023@yandex.ru'
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = 'prostoemenu2023@yandex.ru'
+EMAIL_PORT = 587

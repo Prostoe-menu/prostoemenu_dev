@@ -121,20 +121,20 @@ class IngredientDetail(APIView):
 
 class IngredientList(APIView):
     def get(self, request):
-        ingredient_prefix = request.query_params.get('ingredient_prefix')
+        ingredient_suffix = request.query_params.get('ingredient_suffix')
         exclude_ingredients = request.query_params.getlist(
             'exclude_ingredients[]')
         category = request.query_params.get('category')
         sort_by_name = request.query_params.get('sort_by_name')
         no_category = request.query_params.get('no_category')
 
-        if ingredient_prefix:
-            if len(ingredient_prefix) < 3:
+        if ingredient_suffix:
+            if len(ingredient_suffix) < 3:
                 return Response(
                     "Length less than 3 characters",
                     status=status.HTTP_400_BAD_REQUEST)
             ingredients = Ingredient.objects.filter(
-                name__icontains=ingredient_prefix).order_by('sort')
+                name__icontains=ingredient_suffix).order_by('sort')
         else:
             ingredients = Ingredient.objects.all()
 

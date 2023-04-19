@@ -95,30 +95,31 @@ WSGI_APPLICATION = 'prostoemenu.wsgi.application'
 #     }
 # }
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'prostoemenu',
+#        'USER': 'postgres',
+#        'PASSWORD': os.getenv('DB_pass'),  # Добавьте свои данные для БД
+#        'HOST': '127.0.0.1',
+#        'PORT': '5432',
+#    }
+#}
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'prostoemenu',
-        'USER': 'postgres',
-        'PASSWORD': os.getenv('DB_pass'),  # Добавьте свои данные для БД
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
+  'default': {
+      'ENGINE': os.getenv(
+          'DB_ENGINE', default='django.db.backends.postgresql'
+      ),
+      'NAME': os.getenv('DB_NAME', default='prostoemenu'),
+      'USER': os.getenv('POSTGRES_USER', default='postgres'),
+      'PASSWORD': os.getenv('POSTGRES_PASSWORD', default=''),
+      'HOST': os.getenv('DB_HOST', default='db'),
+      'PORT': os.getenv('DB_PORT', default='5432')
+  }
 }
 
-
-# DATABASES = {
-#   'default': {
-#       'ENGINE': os.getenv(
-#           'DB_ENGINE', default='django.db.backends.postgresql'
-#       ),
-#       'NAME': os.getenv('DB_NAME', default='prostoemenu'),
-#       'USER': os.getenv('POSTGRES_USER', default='postgres'),
-#       'PASSWORD': os.getenv('POSTGRES_PASSWORD', default=''),
-#       'HOST': os.getenv('DB_HOST', default='db'),
-#       'PORT': os.getenv('DB_PORT', default='5432')
-#   }
-#
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -167,9 +168,9 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
 # URL used to access the media
 MEDIA_URL = '/media/'
 
-INTERNAL_IPS = [
-    "127.0.0.1"
-]
+#INTERNAL_IPS = [
+#    "127.0.0.1"
+#]
 
 
 DJOSER = {

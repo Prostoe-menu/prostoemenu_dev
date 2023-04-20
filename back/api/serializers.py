@@ -10,10 +10,16 @@ from django.db import IntegrityError
 from rest_framework.exceptions import APIException
 
 
-class IngredientSerializer(serializers.ModelSerializer):
+class IngredientSerializerAllFields(serializers.ModelSerializer):
     class Meta:
         model = Ingredient
         fields = '__all__'
+
+
+class IngredientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ingredient
+        fields = ('id', 'name', 'sort')
 
 
 class RecipeIngredientAlternative(serializers.ModelSerializer):
@@ -83,6 +89,8 @@ class RecipeDisplaySerializer(serializers.ModelSerializer):
                   'ingredients',
                   'steps',
                   'photos']
+
+        read_only_fields = fields
 
     def get_ingredients(self, recipe_instance):
         query_datas = RecipeIngredients.objects.select_related(
@@ -207,6 +215,7 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
                             'replacement')['ingredient_alternative_volume'],
                         ingredient_alternative_measure=ingredient_data.get(
                             'replacement')['ingredient_alternative_measure'])
+
             for step_data in steps_data:
                 step_to_add = Step.objects.create(
                     step_number=step_data.get('step_number'),

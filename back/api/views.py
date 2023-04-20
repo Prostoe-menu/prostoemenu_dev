@@ -9,8 +9,8 @@ from rest_framework.settings import api_settings
 from recipe.models import Recipe, Ingredient, Measurement
 from .serializers import (RecipeDisplaySerializer,
                           RecipeCreateSerializer,
-                          IngredientSerializer,
-                          MeasurementSerializer)
+                          IngredientSerializerAllFields,
+                          MeasurementSerializer, IngredientSerializer)
 from rest_framework.response import Response
 
 
@@ -30,28 +30,25 @@ class RecipeList(APIView):
         exclude_ingredients = request.query_params.getlist(
             'exclude_ingredients[]')
 
+        recipes = Recipe.objects.prefetch_related('ingredient__ingredient',
+                                                  'recipesteps_set__step',
+                                                  'recipephotos_set')
         if ingredients_search:
-            recipes = Recipe.objects.prefetch_related('recipeingredients_set__ingredient__ingredients').filter(
-                ingredient__name__trigram_similar=ingredients_search[0])
-
             for ingredient in ingredients_search:
-                recipes |= Recipe.objects.prefetch_related('recipeingredients_set__ingredient__ingredients').filter(
-                    ingredient__name__trigram_similar=ingredient)
+                recipes |= Recipe.objects.filter(
+                    ingredient__name__icontains=ingredient)
             recipes = recipes.annotate(
                 num_occurences=Count(
                     reduce(
                         or_, (Q(
-                            ingredient__name__trigram_similar=ingredient) for ingredient in ingredients_search)))).order_by('-num_occurences')
+                            ingredient__name__icontains=ingredient) for ingredient in ingredients_search)))).order_by('-num_occurences')
 
         elif strong_ingredients_search:
-            recipes = Recipe.objects.prefetch_related('recipeingredients_set__ingredient__ingredients').filter(
-                ingredient__name__trigram_similar=strong_ingredients_search[0])
-
             for ingredient in strong_ingredients_search:
-                recipes &= Recipe.objects.prefetch_related('recipeingredients_set__ingredient__ingredients').filter(
-                    ingredient__name__trigram_similar=ingredient)
+                recipes &= Recipe.objects.filter(
+                    ingredient__name__icontains=ingredient)
         else:
-            recipes = Recipe.objects.prefetch_related('ingredient').all()
+            recipes = Recipe.objects.all()
 
         if name_description_search:
             recipes = recipes.filter(Q(description__icontains=name_description_search) |
@@ -67,20 +64,15 @@ class RecipeList(APIView):
         if cooking_time:
             recipes = recipes.filter(cooking_time=cooking_time)
         if exclude_ingredients:
-            exclude_recipes = Recipe.objects.prefetch_related('recipeingredients_set__ingredient__ingredients').filter(
-                ingredient__name__contains=exclude_ingredients[0]).values('name')
-
-            for exclude in exclude_ingredients:
-                exclude_recipes |= Recipe.objects.prefetch_related('recipeingredients_set__ingredient__ingredients'). \
-                    filter(ingredient__name__trigram_similar=exclude).values('name')
             recipes = recipes.exclude(
                 reduce(
                     or_, (Q(
-                        ingredient__name__trigram_similar=exclude) for exclude in exclude_ingredients)))
+                        ingredient__name__icontains=exclude) for exclude in exclude_ingredients)))
 
         pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
         paginator = pagination_class()
         page = paginator.paginate_queryset(recipes, request, view=self)
+
         serializer = RecipeDisplaySerializer(page, many=True)
 
         return paginator.get_paginated_response(serializer.data)
@@ -121,27 +113,50 @@ class IngredientDetail(APIView):
         ingredient_obj = get_object_or_404(Ingredient, id=id)
         if ingredient_obj:
             ingredient = Ingredient.objects.get(id=id)
-            serializer = IngredientSerializer(ingredient)
+            serializer = IngredientSerializerAllFields(ingredient)
             return Response(serializer.data, status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class IngredientList(APIView):
-    def get(self, request, prefix):
-        if len(prefix) < 3:
-            return Response(
-                "Length less than 3 characters",
-                status=status.HTTP_400_BAD_REQUEST)
+    def get(self, request):
+        ingredient_suffix = request.query_params.get('ingredient_suffix')
+        exclude_ingredients = request.query_params.getlist(
+            'exclude_ingredients[]')
+        category = request.query_params.get('category')
+        sort_by_name = request.query_params.get('sort_by_name')
+        no_category = request.query_params.get('no_category')
 
-        ingredients = Ingredient.objects.filter(
-            name__trigram_similar=prefix).distinct().order_by('name')
+        if ingredient_suffix:
+            if len(ingredient_suffix) < 3:
+                return Response(
+                    "Length less than 3 characters",
+                    status=status.HTTP_400_BAD_REQUEST)
+            ingredients = Ingredient.objects.filter(
+                name__icontains=ingredient_suffix).order_by('sort')
+        else:
+            ingredients = Ingredient.objects.all()
+
+        if exclude_ingredients:
+            ingredients = ingredients.exclude(
+                reduce(or_, (Q(
+                    name=exclude) for exclude in exclude_ingredients)))
+        if category:
+            ingredients = ingredients.filter(category=category)
+        if sort_by_name == 'true':
+            ingredients = ingredients.order_by('name')
+        if no_category is None:
+            ingredients = ingredients.exclude(sort=10)
 
         pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
         paginator = pagination_class()
-
         page = paginator.paginate_queryset(ingredients, request, view=self)
-        serializer = IngredientSerializer(page, many=True)
+
+        if no_category:
+            serializer = IngredientSerializer(page, many=True)
+        else:
+            serializer = IngredientSerializerAllFields(page, many=True)
 
         return paginator.get_paginated_response(serializer.data)
 

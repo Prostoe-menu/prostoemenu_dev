@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+
+
 User = get_user_model()
 
 
@@ -19,4 +21,4 @@ class Profile(models.Model):
         verbose_name_plural = 'Профили'
 
     def __str__(self):
-        return self.user.username + '_profile'
+        return f'{self.user.username}_profile'

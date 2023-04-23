@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile
+from .models import Profile, ActivationCode
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -14,4 +14,14 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'region',
             'city',
             'photo',
+        )
+
+class ActivationCodeSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = ActivationCode
+        fields = (
+            'user',
+            'code',
         )

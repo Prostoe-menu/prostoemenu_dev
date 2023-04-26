@@ -11,5 +11,5 @@ from .views import UserProfileListCreateView, UserProfileDetailView, UserActivat
 urlpatterns = [
     path("all-profiles/", UserProfileListCreateView.as_view(), name="all-profiles"),
     path("profile/<int:pk>/", UserProfileDetailView.as_view(), name="profile"),
-    path("user-activation/<str:username>/", UserActivationView.as_view(), name="user-activation"),
+    path("user-activation/<int:pk>/", UserActivationView.as_view(), name="user-activation"),
 ]

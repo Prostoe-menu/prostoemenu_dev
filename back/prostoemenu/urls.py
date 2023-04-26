@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('recipe.urls')),
     path('api/', include('api.urls')),
     path('api/', include('kaiten.urls')),
+    path('account/', include('account.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

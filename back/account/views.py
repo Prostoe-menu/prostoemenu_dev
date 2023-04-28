@@ -1,11 +1,12 @@
-from requests import Response
 from rest_framework import status
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from .models import Profile, ActivationCode
-from .serializers import UserProfileSerializer, UserSerializer
+from .serializers import UserProfileSerializer, UserSerializer, ActivationCodeSerializer
 from .permission import IsOwnerProfileOrReadOnly
 from django.contrib.auth import get_user_model
+from rest_framework.decorators import APIView
 
 User = get_user_model()
 
@@ -29,22 +30,30 @@ class UserProfileDetailView(RetrieveUpdateDestroyAPIView):
 class UserActivationView(UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-  #  lookup_field = 'username'
-  #   def update(self):
-  #       # instance = self.get_object()
-  #       # serializer = self.get_serializer(instance, data=request.data, partial=True)
-  #       User.objects.raw('UPDATE auth_user SET is_active = True WHERE username = "brandon"')
-  #       return Response(status.HTTP_200_OK)
-  #       # if serializer.is_valid():
-  #       #     instance['is_active'] = True
-  #       #     User.objects.raw('UPDATE auth_user SET is_active = True WHERE username = "brandon"')
-  #       #     #serializer.save()
-  #       #     return Response({"message": "User activated"})
-  #       # else:
-  #       #     return Response({"message": "failed", "details": serializer.errors})
-  #       # username = request.query_params.get('username')
-  #       # User.objects.raw('UPDATE auth_user SET is_active = True WHERE username = {username}')
-  #
-  #       # code = self.request.data["code"]
-  #       # user_id = User.objects.filter(username=username)
-  #       # print('User_id', {user_id})
+
+
+class CheckCode(APIView):
+    def get(self, request):
+        username = request.query_params.get('username')
+        entered_code = request.query_params.get('activ_code')
+
+        users = User.objects.all()
+        user = users.filter(username=username)
+        if len(user) is 0:
+            context = {'result': False, 'message': 'User does not exist', 'user_pk': None}
+            return Response(context, status=status.HTTP_400_BAD_REQUEST)
+        user_serializer = UserSerializer(user, many=True)
+        user_pk = user_serializer.data[0]['pk']
+
+        activation_codes = ActivationCode.objects.all()
+        activation_code = activation_codes.filter(user=user_pk)
+        activation_code_serializer = ActivationCodeSerializer(activation_code, many=True)
+
+        if entered_code == activation_code_serializer.data[0]['code']:
+            context = {'result': True, 'message': 'Code is correct', 'user_pk': user_pk}
+            return Response(context, status=status.HTTP_200_OK)
+        else:
+            context = {'result': False, 'message': 'Code is incorrect', 'user_pk': None}
+            return Response(context, status=status.HTTP_400_BAD_REQUEST)
+
+

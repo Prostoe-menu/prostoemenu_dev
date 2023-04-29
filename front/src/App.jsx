@@ -6,6 +6,7 @@ import AddRecipe from './components/Form/AddRecipe/AddRecipe';
 import Footer from './components/Layout/Footer/Footer';
 // import Toast from '../Toast/Toast';
 import Modal from './components/Modal/Modal';
+import ToastNotifications from './components/Toast/ToastNotifications';
 
 const App = () => (
   <div className={Style.app}>
@@ -16,6 +17,7 @@ const App = () => (
     {/* <Toast>Какая-то ошибка</Toast> */}
     <Modal />
     <Footer />
+    <ToastNotifications />
   </div>
 );
 

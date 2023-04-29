@@ -31,7 +31,6 @@ const MainInfo = () => {
   });
   // eslint-disable-next-line
   const onSubmit = (data) => {
-    console.log(data);
     dispatch(saveGeneralRecipeInfo(data));
     dispatch(changeCurrentStage(2));
     window.scrollTo({

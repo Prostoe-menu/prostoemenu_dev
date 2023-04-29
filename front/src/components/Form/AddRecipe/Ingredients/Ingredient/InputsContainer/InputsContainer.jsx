@@ -1,43 +1,86 @@
 import React, { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Style from './InputsContainer.module.scss';
+import { useDispatch } from 'react-redux';
 import measureInuts from './measure_units';
-import ingredients from './ingredients';
 
-const InputsContainer = () => {
-  const [selectedUnit, setSelectedUnit] = useState('г');
+import getIngredients from '../../../../../../helpers/getIngredients';
+import useAsync from '../../../../../../hooks/useAsync';
+import {
+  saveIngredient,
+  changeIngredientVolume,
+  changeIngredientMeasureUnits,
+} from '../../../../../../store/slices/form/formSlice';
+import Style from './InputsContainer.module.scss';
+
+const InputsContainer = ({ ingredientData }) => {
+  const [query, setQuery] = useState(ingredientData.name || '');
+
+  const dispatch = useDispatch();
+
+  const { value: ingredients } = useAsync(getIngredients, query, true, 1000);
+
   const [openIngredientDropdown, setOpenIngredientDropdown] = useState(false);
   const [openUnitDropdown, setOpenUnitDropdown] = useState(false);
 
-  const chooseIngredient = () => {
+  const chooseIngredient = (ingredient) => {
     setOpenIngredientDropdown(false);
+    setQuery(ingredient.name);
+    dispatch(
+      saveIngredient({ id: ingredientData.elementID, name: ingredient.name })
+    );
   };
 
-  const chooseUnit = (unit) => {
-    setSelectedUnit(unit);
+  const chooseUnit = (measureUnit) => {
+    dispatch(
+      changeIngredientMeasureUnits({
+        measureUnit,
+        id: ingredientData.elementID,
+      })
+    );
     setOpenUnitDropdown(false);
   };
+
+  const handleNameInput = (e) => {
+    setQuery(e.target.value);
+
+    // eslint-disable-next-line no-unused-expressions
+    query.length >= 2
+      ? setOpenIngredientDropdown(true)
+      : setOpenIngredientDropdown(false);
+  };
+
+  const handleVolumeInput = (e) => {
+    dispatch(
+      changeIngredientVolume({
+        volume: parseInt(e.target.value, 10)
+          ? parseInt(e.target.value, 10)
+          : '',
+        id: ingredientData.elementID,
+      })
+    );
+  };
+
   return (
     <div className={Style.container}>
       <div className={`${Style.dropdownMenu} ${Style.dropdownMenu_type_name}`}>
-        {/* will be updated after api is received */}
         <input
           className={`${Style.input} ${Style.input_type_name}`}
           name="ingredientName"
           placeholder="Начните вводить название"
-          // onChange={() => setOpenIngredientDropdown(true)}
+          onChange={handleNameInput}
           autoComplete="off"
+          value={query}
         />
         <ul
           className={`${Style.dropdownMenu__options} ${
             Style.dropdownMenu__options_type_ingredients
           } ${openIngredientDropdown && Style.dropdownMenu__options_visible}`}
         >
-          {ingredients.map((ingredient) => (
-            <li className={Style.dropdownMenu__option}>
+          {ingredients?.map((ingredient) => (
+            <li className={Style.dropdownMenu__option} key={ingredient.id}>
               <div
-                onClick={() => chooseIngredient(ingredient)}
-                onKeyDown={() => chooseIngredient(ingredient)}
+                onClick={chooseIngredient.bind(null, ingredient)}
+                onKeyDown={chooseIngredient.bind(null, ingredient)}
                 role="button"
                 tabIndex="0"
                 aria-label="Выбрать ингредиент"
@@ -45,7 +88,7 @@ const InputsContainer = () => {
                   width: '100%',
                 }}
               >
-                {ingredient}
+                {ingredient.name}
               </div>
             </li>
           ))}
@@ -54,9 +97,12 @@ const InputsContainer = () => {
       <input
         className={`${Style.input} ${Style.input_type_quantity}`}
         name="ingredientQuantity"
-        type="number"
+        type="text"
+        pattern="[0-9]*"
         placeholder="0"
         autoComplete="off"
+        onChange={handleVolumeInput}
+        value={ingredientData.volume}
       />
       <div
         className={`${Style.dropdownMenu} ${Style.dropdownMenu_type_measureInuts}`}
@@ -69,7 +115,7 @@ const InputsContainer = () => {
           tabIndex="0"
           aria-label="Открыть меню единиц измерения"
         >
-          <span>{selectedUnit}</span>
+          <span>{ingredientData.measure}</span>
           <ExpandMoreIcon
             style={{
               color: '#818181',

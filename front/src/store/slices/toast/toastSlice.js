@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidV4 } from 'uuid';
 
+//   notification schema
+//   {id: number, message:string}
+
 const initialState = {
-  notifications: [
-    { id: 1, message: 'hello' },
-    { id: 2, message: 'bye' },
-    { id: 3, message: 'welcome' },
-  ],
+  notifications: [],
 };
 
 const toastSlice = createSlice({

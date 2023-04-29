@@ -5,10 +5,10 @@ import postRecipe from './formThunk';
 const initialState = {
   currentFormStage: 1,
   recipeName: null,
-  recipeDifficulty: null,
-  servingsNumber: 0,
+  recipeComplexity: null,
+  servings: 0,
   cookingTime: 0,
-  timeAtStove: 0,
+  ovenTime: 0,
   description: null,
   finishedPhoto: null,
   ingredients: [{ elementID: uuidV4(), name: '', volume: '', measure: 'г' }],

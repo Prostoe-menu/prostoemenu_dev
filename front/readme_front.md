@@ -1,1 +1,10 @@
-Keep your frontend files here.
+### Как поднять проект локально
+
+1. `cd front`
+2. `npm install`
+3. создать файл .env
+4. `npm start`
+
+### Что указать в файле .env
+
+1.  REACT_APP_API_URL='http://0.0.0.0:8000/api' заменить нули на корректные цифры

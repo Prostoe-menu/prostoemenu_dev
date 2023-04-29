@@ -9,6 +9,7 @@ urlpatterns = [
     path('api/', include('api.urls')),
     path('api/', include('kaiten.urls')),
     path('account/', include('account.urls')),
+    path('auth/', include('djoser.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

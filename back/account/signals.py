@@ -3,6 +3,8 @@ from .models import Profile, ActivationCode
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 
+from .scripts import send_email
+
 User = get_user_model()
 
 
@@ -18,8 +20,10 @@ def create_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
         ActivationCode.objects.create(user=instance)
 
+        activation_code = ActivationCode.objects.get(user=instance.pk).code
+        send_email(instance, activation_code)
+
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
-

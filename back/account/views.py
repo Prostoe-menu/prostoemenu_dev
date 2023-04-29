@@ -39,7 +39,7 @@ class CheckCode(APIView):
 
         users = User.objects.all()
         user = users.filter(username=username)
-        if len(user) is 0:
+        if len(user) == 0:
             context = {'result': False, 'message': 'User does not exist', 'user_pk': None}
             return Response(context, status=status.HTTP_400_BAD_REQUEST)
         user_serializer = UserSerializer(user, many=True)
@@ -55,5 +55,3 @@ class CheckCode(APIView):
         else:
             context = {'result': False, 'message': 'Code is incorrect', 'user_pk': None}
             return Response(context, status=status.HTTP_400_BAD_REQUEST)
-
-

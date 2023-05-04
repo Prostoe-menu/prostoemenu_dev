@@ -79,8 +79,8 @@ const InputsContainer = ({ ingredientData }) => {
           {ingredients?.map((ingredient) => (
             <li className={Style.dropdownMenu__option} key={ingredient.id}>
               <div
-                onClick={chooseIngredient.bind(null, ingredient)}
-                onKeyDown={chooseIngredient.bind(null, ingredient)}
+                onClick={() => chooseIngredient(ingredient)}
+                onKeyDown={() => chooseIngredient(ingredient)}
                 role="button"
                 tabIndex="0"
                 aria-label="Выбрать ингредиент"

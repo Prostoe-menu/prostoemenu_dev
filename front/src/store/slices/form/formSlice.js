@@ -45,64 +45,64 @@ const formSlice = createSlice({
       state.cookingSteps = action.payload;
     },
     addEmptyIngredient: (state) => {
-      const updatedIngredints = [...state.ingredients];
+      const updatedIngredients = [...state.ingredients];
       const emptyIngredient = {
         elementID: uuidV4(),
         name: '',
         volume: '',
         measure: 'г',
       };
-      updatedIngredints.push(emptyIngredient);
-      state.ingredients = updatedIngredints;
+      updatedIngredients.push(emptyIngredient);
+      state.ingredients = updatedIngredients;
     },
     deleteIngredient: (state, action) => {
-      const updatedIngredints = state.ingredients.filter(
+      const updatedIngredients = state.ingredients.filter(
         (ingredient) => ingredient.elementID !== action.payload
       );
-      state.ingredients = updatedIngredints;
+      state.ingredients = updatedIngredients;
     },
 
     saveIngredient: (state, action) => {
-      const updatedIngredints = [...state.ingredients];
-      const ingredientIndex = updatedIngredints.findIndex(
+      const updatedIngredients = [...state.ingredients];
+      const ingredientIndex = updatedIngredients.findIndex(
         (item) => item.elementID === action.payload.id
       );
-      const storedIngredient = updatedIngredints[ingredientIndex];
+      const storedIngredient = updatedIngredients[ingredientIndex];
 
-      updatedIngredints[ingredientIndex] = {
+      updatedIngredients[ingredientIndex] = {
         ...storedIngredient,
         name: action.payload.name,
         ingredientID: action.payload.id,
       };
 
-      state.ingredients = updatedIngredints;
+      state.ingredients = updatedIngredients;
     },
     changeIngredientVolume: (state, action) => {
-      const updatedIngredints = [...state.ingredients];
-      const ingredientIndex = updatedIngredints.findIndex(
+      const updatedIngredients = [...state.ingredients];
+      const ingredientIndex = updatedIngredients.findIndex(
         (item) => item.elementID === action.payload.id
       );
-      const storedIngredient = updatedIngredints[ingredientIndex];
-      updatedIngredints[ingredientIndex] = {
+      const storedIngredient = updatedIngredients[ingredientIndex];
+      updatedIngredients[ingredientIndex] = {
         ...storedIngredient,
         volume: action.payload.volume,
       };
 
-      state.ingredients = updatedIngredints;
+      state.ingredients = updatedIngredients;
     },
 
     changeIngredientMeasureUnits: (state, action) => {
-      const updatedIngredints = [...state.ingredients];
-      const ingredientIndex = updatedIngredints.findIndex(
+      const updatedIngredients = [...state.ingredients];
+      const ingredientIndex = updatedIngredients.findIndex(
         (item) => item.elementID === action.payload.id
       );
-      const storedIngredient = updatedIngredints[ingredientIndex];
-      updatedIngredints[ingredientIndex] = {
+      const storedIngredient = updatedIngredients[ingredientIndex];
+      updatedIngredients[ingredientIndex] = {
         ...storedIngredient,
         measure: action.payload.measureUnit,
       };
 
-      state.ingredients = updatedIngredints;
+      state.ingredients = updatedIngredients;
     },
 
     saveAllIngredients: (state) => {

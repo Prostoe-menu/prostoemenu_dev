@@ -19,3 +19,6 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+
+export const getStoreWithState = (preloadedState) =>
+  configureStore({ reducer: rootReducer, preloadedState });

@@ -17,7 +17,11 @@ const Toast = ({ children, id }) => {
     <div className={styles.container}>
       <p className={styles.text}>{children}</p>
       <div className={styles.close}>
-        <button type="button" aria-label="close button" onClick={closeToast} />
+        <button
+          type="button"
+          aria-label="закрыть всплывающее окно"
+          onClick={closeToast}
+        />
       </div>
     </div>
   );

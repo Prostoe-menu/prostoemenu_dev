@@ -26,7 +26,10 @@ export const filledTestFormState = {
   ovenTime: 0,
   description: null,
   finishedPhoto: null,
-  ingredients: [{ elementID: 1, name: '', volume: '', measure: 'г' }],
+  ingredients: [
+    { elementID: 1, name: 'Свекла', volume: '2', measure: 'кг' },
+    { elementID: 1, name: 'Капуста белокачанная', volume: '1', measure: 'кг' },
+  ],
   cookingSteps: [],
   comment: null,
   author: null,

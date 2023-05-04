@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidV4 } from 'uuid';
 import Ingredient from './Ingredient/Ingredient';
 // import RecipeTitle from '../../RecipeTitle/RecipeTitle';
 import Button from '../../../UI/Button/Button';
 import addIcon from '../../../../images/add.svg';
-import { buttons } from '../../../../utils/constants';
+import { buttons, defaultMeasureUnits } from '../../../../utils/constants';
 import arrowRight from '../../../../images/arrow-right.svg';
 import arrowLeft from '../../../../images/arrow-left.svg';
+
 import {
   addEmptyIngredient,
   changeCurrentStage,
@@ -14,10 +16,12 @@ import {
 } from '../../../../store/slices/form/formSlice';
 import Style from './Ingredients.module.scss';
 
-// import getMeasurments from '../../../../helpers/getMeasurements';
+import getMeasurements from '../../../../helpers/getMeasurements';
 
 const Ingredients = () => {
   const { ingredients } = useSelector((state) => state.form);
+
+  const [measureUnits, setMeasureUnits] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -43,9 +47,19 @@ const Ingredients = () => {
     dispatch(addEmptyIngredient());
   };
 
-  // useEffect(() => {
-  //   getMeasurments().then((data) => console.log(data));
-  // }, []);
+  useEffect(() => {
+    getMeasurements()
+      .then((data) => {
+        const mappedData = data.map((item) => ({
+          id: uuidV4(),
+          unitName: item.abbreviation,
+        }));
+
+        return setMeasureUnits(mappedData);
+      })
+      // fallback case
+      .catch(() => setMeasureUnits(defaultMeasureUnits));
+  }, []);
 
   return (
     <form onSubmit={onSubmit}>
@@ -62,6 +76,7 @@ const Ingredients = () => {
           {ingredients.map((ingredient) => (
             <li key={ingredient.elementID}>
               <Ingredient
+                measureUnits={measureUnits}
                 ingredientData={ingredient}
                 hideButton={ingredients.length <= 1}
               />

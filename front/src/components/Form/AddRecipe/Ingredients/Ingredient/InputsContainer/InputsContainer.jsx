@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDispatch } from 'react-redux';
-import measureInuts from './measure_units';
 
 import getIngredients from '../../../../../../helpers/getIngredients';
 import useAsync from '../../../../../../hooks/useAsync';
@@ -12,7 +11,7 @@ import {
 } from '../../../../../../store/slices/form/formSlice';
 import Style from './InputsContainer.module.scss';
 
-const InputsContainer = ({ ingredientData }) => {
+const InputsContainer = ({ ingredientData, measureUnits }) => {
   const [query, setQuery] = useState(ingredientData.name || '');
 
   const dispatch = useDispatch();
@@ -129,11 +128,11 @@ const InputsContainer = ({ ingredientData }) => {
             Style.dropdownMenu__options_type_measureUnits
           } ${openUnitDropdown && Style.dropdownMenu__options_visible}`}
         >
-          {measureInuts.map((item) => (
-            <li className={Style.dropdownMenu__option}>
+          {measureUnits?.map((item) => (
+            <li className={Style.dropdownMenu__option} key={item.id}>
               <div
-                onClick={() => chooseUnit(item)}
-                onKeyDown={() => chooseUnit(item)}
+                onClick={() => chooseUnit(item.unitName)}
+                onKeyDown={() => chooseUnit(item.unitName)}
                 role="button"
                 tabIndex="0"
                 aria-label="Выбрать единицу измерения"
@@ -141,7 +140,7 @@ const InputsContainer = ({ ingredientData }) => {
                   width: '100%',
                 }}
               >
-                {item}
+                {item.unitName}
               </div>
             </li>
           ))}

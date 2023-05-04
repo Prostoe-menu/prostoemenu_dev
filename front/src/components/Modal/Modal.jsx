@@ -4,7 +4,7 @@ import Style from './Modal.module.scss';
 import CloseButton from '../UI/CloseButton/CloseButton';
 import ConfirmModal from './ConfirmModal/ConfirmModal';
 
-const Modal = (children) => {
+const Modal = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const closeModal = () => setIsModalOpen(false);
 

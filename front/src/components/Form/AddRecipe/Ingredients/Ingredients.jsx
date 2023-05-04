@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
-import { useDispatch } from 'react-redux';
 import Ingredient from './Ingredient/Ingredient';
 // import RecipeTitle from '../../RecipeTitle/RecipeTitle';
 import Button from '../../../UI/Button/Button';
 import addIcon from '../../../../images/add.svg';
-import { buttons } from '../../../../utils/constants';
+import { buttons, defaultMeasureUnits } from '../../../../utils/constants';
 import arrowRight from '../../../../images/arrow-right.svg';
 import arrowLeft from '../../../../images/arrow-left.svg';
+
 import {
-  // saveGeneralRecipeInfo,
+  addEmptyIngredient,
   changeCurrentStage,
+  saveAllIngredients,
 } from '../../../../store/slices/form/formSlice';
 import Style from './Ingredients.module.scss';
 
+import getMeasurements from '../../../../helpers/getMeasurements';
+
 const Ingredients = () => {
-  const [ingredients, setIngredients] = useState([{ ingredient: '' }]);
-  const addIngredient = () => {
-    setIngredients([...ingredients, { id: uuidV4() }]);
-  };
-  const deleteIngredient = (id) => {
-    setIngredients(ingredients.filter((ingredient) => ingredient.id !== id));
-  };
+  const { ingredients } = useSelector((state) => state.form);
+
+  const [measureUnits, setMeasureUnits] = useState([]);
 
   const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // dispatch(saveGeneralRecipeInfo(data));
+    dispatch(saveAllIngredients());
     dispatch(changeCurrentStage(3));
     window.scrollTo({
       top: 0,
@@ -43,6 +43,24 @@ const Ingredients = () => {
     });
   };
 
+  const addEmptyInput = () => {
+    dispatch(addEmptyIngredient());
+  };
+
+  useEffect(() => {
+    getMeasurements()
+      .then((data) => {
+        const mappedData = data.map((item) => ({
+          id: uuidV4(),
+          unitName: item.abbreviation,
+        }));
+
+        return setMeasureUnits(mappedData);
+      })
+      // fallback case
+      .catch(() => setMeasureUnits(defaultMeasureUnits));
+  }, []);
+
   return (
     <form onSubmit={onSubmit}>
       <section className={Style.ingredients}>
@@ -56,10 +74,11 @@ const Ingredients = () => {
         </div>
         <ul className={Style.ingredients__list}>
           {ingredients.map((ingredient) => (
-            <li key={ingredient.id}>
+            <li key={ingredient.elementID}>
               <Ingredient
+                measureUnits={measureUnits}
+                ingredientData={ingredient}
                 hideButton={ingredients.length <= 1}
-                deleteIngredient={() => deleteIngredient(ingredient.id)}
               />
             </li>
           ))}
@@ -68,7 +87,7 @@ const Ingredients = () => {
           btnClassName="button_border_grey"
           isSubmit={false}
           isDisabled={false}
-          onClickBtn={addIngredient}
+          onClickBtn={addEmptyInput}
           ariaLabelText="Добавить ингредиент"
         >
           <img className={Style.icon} src={addIcon} alt="Иконка 'плюсик'" />

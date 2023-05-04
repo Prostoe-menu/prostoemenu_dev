@@ -189,7 +189,6 @@
 
 .wrap_count {
   display: flex;
-
 }
 
 .wrap_totalTime {
@@ -346,4 +345,9 @@
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+.controls {
+  display: flex;
+  justify-content: end;
 }

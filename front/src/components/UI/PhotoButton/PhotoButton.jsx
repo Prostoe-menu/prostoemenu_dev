@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect, useState, useRef, createRef } from 'react';
+// eslint-disable-next-line import/no-unresolved
 import { useDropzone } from 'react-dropzone';
 import { Cropper } from 'react-cropper';
 import 'cropperjs/dist/cropper.css';

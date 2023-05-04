@@ -14,20 +14,20 @@
     font-weight: 700;
     line-height: 1.5;
     color: #818181;
-    background-color: #F6F6F6;
+    background-color: #f6f6f6;
     box-sizing: border-box;
     border-radius: 12px;
-    transition: border .8s;
+    transition: border 0.8s;
     cursor: pointer;
-    border: 1px solid #F6F6F6;
+    border: 1px solid #f6f6f6;
 
     &:hover,
     &_on-focus {
-      border: 1px solid #DBDBDB;
+      border: 1px solid #dbdbdb;
     }
 
     &_error {
-      border: 1px solid #D14941;
+      border: 1px solid #d14941;
     }
 
     &_hidden {
@@ -39,7 +39,6 @@
 .preview {
   width: 132px;
   margin: 0 auto;
-
 
   &_visible {
     display: block;
@@ -64,10 +63,10 @@
     width: 20px;
     height: 20px;
     background-color: transparent;
-    background-image: url('../../images/remove-img.svg');
+    background-image: url('../../../images/remove-img.svg');
     border: none;
-    opacity: .6;
-    transition: opacity .6s;
+    opacity: 0.6;
+    transition: opacity 0.6s;
     cursor: pointer;
 
     &:hover {

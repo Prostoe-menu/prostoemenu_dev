@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactPortal from '../ReactPortal/ReactPortal';
 import Style from './Modal.module.scss';
 import CloseButton from '../UI/CloseButton/CloseButton';
 import ConfirmModal from './ConfirmModal/ConfirmModal';
 
-const Modal = ({ children }) => {
-  // add closing on escape key
-  const [isModalOpen, setIsModalOpen] = useState(true);
+const Modal = (children) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const closeModal = () => setIsModalOpen(false);
+
+  useEffect(() => {
+    const closeOnEscapeKey = (e) => (e.key === 'Escape' ? closeModal() : null);
+
+    document.body.addEventListener('keydown', closeOnEscapeKey);
+
+    return () => {
+      document.body.removeEventListener('keydown', closeOnEscapeKey);
+    };
+  }, [closeModal]);
 
   if (!isModalOpen) return null;
 

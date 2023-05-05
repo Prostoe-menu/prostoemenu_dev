@@ -16,7 +16,7 @@ const initialState = {
   comment: '',
   author: '',
   email: '',
-  isCheckbox: true,
+  isCheckbox: false,
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -116,6 +116,7 @@ const formSlice = createSlice({
       state.comment = action.payload.comment;
       state.author = action.payload.author;
       state.email = action.payload.email;
+      state.isCheckbox = true;
     },
     resetState: (state) => {
       state.recipeName = null;
@@ -140,6 +141,18 @@ const formSlice = createSlice({
       .addCase(postRecipe.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
+        state.recipeName = null;
+        state.recipeDifficulty = null;
+        state.servingsNumber = 0;
+        state.cookingTime = 0;
+        state.timeAtStove = 0;
+        state.description = null;
+        state.finishedPhoto = null;
+        state.cookingSteps = [];
+        state.ingredients = [];
+        state.comment = null;
+        state.author = null;
+        state.email = null;
       })
       .addCase(postRecipe.rejected, (state, action) => {
         state.isLoading = false;

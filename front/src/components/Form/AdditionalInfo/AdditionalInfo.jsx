@@ -3,7 +3,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../UI/Button/Button';
 import { buttons } from '../../../utils/constants';
-// import Legal from '../Legal/Legal';
+import Legal from '../Legal/Legal';
 import { addNotification } from '../../../store/slices/toast/toastSlice';
 import getErrorTypes from '../../../helpers/getErrorTypes';
 import arrowLeft from '../../../images/arrow-left.svg';
@@ -11,14 +11,24 @@ import { changeCurrentStage } from '../../../store/slices/form/formSlice';
 import styles from './AdditionalInfo.module.scss';
 
 const AdditionalInfo = () => {
-  const { comment, author, email } = useSelector((state) => state.form);
+  const { comment, author, email, isCheckbox } = useSelector(
+    (state) => state.form
+  );
 
   const {
     register,
     formState: { errors },
     handleSubmit,
     watch,
-  } = useForm({ defaultValues: { comment, author, email }, mode: 'onSubmit' });
+  } = useForm({
+    defaultValues: {
+      comment,
+      author,
+      email,
+      agreementCheckbox: isCheckbox,
+    },
+    mode: 'onSubmit',
+  });
 
   const dispatch = useDispatch();
 
@@ -135,7 +145,7 @@ const AdditionalInfo = () => {
             </span>
           )}
         </div>
-        {/* <Legal register={register} email={email} /> */}
+        <Legal register={register} errors={errors} />
       </section>
       <div className={styles.controls}>
         <Button

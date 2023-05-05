@@ -1,3 +1,5 @@
+$font-body: 'Mulish', sans-serif;
+
 .legal {
   display: flex;
   flex-direction: column;
@@ -7,7 +9,7 @@
 
   &__title {
     margin: 0;
-    font-family: "Biolilbert", sans-serif;
+    font-family: 'Biolilbert', sans-serif;
     font-size: 28px;
     line-height: 32px;
     font-weight: 400;
@@ -20,7 +22,7 @@
     gap: 16px;
     margin-top: 4px;
     width: 60%;
-    font-family: "Mulish", sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 12px;
     line-height: 1.67;
     font-weight: 300;
@@ -35,8 +37,8 @@
     font-weight: 300;
     font-size: 16px;
     line-height: 24px;
-    color: #818181;
-    border: 1px solid #DBDBDB;
+    color: #232323;
+    border: 1px solid #dbdbdb;
     border-radius: 8px;
     box-sizing: border-box;
 
@@ -46,35 +48,38 @@
 
     &:active,
     &:focus {
-      color: #232323;
       outline: none;
-    }
-
-    &_error {
-      border-color: #D14941;
     }
 
     &_hide {
       display: none;
 
       &:checked {
-        &+.legal__checkbox {
-          background-color: #F1B823;
-          background-image: url('../../images/checked-icon.svg');
+        & + .legal__checkbox {
+          background-color: #f1b823;
+          background-image: url('../../../images/checked-icon.svg');
           background-size: contain;
           background-position: center center;
           background-repeat: no-repeat;
-          border-color: #F1B823;
+          border-color: #f1b823;
         }
       }
 
       &:disabled {
-        &+.legal__checkbox {
-          background-color: #F7F7F7;
-          border-color: #DBDBDB;
+        & + .legal__checkbox {
+          background-color: #f7f7f7;
+          border-color: #dbdbdb;
           cursor: default;
         }
       }
+    }
+  }
+
+  &__input_error {
+    border: 1px solid red;
+    color: red;
+    &:hover {
+      border-color: red;
     }
   }
 
@@ -82,7 +87,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-family: "Mulish", sans-serif;
+    font-family: 'Mulish', sans-serif;
     font-size: 16px;
     font-weight: 300;
     line-height: 24px;
@@ -95,18 +100,18 @@
   &__checkbox {
     width: 16px;
     height: 16px;
-    border: 2px solid #DBDBDB;
+    border: 2px solid #dbdbdb;
     border-radius: 4px;
-    transition: all .6s;
+    transition: all 0.6s;
     cursor: pointer;
 
     &:hover {
-      border-color: #F1B823;
+      border-color: #f1b823;
     }
 
     &_error {
-      background-color: #FFD6D3;
-      border-color: #D14941;
+      background-color: #ffd6d3;
+      border-color: #d14941;
     }
   }
 }
@@ -115,4 +120,12 @@
   .legal {
     max-width: 546px;
   }
+}
+
+.error {
+  font-family: $font-body;
+  width: 100%;
+  margin: 0;
+  color: red;
+  font-size: 10px;
 }

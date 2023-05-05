@@ -4,7 +4,7 @@ import postRecipe from './formThunk';
 
 const initialState = {
   currentFormStage: 1,
-  recipeName: null,
+  recipeName: '',
   recipeComplexity: null,
   servings: 0,
   cookingTime: 0,

@@ -7,8 +7,12 @@ import Legal from '../Legal/Legal';
 import { addNotification } from '../../../store/slices/toast/toastSlice';
 import getErrorTypes from '../../../helpers/getErrorTypes';
 import arrowLeft from '../../../images/arrow-left.svg';
-import { changeCurrentStage } from '../../../store/slices/form/formSlice';
+import {
+  changeCurrentStage,
+  saveAdditionalInfo,
+} from '../../../store/slices/form/formSlice';
 import styles from './AdditionalInfo.module.scss';
+import postRecipe from '../../../store/slices/form/formThunk';
 
 const AdditionalInfo = () => {
   const { comment, author, email, isCheckbox } = useSelector(
@@ -33,7 +37,14 @@ const AdditionalInfo = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(
+      saveAdditionalInfo({
+        comment: data.comment,
+        author: data.author,
+        email: data.email,
+      })
+    );
+    dispatch(postRecipe({ comment, author, email }));
 
     window.scrollTo({
       top: 0,
@@ -42,7 +53,6 @@ const AdditionalInfo = () => {
   };
 
   const onError = (errorsObj) => {
-    console.log(errorsObj);
     const types = getErrorTypes(errorsObj);
 
     if (types.includes('required')) {

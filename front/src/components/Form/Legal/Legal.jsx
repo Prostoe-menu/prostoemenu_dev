@@ -22,7 +22,8 @@ const Legal = ({ register, errors }) => (
         {...register('email', {
           required: true,
           pattern: {
-            value: '',
+            // eslint-disable-next-line no-useless-escape
+            value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
             message: 'Введите корректный e-mail',
           },
           minLength: {

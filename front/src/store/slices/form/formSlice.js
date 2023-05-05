@@ -16,6 +16,7 @@ const initialState = {
   comment: '',
   author: '',
   email: '',
+  isCheckbox: true,
   isLoading: false,
   isError: false,
   isSuccess: false,

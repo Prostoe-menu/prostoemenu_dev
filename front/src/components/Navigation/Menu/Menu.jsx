@@ -24,6 +24,7 @@ const Menu = ({ isOpen, onClose, navigation, isHeader }) => (
         <ul className={Style.list}>
           {navigation.map((item) => (
             <li
+              key={item.id}
               className={`${Style.list__item} ${
                 isHeader && Style.list__item_type_header
               }`}

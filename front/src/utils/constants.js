@@ -10,22 +10,10 @@ const buttons = {
 };
 
 const progressBarSteps = [
-  {
-    text: 'Основная информация',
-    path: 'main',
-  },
-  {
-    text: 'Ингредиенты',
-    path: 'ingredients',
-  },
-  {
-    text: 'Этапы готовки',
-    path: 'stages',
-  },
-  {
-    text: 'Дополнительная информация',
-    path: 'additional-info',
-  },
+  { id: 1, text: 'Основная информация', path: 'main' },
+  { id: 2, text: 'Ингредиенты', path: 'ingredients' },
+  { id: 3, text: 'Этапы готовки', path: 'stages' },
+  { id: 4, text: 'Дополнительная информация', path: 'additional-info' },
 ];
 
 const defaultMeasureUnits = [

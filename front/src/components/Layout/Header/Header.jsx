@@ -8,7 +8,7 @@ const Header = () => {
   const navigation = [
     {
       name: 'Каталог рецептов',
-      route: '/catalogue',
+      route: '/',
       id: 1,
     },
   ];

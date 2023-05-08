@@ -1,4 +1,7 @@
+import string
+from random import choice
 from django.core.mail import EmailMessage
+
 
 def send_email(instance, activation_code):
     email = EmailMessage(
@@ -8,3 +11,7 @@ def send_email(instance, activation_code):
         to=[instance.email],
     )
     email.send()
+
+
+def generate_activation_code():
+    return ''.join(choice(string.ascii_letters + string.digits) for x in range(6))

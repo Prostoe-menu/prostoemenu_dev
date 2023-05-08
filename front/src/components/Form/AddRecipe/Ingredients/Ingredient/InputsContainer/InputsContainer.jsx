@@ -16,7 +16,7 @@ const InputsContainer = ({ ingredientData, measureUnits }) => {
 
   const dispatch = useDispatch();
 
-  const { value: ingredients } = useAsync(getIngredients, query, true, 1000);
+  const { value: ingredients } = useAsync(getIngredients, query, true, 800);
 
   const [openIngredientDropdown, setOpenIngredientDropdown] = useState(false);
   const [openUnitDropdown, setOpenUnitDropdown] = useState(false);
@@ -43,9 +43,13 @@ const InputsContainer = ({ ingredientData, measureUnits }) => {
     setQuery(e.target.value);
 
     // eslint-disable-next-line no-unused-expressions
-    query.length >= 2
-      ? setOpenIngredientDropdown(true)
-      : setOpenIngredientDropdown(false);
+    if (query.length >= 2) {
+      setTimeout(() => {
+        setOpenIngredientDropdown(true);
+      }, 1100);
+    } else {
+      setOpenIngredientDropdown(false);
+    }
   };
 
   const handleVolumeInput = (e) => {
@@ -75,22 +79,37 @@ const InputsContainer = ({ ingredientData, measureUnits }) => {
             Style.dropdownMenu__options_type_ingredients
           } ${openIngredientDropdown && Style.dropdownMenu__options_visible}`}
         >
-          {ingredients?.map((ingredient) => (
-            <li className={Style.dropdownMenu__option} key={ingredient.id}>
-              <div
-                onClick={() => chooseIngredient(ingredient)}
-                onKeyDown={() => chooseIngredient(ingredient)}
-                role="button"
-                tabIndex="0"
-                aria-label="Выбрать ингредиент"
-                style={{
-                  width: '100%',
-                }}
-              >
-                {ingredient.name}
-              </div>
-            </li>
-          ))}
+          {(() => {
+            if (ingredients.length === 0) {
+              return (
+                <li className={Style.dropdownMenu__option}>
+                  <div
+                    style={{
+                      width: '100%',
+                    }}
+                  >
+                    Ингредиент не найден
+                  </div>
+                </li>
+              );
+            }
+            return ingredients?.map((ingredient) => (
+              <li className={Style.dropdownMenu__option} key={ingredient.id}>
+                <div
+                  onClick={() => chooseIngredient(ingredient)}
+                  onKeyDown={() => chooseIngredient(ingredient)}
+                  role="button"
+                  tabIndex="0"
+                  aria-label="Выбрать ингредиент"
+                  style={{
+                    width: '100%',
+                  }}
+                >
+                  {ingredient.name}
+                </div>
+              </li>
+            ));
+          })()}
         </ul>
       </div>
       <input

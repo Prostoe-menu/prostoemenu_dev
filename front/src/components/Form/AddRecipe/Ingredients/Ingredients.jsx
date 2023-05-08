@@ -100,10 +100,10 @@ const Ingredients = () => {
           isSubmit={false}
           onClickBtn={onGoBack}
         >
-          <img src={arrowLeft} alt="стрелка влево" /> назад
+          <img src={arrowLeft} alt="стрелка влево" /> Назад
         </Button>
         <Button btnClassName={buttons.withBorder.yellow} isSubmit>
-          далее <img src={arrowRight} alt="стрелка вправо" />
+          Далее <img src={arrowRight} alt="стрелка вправо" />
         </Button>
       </div>
     </form>

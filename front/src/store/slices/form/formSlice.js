@@ -9,8 +9,8 @@ const initialState = {
   cookingTime: 0,
   timeAtStove: 0,
   description: null,
-  sourcePhoto: [],
-  finishedPhoto: [],
+  sourcePhoto: null,
+  finishedPhoto: null,
   ingredients: [],
   cookingSteps: [],
   comment: null,
@@ -59,8 +59,8 @@ const formSlice = createSlice({
       state.cookingTime = 0;
       state.timeAtStove = 0;
       state.description = null;
-      state.sourcePhoto = [];
-      state.finishedPhoto = [];
+      state.sourcePhoto = null;
+      state.finishedPhoto = null;
       state.cookingSteps = [];
       state.ingredients = [];
       state.comment = null;
@@ -71,13 +71,13 @@ const formSlice = createSlice({
       state.sourcePhoto = action.payload;
     },
     resetLoadPhoto: (state) => {
-      state.sourcePhoto = [];
+      state.sourcePhoto = null;
     },
     saveCroppedPhoto: (state, action) => {
       state.finishedPhoto = action.payload;
     },
     resetCroppedPhoto: (state) => {
-      state.finishedPhoto = [];
+      state.finishedPhoto = null;
     },
   },
   extraReducers: (builder) => {

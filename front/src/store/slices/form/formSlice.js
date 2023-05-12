@@ -1,17 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidV4 } from 'uuid';
 import postRecipe from './formThunk';
 
 const initialState = {
   currentFormStage: 1,
   recipeName: null,
-  recipeDifficulty: null,
-  servingsNumber: 0,
+  recipeComplexity: null,
+  servings: 0,
   cookingTime: 0,
-  timeAtStove: 0,
+  ovenTime: 0,
   description: null,
   sourcePhoto: null,
   finishedPhoto: null,
-  ingredients: [],
+  ingredients: [{ elementID: uuidV4(), name: '', volume: '', measure: 'г' }],
   cookingSteps: [],
   comment: null,
   author: null,
@@ -44,8 +45,72 @@ const formSlice = createSlice({
     saveCookingSteps: (state, action) => {
       state.cookingSteps = action.payload;
     },
-    saveIngredients: (state, action) => {
-      state.ingredients = action.payload;
+    addEmptyIngredient: (state) => {
+      const updatedIngredients = [...state.ingredients];
+      const emptyIngredient = {
+        elementID: uuidV4(),
+        name: '',
+        volume: '',
+        measure: 'г',
+      };
+      updatedIngredients.push(emptyIngredient);
+      state.ingredients = updatedIngredients;
+    },
+    deleteIngredient: (state, action) => {
+      const updatedIngredients = state.ingredients.filter(
+        (ingredient) => ingredient.elementID !== action.payload
+      );
+      state.ingredients = updatedIngredients;
+    },
+
+    saveIngredient: (state, action) => {
+      const updatedIngredients = [...state.ingredients];
+      const ingredientIndex = updatedIngredients.findIndex(
+        (item) => item.elementID === action.payload.id
+      );
+      const storedIngredient = updatedIngredients[ingredientIndex];
+
+      updatedIngredients[ingredientIndex] = {
+        ...storedIngredient,
+        name: action.payload.name,
+        ingredientID: action.payload.id,
+      };
+
+      state.ingredients = updatedIngredients;
+    },
+    changeIngredientVolume: (state, action) => {
+      const updatedIngredients = [...state.ingredients];
+      const ingredientIndex = updatedIngredients.findIndex(
+        (item) => item.elementID === action.payload.id
+      );
+      const storedIngredient = updatedIngredients[ingredientIndex];
+      updatedIngredients[ingredientIndex] = {
+        ...storedIngredient,
+        volume: action.payload.volume,
+      };
+
+      state.ingredients = updatedIngredients;
+    },
+
+    changeIngredientMeasureUnits: (state, action) => {
+      const updatedIngredients = [...state.ingredients];
+      const ingredientIndex = updatedIngredients.findIndex(
+        (item) => item.elementID === action.payload.id
+      );
+      const storedIngredient = updatedIngredients[ingredientIndex];
+      updatedIngredients[ingredientIndex] = {
+        ...storedIngredient,
+        measure: action.payload.measureUnit,
+      };
+
+      state.ingredients = updatedIngredients;
+    },
+
+    saveAllIngredients: (state) => {
+      // delete all inputs without names
+
+      const filteredIngredients = state.ingredients.filter((item) => item.name);
+      state.ingredients = filteredIngredients;
     },
     saveAdditionalInfo: (state, action) => {
       state.comment = action.payload.comment;
@@ -103,8 +168,13 @@ export const {
   saveGeneralRecipeInfo,
   saveAdditionalInfo,
   saveCookingSteps,
-  saveIngredients,
+  addEmptyIngredient,
+  deleteIngredient,
+  saveIngredient,
   resetState,
+  changeIngredientVolume,
+  changeIngredientMeasureUnits,
+  saveAllIngredients,
   loadPhoto,
   saveCroppedPhoto,
   resetLoadPhoto,

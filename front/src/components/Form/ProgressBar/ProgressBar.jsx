@@ -18,6 +18,7 @@ const ProgressBar = ({ activeStep }) => {
       <ul className={styles.progress__list}>
         {progressBarSteps.map((item, i) => (
           <li
+            key={item.id}
             onClick={() => {
               dispatch(changeCurrentStage(i + 1));
             }}

@@ -1,19 +1,33 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import CloseButton from '../../../../UI/CloseButton/CloseButton';
-import Style from './Ingredient.module.scss';
 import InputsContainer from './InputsContainer/InputsContainer';
+import { deleteIngredient } from '../../../../../store/slices/form/formSlice';
+import Style from './Ingredient.module.scss';
 
-const Ingredient = ({ hideButton, deleteIngredient }) => (
-  <div className={Style.content}>
-    <div className={Style.ingredient}>
-      <InputsContainer />
-      <CloseButton
-        hideButton={hideButton}
-        ariaLabelText="Удалить ингредиент"
-        onClose={deleteIngredient}
-      />
+const Ingredient = ({ hideButton, ingredientData, measureUnits }) => {
+  const dispatch = useDispatch();
+
+  const deleteInputElement = useCallback(() => {
+    dispatch(deleteIngredient(ingredientData.elementID));
+  }, []);
+
+  return (
+    <div className={Style.content}>
+      <div className={Style.ingredient}>
+        <InputsContainer
+          measureUnits={measureUnits}
+          ingredientData={ingredientData}
+          elementID={ingredientData.elementID}
+        />
+        <CloseButton
+          hideButton={hideButton}
+          ariaLabelText="Удалить ингредиент"
+          onClose={deleteInputElement}
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
-export default Ingredient;
+export default memo(Ingredient);

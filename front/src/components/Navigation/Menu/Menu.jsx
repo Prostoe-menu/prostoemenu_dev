@@ -24,6 +24,7 @@ const Menu = ({ isOpen, onClose, navigation, isHeader }) => (
         <ul className={Style.list}>
           {navigation.map((item) => (
             <li
+              key={item.id}
               className={`${Style.list__item} ${
                 isHeader && Style.list__item_type_header
               }`}
@@ -39,6 +40,14 @@ const Menu = ({ isOpen, onClose, navigation, isHeader }) => (
             </li>
           ))}
         </ul>
+        <input
+          className={`${Style.input} ${isHeader && Style.input_isVisible}`}
+          name="recipeName"
+          placeholder="Найти рецепт"
+          // onChange={handleRecipeSearch}
+          autoComplete="off"
+          // value={query}
+        />
       </nav>
     </div>
   </section>

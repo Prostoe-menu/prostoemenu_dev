@@ -1,21 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-const buttons = {
-  withBorder: {
-    yellow: 'button_border_yellow',
-    grey: 'button_border_grey',
-  },
-  withBg: {
-    yellow: 'button_bg_yellow',
-  },
-};
-
-const progressBarSteps = [
-  { id: 1, text: 'Основная информация', path: 'main' },
-  { id: 2, text: 'Ингредиенты', path: 'ingredients' },
-  { id: 3, text: 'Этапы готовки', path: 'stages' },
-  { id: 4, text: 'Дополнительная информация', path: 'additional-info' },
-];
-
 const defaultMeasureUnits = [
   {
     id: 1,
@@ -99,4 +81,4 @@ const defaultMeasureUnits = [
   },
 ];
 
-export { buttons, progressBarSteps, defaultMeasureUnits };
+export default defaultMeasureUnits;

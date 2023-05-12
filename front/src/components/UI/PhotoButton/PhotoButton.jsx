@@ -2,17 +2,25 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect, useState, useRef, createRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line import/no-unresolved
 import { useDropzone } from 'react-dropzone';
 import { Cropper } from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import styles from './PhotoButton.module.scss';
+import {
+  loadPhoto,
+  resetCroppedPhoto,
+  resetLoadPhoto,
+  saveCroppedPhoto,
+} from '../../../store/slices/form/formSlice';
 
 const PhotoButton = () => {
   const dropZone = useRef();
-  const [files, setFiles] = useState([]);
   const [cropVis, setCropVis] = useState(false);
-  const [cropData, setCropData] = useState(); // возможно эта переменная не понадобится
+  const sourcePhoto = useSelector((store) => store.form.sourcePhoto);
+  const dispatch = useDispatch();
+  const croppedPhoto = useSelector((store) => store.form.finishedPhoto);
   const cropperRef = createRef();
   // const onChange = (e) => {
   //   e.preventDefault();
@@ -31,7 +39,11 @@ const PhotoButton = () => {
 
   const getCropData = () => {
     if (typeof cropperRef.current?.cropper !== 'undefined') {
-      setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
+      dispatch(
+        saveCroppedPhoto(
+          cropperRef.current?.cropper.getCroppedCanvas().toDataURL()
+        )
+      );
       setCropVis(false);
     }
   };
@@ -50,11 +62,13 @@ const PhotoButton = () => {
     // File is OK
     onDropAccepted: (acceptedFiles) => {
       setCropVis(true);
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
+      dispatch(
+        loadPhoto(
+          acceptedFiles.map((file) =>
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+            })
+          )
         )
       );
 
@@ -71,25 +85,21 @@ const PhotoButton = () => {
     },
   });
 
-  // if (files.length > 0) {
-  //   console.log(cropData);
-  // }
-
   // Удаляем файлы по клику на кнопку на превью
   const handleClickRemovePhoto = () => {
     setCropVis(false); // убираем Cropper
-    setCropData(); // сбрасываем стейт обрезанной картинки
-    setFiles([]);
+    dispatch(resetLoadPhoto());
+    dispatch(resetCroppedPhoto());
     dropZone.current.classList.remove(styles.photo__input_hidden);
   };
 
   // Превьюшка
-  const thumbs = files.map((file) => (
+  const thumbs = sourcePhoto?.map((file) => (
     <div className={styles.preview__container} key={file.name}>
-      {cropData && (
+      {croppedPhoto && (
         <img
           className={styles.preview__img}
-          src={cropData}
+          src={croppedPhoto}
           alt="preview"
           // Revoke data uri after image is loaded
           onLoad={() => {
@@ -97,7 +107,7 @@ const PhotoButton = () => {
           }}
         />
       )}
-      {cropData && (
+      {croppedPhoto && (
         <button
           type="button"
           className={styles.preview__remove}
@@ -112,7 +122,7 @@ const PhotoButton = () => {
     () =>
       // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
       () =>
-        files.forEach((file) => URL.revokeObjectURL(file.preview)),
+        sourcePhoto?.forEach((file) => URL.revokeObjectURL(file.preview)),
     []
   );
 
@@ -156,7 +166,7 @@ const PhotoButton = () => {
             zoomTo={0.5}
             initialAspectRatio={4 / 3}
             // preview=".img-preview"
-            src={files[0].preview}
+            src={sourcePhoto[0].preview}
             viewMode={1}
             minCropBoxHeight={10}
             minCropBoxWidth={10}

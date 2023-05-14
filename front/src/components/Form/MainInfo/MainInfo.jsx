@@ -74,7 +74,7 @@ const MainInfo = () => {
             // id="recipe"
             placeholder="Название вашего блюда"
             // minLength="2"
-            // maxLength="100"
+            maxLength="100"
             // pattern="^[а-яА-Яa-zA-Z-_ ]+$"
             data-error-message="Разрешены только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
             // required

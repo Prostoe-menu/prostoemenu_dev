@@ -5,7 +5,13 @@ import InputsContainer from './InputsContainer/InputsContainer';
 import { deleteIngredient } from '../../../../../store/slices/form/formSlice';
 import Style from './Ingredient.module.scss';
 
-const Ingredient = ({ hideButton, ingredientData, measureUnits }) => {
+const Ingredient = ({
+  index,
+  register,
+  hideButton,
+  ingredientData,
+  measureUnits,
+}) => {
   const dispatch = useDispatch();
 
   const deleteInputElement = useCallback(() => {
@@ -16,6 +22,8 @@ const Ingredient = ({ hideButton, ingredientData, measureUnits }) => {
     <div className={Style.content}>
       <div className={Style.ingredient}>
         <InputsContainer
+          index={index}
+          register={register}
           measureUnits={measureUnits}
           ingredientData={ingredientData}
           elementID={ingredientData.elementID}

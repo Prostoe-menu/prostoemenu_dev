@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import { v4 as uuidV4 } from 'uuid';
 import Ingredient from './Ingredient/Ingredient';
 // import RecipeTitle from '../../RecipeTitle/RecipeTitle';
@@ -8,7 +9,7 @@ import addIcon from '../../../../images/add.svg';
 import { buttons, defaultMeasureUnits } from '../../../../utils/constants';
 import arrowRight from '../../../../images/arrow-right.svg';
 import arrowLeft from '../../../../images/arrow-left.svg';
-
+import { addNotification } from '../../../../store/slices/toast/toastSlice';
 import {
   addEmptyIngredient,
   changeCurrentStage,
@@ -19,14 +20,18 @@ import Style from './Ingredients.module.scss';
 import getMeasurements from '../../../../helpers/getMeasurements';
 
 const Ingredients = () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
   const { ingredients } = useSelector((state) => state.form);
 
   const [measureUnits, setMeasureUnits] = useState([]);
 
   const dispatch = useDispatch();
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = () => {
     dispatch(saveAllIngredients());
     dispatch(changeCurrentStage(3));
     window.scrollTo({
@@ -48,6 +53,12 @@ const Ingredients = () => {
   };
 
   useEffect(() => {
+    if (errors.ingredient && errors.ingredient[0].name.type === 'required') {
+      dispatch(addNotification('Добавьте в рецепт минимум 1 ингредиент'));
+    }
+  }, [errors.ingredient]);
+
+  useEffect(() => {
     getMeasurements()
       .then((data) => {
         const mappedData = data.map((item) => ({
@@ -62,7 +73,7 @@ const Ingredients = () => {
   }, []);
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <section className={Style.ingredients}>
         {/* <RecipeTitle>
         <span className={Style.mobileTitle}>2. </span>Ингредиенты*
@@ -73,9 +84,11 @@ const Ingredients = () => {
           </p>
         </div>
         <ul className={Style.ingredients__list}>
-          {ingredients.map((ingredient) => (
+          {ingredients.map((ingredient, index) => (
             <li key={ingredient.elementID}>
               <Ingredient
+                index={index}
+                register={register}
                 measureUnits={measureUnits}
                 ingredientData={ingredient}
                 hideButton={ingredients.length <= 1}

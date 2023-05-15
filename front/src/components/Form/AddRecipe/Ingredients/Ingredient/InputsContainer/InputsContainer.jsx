@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDispatch } from 'react-redux';
@@ -11,7 +12,7 @@ import {
 } from '../../../../../../store/slices/form/formSlice';
 import Style from './InputsContainer.module.scss';
 
-const InputsContainer = ({ ingredientData, measureUnits }) => {
+const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
   const [query, setQuery] = useState(ingredientData.name || '');
 
   const dispatch = useDispatch();
@@ -68,9 +69,11 @@ const InputsContainer = ({ ingredientData, measureUnits }) => {
       <div className={`${Style.dropdownMenu} ${Style.dropdownMenu_type_name}`}>
         <input
           className={`${Style.input} ${Style.input_type_name}`}
-          name="ingredientName"
+          {...register(`ingredient[${index}].name`, {
+            onChange: handleNameInput,
+            required: index === 0,
+          })}
           placeholder="Начните вводить название"
-          onChange={handleNameInput}
           autoComplete="off"
           value={query}
         />

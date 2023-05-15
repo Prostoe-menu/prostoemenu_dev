@@ -32,12 +32,16 @@ const Ingredients = () => {
   const dispatch = useDispatch();
 
   const onSubmit = () => {
-    dispatch(saveAllIngredients());
-    dispatch(changeCurrentStage(3));
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    if (ingredients && ingredients[0].name === '') {
+      dispatch(addNotification('Добавьте в рецепт минимум 1 ингредиент'));
+    } else {
+      dispatch(saveAllIngredients());
+      dispatch(changeCurrentStage(3));
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
   };
 
   const onGoBack = () => {

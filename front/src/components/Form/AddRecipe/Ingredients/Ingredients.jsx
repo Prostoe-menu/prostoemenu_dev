@@ -20,11 +20,7 @@ import Style from './Ingredients.module.scss';
 import getMeasurements from '../../../../helpers/getMeasurements';
 
 const Ingredients = () => {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
+  const { register, handleSubmit } = useForm();
   const { ingredients } = useSelector((state) => state.form);
 
   const [measureUnits, setMeasureUnits] = useState([]);
@@ -44,6 +40,19 @@ const Ingredients = () => {
     }
   };
 
+  const onError = (errors) => {
+    if (errors.ingredient && errors.ingredient[0].name.type === 'required') {
+      dispatch(addNotification('Добавьте в рецепт минимум 1 ингредиент'));
+    } else if (
+      errors.ingredient &&
+      errors.ingredient[0].name.type === 'pattern'
+    ) {
+      dispatch(addNotification('Проверьте правильность заполнения полей'));
+    } else {
+      dispatch(addNotification('Что-то пошло не так'));
+    }
+  };
+
   const onGoBack = () => {
     dispatch(changeCurrentStage(1));
     window.scrollTo({
@@ -55,12 +64,6 @@ const Ingredients = () => {
   const addEmptyInput = () => {
     dispatch(addEmptyIngredient());
   };
-
-  useEffect(() => {
-    if (errors.ingredient && errors.ingredient[0].name.type === 'required') {
-      dispatch(addNotification('Добавьте в рецепт минимум 1 ингредиент'));
-    }
-  }, [errors.ingredient]);
 
   useEffect(() => {
     getMeasurements()
@@ -77,7 +80,7 @@ const Ingredients = () => {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit, onError)}>
       <section className={Style.ingredients}>
         {/* <RecipeTitle>
         <span className={Style.mobileTitle}>2. </span>Ингредиенты*

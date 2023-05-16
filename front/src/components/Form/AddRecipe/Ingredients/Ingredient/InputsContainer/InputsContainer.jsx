@@ -89,7 +89,9 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
           {(() => {
             if (ingredients.length === 0) {
               return (
-                <li className={Style.dropdownMenu__option}>
+                <li
+                  className={`${Style.dropdownMenu__option} ${Style.dropdownMenu__option_notfound}`}
+                >
                   <div
                     style={{
                       width: '100%',

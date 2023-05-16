@@ -72,6 +72,10 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
           {...register(`ingredient[${index}].name`, {
             onChange: handleNameInput,
             required: index === 0,
+            pattern: {
+              value: /[A-Za-zА-Яа-яЁё0-9\s!-"№;%:?*()'/.,\\«»]/gi,
+              message: `Допустимы кириллица, латиница, цифры и спецсимволы !-"№;%:?*()'/.,\\«»`,
+            },
           })}
           placeholder="Начните вводить название"
           autoComplete="off"

@@ -22,9 +22,7 @@ import getMeasurements from '../../../../helpers/getMeasurements';
 const Ingredients = () => {
   const { register, handleSubmit } = useForm();
   const { ingredients } = useSelector((state) => state.form);
-
   const [measureUnits, setMeasureUnits] = useState([]);
-
   const dispatch = useDispatch();
 
   const onSubmit = () => {

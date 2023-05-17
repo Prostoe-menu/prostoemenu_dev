@@ -10,6 +10,7 @@ import {
   changeIngredientVolume,
   changeIngredientMeasureUnits,
 } from '../../../../../../store/slices/form/formSlice';
+import useClickOutside from '../../../../../../helpers/useClickOutside';
 import Style from './InputsContainer.module.scss';
 
 const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
@@ -64,6 +65,12 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
     );
   };
 
+  const ingredientMenu = useClickOutside(() =>
+    setOpenIngredientDropdown(false)
+  );
+
+  const measureInutsMenu = useClickOutside(() => setOpenUnitDropdown(false));
+
   return (
     <div className={Style.container}>
       <div className={`${Style.dropdownMenu} ${Style.dropdownMenu_type_name}`}>
@@ -85,6 +92,7 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
           className={`${Style.dropdownMenu__options} ${
             Style.dropdownMenu__options_type_ingredients
           } ${openIngredientDropdown && Style.dropdownMenu__options_visible}`}
+          ref={ingredientMenu}
         >
           {(() => {
             if (ingredients.length === 0) {
@@ -133,6 +141,7 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
       />
       <div
         className={`${Style.dropdownMenu} ${Style.dropdownMenu_type_measureInuts}`}
+        ref={measureInutsMenu}
       >
         <div
           className={`${Style.input} ${Style.input_type_dropdown}`}

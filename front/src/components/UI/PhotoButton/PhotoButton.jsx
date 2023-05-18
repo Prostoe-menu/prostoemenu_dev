@@ -167,7 +167,7 @@ const PhotoButton = () => {
 
           <Cropper
             ref={cropperRef}
-            style={{ height: 400, width: '100%' }}
+            style={{ height: 400, width: 400 }}
             zoomTo={0.5}
             initialAspectRatio={4 / 3}
             // preview=".img-preview"

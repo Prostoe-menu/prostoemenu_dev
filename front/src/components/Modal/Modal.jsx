@@ -37,7 +37,7 @@ const Modal = ({ children, closeModal, isModalOpen }) => {
           </div>
           {children}
           {/* Confirm Modal will be provided as a child when api post-request for creating a new recipe is successful */}
-          {/* <ConfirmModal onClickClose={closeModal} /> */}
+          <ConfirmModal onClickClose={closeModal} />
         </div>
       </section>
     </ReactPortal>

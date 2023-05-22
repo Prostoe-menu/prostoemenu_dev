@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
-
+    'django_filters',
     'rest_framework.authtoken',
     'debug_toolbar',
     'recipe',
@@ -48,6 +48,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'PAGE_SIZE': 5
 }
 
@@ -179,9 +180,9 @@ DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': '/password/reset/confirm/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': '/username/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': '/activate/{uid}/{token}',
-    'SEND_ACTIVATION_EMAIL': True,
+    'SEND_ACTIVATION_EMAIL': False,
     'SERIALIZERS': {},
-    'LOGIN_FIELD': 'email',
+    'LOGIN_FIELD': 'username',
 }
 
 CORS_ORIGIN_ALLOW_ALL = True

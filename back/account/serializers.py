@@ -1,5 +1,21 @@
 from rest_framework import serializers
-from .models import Profile
+from .models import Profile, ActivationCode
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'pk',
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'is_active',
+        )
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -14,4 +30,15 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'region',
             'city',
             'photo',
+        )
+
+
+class ActivationCodeSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = ActivationCode
+        fields = (
+            'user',
+            'code',
         )

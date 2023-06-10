@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ReactPortal from '../ReactPortal/ReactPortal';
 import Style from './Modal.module.scss';
 import CloseButton from '../UI/CloseButton/CloseButton';
-import ConfirmModal from './ConfirmModal/ConfirmModal';
+// import ConfirmModal from './ConfirmModal/ConfirmModal';
 
 const Modal = ({ children, closeModal, isModalOpen }) => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,7 +37,7 @@ const Modal = ({ children, closeModal, isModalOpen }) => {
           </div>
           {children}
           {/* Confirm Modal will be provided as a child when api post-request for creating a new recipe is successful */}
-          <ConfirmModal onClickClose={closeModal} />
+          {/* <ConfirmModal onClickClose={closeModal} /> */}
         </div>
       </section>
     </ReactPortal>

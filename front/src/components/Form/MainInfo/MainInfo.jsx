@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { Rating } from '@mui/material';
 import Tooltip from '../Tooltip/Tooltip';
 import TooltipDifficultyContent from '../Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
 import PhotoButton from '../../UI/PhotoButton/PhotoButton';
@@ -9,6 +10,8 @@ import Button from '../../UI/Button/Button';
 import {
   changeCurrentStage,
   saveGeneralRecipeInfo,
+  saveRecipeComplexity,
+  saveServings,
 } from '../../../store/slices/form/formSlice';
 import styles from './mainInfo.module.scss';
 import { buttons } from '../../../utils/constants';
@@ -49,10 +52,12 @@ const MainInfo = () => {
 
   function incrementPortion() {
     setPortion(portion + 1);
+    dispatch(saveServings(portion + 1));
   }
 
   function decrementPortion() {
     setPortion(portion - 1);
+    dispatch(saveServings(portion - 1));
   }
 
   return (
@@ -99,9 +104,18 @@ const MainInfo = () => {
             />
           </div>
           <ul className={styles.stars}>
+            {/* <li className={styles.star} />
             <li className={styles.star} />
-            <li className={styles.star} />
-            <li className={styles.star} />
+            <li className={styles.star} /> */}
+            <Rating
+              name="recipeComplexity"
+              defaultValue={0}
+              max={3}
+              size="large"
+              onChange={(event, newValue) => {
+                dispatch(saveRecipeComplexity(newValue));
+              }}
+            />
           </ul>
         </div>
         <div>

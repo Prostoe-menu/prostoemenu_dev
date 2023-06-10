@@ -6,7 +6,7 @@ const initialState = {
   currentFormStage: 1,
   recipeName: null,
   recipeComplexity: null,
-  servings: 0,
+  servings: 1,
   cookingTime: 0,
   ovenTime: 0,
   description: null,
@@ -144,6 +144,12 @@ const formSlice = createSlice({
     resetCroppedPhoto: (state) => {
       state.finishedPhoto = null;
     },
+    saveRecipeComplexity: (state, action) => {
+      state.recipeComplexity = action.payload;
+    },
+    saveServings: (state, action) => {
+      state.servings = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -179,5 +185,7 @@ export const {
   saveCroppedPhoto,
   resetLoadPhoto,
   resetCroppedPhoto,
+  saveRecipeComplexity,
+  saveServings,
 } = formSlice.actions;
 export default formSlice.reducer;

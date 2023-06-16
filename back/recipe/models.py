@@ -119,7 +119,7 @@ class Recipe(models.Model):
         verbose_name='Рецепт',
         unique=True)
     description = models.TextField(
-        verbose_name='Описание')
+        verbose_name='Описание', null=True)
     cooking_time = models.IntegerField(
         verbose_name='Время готовки')
     oven_time = models.IntegerField(
@@ -157,6 +157,9 @@ class Recipe(models.Model):
         on_delete=models.SET_NULL,
         verbose_name='Id автора',
         related_name='recipes')
+    author_name = models.CharField(verbose_name='Имя автора', null=True, max_length=50)
+    author_email = models.CharField(verbose_name='Почта автора', null=True, max_length=100)
+    user_agreement = models.BooleanField(verbose_name='Согласен(на) с политикой конфиденциальности', null=True)
     ingredient = models.ManyToManyField(
         Ingredient, through='RecipeIngredients',
         through_fields=('recipe', 'ingredient'),
@@ -177,6 +180,7 @@ class Recipe(models.Model):
         Step,
         through='RecipeSteps',
         related_name='steps')
+
 
     def __str__(self):
         return self.name
@@ -280,8 +284,9 @@ class RecipeIngredients(models.Model):
         Ingredient, on_delete=models.CASCADE,
         verbose_name='Номер ингредиента',
         related_name='ingredient')
-    volume = models.IntegerField(
-        verbose_name='Количество')
+    volume = models.DecimalField(
+        verbose_name='Количество',
+        max_digits=3, decimal_places=1)
     measure = models.CharField(
         max_length=20,
         verbose_name='Единица измерения')
@@ -404,3 +409,13 @@ class RecipeComment(models.Model):
     class Meta:
         verbose_name = 'Комментарий к рецепту'
         verbose_name_plural = 'Комментарии к рецепту'
+
+
+class RecipeOfDay(models.Model):
+    recipe = models.ForeignKey(Recipe, verbose_name='ID рецепта дня', on_delete=models.CASCADE)
+    date = models.DateField(verbose_name='Дата на главной', auto_now=True)
+
+    class Meta:
+        verbose_name = 'Рецепт дня'
+        verbose_name_plural = 'Рецепты дня'
+        unique_together = ('recipe', 'date')

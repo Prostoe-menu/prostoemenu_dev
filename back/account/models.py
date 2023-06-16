@@ -29,6 +29,7 @@ class Profile(models.Model):
 def generate_activation_code():
     return ''.join(choice(string.ascii_letters + string.digits) for x in range(6))
 
+
 class ActivationCode(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='activ_code')
     code = models.CharField(max_length=6, default=generate_activation_code)

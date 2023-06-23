@@ -132,3 +132,4 @@ dmypy.json
 
 account/user_credentials.txt
 /.idea/
+mediafiles/

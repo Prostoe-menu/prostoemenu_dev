@@ -4,18 +4,20 @@ import postRecipe from './formThunk';
 
 const initialState = {
   currentFormStage: 1,
-  recipeName: null,
+  recipeName: '',
   recipeComplexity: null,
   servings: 0,
   cookingTime: 0,
   ovenTime: 0,
   description: null,
+  sourcePhoto: null,
   finishedPhoto: null,
   ingredients: [{ elementID: uuidV4(), name: '', volume: '', measure: 'г' }],
   cookingSteps: [],
-  comment: null,
-  author: null,
-  email: null,
+  comment: '',
+  author: '',
+  email: '',
+  isCheckbox: false,
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -115,6 +117,7 @@ const formSlice = createSlice({
       state.comment = action.payload.comment;
       state.author = action.payload.author;
       state.email = action.payload.email;
+      state.isCheckbox = true;
     },
     resetState: (state) => {
       state.recipeName = null;
@@ -123,12 +126,25 @@ const formSlice = createSlice({
       state.cookingTime = 0;
       state.timeAtStove = 0;
       state.description = null;
+      state.sourcePhoto = null;
       state.finishedPhoto = null;
       state.cookingSteps = [];
       state.ingredients = [];
       state.comment = null;
       state.author = null;
       state.email = null;
+    },
+    loadPhoto: (state, action) => {
+      state.sourcePhoto = action.payload;
+    },
+    resetLoadPhoto: (state) => {
+      state.sourcePhoto = null;
+    },
+    saveCroppedPhoto: (state, action) => {
+      state.finishedPhoto = action.payload;
+    },
+    resetCroppedPhoto: (state) => {
+      state.finishedPhoto = null;
     },
   },
   extraReducers: (builder) => {
@@ -139,6 +155,18 @@ const formSlice = createSlice({
       .addCase(postRecipe.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
+        state.recipeName = null;
+        state.recipeDifficulty = null;
+        state.servingsNumber = 0;
+        state.cookingTime = 0;
+        state.timeAtStove = 0;
+        state.description = null;
+        state.finishedPhoto = null;
+        state.cookingSteps = [];
+        state.ingredients = [];
+        state.comment = null;
+        state.author = null;
+        state.email = null;
       })
       .addCase(postRecipe.rejected, (state, action) => {
         state.isLoading = false;
@@ -161,5 +189,9 @@ export const {
   changeIngredientVolume,
   changeIngredientMeasureUnits,
   saveAllIngredients,
+  loadPhoto,
+  saveCroppedPhoto,
+  resetLoadPhoto,
+  resetCroppedPhoto,
 } = formSlice.actions;
 export default formSlice.reducer;

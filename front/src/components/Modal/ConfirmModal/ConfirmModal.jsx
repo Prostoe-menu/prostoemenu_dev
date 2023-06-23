@@ -9,9 +9,12 @@ const ConfirmModal = ({ onClickClose }) => (
       Ваш рецепт будет опубликован после модерации. Уведомление об этом пришлём
       вам на почту:
     </p>
-    {/* to be updated */}
+    {/* TO DO: to be updated */}
     <p className={Style.email}>mail@mail.ru</p>
     <div className={Style.buttonContainer}>
+      {/* TO DO:
+      After Main Page component is created, implement this requirement:
+      "После закрытия модального окна происходит переход на главную страницу." */}
       <Button
         btnClassName="button_bg_yellow"
         isSubmit={false}

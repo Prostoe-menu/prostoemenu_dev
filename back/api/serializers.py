@@ -1,4 +1,9 @@
+import os
+
+from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
+
+from prostoemenu.settings import MEDIA_URL, STATIC_URL
 from recipe.models import (Ingredient,
                            Step,
                            Photo,
@@ -59,19 +64,53 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
 class RecipeStepSerializer(serializers.ModelSerializer):
     step_number = serializers.IntegerField(source='step__step_number')
     description = serializers.CharField(source='step__description')
-    photo = serializers.CharField(source='step__photo')
+    photo = serializers.ImageField(
+        source='step__photo',
+        use_url=True,
+        allow_null=True)
 
     class Meta:
         model = RecipeSteps
         fields = ('step_number', 'description', 'photo')
 
+    def to_representation(self, instance):
+        response = super(
+            RecipeStepSerializer,
+            self).to_representation(instance)
+
+        # not in ['E', 'C', 'D'] to be deleted after MVP 3 for temp values e.g.
+        # parced values
+        if instance['step__photo'] and instance['step__photo'][0] not in [
+                'E', 'C', 'D']:
+            photo_url_path = str(self.context['request'].build_absolute_uri(
+                '/'))[:-1] + MEDIA_URL + instance['step__photo']
+            response['photo'] = photo_url_path
+        return response
+
 
 class RecipePhotoSerializer(serializers.ModelSerializer):
-    photo = serializers.CharField(source='photo__photo')
+    photo = serializers.ImageField(
+        source='photo__photo',
+        use_url=True,
+        allow_null=True)
 
     class Meta:
         model = RecipePhotos
         fields = ('photo',)
+
+    def to_representation(self, instance):
+        response = super(
+            RecipePhotoSerializer,
+            self).to_representation(instance)
+
+        # not in ['E', 'C', 'D'] to be deleted after MVP 3 for temp values e.g.
+        # parced values
+        if instance['photo__photo'] and instance['photo__photo'][0] not in [
+                'E', 'C', 'D']:
+            photo_url_path = str(self.context['request'].build_absolute_uri(
+                '/'))[:-1] + MEDIA_URL + instance['photo__photo']
+            response['photo'] = photo_url_path
+        return response
 
 
 class RecipeDisplaySerializer(serializers.ModelSerializer):
@@ -82,20 +121,17 @@ class RecipeDisplaySerializer(serializers.ModelSerializer):
     class Meta:
         model = Recipe
         fields = [
-                 'id',
-                  'name',
-                  'description',
-                  'complexity',
-                  'quantity',
-                  'cooking_time',
-                  'oven_time',
-                  'ingredients',
-                  'steps',
-                  'photos',
-                  'info',
-                  'author_name',
-                  'author_email',
-                  'user_agreement']
+            'id',
+            'name',
+            'description',
+            'complexity',
+            'quantity',
+            'cooking_time',
+            'oven_time',
+            'ingredients',
+            'steps',
+            'photos',
+        ]
 
         read_only_fields = fields
 
@@ -106,15 +142,23 @@ class RecipeDisplaySerializer(serializers.ModelSerializer):
             ingredient).data for ingredient in query_datas]
 
     def get_steps(self, recipe_instance):
+        serializer_context = {'request': self.context.get('request')}
         query_datas = RecipeSteps.objects.select_related('step').filter(
             recipe=recipe_instance).values(
             'step__step_number', 'step__description', 'step__photo')
-        return [RecipeStepSerializer(step).data for step in query_datas]
+        return [
+            RecipeStepSerializer(
+                step,
+                context=serializer_context).data for step in query_datas]
 
     def get_photos(self, recipe_instance):
+        serializer_context = {'request': self.context.get('request')}
         query_datas = RecipePhotos.objects.select_related('photo').filter(
             recipe=recipe_instance).values('photo__photo')
-        return [RecipePhotoSerializer(photo).data for photo in query_datas]
+        return [
+            RecipePhotoSerializer(
+                photo,
+                context=serializer_context).data for photo in query_datas]
 
 
 ##################################################
@@ -127,9 +171,7 @@ class RecipeDisplaySerializer(serializers.ModelSerializer):
 class RecipeStepCreateSerializer(serializers.ModelSerializer):
     step_number = serializers.IntegerField()
     description = serializers.CharField()
-    photo = serializers.CharField(
-        allow_blank=True,
-        allow_null=True)
+    photo = Base64ImageField(required=False)
 
     class Meta:
         model = RecipeSteps
@@ -137,7 +179,7 @@ class RecipeStepCreateSerializer(serializers.ModelSerializer):
 
 
 class RecipePhotoCreateSerializer(serializers.ModelSerializer):
-    photo = serializers.CharField()
+    photo = Base64ImageField(required=False)
 
     class Meta:
         model = RecipePhotos
@@ -224,10 +266,15 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
                             'replacement')['ingredient_alternative_measure'])
 
             for step_data in steps_data:
-                step_to_add = Step.objects.create(
-                    step_number=step_data.get('step_number'),
-                    description=step_data.get('description'),
-                    photo=step_data.get('photo'))
+                if step_data.get('photo') is None:
+                    step_to_add = Step.objects.create(
+                        step_number=step_data.get('step_number'),
+                        description=step_data.get('description'))
+                else:
+                    step_to_add = Step.objects.create(
+                        step_number=step_data.get('step_number'),
+                        description=step_data.get('description'),
+                        photo=step_data.get('photo'))
 
                 RecipeSteps.objects.create(recipe=recipe, step=step_to_add)
 

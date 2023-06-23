@@ -1,3 +1,4 @@
+
 from django.urls import path
 from .views import RecipeList, RecipeDetail, IngredientDetail, IngredientList, MeasurementList, RecipeDay, NewRecipes, \
     NewRecipeDay

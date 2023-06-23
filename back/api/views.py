@@ -75,15 +75,18 @@ class RecipeList(APIView):
         paginator = pagination_class()
         page = paginator.paginate_queryset(recipes, request, view=self)
 
-        serializer = RecipeDisplaySerializer(page, many=True)
+        serializer = RecipeDisplaySerializer(
+            page, context={'request': request}, many=True)
 
         return paginator.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
+
         serializer = RecipeCreateSerializer(data=request.data)
         if serializer.is_valid():
             saved_obj = serializer.save()
-            response_data = RecipeDisplaySerializer(saved_obj).data
+            response_data = RecipeDisplaySerializer(
+                saved_obj, context={'request': request}).data
             return Response(response_data, status=status.HTTP_201_CREATED)
         else:
             default_errors = serializer.errors
@@ -99,7 +102,8 @@ class RecipeDetail(APIView):
 
         if recipe_obj:
             recipe = Recipe.objects.filter(id=id)
-            serializer = RecipeDisplaySerializer(recipe, many=True)
+            serializer = RecipeDisplaySerializer(
+                recipe, context={'request': request}, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
@@ -173,118 +177,198 @@ class MeasurementList(APIView):
 
 class RecipeDay(APIView):
     def get(self, request, format=None):
-        #Decided to start from ingredient that because i wanted appropriate combination between dishes
+        """
+        Filling database "RecipeOfDay" for main page
+        Using cron to fill database (TBA after tests)
+
+        Recipe of day for main page
+        1. Get recipes that were added last 20 days
+        2. Cooking time <= 60 minute's
+        3. Complexity 1-2
+        4. Ingredients of recipe cannot intersect with other recipes ingredients chosen for main page
+        5. If here not enough recipe's from last 20 days, get old ones
+        6. Chosen recipe excluded for 60 days from main page
+        """
+
+        # date for recipe day last 60 days
+        appropriate_date_rd = datetime.now() - timedelta(days=60)
+        # date for recipe last 20 days
+        appropriate_publication_date = datetime.now() - timedelta(days=20)
+
         ingredients = list(Ingredient.objects.values('id', 'name'))
+        new_recipes = list(
+            Recipe.objects.filter(
+                cooking_time__lte=60). exclude(
+                complexity__in='сложно'). exclude(
+                publication_date__lte=appropriate_publication_date).values(
+                    'id',
+                    'name'). exclude(
+                        publication_date=datetime.now()))
+        used_recipes = list(RecipeOfDay.objects.values('recipe_id'))
 
-        recipe_ids, recipes_of_day, used_ingredients, used_ingredients_id = ([] for i in range(4))
-        used_ingredients.append(0) #For 'reduce' function
+        recipes_of_day = []
+        used_recipe_ids = set()
+        used_ingredients = set()
+        # For 'reduce' function we cannot operate if set is empty
+        used_ingredients.add(0)
+
         count_cycle = 60
+        recipes_on_main_page = 3
+        qty_recipes_of_day = 0
 
-        while len(recipes_of_day) < 3 and count_cycle > 0:
+        # Check new recipes first
+        for new_recipe in new_recipes:
+            if qty_recipes_of_day >= recipes_on_main_page:
+                break
+
+            recipe_used = RecipeOfDay.objects. filter(
+                recipe_id=new_recipe['id'], date__gte=appropriate_date_rd)
+
+            if new_recipe['id'] in used_recipe_ids or recipe_used.exists():
+                continue
+
+            ingredients_in_recipe = RecipeIngredients.objects.filter(
+                recipe_id=new_recipe['id']). values('ingredient_id')
+
+            temp_ingredients = set()
+            for ingredient in ingredients_in_recipe:
+                temp_ingredients.add(ingredient['ingredient_id'])
+
+            if len(temp_ingredients & used_ingredients) == 0:
+                for ingredient_in_recipe in ingredients_in_recipe:
+                    used_ingredients.add(ingredient_in_recipe['ingredient_id'])
+                used_recipe_ids.add(new_recipe['id'])
+                recipes_of_day.append(
+                    RecipeOfDay(
+                        recipe=Recipe.objects.get(
+                            id=new_recipe['id']),
+                        date=datetime.now()))
+                qty_recipes_of_day += 1
+
+        # Get new recipes
+        while qty_recipes_of_day < recipes_on_main_page and count_cycle > 0:
             count_cycle -= 1
+            # Get a random ingredient to choose next recipe
             ingredient = random.sample(ingredients, 1)
 
-            if ingredient[0]['id'] in used_ingredients_id:
+            if ingredient[0]['id'] in used_ingredients:
                 continue
 
-            #Check for recipes that were added 20 days ago
-            temp_recipe = Recipe.objects.filter(ingredient__name=ingredient[0]['name'], cooking_time__lte=60).\
-                exclude(reduce(or_, (Q(ingredient__name=exclude_ingredient)
-                                     for exclude_ingredient in used_ingredients))). \
-                exclude(complexity__in=('сложно')).\
-                exclude(publication_date__lte=datetime.now() - timedelta(days=20)).values('id', 'name').\
-                exclude(publication_date=datetime.now())
+            temp_recipe = Recipe.objects.filter(
+                ingredient__name=ingredient[0]['name'], cooking_time__lte=60). exclude(
+                reduce(
+                    or_, (Q(
+                        ingredient__name=exclude_ingredient) for exclude_ingredient in used_ingredients))). exclude(
+                    complexity__in='сложно'). exclude(
+                        publication_date__gte=appropriate_publication_date).values(
+                            'id', 'name')
 
-            #Otherwise get old ones
-            if not temp_recipe.exists():
-                temp_recipe = Recipe.objects.filter(ingredient__name=ingredient[0]['name'], cooking_time__lte=60).\
-                    exclude(reduce(or_, (Q(ingredient__name=exclude_ingredient)
-                                         for exclude_ingredient in used_ingredients))). \
-                    exclude(complexity__in=('сложно')).\
-                    exclude(publication_date__gte=datetime.now() - timedelta(days=20)).values('id', 'name')
-
+            # If there is collision between ingredients continue
             if not temp_recipe.exists():
                 continue
 
-            recipe_used = RecipeOfDay.objects.\
-                filter(recipe_id=temp_recipe[0]['id'], date__gte=datetime.now() - timedelta(days=60)).exists()
+            recipe_used = RecipeOfDay.objects. filter(
+                recipe_id=temp_recipe[0]['id'],
+                date__gte=appropriate_date_rd).exists()
 
-            # Check if recipe was on the main page for last 60 days and not in current candidates for the page
-            if recipe_used or temp_recipe[0]['id'] in recipe_ids:
+            # Check if recipe was on the main page for last 60 days and not in
+            # current candidates for the page
+            if recipe_used or temp_recipe[0]['id'] in used_recipe_ids:
                 continue
 
-            ingredients_in_recipe = RecipeIngredients.objects.filter(recipe_id=temp_recipe[0]['id']).\
-                values('ingredient_id', 'ingredient__name')
+            # Store used ingredients
+            ingredients_in_recipe = RecipeIngredients.objects.filter(
+                recipe_id=temp_recipe[0]['id']). values(
+                'ingredient_id', 'ingredient__name')
             for ingredient_in_recipe in ingredients_in_recipe:
-                used_ingredients.append(ingredient_in_recipe)
-                used_ingredients_id.append(ingredient_in_recipe['ingredient_id'])
+                used_ingredients.add(ingredient_in_recipe['ingredient_id'])
 
-            recipe_ids.append(temp_recipe[0]['id'])
-            recipes_of_day.append(RecipeOfDay(recipe=Recipe.objects.get(id=temp_recipe[0]['id']),
-                                                  date=datetime.now()))
+            used_recipe_ids.add(temp_recipe[0]['id'])
+            recipes_of_day.append(
+                RecipeOfDay(
+                    recipe=Recipe.objects.get(
+                        id=temp_recipe[0]['id']),
+                    date=datetime.now()))
+            qty_recipes_of_day += 1
 
-        #Add previously used recipes
-        if count_cycle == 0 and len(recipes_of_day) < 3:
-            used_recipes = list(RecipeOfDay.objects.values('recipe_id'))
+        # Add previously used recipes in case if here is no candidates
+        while qty_recipes_of_day < recipes_on_main_page:
+            used_recipe = random.sample(used_recipes, 1)
+            if used_recipe[0]['recipe_id'] in used_recipes:
+                continue
 
-            while len(recipes_of_day) < 3:
-                used_recipe = random.sample(used_recipes, 1)
+            temp_recipe = Recipe.objects.filter(id=used_recipe[0]['recipe_id']). \
+                exclude(reduce(or_, (Q(ingredient__name=exclude_ingredient)
+                                     for exclude_ingredient in used_ingredients))).values('id')
+            if RecipeOfDay.objects.filter(
+                    recipe=Recipe.objects.get(
+                        id=temp_recipe[0]['id']),
+                    date=datetime.now()).exists():
+                continue
 
-                if used_recipe[0]['recipe_id'] in used_recipes:
-                    continue
+            if temp_recipe.exists(
+            ) and used_recipe[0]['recipe_id'] not in used_recipe_ids:
+                ingredients_in_recipe = RecipeIngredients.objects. filter(
+                    recipe_id=temp_recipe[0]['id']).values(
+                    'ingredient_id', 'ingredient__name')
 
-                temp_recipe = Recipe.objects.filter(id=used_recipe[0]['recipe_id']). \
-                    exclude(reduce(or_, (Q(ingredient__name=exclude_ingredient)
-                                         for exclude_ingredient in used_ingredients))).values('id')
+                for ingredient_in_recipe in ingredients_in_recipe:
+                    used_ingredients.add(ingredient_in_recipe['ingredient_id'])
 
-                if temp_recipe.exists() and used_recipe[0]['recipe_id'] not in recipe_ids:
-                    ingredients_in_recipe = RecipeIngredients.objects.\
-                        filter(recipe_id=temp_recipe[0]['id']).values('ingredient_id', 'ingredient__name')
-
-                    for ingredient_in_recipe in ingredients_in_recipe:
-                        used_ingredients.append(ingredient_in_recipe)
-                        used_ingredients_id.append(ingredient_in_recipe['ingredient_id'])
-
-                    if RecipeOfDay.objects.filter(recipe=Recipe.objects.get(id=temp_recipe[0]['id']),
-                                                      date=datetime.now()).exists():
-                        continue
-
-                    recipes_of_day.append(RecipeOfDay(recipe=Recipe.objects.get(id=temp_recipe[0]['id']),
-                                                      date=datetime.now()))
-                    recipe_ids.append(temp_recipe[0]['id'])
+                recipes_of_day.append(
+                    RecipeOfDay(
+                        recipe=Recipe.objects.get(
+                            id=temp_recipe[0]['id']),
+                        date=datetime.now()))
+                used_recipe_ids.add(temp_recipe[0]['id'])
+                qty_recipes_of_day += 1
 
         RecipeOfDay.objects.bulk_create(recipes_of_day)
-        recipes = Recipe.objects.filter(id__in=recipe_ids)
+        recipes = Recipe.objects.filter(id__in=used_recipe_ids)
 
         pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
         paginator = pagination_class()
         page = paginator.paginate_queryset(recipes, request, view=self)
-        serializer = RecipeDisplaySerializer(page, many=True)
+        serializer = RecipeDisplaySerializer(
+            page, context={'request': request}, many=True)
 
         return paginator.get_paginated_response(serializer.data)
 
 
 class NewRecipes(APIView):
     def get(self, request, format=None):
-        recipe_of_day = RecipeOfDay.objects.values('recipe_id').filter(date__gte=datetime.now() - timedelta(hours=4))
-        recipes = Recipe.objects.all().order_by('-publication_date').exclude(id__in=recipe_of_day)[:5]
+        """
+        Last 5 recipes that were added
+        They do not match with Recipe of day from main page
+        """
+        mp_date = datetime.now() - timedelta(hours=4)  # main page date
+        recipe_of_day = RecipeOfDay.objects.values(
+            'recipe_id').filter(date__gte=mp_date)
+        recipes = Recipe.objects.all().order_by(
+            '-publication_date').exclude(id__in=recipe_of_day)[:5]
 
         pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
         paginator = pagination_class()
         page = paginator.paginate_queryset(recipes, request, view=self)
-        serializer = RecipeDisplaySerializer(page, many=True)
+        serializer = RecipeDisplaySerializer(
+            page, context={'request': request}, many=True)
 
         return paginator.get_paginated_response(serializer.data)
 
 
 class NewRecipeDay(APIView):
     def get(self, request, format=None):
-        recipes_of_day = RecipeOfDay.objects.values('recipe_id').order_by('-id')[:3]
+        """
+        Getting 3 Recipes of the day for main page
+        """
+        recipes_of_day = RecipeOfDay.objects.values(
+            'recipe_id').order_by('-id')[:3]
         recipes = Recipe.objects.filter(id__in=recipes_of_day).order_by('name')
 
         pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
         paginator = pagination_class()
         page = paginator.paginate_queryset(recipes, request, view=self)
-        serializer = RecipeDisplaySerializer(page, many=True)
+        serializer = RecipeDisplaySerializer(
+            page, context={'request': request}, many=True)
 
         return paginator.get_paginated_response(serializer.data)

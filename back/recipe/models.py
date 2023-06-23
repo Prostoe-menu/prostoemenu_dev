@@ -50,9 +50,14 @@ class Step(models.Model):
         verbose_name='Номер шага')
     description = models.TextField(
         verbose_name='Описание шага')
-    photo = models.ImageField(
-        null=True,
-        verbose_name='Фотография')
+    photo = models.ImageField(upload_to='images/',
+                              verbose_name='Фотография',
+                              validators=[FileExtensionValidator(['jpeg',
+                                                                  'jpg',
+                                                                  'png',
+                                                                  'webp'])],
+                              null=True,
+                              blank=True)
 
     def __str__(self):
         return self.step_number
@@ -157,9 +162,6 @@ class Recipe(models.Model):
         on_delete=models.SET_NULL,
         verbose_name='Id автора',
         related_name='recipes')
-    author_name = models.CharField(verbose_name='Имя автора', null=True, max_length=50)
-    author_email = models.CharField(verbose_name='Почта автора', null=True, max_length=100)
-    user_agreement = models.BooleanField(verbose_name='Согласен(на) с политикой конфиденциальности', null=True)
     ingredient = models.ManyToManyField(
         Ingredient, through='RecipeIngredients',
         through_fields=('recipe', 'ingredient'),
@@ -180,7 +182,6 @@ class Recipe(models.Model):
         Step,
         through='RecipeSteps',
         related_name='steps')
-
 
     def __str__(self):
         return self.name
@@ -348,9 +349,9 @@ class IngredientAlternatives(models.Model):
 
     def __str__(self):
         return (
-                self.ingredient.__str__() +
-                " " +
-                self.ingredient_alternative.__str__())
+            self.ingredient.__str__() +
+            " " +
+            self.ingredient_alternative.__str__())
 
     class Meta:
         verbose_name = 'Ингредиент для замены'
@@ -412,7 +413,10 @@ class RecipeComment(models.Model):
 
 
 class RecipeOfDay(models.Model):
-    recipe = models.ForeignKey(Recipe, verbose_name='ID рецепта дня', on_delete=models.CASCADE)
+    recipe = models.ForeignKey(
+        Recipe,
+        verbose_name='ID рецепта дня',
+        on_delete=models.CASCADE)
     date = models.DateField(verbose_name='Дата на главной', auto_now=True)
 
     class Meta:

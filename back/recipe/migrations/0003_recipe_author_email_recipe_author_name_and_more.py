@@ -11,22 +11,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='recipe',
-            name='author_email',
-            field=models.CharField(max_length=100, null=True, verbose_name='Почта автора'),
-        ),
-        migrations.AddField(
-            model_name='recipe',
-            name='author_name',
-            field=models.CharField(max_length=50, null=True, verbose_name='Имя автора'),
-        ),
-        migrations.AddField(
-            model_name='recipe',
-            name='user_agreement',
-            field=models.BooleanField(default=True, verbose_name='Согласен(на) с политикой конфиденциальности', null=True),
-            preserve_default=False,
-        ),
         migrations.AlterField(
             model_name='recipe',
             name='description',

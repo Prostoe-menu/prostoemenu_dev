@@ -91,6 +91,11 @@
   }
 }
 
+.listItem {
+  padding: 0;
+  display: flex;
+}
+
 .dropdownMenu {
   position: relative;
 
@@ -128,12 +133,12 @@
   }
 
   &__option {
-    display: flex;
-    height: 40px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    height: 40px;
     padding: 0 16px;
     border-radius: 8px;
-    align-items: center;
     background: #fff;
     font-family: 'Mulish', sans-serif;
     font-style: normal;
@@ -142,8 +147,10 @@
     line-height: 1.5;
     color: #232323;
 
-    &:hover {
+    &:hover, &:focus {
+      outline: none;
       background: #FFFAF0;
+      border-radius: 0;
     }
 
     &_notfound {

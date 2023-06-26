@@ -111,10 +111,18 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
               );
             }
             return ingredients?.map((ingredient) => (
-              <li className={Style.dropdownMenu__option} key={ingredient.id}>
+              <li className={Style.listItem} key={ingredient.id}>
                 <div
+                  className={Style.dropdownMenu__option}
                   onClick={() => chooseIngredient(ingredient)}
-                  onKeyDown={() => chooseIngredient(ingredient)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape') {
+                      setOpenIngredientDropdown(false);
+                    }
+                    if (e.key === 'Enter') {
+                      chooseIngredient(ingredient);
+                    }
+                  }}
                   role="button"
                   tabIndex="0"
                   aria-label="Выбрать ингредиент"
@@ -166,10 +174,19 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
           } ${openUnitDropdown && Style.dropdownMenu__options_visible}`}
         >
           {measureUnits?.map((item) => (
-            <li className={Style.dropdownMenu__option} key={item.id}>
+            <li className={Style.listItem} key={item.id}>
               <div
+                className={Style.dropdownMenu__option}
+                key={item.id}
                 onClick={() => chooseUnit(item.unitName)}
-                onKeyDown={() => chooseUnit(item.unitName)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Escape') {
+                    setOpenUnitDropdown(false);
+                  }
+                  if (e.key === 'Enter') {
+                    chooseUnit(item.unitName);
+                  }
+                }}
                 role="button"
                 tabIndex="0"
                 aria-label="Выбрать единицу измерения"

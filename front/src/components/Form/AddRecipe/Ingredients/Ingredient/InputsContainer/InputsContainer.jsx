@@ -14,6 +14,7 @@ import useClickOutside from '../../../../../../helpers/useClickOutside';
 import Style from './InputsContainer.module.scss';
 
 const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
+  const [cursor, setCursor] = useState(-1);
   const [query, setQuery] = useState(ingredientData.name || '');
 
   const dispatch = useDispatch();
@@ -21,7 +22,65 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
   const { value: ingredients } = useAsync(getIngredients, query, true, 800);
 
   const [openIngredientDropdown, setOpenIngredientDropdown] = useState(false);
+  const ingredientMenu = useClickOutside(() =>
+    setOpenIngredientDropdown(false)
+  );
+
   const [openUnitDropdown, setOpenUnitDropdown] = useState(false);
+  const measureInutsMenu = useClickOutside(() => setOpenUnitDropdown(false));
+
+  const handleNameInput = (e) => {
+    setQuery(e.target.value);
+
+    // eslint-disable-next-line no-unused-expressions
+    if (query.length >= 2) {
+      setTimeout(() => {
+        setOpenIngredientDropdown(true);
+      }, 1100);
+    } else {
+      setOpenIngredientDropdown(false);
+    }
+  };
+
+  const handleKeyboardNavigation = (
+    e,
+    isVisible,
+    items,
+    setVisibility,
+    chooseItem
+  ) => {
+    if (e.key === 'ArrowDown') {
+      if (isVisible) {
+        setCursor((c) => (c < items.length - 1 ? c + 1 : c));
+      } else {
+        setVisibility(true);
+      }
+    }
+    if (e.key === 'ArrowUp') {
+      setCursor((c) => (c > 0 ? c - 1 : 0));
+    }
+    if (e.key === 'Escape') {
+      setVisibility(false);
+    }
+    if (e.key === 'Enter') {
+      if (items === measureUnits) {
+        chooseItem(items[cursor].unitName);
+      } else {
+        chooseItem(items[cursor]);
+      }
+    }
+  };
+
+  const handleVolumeInput = (e) => {
+    dispatch(
+      changeIngredientVolume({
+        volume: parseInt(e.target.value, 10)
+          ? parseInt(e.target.value, 10)
+          : '',
+        id: ingredientData.elementID,
+      })
+    );
+  };
 
   const chooseIngredient = (ingredient) => {
     setOpenIngredientDropdown(false);
@@ -40,36 +99,6 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
     );
     setOpenUnitDropdown(false);
   };
-
-  const handleNameInput = (e) => {
-    setQuery(e.target.value);
-
-    // eslint-disable-next-line no-unused-expressions
-    if (query.length >= 2) {
-      setTimeout(() => {
-        setOpenIngredientDropdown(true);
-      }, 1100);
-    } else {
-      setOpenIngredientDropdown(false);
-    }
-  };
-
-  const handleVolumeInput = (e) => {
-    dispatch(
-      changeIngredientVolume({
-        volume: parseInt(e.target.value, 10)
-          ? parseInt(e.target.value, 10)
-          : '',
-        id: ingredientData.elementID,
-      })
-    );
-  };
-
-  const ingredientMenu = useClickOutside(() =>
-    setOpenIngredientDropdown(false)
-  );
-
-  const measureInutsMenu = useClickOutside(() => setOpenUnitDropdown(false));
 
   return (
     <div className={Style.container}>
@@ -154,7 +183,15 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
         <div
           className={`${Style.input} ${Style.input_type_dropdown}`}
           onClick={() => setOpenUnitDropdown((prevValue) => !prevValue)}
-          onKeyDown={() => setOpenUnitDropdown((prevValue) => !prevValue)}
+          onKeyDown={(e) =>
+            handleKeyboardNavigation(
+              e,
+              openUnitDropdown,
+              measureUnits,
+              setOpenUnitDropdown,
+              chooseUnit
+            )
+          }
           role="button"
           tabIndex="0"
           aria-label="Открыть меню единиц измерения"
@@ -173,18 +210,17 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
             Style.dropdownMenu__options_type_measureUnits
           } ${openUnitDropdown && Style.dropdownMenu__options_visible}`}
         >
-          {measureUnits?.map((item) => (
+          {measureUnits?.map((item, idx) => (
             <li className={Style.listItem} key={item.id}>
               <div
-                className={Style.dropdownMenu__option}
+                className={`${Style.dropdownMenu__option} ${
+                  idx === cursor && Style.dropdownMenu__option_active
+                }`}
                 key={item.id}
                 onClick={() => chooseUnit(item.unitName)}
                 onKeyDown={(e) => {
                   if (e.key === 'Escape') {
                     setOpenUnitDropdown(false);
-                  }
-                  if (e.key === 'Enter') {
-                    chooseUnit(item.unitName);
                   }
                 }}
                 role="button"

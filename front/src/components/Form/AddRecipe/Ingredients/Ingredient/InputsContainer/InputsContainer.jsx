@@ -22,25 +22,12 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
   const { value: ingredients } = useAsync(getIngredients, query, true, 800);
 
   const [openIngredientDropdown, setOpenIngredientDropdown] = useState(false);
-  const ingredientMenu = useClickOutside(() =>
+  const selectIngredient = useClickOutside(() =>
     setOpenIngredientDropdown(false)
   );
 
   const [openUnitDropdown, setOpenUnitDropdown] = useState(false);
   const selectMeasureInut = useClickOutside(() => setOpenUnitDropdown(false));
-
-  const handleNameInput = (e) => {
-    setQuery(e.target.value);
-
-    // eslint-disable-next-line no-unused-expressions
-    if (query.length >= 2) {
-      setTimeout(() => {
-        setOpenIngredientDropdown(true);
-      }, 1100);
-    } else {
-      setOpenIngredientDropdown(false);
-    }
-  };
 
   const scrollToSelected = (ref) => {
     const selectedItem = ref?.current?.children[cursor];
@@ -63,18 +50,22 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
   ) => {
     if (e.key === 'ArrowDown') {
       if (isVisible) {
+        e.preventDefault();
         setCursor((c) => (c < items.length - 1 ? c + 1 : c));
       } else {
         setVisibility(true);
       }
     }
     if (e.key === 'ArrowUp') {
+      e.preventDefault();
       setCursor((c) => (c > 0 ? c - 1 : 0));
     }
     if (e.key === 'Escape') {
       setVisibility(false);
+      setCursor(-1);
     }
     if (e.key === 'Enter') {
+      e.preventDefault();
       if (items === measureUnits) {
         chooseItem(items[cursor].unitName);
       } else {
@@ -85,6 +76,27 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
     scrollToSelected(ref);
   };
 
+  const chooseIngredient = (ingredient) => {
+    setOpenIngredientDropdown(false);
+    setQuery(ingredient.name);
+    dispatch(
+      saveIngredient({ id: ingredientData.elementID, name: ingredient.name })
+    );
+  };
+
+  const handleNameInput = (e) => {
+    setQuery(e.target.value);
+
+    // eslint-disable-next-line no-unused-expressions
+    if (query.length >= 2) {
+      setTimeout(() => {
+        setOpenIngredientDropdown(true);
+      }, 1100);
+    } else {
+      setOpenIngredientDropdown(false);
+    }
+  };
+
   const handleVolumeInput = (e) => {
     dispatch(
       changeIngredientVolume({
@@ -93,14 +105,6 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
           : '',
         id: ingredientData.elementID,
       })
-    );
-  };
-
-  const chooseIngredient = (ingredient) => {
-    setOpenIngredientDropdown(false);
-    setQuery(ingredient.name);
-    dispatch(
-      saveIngredient({ id: ingredientData.elementID, name: ingredient.name })
     );
   };
 
@@ -127,6 +131,16 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
               message: `Допустимы кириллица, латиница, цифры и спецсимволы !-"№;%:?*()'/.,\\«»`,
             },
           })}
+          onKeyDown={(e) =>
+            handleKeyboardNavigation(
+              e,
+              selectIngredient,
+              openIngredientDropdown,
+              ingredients,
+              setOpenIngredientDropdown,
+              chooseIngredient
+            )
+          }
           placeholder="Начните вводить название"
           autoComplete="off"
           value={query}
@@ -135,7 +149,7 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
           className={`${Style.dropdownMenu__options} ${
             Style.dropdownMenu__options_type_ingredients
           } ${openIngredientDropdown && Style.dropdownMenu__options_visible}`}
-          ref={ingredientMenu}
+          ref={selectIngredient}
         >
           {(() => {
             if (ingredients.length === 0) {
@@ -153,17 +167,16 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
                 </li>
               );
             }
-            return ingredients?.map((ingredient) => (
+            return ingredients?.map((ingredient, idx) => (
               <li className={Style.listItem} key={ingredient.id}>
                 <div
-                  className={Style.dropdownMenu__option}
+                  className={`${Style.dropdownMenu__option} ${
+                    idx === cursor && Style.dropdownMenu__option_active
+                  }`}
                   onClick={() => chooseIngredient(ingredient)}
                   onKeyDown={(e) => {
                     if (e.key === 'Escape') {
                       setOpenIngredientDropdown(false);
-                    }
-                    if (e.key === 'Enter') {
-                      chooseIngredient(ingredient);
                     }
                   }}
                   role="button"

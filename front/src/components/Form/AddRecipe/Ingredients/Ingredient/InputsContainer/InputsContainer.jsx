@@ -27,7 +27,7 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
   );
 
   const [openUnitDropdown, setOpenUnitDropdown] = useState(false);
-  const measureInutsMenu = useClickOutside(() => setOpenUnitDropdown(false));
+  const selectMeasureInut = useClickOutside(() => setOpenUnitDropdown(false));
 
   const handleNameInput = (e) => {
     setQuery(e.target.value);
@@ -42,8 +42,20 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
     }
   };
 
+  const scrollToSelected = (ref) => {
+    const selectedItem = ref?.current?.children[cursor];
+
+    if (selectedItem !== undefined) {
+      selectedItem.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
+  };
+
   const handleKeyboardNavigation = (
     e,
+    ref,
     isVisible,
     items,
     setVisibility,
@@ -69,6 +81,8 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
         chooseItem(items[cursor]);
       }
     }
+
+    scrollToSelected(ref);
   };
 
   const handleVolumeInput = (e) => {
@@ -178,7 +192,6 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
       />
       <div
         className={`${Style.dropdownMenu} ${Style.dropdownMenu_type_measureInuts}`}
-        ref={measureInutsMenu}
       >
         <div
           className={`${Style.input} ${Style.input_type_dropdown}`}
@@ -186,6 +199,7 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
           onKeyDown={(e) =>
             handleKeyboardNavigation(
               e,
+              selectMeasureInut,
               openUnitDropdown,
               measureUnits,
               setOpenUnitDropdown,
@@ -209,6 +223,7 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
           className={`${Style.dropdownMenu__options} ${
             Style.dropdownMenu__options_type_measureUnits
           } ${openUnitDropdown && Style.dropdownMenu__options_visible}`}
+          ref={selectMeasureInut}
         >
           {measureUnits?.map((item, idx) => (
             <li className={Style.listItem} key={item.id}>

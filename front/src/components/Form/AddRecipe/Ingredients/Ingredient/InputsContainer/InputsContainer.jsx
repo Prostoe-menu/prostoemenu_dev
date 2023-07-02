@@ -98,11 +98,11 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
   };
 
   const handleVolumeInput = (e) => {
+    const inputValue = e.target.value;
+    const normalizedValue = inputValue.replace(',', '.');
     dispatch(
       changeIngredientVolume({
-        volume: parseInt(e.target.value, 10)
-          ? parseInt(e.target.value, 10)
-          : '',
+        volume: normalizedValue,
         id: ingredientData.elementID,
       })
     );
@@ -195,12 +195,19 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
       </div>
       <input
         className={`${Style.input} ${Style.input_type_quantity}`}
-        name="ingredientQuantity"
-        type="text"
-        pattern="[0-9]*"
+        {...register(`ingredient[${index}].quantity`, {
+          valueAsNumber: true,
+          required: 'Введите количество ингредиента',
+          min: {
+            value: 0.1,
+            message: 'Количество должно быть более нуля',
+          },
+          onChange: handleVolumeInput,
+        })}
+        type="number"
+        step="0.1"
         placeholder="0"
         autoComplete="off"
-        onChange={handleVolumeInput}
         value={ingredientData.volume}
       />
       <div

@@ -39,15 +39,24 @@ const Ingredients = () => {
   };
 
   const onError = (errors) => {
-    if (errors.ingredient && errors.ingredient[0].name.type === 'required') {
-      dispatch(addNotification('Добавьте в рецепт минимум 1 ингредиент'));
-    } else if (
-      errors.ingredient &&
-      errors.ingredient[0].name.type === 'pattern'
-    ) {
-      dispatch(addNotification('Проверьте правильность заполнения полей'));
-    } else {
-      dispatch(addNotification('Что-то пошло не так'));
+    if (errors.ingredient) {
+      errors.ingredient.forEach((item) => {
+        if ('name' in item) {
+          if (item.name.type === 'required') {
+            dispatch(addNotification('Добавьте в рецепт минимум 1 ингредиент'));
+          } else if (item.name.type === 'pattern') {
+            dispatch(
+              addNotification('Проверьте правильность заполнения полей')
+            );
+          }
+        } else if ('quantity' in item) {
+          if (item.quantity.type === 'required') {
+            dispatch(addNotification(item.quantity.message));
+          } else if (item.quantity.type === 'min') {
+            dispatch(addNotification(item.quantity.message));
+          }
+        }
+      });
     }
   };
 

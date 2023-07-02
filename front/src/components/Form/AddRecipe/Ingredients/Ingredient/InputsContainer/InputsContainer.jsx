@@ -125,7 +125,10 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
           className={`${Style.input} ${Style.input_type_name}`}
           {...register(`ingredient[${index}].name`, {
             onChange: handleNameInput,
-            required: index === 0,
+            required: {
+              value: index === 0,
+              message: 'Добавьте в рецепт минимум 1 ингредиент',
+            },
             pattern: {
               value: /[A-Za-zА-Яа-яЁё0-9\s!-"№;%:?*()'/.,\\«»]/gi,
               message: `Допустимы кириллица, латиница, цифры и спецсимволы !-"№;%:?*()'/.,\\«»`,

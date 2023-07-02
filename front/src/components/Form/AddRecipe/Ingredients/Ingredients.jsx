@@ -43,11 +43,9 @@ const Ingredients = () => {
       errors.ingredient.forEach((item) => {
         if ('name' in item) {
           if (item.name.type === 'required') {
-            dispatch(addNotification('Добавьте в рецепт минимум 1 ингредиент'));
+            dispatch(addNotification(item.name.message));
           } else if (item.name.type === 'pattern') {
-            dispatch(
-              addNotification('Проверьте правильность заполнения полей')
-            );
+            dispatch(addNotification(item.name.message));
           }
         } else if ('quantity' in item) {
           if (item.quantity.type === 'required') {
@@ -57,6 +55,8 @@ const Ingredients = () => {
           }
         }
       });
+    } else {
+      dispatch(addNotification('Что-то пошло не так'));
     }
   };
 

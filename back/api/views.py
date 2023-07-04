@@ -12,10 +12,106 @@ from .serializers import (RecipeDisplaySerializer,
                           IngredientSerializerAllFields,
                           MeasurementSerializer, IngredientSerializer)
 from rest_framework.response import Response
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
 
 
 class RecipeList(APIView):
+    @extend_schema(
+        summary='Получить список рецептов.',
+        description='Эндпоинт для получения списка рецептов.',
+        tags=('Recipes',),
+        responses={200: RecipeDisplaySerializer},
+        parameters=[
+            OpenApiParameter(
+                name='ingredients_search[]',
+                location=OpenApiParameter.QUERY,
+                description='Поиск по одному или нескольким \
+                             ингредиентам в рецептах.',
+                required=False,
+                type=str,
+                examples=[
+                    OpenApiExample(
+                        'Пример 1',
+                        description='Пример с одним ингредиентом',
+                        value='?ingredients_search[]=соль',
+                    ),
+                    OpenApiExample(
+                        'Пример 2',
+                        description='Пример с несколькими ингредиентами',
+                        value='?ingredients_search[]=соль&'
+                              'ingredients_search[]=сахар'
+                    )
+                ]
+            ),
+            OpenApiParameter(
+                name='strong_ingredients_search[]',
+                location=OpenApiParameter.QUERY,
+                description='Жесткий поиск по одному или нескольким \
+                             ингредиентам в рецептах. Будут найдены \
+                             только те рецепты, для которых нужны \
+                             только эти ингредиенты.',
+                required=False,
+                type=str,
+                examples=[
+                    OpenApiExample(
+                        'Пример 1',
+                        description='Пример с одним ингредиентом.',
+                        value='?strong_ingredients_search[]=соль'
+                    ),
+                    OpenApiExample(
+                        'Пример 2',
+                        description='Пример с несколькими ингредиентами.',
+                        value='?strong_ingredients_search[]=соль&'
+                              'strong_ingredients_search[]=сахар'
+                    )
+                ]
+            ),
+            OpenApiParameter(
+                name='name_description_search',
+                location=OpenApiParameter.QUERY,
+                description='Поиск по совпадениям в описании или названии.',
+                required=False,
+                type=str,
+                examples=[
+                    OpenApiExample(
+                        'Пример 1',
+                        description='Пример с поиском по совпадению в \
+                                     описании.',
+                        value='достать маринад',
+                    ),
+                    OpenApiExample(
+                        'Пример 2',
+                        description='Пример с поиском по совпадению в \
+                                     названии.',
+                        value='борщ'
+                    )
+                ]
+            ),
+            OpenApiParameter(
+                name='recipe_name_prefix',
+                location=OpenApiParameter.QUERY,
+                description='Поиск по началу в названии (по суффиксу).',
+                required=False,
+                type=str,
+                examples=[
+                    OpenApiExample(
+                        'Пример 1',
+                        description='Пример с поиском по названию в \
+                            начале.',
+                        value='макаро',
+                    ),
+                    OpenApiExample(
+                        'Пример 2',
+                        description='Пример с поиском по названию в \
+                            начале.',
+                        value='Макароны по-фло'
+                    )
+                ]
+            ),
+        ]
+    )
     def get(self, request, format=None):
+        """ Получить список рецептов"""
         ingredients_search = request.query_params.getlist(
             "ingredients_search[]")
         strong_ingredients_search = request.query_params.getlist(
@@ -77,6 +173,13 @@ class RecipeList(APIView):
 
         return paginator.get_paginated_response(serializer.data)
 
+    @extend_schema(
+        summary='Добавить рецепт.',
+        description='Эндпоинт для добавления рецепта.',
+        tags=('Recipes',),
+        request=RecipeCreateSerializer,
+        responses={201: RecipeDisplaySerializer}
+    )
     def post(self, request, format=None):
         serializer = RecipeCreateSerializer(data=request.data)
         if serializer.is_valid():
@@ -92,6 +195,20 @@ class RecipeList(APIView):
 
 
 class RecipeDetail(APIView):
+    @extend_schema(
+        summary='Получить рецепт по ID.',
+        description='Эндпоинт получения рецепта по ID.',
+        tags=('Recipes',),
+        parameters=[
+            OpenApiParameter(
+                name='id',
+                type=int,
+                location=OpenApiParameter.PATH,
+                required=True
+            )
+        ],
+        responses={200: RecipeDisplaySerializer},
+    )
     def get(self, request, id=None):
         recipe_obj = get_object_or_404(Recipe, id=id)
 
@@ -102,6 +219,19 @@ class RecipeDetail(APIView):
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+    @extend_schema(
+        summary='Удалить рецепт по ID.',
+        description='Эндпоинт удаления рецепта по ID.',
+        tags=('Recipes',),
+        parameters=[
+            OpenApiParameter(
+                name='id',
+                type=int,
+                location=OpenApiParameter.PATH,
+                required=True
+            )
+        ]
+    )
     def delete(self, request, id=None):
         recipe = Recipe.objects.filter(id=id)
         recipe.delete()
@@ -109,6 +239,20 @@ class RecipeDetail(APIView):
 
 
 class IngredientDetail(APIView):
+    @extend_schema(
+        summary='Получить ингредиент по ID.',
+        description='Эндпоинт получения ингредиента по ID.',
+        tags=('Ingredients',),
+        parameters=[
+            OpenApiParameter(
+                name='id',
+                type=int,
+                location=OpenApiParameter.PATH,
+                required=True
+            )
+        ],
+        responses={200: IngredientSerializerAllFields}
+    )
     def get(self, request, id=None):
         ingredient_obj = get_object_or_404(Ingredient, id=id)
         if ingredient_obj:
@@ -120,6 +264,29 @@ class IngredientDetail(APIView):
 
 
 class IngredientList(APIView):
+    @extend_schema(
+        summary='Получить список ингредиентов.',
+        description='Эндпоинт получения списка ингредиентов. Доступен поиск \
+                     по суффиксу.',
+        tags=('Ingredients',),
+        parameters=[
+            OpenApiParameter(
+                name='ingredient_suffix',
+                description='Поиск ингредиента по суффиксу.',
+                type=str,
+                location=OpenApiParameter.QUERY,
+                required=False,
+                examples=[
+                    OpenApiExample(
+                        name='Пример 1.',
+                        description='Поиск крахмала по суффиксу.',
+                        value='?ingredient_suffix=крах',
+                    )
+                ],
+            )
+        ],
+        responses={200: IngredientSerializerAllFields}
+    )
     def get(self, request):
         ingredient_suffix = request.query_params.get('ingredient_suffix')
         exclude_ingredients = request.query_params.getlist(
@@ -162,6 +329,12 @@ class IngredientList(APIView):
 
 
 class MeasurementList(APIView):
+    @extend_schema(
+        summary='Список всех мер измерений.',
+        description='Эндпоинт получения списка всех мер измерений.',
+        tags=('Ingredients',),
+        responses={200: MeasurementSerializer}
+    )
     def get(self, request):
         measurements = Measurement.objects.all()
         serializer = MeasurementSerializer(measurements, many=True)

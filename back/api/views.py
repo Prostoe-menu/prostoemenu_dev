@@ -77,13 +77,13 @@ class RecipeList(APIView):
                         'Пример 1',
                         description='Пример с поиском по совпадению в \
                                      описании.',
-                        value='достать маринад',
+                        value='?name_description_search=достать маринад',
                     ),
                     OpenApiExample(
                         'Пример 2',
                         description='Пример с поиском по совпадению в \
                                      названии.',
-                        value='борщ'
+                        value='?name_description_search=борщ'
                     )
                 ]
             ),
@@ -98,13 +98,13 @@ class RecipeList(APIView):
                         'Пример 1',
                         description='Пример с поиском по названию в \
                             начале.',
-                        value='макаро',
+                        value='?recipe_name_prefix=макаро',
                     ),
                     OpenApiExample(
                         'Пример 2',
                         description='Пример с поиском по названию в \
                             начале.',
-                        value='Макароны по-фло'
+                        value='?recipe_name_prefix=Макароны'
                     )
                 ]
             ),

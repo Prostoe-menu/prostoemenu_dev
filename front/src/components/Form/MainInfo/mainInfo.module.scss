@@ -67,13 +67,25 @@
   &:focus {
     border: 1px solid #818181;
   }
+
+  &_error {
+    border: 1px solid red;
+    color: red;
+  }
 }
 
 .title {
   @extend %mulish-16-500;
 }
 
-.name_input {
+.error {
+  @extend %mulish-12-300;
+  color: red;
+  position: absolute;
+  margin: 5px 0;
+}
+
+.name__input {
   @extend %mulish-16-300;
   border: none;
   width: 483px;
@@ -87,6 +99,14 @@
   &:focus-visible {
     outline: 0;
   }
+
+  &:focus::placeholder {
+    color: transparent;
+  }
+
+  &_error::placeholder {
+    color: red;
+  }
 }
 
 .counter {
@@ -95,6 +115,10 @@
   align-items: center;
   text-align: right;
   color: #818181;
+
+  &_error {
+    color: red;
+  }
 }
 
 .wrap_complexity {
@@ -249,7 +273,7 @@
   padding: 0;
 }
 
-.descinput_wrap {
+.descinput__wrap {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -269,9 +293,14 @@
   &:focus {
     border: 1px solid #818181;
   }
+
+  &_error {
+    border: 1px solid red;
+    color: red;
+  }
 }
 
-.desc_input {
+.desc__input {
   @extend %mulish-12-300;
   width: 544px;
   height: 112px;
@@ -305,12 +334,24 @@
     background: #f7f7f7;
     border-radius: 2px;
   }
+
+  &_error::placeholder {
+    color: red;
+  }
+
+  &_error:focus::placeholder {
+    color: transparent;
+  }
 }
 
-.desc_counter {
+.desc__counter {
   position: relative;
   right: 0px;
   top: 0px;
+
+  &_error {
+    color: red;
+  }
 }
 
 .fotoReqs {

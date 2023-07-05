@@ -20,7 +20,7 @@ import arrowRight from '../../../images/arrow-right.svg';
 const MainInfo = () => {
   const [nameCounter, setNameCounter] = useState(0);
   const [descCounter, setDescCounter] = useState(0);
-  const [portion, setPortion] = useState(0);
+  const [portion, setPortion] = useState(1);
 
   const dispatch = useDispatch();
   const { recipeName } = useSelector((state) => state.form);
@@ -31,6 +31,7 @@ const MainInfo = () => {
     formState: { errors },
   } = useForm({
     defaultValues: { recipeName },
+    mode: 'onBlur',
   });
   // eslint-disable-next-line
   const onSubmit = (data) => {
@@ -64,35 +65,51 @@ const MainInfo = () => {
     <form className={styles.mainInfo} onSubmit={handleSubmit(onSubmit)}>
       <div>
         <h3 className={styles.title}>Название рецепта</h3>
-        <div className={styles.wrap}>
+        <div
+          className={`${styles.wrap} ${
+            errors.recipeName ? `${styles.wrap_error}` : ''
+          }`}
+        >
           <input
             {...register('recipeName', {
               required: true,
               minLength: 2,
               maxLength: 100,
-              pattern: /^[а-яА-Яa-zA-Z-_ ]+$/,
+              pattern: {
+                value:
+                  /^[a-zA-Zа-яА-ЯёЁ0-9\s!@#$%^&№()_+\-=[\]{};':"\\|,.<>/?]+$/i,
+              },
             })}
-            className={styles.name_input}
+            className={`${styles.name__input} ${
+              errors.recipeName ? `${styles.name__input_error}` : ''
+            }`}
             onChange={nameChange}
             type="text"
-            // name="recipe"
-            // id="recipe"
             placeholder="Название вашего блюда"
-            // minLength="2"
-            maxLength="100"
-            // pattern="^[а-яА-Яa-zA-Z-_ ]+$"
-            data-error-message="Разрешены только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
-            // required
           />
-          {errors?.recipe?.type === 'required' && <p>This field is required</p>}
-          {errors?.recipe?.type === 'maxLength' && (
-            <p>First name cannot exceed 20 characters</p>
-          )}
-          {errors?.recipe?.type === 'pattern' && (
-            <p>Alphabetical characters only</p>
-          )}
-          <p className={styles.counter}>{nameCounter} / 100</p>
+
+          <p
+            className={`${styles.counter} ${
+              errors.recipeName ? `${styles.counter_error}` : ''
+            }`}
+          >
+            {nameCounter} / 100
+          </p>
         </div>
+        {errors?.recipeName?.type === 'required' && (
+          <p className={styles.error}>Это поле обязательно к заполнению</p>
+        )}
+        {errors?.recipeName?.type === 'minLength' && (
+          <p className={styles.error}>Введите не менее двух символов</p>
+        )}
+        {errors?.recipeName?.type === 'maxLength' && (
+          <p className={styles.error}>Максимальная длина 100 символов</p>
+        )}
+        {errors?.recipeName?.type === 'pattern' && (
+          <p className={styles.error}>
+            Используйте буквы, цифры и символы !-&rdquo;№;%:?*()&rsquo;/.,\\«»
+          </p>
+        )}
       </div>
       <div className={styles.wrap_complexity}>
         <div className={styles.complexity}>
@@ -104,12 +121,9 @@ const MainInfo = () => {
             />
           </div>
           <ul className={styles.stars}>
-            {/* <li className={styles.star} />
-            <li className={styles.star} />
-            <li className={styles.star} /> */}
             <Rating
               name="recipeComplexity"
-              defaultValue={0}
+              defaultValue={1}
               max={3}
               size="large"
               onChange={(event, newValue) => {
@@ -125,7 +139,7 @@ const MainInfo = () => {
               type="button"
               className={`${styles.button} ${styles.buttonMinus}`}
               onClick={decrementPortion}
-              disabled={portion === 0 && true}
+              disabled={portion === 1 && true}
               aria-label="Минус"
             >
               {' '}
@@ -218,23 +232,52 @@ const MainInfo = () => {
             Например, какой у него вкус, особенности, или как вы о нём узнали.
           </p>
         </div>
-        <div className={styles.descinput_wrap}>
+        <div
+          className={`${styles.descinput__wrap} ${
+            errors.recipedesc ? `${styles.descinput__wrap_error}` : ''
+          }`}
+        >
           <textarea
-            className={styles.desc_input}
+            {...register('recipedesc', {
+              required: true,
+              minLength: 2,
+              maxLength: 500,
+              pattern: {
+                value:
+                  /^[a-zA-Zа-яА-ЯёЁ0-9\s!@#$%^&№()_+\-=[\]{};':"\\|,.<>/?]+$/i,
+              },
+            })}
+            className={`${styles.desc__input} ${
+              errors.recipedesc ? `${styles.desc__input_error}` : ''
+            }`}
             onChange={descChange}
             name="recipedesc"
             id="recipedesc"
             placeholder="Описание рецепта"
-            minLength="2"
-            maxLength="500"
-            pattern="^[а-яА-Яa-zA-Z-_ ]+$"
-            data-error-message="Разрешены только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
-            required
           />
-          <p className={`${styles.counter} ${styles.desc_counter}`}>
+
+          <p
+            className={`${styles.counter} ${styles.desc__counter} ${
+              errors.recipedesc ? `${styles.desc__counter_error}` : ''
+            }`}
+          >
             {descCounter} / 500
           </p>
         </div>
+        {errors?.recipedesc?.type === 'required' && (
+          <p className={styles.error}>Это поле обязательно к заполнению</p>
+        )}
+        {errors?.recipedesc?.type === 'minLength' && (
+          <p className={styles.error}>Введите не менее двух символов</p>
+        )}
+        {errors?.recipedesc?.type === 'maxLength' && (
+          <p className={styles.error}>Максимальная длина 500 символов</p>
+        )}
+        {errors?.recipedesc?.type === 'pattern' && (
+          <p className={styles.error}>
+            Используйте буквы, цифры и символы !-&rdquo;№;%:?*()&rsquo;/.,\\«»
+          </p>
+        )}
       </div>
       <div>
         <p className={styles.title}>Фото готового блюда</p>

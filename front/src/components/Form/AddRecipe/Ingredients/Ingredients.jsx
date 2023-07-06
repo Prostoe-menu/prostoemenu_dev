@@ -39,7 +39,6 @@ const Ingredients = () => {
   };
 
   const onError = (errors) => {
-    console.log(errors);
     if (errors.ingredient) {
       errors.ingredient.forEach((item) => {
         if ('name' in item) {
@@ -52,10 +51,6 @@ const Ingredients = () => {
           if (item.quantity.type === 'required') {
             dispatch(addNotification(item.quantity.message));
           } else if (item.quantity.type === 'min') {
-            dispatch(addNotification(item.quantity.message));
-          } else if (item.quantity.type === 'minLength') {
-            dispatch(addNotification(item.quantity.message));
-          } else if (item.quantity.type === 'maxLength') {
             dispatch(addNotification(item.quantity.message));
           }
         }
@@ -118,7 +113,7 @@ const Ingredients = () => {
         <Button
           btnClassName="button_border_grey"
           isSubmit={false}
-          isDisabled={false}
+          isDisabled={ingredients.length >= 20}
           onClickBtn={addEmptyInput}
           ariaLabelText="Добавить ингредиент"
         >

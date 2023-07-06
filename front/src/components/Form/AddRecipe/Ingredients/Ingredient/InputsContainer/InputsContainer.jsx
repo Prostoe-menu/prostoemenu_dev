@@ -205,14 +205,6 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
             value: 0.1,
             message: 'Количество должно быть более нуля',
           },
-          minLength: {
-            value: 1,
-            message: 'Введите количество ингредиента',
-          },
-          maxLength: {
-            value: 4,
-            message: 'Количество может содержать не более четырех символов',
-          },
           onChange: handleVolumeInput,
         })}
         type="number"

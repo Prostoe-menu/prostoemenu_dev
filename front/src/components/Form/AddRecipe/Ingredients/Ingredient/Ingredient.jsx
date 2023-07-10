@@ -11,6 +11,7 @@ const Ingredient = ({
   hideButton,
   ingredientData,
   measureUnits,
+  error,
 }) => {
   const dispatch = useDispatch();
 
@@ -27,6 +28,7 @@ const Ingredient = ({
           measureUnits={measureUnits}
           ingredientData={ingredientData}
           elementID={ingredientData.elementID}
+          error={error}
         />
         <CloseButton
           hideButton={hideButton}

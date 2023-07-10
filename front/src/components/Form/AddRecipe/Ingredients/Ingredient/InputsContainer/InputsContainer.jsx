@@ -13,7 +13,13 @@ import {
 import useClickOutside from '../../../../../../helpers/useClickOutside';
 import Style from './InputsContainer.module.scss';
 
-const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
+const InputsContainer = ({
+  index,
+  register,
+  ingredientData,
+  measureUnits,
+  error,
+}) => {
   const [cursor, setCursor] = useState(-1);
   const [query, setQuery] = useState(ingredientData.name || '');
 
@@ -122,7 +128,9 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
     <div className={Style.container}>
       <div className={`${Style.dropdownMenu} ${Style.dropdownMenu_type_name}`}>
         <input
-          className={`${Style.input} ${Style.input_type_name}`}
+          className={`${Style.input} ${Style.input_type_name} ${
+            error === 'name' && Style.input_error
+          }`}
           {...register(`ingredient[${index}].name`, {
             onChange: handleNameInput,
             required: {
@@ -197,7 +205,9 @@ const InputsContainer = ({ index, register, ingredientData, measureUnits }) => {
         </ul>
       </div>
       <input
-        className={`${Style.input} ${Style.input_type_quantity}`}
+        className={`${Style.input} ${Style.input_type_quantity} ${
+          error === 'quantity' && Style.input_error
+        }`}
         {...register(`ingredient[${index}].quantity`, {
           valueAsNumber: true,
           required: 'Введите количество ингредиента',

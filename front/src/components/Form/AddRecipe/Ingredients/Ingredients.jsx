@@ -23,39 +23,38 @@ const Ingredients = () => {
   const { register, handleSubmit } = useForm();
   const { ingredients } = useSelector((state) => state.form);
   const [measureUnits, setMeasureUnits] = useState([]);
+  const [errorType, setErrorType] = useState('');
   const dispatch = useDispatch();
 
   const onSubmit = () => {
-    if (ingredients && ingredients[0].name === '') {
-      dispatch(addNotification('Добавьте в рецепт минимум 1 ингредиент'));
-    } else {
-      dispatch(saveAllIngredients());
-      dispatch(changeCurrentStage(3));
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    }
+    dispatch(saveAllIngredients());
+    dispatch(changeCurrentStage(3));
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   const onError = (errors) => {
     if (errors.ingredient) {
       errors.ingredient.forEach((item) => {
         if ('name' in item) {
-          if (item.name.type === 'required') {
-            dispatch(addNotification(item.name.message));
-          } else if (item.name.type === 'pattern') {
+          setErrorType('name');
+          if (item.name.type === 'required' || item.name.type === 'pattern') {
             dispatch(addNotification(item.name.message));
           }
         } else if ('quantity' in item) {
-          if (item.quantity.type === 'required') {
-            dispatch(addNotification(item.quantity.message));
-          } else if (item.quantity.type === 'min') {
+          setErrorType('quantity');
+          if (
+            item.quantity.type === 'required' ||
+            item.quantity.type === 'min'
+          ) {
             dispatch(addNotification(item.quantity.message));
           }
         }
       });
     } else {
+      setErrorType('other');
       dispatch(addNotification('Что-то пошло не так'));
     }
   };
@@ -106,6 +105,7 @@ const Ingredients = () => {
                 measureUnits={measureUnits}
                 ingredientData={ingredient}
                 hideButton={ingredients.length <= 1}
+                error={errorType}
               />
             </li>
           ))}

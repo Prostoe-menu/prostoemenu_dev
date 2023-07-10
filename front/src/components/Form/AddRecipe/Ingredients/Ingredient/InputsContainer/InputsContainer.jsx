@@ -210,7 +210,10 @@ const InputsContainer = ({
         }`}
         {...register(`ingredient[${index}].quantity`, {
           valueAsNumber: true,
-          required: 'Введите количество ингредиента',
+          required: {
+            value: query.length !== 0,
+            message: 'Введите количество ингредиента',
+          },
           min: {
             value: 0.1,
             message: 'Количество должно быть более нуля',

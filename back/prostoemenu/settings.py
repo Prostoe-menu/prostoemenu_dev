@@ -24,6 +24,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    # Django Applications
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -31,16 +32,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+
+    # Third-party Applications
+    'rest_framework',
     'django_filters',
     'rest_framework.authtoken',
     'debug_toolbar',
-    'recipe',
-    'rest_framework',
     'corsheaders',
+    'djoser',
+    'drf_spectacular',
+
+    # Project Applications
+    'recipe',
     'api',
     'kaiten',
     'account',
-    'djoser',
 ]
 
 REST_FRAMEWORK = {
@@ -49,7 +55,8 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    'PAGE_SIZE': 5
+    'PAGE_SIZE': 5,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 
@@ -89,12 +96,12 @@ WSGI_APPLICATION = 'prostoemenu.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 #DATABASES = {
 #    'default': {
@@ -108,18 +115,18 @@ WSGI_APPLICATION = 'prostoemenu.wsgi.application'
 #}
 
 
-DATABASES = {
-  'default': {
-      'ENGINE': os.getenv(
-          'DB_ENGINE', default='django.db.backends.postgresql'
-      ),
-      'NAME': os.getenv('DB_NAME', default='prostoemenu'),
-      'USER': os.getenv('POSTGRES_USER', default='postgres'),
-      'PASSWORD': os.getenv('POSTGRES_PASSWORD', default=''),
-      'HOST': os.getenv('DB_HOST', default='db'),
-      'PORT': os.getenv('DB_PORT', default='5432')
-  }
-}
+# DATABASES = {
+#   'default': {
+#       'ENGINE': os.getenv(
+#           'DB_ENGINE', default='django.db.backends.postgresql'
+#       ),
+#       'NAME': os.getenv('DB_NAME', default='prostoemenu'),
+#       'USER': os.getenv('POSTGRES_USER', default='postgres'),
+#       'PASSWORD': os.getenv('POSTGRES_PASSWORD', default=''),
+#       'HOST': os.getenv('DB_HOST', default='db'),
+#       'PORT': os.getenv('DB_PORT', default='5432')
+#   }
+# }
 
 
 # Password validation
@@ -156,7 +163,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # Default primary key field type
@@ -193,3 +201,11 @@ EMAIL_HOST_USER = 'prostoemenu2023@yandex.ru'
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'prostoemenu2023@yandex.ru'
 EMAIL_PORT = 587
+
+# drf-spectacular
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'ProstoeMenu API',
+    'DESCRIPTION': 'Документация к API сервиса ProstoeMenu',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}

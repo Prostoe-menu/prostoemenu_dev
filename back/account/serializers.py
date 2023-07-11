@@ -42,4 +42,5 @@ class ActivationCodeSerializer(serializers.ModelSerializer):
             'user',
             'code',
             'datetime_created',
+            'code_generated_num',
         )

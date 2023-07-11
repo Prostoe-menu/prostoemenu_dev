@@ -75,6 +75,8 @@ class CheckCode(APIView):
                     'user_pk': user_pk,
                 }
                 return Response(context, status=status.HTTP_200_OK)
+
+            # activation code correct and expired
             else:
                 code_generated_times = ActivationCode.objects.get(user=user_pk).code_generated_num
                 if code_generated_times < 3:
@@ -89,6 +91,8 @@ class CheckCode(APIView):
                         'new_activation_code': new_activation_code,
                     }
                     return Response(context, status=status.HTTP_400_BAD_REQUEST)
+
+                # activation code releases exceed
                 else:
                     context = {
                         'success': False,

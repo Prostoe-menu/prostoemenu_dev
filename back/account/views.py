@@ -51,7 +51,7 @@ class CheckCode(APIView):
 
     def get(self, request):
         username = request.query_params.get('username')
-        entered_code = request.query_params.get('activ_code')
+        entered_code_value = request.query_params.get('activ_code')
 
         try:
             user_pk = User.objects.get(username=username).pk
@@ -62,12 +62,13 @@ class CheckCode(APIView):
                 'user_pk': None}
             return Response(context, status=status.HTTP_400_BAD_REQUEST)
         activation_code_pk = ActivationCode.objects.get(user=user_pk).pk
-        activation_code = ActivationCode.objects.get(user=user_pk).code
+        activation_code_value = ActivationCode.objects.get(user=user_pk).code
         date_code_created = ActivationCode.objects.get(user=user_pk).datetime_created
         time_diff = timezone.now() - date_code_created
 
-        if entered_code == activation_code:
-            if time_diff.total_seconds() < 86400:
+        if entered_code_value == activation_code_value:
+            expiration_time = 24 * 3600  # 24 hours
+            if time_diff.total_seconds() < expiration_time:
                 context = {
                     'success': True,
                     'message': 'Activation code is correct',
@@ -75,15 +76,15 @@ class CheckCode(APIView):
                 }
                 return Response(context, status=status.HTTP_200_OK)
             else:
-                code_generated_num = ActivationCode.objects.get(user=user_pk).code_generated_num
-                if code_generated_num < 3:
+                code_generated_times = ActivationCode.objects.get(user=user_pk).code_generated_num
+                if code_generated_times < 3:
                     new_activation_code = generate_activation_code()
 
                     context = {
                         'success': False,
                         'message': 'Activation code is expired',
                         'user_pk': user_pk,
-                        'code_generated_num': code_generated_num + 1,
+                        'code_generated_times': code_generated_times + 1,
                         'activation_code_pk': activation_code_pk,
                         'new_activation_code': new_activation_code,
                     }

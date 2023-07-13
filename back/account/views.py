@@ -49,9 +49,9 @@ class CheckCode(APIView):
     return: статус запроса, словарь с данными
     """
 
-    def get(self, request):
-        username = request.query_params.get('username')
-        entered_code_value = request.query_params.get('activ_code')
+    def post(self, request):
+        username = request.POST.get('username')
+        entered_code_value = request.POST.get('activ_code')
 
         try:
             user_pk = User.objects.get(username=username).pk

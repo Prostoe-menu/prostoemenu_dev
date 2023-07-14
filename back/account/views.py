@@ -115,9 +115,9 @@ class CheckCode(APIView):
             }
             return Response(context, status=status.HTTP_400_BAD_REQUEST)
 
-    def patch(self, request):
+    def post(self, request):
         user_object = get_object_or_404(User, username=request.data.get('username'))
-        user_object.is_active = False
+        user_object.is_active = True
         user_object.save()
         user = UserSerializer(user_object)
         return Response(user.data)

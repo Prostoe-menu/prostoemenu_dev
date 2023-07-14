@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from rest_framework import status
@@ -41,6 +42,7 @@ class UserActivationView(UpdateAPIView):
     serializer_class = UserSerializer
 
 
+
 class CheckCode(APIView):
     """
     Проверка кода активации, введенного пользователем.
@@ -50,8 +52,11 @@ class CheckCode(APIView):
     """
 
     def post(self, request):
+
         username = request.POST.get('username')
         entered_code_value = request.POST.get('activ_code')
+
+        #user_pk = get_object_or_404(User, username=username).pk
 
         try:
             user_pk = User.objects.get(username=username).pk
@@ -109,6 +114,15 @@ class CheckCode(APIView):
                 'user_pk': user_pk
             }
             return Response(context, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request):
+        user_object = get_object_or_404(User, username=request.data.get('username'))
+        user_object.is_active = False
+        user_object.save()
+        user = UserSerializer(user_object)
+        return Response(user.data)
+
+
 
 
 class ActivationCodeUpdateView(UpdateAPIView):

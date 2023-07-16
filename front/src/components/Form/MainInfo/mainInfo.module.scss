@@ -54,7 +54,7 @@
   align-items: flex-end;
   padding: 8px 16px;
   width: 576px;
-  height: 40px;
+  min-height: 40px;
   background: #ffffff;
   border: 1px solid #dbdbdb;
   border-radius: 8px;
@@ -89,8 +89,11 @@
   @extend %mulish-16-300;
   border: none;
   width: 483px;
-  height: 24px;
+  min-height: 24px;
   color: #818181;
+  resize: none;
+  overflow: hidden;
+  word-wrap: normal;
 
   &:focus {
     border: none;
@@ -182,6 +185,12 @@
   &:hover {
     background-image: url('../../../images/plusButton-active.svg');
   }
+
+  &:disabled,
+  &:disabled:hover {
+    background-image: url('../../../images/minusButton-disabled.png');
+    cursor: auto;
+  }
 }
 
 .buttonMinus {
@@ -194,7 +203,8 @@
     background-image: url('../../../images/minusButton-active.svg');
   }
 
-  &:disabled {
+  &:disabled,
+  &:disabled:hover {
     background-image: url('../../../images/minusButton-disabled.png');
     cursor: auto;
   }
@@ -205,6 +215,24 @@
   text-align: center;
   color: #818181;
   margin: 0 20px;
+  border: none;
+  width: 25px;
+
+  &:focus {
+    border: none;
+  }
+
+  &:focus-visible {
+    outline: 0;
+  }
+
+  &:focus::placeholder {
+    color: transparent;
+  }
+
+  &_error::placeholder {
+    color: red;
+  }
 }
 
 .portion_active {

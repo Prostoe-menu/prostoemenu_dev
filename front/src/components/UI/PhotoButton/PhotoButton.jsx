@@ -17,7 +17,6 @@ import {
   saveCroppedPhoto,
 } from '../../../store/slices/form/formSlice';
 
-
 const PhotoButton = () => {
   const dropZone = useRef();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -164,7 +163,6 @@ const PhotoButton = () => {
       <div className={styles.preview}>{thumbs}</div>
       {isModalOpen && (
         <Modal closeModal={closeModal} isModalOpen={setIsModalOpen}>
-
           <Cropper
             ref={cropperRef}
             style={{ height: 400, width: 400 }}
@@ -185,15 +183,14 @@ const PhotoButton = () => {
             ОБРЭЗАТ
           </button> */}
           <Button
-        btnClassName="button_bg_yellow"
-        isSubmit={false}
-        isDisabled={false}
-        ariaLabelText="Обрезать фото"
-        onClickBtn={getCropData}
-      >
-        Обрезать фото
-      </Button>
-
+            btnClassName="button_bg_yellow"
+            isSubmit={false}
+            isDisabled={false}
+            ariaLabelText="Обрезать фото"
+            onClickBtn={getCropData}
+          >
+            Обрезать фото
+          </Button>
         </Modal>
       )}
     </>

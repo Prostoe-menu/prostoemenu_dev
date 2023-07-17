@@ -175,8 +175,9 @@ class CheckCode(APIView):
         user_object = get_object_or_404(User, username=request.data.get('username'))
 
         check_result = self.check_code(user_pk=user_object.pk, entered_code_value=entered_code_value)
+        print('check_result: ', check_result)
 
-        # codeis correct
+        # code is correct
         if check_result['message'] == 'Activation code is correct':
             user_object.is_active = True
             user_object.save()
@@ -195,6 +196,7 @@ class CheckCode(APIView):
 
         # code releases exceed, delete user
         elif check_result['message'] == 'Number of activation code releases is exceeded. User deleted.':
+            print('user deleted')
             user_object.delete()
             return Response('User deleted')
 

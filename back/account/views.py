@@ -51,6 +51,61 @@ class CheckCode(APIView):
     return: статус запроса, словарь с данными
     """
 
+    def check_code(self, user_pk, entered_code_value):
+        print('check_code works.')
+
+        activation_code_pk = ActivationCode.objects.get(user=user_pk).pk
+        activation_code_value = ActivationCode.objects.get(user=user_pk).code
+        print('activation_code_value ', activation_code_value)
+        date_code_created = ActivationCode.objects.get(user=user_pk).datetime_created
+        time_diff = timezone.now() - date_code_created
+
+        if entered_code_value == activation_code_value:
+            expiration_time = 24 * 3600  # 24 hours
+            # code is correct, not expired
+            if time_diff.total_seconds() < expiration_time:
+                context = {
+                    'success': True,
+                    'message': 'Activation code is correct',
+                    'user_pk': user_pk,
+                }
+                return context
+            # code is correct, expired
+            else:
+                code_generated_times = ActivationCode.objects.get(user=user_pk).code_generated_num
+                # can release code again
+                if code_generated_times < 3:
+
+                    context = {
+                        'success': False,
+                        'message': 'Activation code is expired',
+                        'user_pk': user_pk,
+                        'code_generated_times': code_generated_times,
+                        'activation_code_pk': activation_code_pk,
+
+                    }
+                    return context
+
+                # activation code releases exceed
+                else:
+                    context = {
+                        'success': False,
+                        'message': 'Number of activation code releases is exceeded. User deleted.',
+                        'user_pk': user_pk
+                    }
+                    return context
+
+        # code is incorrect
+        else:
+            context = {
+                'success': False,
+                'message': 'Activation code is incorrect',
+                'user_pk': user_pk
+            }
+            return context
+
+
+
     def post(self, request):
 
         username = request.POST.get('username')
@@ -115,12 +170,38 @@ class CheckCode(APIView):
             }
             return Response(context, status=status.HTTP_400_BAD_REQUEST)
 
-    def post(self, request):
+    def patch(self, request):
+        entered_code_value = request.data.get('activ_code')
         user_object = get_object_or_404(User, username=request.data.get('username'))
-        user_object.is_active = True
-        user_object.save()
-        user = UserSerializer(user_object)
-        return Response(user.data)
+
+        check_result = self.check_code(user_pk=user_object.pk, entered_code_value=entered_code_value)
+
+        # codeis correct
+        if check_result['message'] == 'Activation code is correct':
+            user_object.is_active = True
+            user_object.save()
+            user = UserSerializer(user_object)
+            return Response(user.data)
+
+        # code is expired, renew activation code
+        elif check_result['message'] == 'Activation code is expired':
+            activ_code_object = get_object_or_404(ActivationCode, pk=check_result['activation_code_pk'])
+            new_activation_code = generate_activation_code()
+            activ_code_object.code = new_activation_code
+            activ_code_object.code_generated_num += 1
+            activ_code_object.save()
+            act_code = ActivationCodeSerializer(activ_code_object)
+            return Response(act_code.data)
+
+        # code releases exceed, delete user
+        elif check_result['message'] == 'Number of activation code releases is exceeded. User deleted.':
+            user_object.delete()
+            return Response('User deleted')
+
+        #
+        elif check_result['message'] == 'Activation code is incorrect':
+            return Response(check_result, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 

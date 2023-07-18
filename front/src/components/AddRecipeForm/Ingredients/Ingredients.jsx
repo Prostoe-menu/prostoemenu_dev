@@ -3,20 +3,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
 import Ingredient from './Ingredient/Ingredient';
 // import RecipeTitle from '../../RecipeTitle/RecipeTitle';
-import Button from '../../../UI/Button/Button';
-import addIcon from '../../../../images/add.svg';
-import { buttons, defaultMeasureUnits } from '../../../../utils/constants';
-import arrowRight from '../../../../images/arrow-right.svg';
-import arrowLeft from '../../../../images/arrow-left.svg';
+import Button from '../../UI/Button/Button';
+import addIcon from '../../../images/add.svg';
+import { buttons, defaultMeasureUnits } from '../../../utils/constants';
+import arrowRight from '../../../images/arrow-right.svg';
+import arrowLeft from '../../../images/arrow-left.svg';
 
 import {
   addEmptyIngredient,
   changeCurrentStage,
   saveAllIngredients,
-} from '../../../../store/slices/form/formSlice';
+} from '../../../store/slices/form/formSlice';
 import Style from './Ingredients.module.scss';
 
-import getMeasurements from '../../../../helpers/getMeasurements';
+import getMeasurements from '../../../helpers/getMeasurements';
 
 const Ingredients = () => {
   const { ingredients } = useSelector((state) => state.form);

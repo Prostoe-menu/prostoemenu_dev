@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { useDispatch } from 'react-redux';
-import CookingStep from '../CookingStep/CookingStep';
+import CookingStep from './CookingStep/CookingStep';
 import Button from '../../UI/Button/Button';
 import { changeCurrentStage } from '../../../store/slices/form/formSlice';
 import { buttons } from '../../../utils/constants';

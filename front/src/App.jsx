@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Style from './App.module.scss';
 import Header from './components/Layout/Header/Header';
-import AddRecipe from './components/Form/AddRecipe/AddRecipe';
+import AddRecipeForm from './components/AddRecipeForm/AddRecipeForm';
 import Footer from './components/Layout/Footer/Footer';
 
 import Modal from './components/Modal/Modal';
@@ -12,7 +12,7 @@ const App = () => (
   <div className={Style.app}>
     <Header />
     <Routes>
-      <Route path="/" element={<AddRecipe />} />
+      <Route path="/" element={<AddRecipeForm />} />
     </Routes>
     <Modal />
     <Footer />

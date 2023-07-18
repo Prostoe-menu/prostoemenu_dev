@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PhotoButton from '../../UI/PhotoButton/PhotoButton';
+import PhotoButton from '../../../UI/PhotoButton/PhotoButton';
 
 import styles from './CookingStep.module.scss';
 

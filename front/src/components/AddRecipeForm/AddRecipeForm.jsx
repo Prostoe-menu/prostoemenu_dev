@@ -3,14 +3,14 @@ import { useSelector } from 'react-redux';
 
 import PageTitle from '../PageTitle/PageTitle';
 
-import StageOne from '../Stages/StageOne';
-import Style from './AddRecipe.module.scss';
-import StageTwo from '../Stages/StageTwo';
-import StageThree from '../Stages/StageThree';
-import StageFour from '../Stages/StageFour';
-import ProgressBar from '../ProgressBar/ProgressBar';
+import StageOne from './Stages/StageOne';
+import Style from './AddRecipeForm.module.scss';
+import StageTwo from './Stages/StageTwo';
+import StageThree from './Stages/StageThree';
+import StageFour from './Stages/StageFour';
+import ProgressBar from './ProgressBar/ProgressBar';
 
-const AddRecipe = () => {
+const AddRecipeForm = () => {
   const currentStage = useSelector((state) => state.form.currentFormStage);
 
   return (
@@ -28,4 +28,4 @@ const AddRecipe = () => {
   );
 };
 
-export default AddRecipe;
+export default AddRecipeForm;

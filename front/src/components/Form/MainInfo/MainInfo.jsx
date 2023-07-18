@@ -66,8 +66,6 @@ const MainInfo = () => {
     clearErrors('portions');
   }
 
-  // Ниже была попытка сделать поле обязательным по условию с помощью функции. Не взлетело
-
   const allmins = () => {
     if (getValues('allminutes') === undefined || '') {
       return true;
@@ -80,9 +78,6 @@ const MainInfo = () => {
     }
     return false;
   };
-  // // const cookmins = getValues('cookminutes');
-  // console.log(allmins());
-  console.log(getValues('portions'));
 
   return (
     <form className={styles.mainInfo} onSubmit={handleSubmit(onSubmit)}>
@@ -110,7 +105,7 @@ const MainInfo = () => {
             onClick={() => clearErrors('recipeName')}
             type="text"
             maxLength={100}
-            rows={nameCounter > 58 ? 2 : 1} // если в названии меньше 58 символов (включая пробелы), то поле идет в одну строку
+            rows={nameCounter > 58 ? 2 : 1}
             wrap="soft"
             placeholder="Название вашего блюда"
           />
@@ -184,7 +179,7 @@ const MainInfo = () => {
               >
                 {' '}
               </button>
-              {/* Вот тут непонятно как делать ------------------------------------------------------------------------------- */}
+
               <Controller
                 name="portions"
                 control={control}
@@ -198,7 +193,6 @@ const MainInfo = () => {
                     type="text"
                     id="portions"
                     placeholder="0"
-                    // defaultValue=""
                     value={portion}
                     onClick={() => clearErrors('portions')}
                     onChange={field.onChange}
@@ -235,9 +229,7 @@ const MainInfo = () => {
             <label htmlFor="allhours" className={styles.label}>
               <input
                 {...register('allhours', {
-                  required:
-                    // eslint-disable-next-line prettier/prettier
-                    allmins, // если в поле "минуты" не стоит значение, или оно равно 0 - поле "часы" становится обязательным
+                  required: allmins,
                   pattern: /[0-99]/,
                 })}
                 type="text"
@@ -281,9 +273,7 @@ const MainInfo = () => {
             <label htmlFor="cookhours" className={styles.label}>
               <input
                 {...register('cookhours', {
-                  required:
-                    // eslint-disable-next-line prettier/prettier
-                    cookmins,
+                  required: cookmins,
                   pattern: /[0-99]/,
                 })}
                 type="text"

@@ -16,7 +16,8 @@ from .permission import IsOwnerProfileOrReadOnly
 from .serializers import (UserProfileSerializer,
                           UserSerializer,
                           ActivationCodeSerializer)
-from .scripts import generate_activation_code
+from .scripts import (generate_activation_code,
+                      send_email)
 
 User = get_user_model()
 
@@ -59,6 +60,7 @@ class CheckCode(APIView):
 
         if entered_code_value == activation_code_value:
             expiration_time = 24 * 3600  # 24 hours
+
             # code is correct, not expired
             if time_diff.total_seconds() < expiration_time:
                 context = {
@@ -70,6 +72,7 @@ class CheckCode(APIView):
 
             # code is correct, expired
             code_generated_times = user_related_object.activ_code.code_generated_num
+
             # can release code again
             if code_generated_times < 3:
                 context = {
@@ -111,7 +114,9 @@ class CheckCode(APIView):
         # code is expired, renew activation code
         elif check_result['message'] == 'Code is expired':
             activ_code_object = get_object_or_404(ActivationCode, pk=check_result['activation_code_pk'])
-            activ_code_object.code = generate_activation_code()
+            new_code = generate_activation_code()
+            activ_code_object.code = new_code
+            send_email(user_object, new_code)
             activ_code_object.code_generated_num += 1
             activ_code_object.save()
             activ_code = ActivationCodeSerializer(activ_code_object)

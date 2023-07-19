@@ -67,37 +67,35 @@ class CheckCode(APIView):
                     'user_pk': user_pk,
                 }
                 return context
+
             # code is correct, expired
-            else:
-                code_generated_times = user_related_object.activ_code.code_generated_num
-                # can release code again
-                if code_generated_times < 3:
-                    context = {
-                        'success': False,
-                        'message': 'Code is expired',
-                        'user_pk': user_pk,
-                        'code_generated_times': code_generated_times,
-                        'activation_code_pk': activation_code_pk,
-                    }
-                    return context
+            code_generated_times = user_related_object.activ_code.code_generated_num
+            # can release code again
+            if code_generated_times < 3:
+                context = {
+                    'success': False,
+                    'message': 'Code is expired',
+                    'user_pk': user_pk,
+                    'code_generated_times': code_generated_times,
+                    'activation_code_pk': activation_code_pk,
+                }
+                return context
 
-                # code releases exceeded
-                else:
-                    context = {
-                        'success': False,
-                        'message': 'Code releases exceeded',
-                        'user_pk': user_pk
-                    }
-                    return context
-
-        # code is incorrect
-        else:
+            # code releases exceeded
             context = {
                 'success': False,
-                'message': 'Code is incorrect',
+                'message': 'Code releases exceeded',
                 'user_pk': user_pk
             }
             return context
+
+        # code is incorrect
+        context = {
+            'success': False,
+            'message': 'Code is incorrect',
+            'user_pk': user_pk
+        }
+        return context
 
     def patch(self, request):
         user_object = get_object_or_404(User, username=request.data.get('username'))

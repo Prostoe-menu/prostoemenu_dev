@@ -3,7 +3,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../UI/Button/Button';
 import { buttons } from '../../../utils/constants';
-import Legal from '../Legal/Legal';
+import Legal from './Legal/Legal';
 import { addNotification } from '../../../store/slices/toast/toastSlice';
 import getErrorTypes from '../../../helpers/getErrorTypes';
 import arrowLeft from '../../../images/arrow-left.svg';

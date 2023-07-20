@@ -1,7 +1,7 @@
 import React from 'react';
 
-import AddRecipe from '../components/Form/AddRecipe/AddRecipe';
+import AddRecipeForm from '../components/AddRecipeForm/AddRecipeForm';
 
-const FormPage = () => <AddRecipe />;
+const FormPage = () => <AddRecipeForm />;
 
 export default FormPage;

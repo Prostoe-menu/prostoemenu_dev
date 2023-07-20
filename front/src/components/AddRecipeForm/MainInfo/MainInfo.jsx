@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import Tooltip from '../Tooltip/Tooltip';
-import TooltipDifficultyContent from '../Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
+import Tooltip from '../../Tooltip/Tooltip';
+import TooltipDifficultyContent from '../../Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
 import PhotoButton from '../../UI/PhotoButton/PhotoButton';
 import Button from '../../UI/Button/Button';
 import {

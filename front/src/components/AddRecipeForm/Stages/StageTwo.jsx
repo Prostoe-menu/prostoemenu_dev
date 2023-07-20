@@ -1,7 +1,7 @@
 import React from 'react';
 import RecipeBox from '../RecipeBox/RecipeBox';
 import RecipeTitle from '../RecipeTitle/RecipeTitle';
-import Ingredients from '../AddRecipe/Ingredients/Ingredients';
+import Ingredients from '../Ingredients/Ingredients';
 
 const StageTwo = () => (
   <RecipeBox>

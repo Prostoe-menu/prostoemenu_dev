@@ -17,6 +17,7 @@ djangorestframework-simplejwt==4.8.0
 djoser==2.1.0
 drf-spectacular==0.26.3
 flake8==6.0.0
+gunicorn==21.2.0
 idna==3.4
 inflection==0.5.1
 itypes==1.2.0

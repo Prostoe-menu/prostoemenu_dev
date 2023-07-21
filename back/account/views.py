@@ -66,6 +66,7 @@ class CheckCode(APIView):
                 context = {
                     'message': 'Code is correct',
                     'user_pk': user_pk,
+                    'activation_code_pk': activation_code_pk,
                 }
                 return context
 
@@ -104,12 +105,14 @@ class CheckCode(APIView):
         if check_result['message'] == 'Code is correct':
             user_object.is_active = True
             user_object.save()
-            user = UserSerializer(user_object)
-            return Response(user.data, status=status.HTTP_200_OK)
+            activ_code_object = ActivationCode.objects.get(pk=check_result['activation_code_pk'])
+            activ_code_object.delete()
+            check_result['message'] == 'User activated'
+            return Response(check_result, status=status.HTTP_200_OK)
 
         # code is expired, renew activation code
         elif check_result['message'] == 'Code is expired':
-            activ_code_object = get_object_or_404(ActivationCode, pk=check_result['activation_code_pk'])
+            activ_code_object = ActivationCode.objects.get(pk=check_result['activation_code_pk'])
             new_code = generate_activation_code()
             activ_code_object.code = new_code
             send_email(user_object, new_code)
@@ -118,9 +121,9 @@ class CheckCode(APIView):
             return Response(check_result, status=status.HTTP_400_BAD_REQUEST)
 
         # code releases exceed, delete user
-        elif check_result['message'] == 'Code releases exceeded':
+        elif check_result['message'] == 'Code releases exceeded.':
             user_object.delete()
-            check_result['message'] = 'User deleted'
+            check_result['message'] += ' User deleted.'
             return Response(check_result, status=status.HTTP_400_BAD_REQUEST)
 
         # code is incorrect

@@ -48,7 +48,7 @@ class CheckCode(APIView):
     Проверка кода активации, введенного пользователем.
     param1: username - логин пользователя
     param2: activ_code - код активации
-    return: статус запроса, словарь с данными
+    return: статус запроса, словарь с результатами проверки кода активации
     """
 
     def check_code(self, user_pk, entered_code_value):
@@ -64,7 +64,6 @@ class CheckCode(APIView):
             # code is correct, not expired
             if time_diff.total_seconds() < expiration_time:
                 context = {
-                    'success': True,
                     'message': 'Code is correct',
                     'user_pk': user_pk,
                 }
@@ -76,7 +75,6 @@ class CheckCode(APIView):
             # can release code again
             if code_generated_times < 3:
                 context = {
-                    'success': False,
                     'message': 'Code is expired',
                     'user_pk': user_pk,
                     'code_generated_times': code_generated_times,
@@ -86,7 +84,6 @@ class CheckCode(APIView):
 
             # code releases exceeded
             context = {
-                'success': False,
                 'message': 'Code releases exceeded',
                 'user_pk': user_pk
             }
@@ -94,7 +91,6 @@ class CheckCode(APIView):
 
         # code is incorrect
         context = {
-            'success': False,
             'message': 'Code is incorrect',
             'user_pk': user_pk
         }
@@ -109,7 +105,7 @@ class CheckCode(APIView):
             user_object.is_active = True
             user_object.save()
             user = UserSerializer(user_object)
-            return Response(user.data)
+            return Response(user.data, status=status.HTTP_200_OK)
 
         # code is expired, renew activation code
         elif check_result['message'] == 'Code is expired':
@@ -119,8 +115,7 @@ class CheckCode(APIView):
             send_email(user_object, new_code)
             activ_code_object.code_generated_num += 1
             activ_code_object.save()
-            activ_code = ActivationCodeSerializer(activ_code_object)
-            return Response(activ_code.data)
+            return Response(check_result, status=status.HTTP_400_BAD_REQUEST)
 
         # code releases exceed, delete user
         elif check_result['message'] == 'Code releases exceeded':

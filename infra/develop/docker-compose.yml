@@ -16,6 +16,7 @@ services:
       context: ../../back
       dockerfile: Dockerfile
     container_name: web
+    command: python manage.py migrate
     restart: always
     depends_on:
       - db

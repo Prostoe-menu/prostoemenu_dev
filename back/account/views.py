@@ -38,11 +38,6 @@ class UserProfileDetailView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerProfileOrReadOnly, IsAuthenticated]
 
 
-class UserActivationView(UpdateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
 class CheckCode(APIView):
     """
     Проверка кода активации, введенного пользователем.
@@ -129,8 +124,3 @@ class CheckCode(APIView):
         # code is incorrect
         elif check_result['message'] == 'Code is incorrect':
             return Response(check_result, status=status.HTTP_400_BAD_REQUEST)
-
-
-class ActivationCodeUpdateView(UpdateAPIView):
-    queryset = ActivationCode.objects.all()
-    serializer_class = ActivationCodeSerializer

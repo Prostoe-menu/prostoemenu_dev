@@ -5,17 +5,14 @@ from rest_framework import status
 
 from rest_framework.decorators import APIView
 from rest_framework.generics import (ListCreateAPIView,
-                                     RetrieveUpdateDestroyAPIView,
-                                     UpdateAPIView)
+                                     RetrieveUpdateDestroyAPIView)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import (Profile,
                      ActivationCode)
 from .permission import IsOwnerProfileOrReadOnly
-from .serializers import (UserProfileSerializer,
-                          UserSerializer,
-                          ActivationCodeSerializer)
+from .serializers import UserProfileSerializer
 from .scripts import (generate_activation_code,
                       send_email)
 
@@ -38,7 +35,7 @@ class UserProfileDetailView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerProfileOrReadOnly, IsAuthenticated]
 
 
-class CheckCode(APIView):
+class UserActivationAPIView(APIView):
     """
     Проверка кода активации, введенного пользователем.
     param1: username - логин пользователя
@@ -60,7 +57,6 @@ class CheckCode(APIView):
             if time_diff.total_seconds() < expiration_time:
                 context = {
                     'message': 'Code is correct',
-                    'user_pk': user_pk,
                     'activation_code_pk': activation_code_pk,
                 }
                 return context
@@ -72,8 +68,6 @@ class CheckCode(APIView):
             if code_generated_times < 3:
                 context = {
                     'message': 'Code is expired',
-                    'user_pk': user_pk,
-                    'code_generated_times': code_generated_times,
                     'activation_code_pk': activation_code_pk,
                 }
                 return context
@@ -81,14 +75,12 @@ class CheckCode(APIView):
             # code releases exceeded
             context = {
                 'message': 'Code releases exceeded',
-                'user_pk': user_pk
             }
             return context
 
         # code is incorrect
         context = {
             'message': 'Code is incorrect',
-            'user_pk': user_pk
         }
         return context
 
@@ -102,7 +94,7 @@ class CheckCode(APIView):
             user_object.save()
             activ_code_object = ActivationCode.objects.get(pk=check_result['activation_code_pk'])
             activ_code_object.delete()
-            check_result['message'] == 'User activated'
+            check_result['message'] += '. User activated'
             return Response(check_result, status=status.HTTP_200_OK)
 
         # code is expired, renew activation code
@@ -113,12 +105,13 @@ class CheckCode(APIView):
             send_email(user_object, new_code)
             activ_code_object.code_generated_num += 1
             activ_code_object.save()
+            check_result['message'] += '. Reissued.'
             return Response(check_result, status=status.HTTP_400_BAD_REQUEST)
 
         # code releases exceed, delete user
-        elif check_result['message'] == 'Code releases exceeded.':
+        elif check_result['message'] == 'Code releases exceeded':
             user_object.delete()
-            check_result['message'] += ' User deleted.'
+            check_result['message'] += '. User deleted.'
             return Response(check_result, status=status.HTTP_400_BAD_REQUEST)
 
         # code is incorrect

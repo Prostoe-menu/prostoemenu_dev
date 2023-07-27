@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDispatch } from 'react-redux';
 
-import getIngredients from '../../../../../../helpers/getIngredients';
-import useAsync from '../../../../../../hooks/useAsync';
+import getIngredients from '../../../../../helpers/getIngredients';
+import useAsync from '../../../../../hooks/useAsync';
 import {
   saveIngredient,
   changeIngredientVolume,
   changeIngredientMeasureUnits,
-} from '../../../../../../store/slices/form/formSlice';
-import useClickOutside from '../../../../../../helpers/useClickOutside';
+} from '../../../../../store/slices/form/formSlice';
+import useClickOutside from '../../../../../helpers/useClickOutside';
 import Style from './InputsContainer.module.scss';
 
 const InputsContainer = ({

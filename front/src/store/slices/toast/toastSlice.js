@@ -13,15 +13,17 @@ const toastSlice = createSlice({
   initialState,
   reducers: {
     addNotification: (state, action) => {
-      const updatedNotifications = [...state.notifications];
-      if (updatedNotifications.length > 2) {
-        updatedNotifications.shift();
+      if (state.notifications.length === 0) {
+        const updatedNotifications = [...state.notifications];
+        if (updatedNotifications.length > 2) {
+          updatedNotifications.shift();
+        }
+        updatedNotifications.push({
+          id: uuidV4(),
+          message: action.payload,
+        });
+        state.notifications = updatedNotifications;
       }
-      updatedNotifications.push({
-        id: uuidV4(),
-        message: action.payload,
-      });
-      state.notifications = updatedNotifications;
     },
     deleteNotification: (state, action) => {
       const filteredNotifications = state.notifications.filter(

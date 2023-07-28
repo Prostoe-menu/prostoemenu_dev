@@ -16,7 +16,7 @@ const useAsync = (callback, query, debounce, delay) => {
   }, [query]);
 
   useEffect(() => {
-    if (query.length >= 3) {
+    if (query.length >= 2) {
       if (!debounce) {
         callbackMemoized();
         return;

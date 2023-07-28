@@ -57,6 +57,10 @@
     cursor: pointer;
   }
 
+  &_error {
+    border: 1px solid #D14941;
+  }
+
   &::-ms-clear {
     display: none;
     width: 0;
@@ -89,6 +93,11 @@
     -moz-appearance: textfield;
     appearance: textfield;
   }
+}
+
+.listItem {
+  padding: 0;
+  display: flex;
 }
 
 .dropdownMenu {
@@ -128,12 +137,12 @@
   }
 
   &__option {
-    display: flex;
-    height: 40px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    height: 40px;
     padding: 0 16px;
     border-radius: 8px;
-    align-items: center;
     background: #fff;
     font-family: 'Mulish', sans-serif;
     font-style: normal;
@@ -142,8 +151,18 @@
     line-height: 1.5;
     color: #232323;
 
-    &:hover {
+    &:hover, &:focus, &_active {
+      outline: none;
       background: #FFFAF0;
+      border-radius: 0;
+    }
+
+    &_notfound {
+      cursor: default;
+
+      &:hover {
+        background: #fff;
+      }
     }
   }
 }

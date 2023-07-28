@@ -19,6 +19,7 @@ const InputsContainer = ({
   ingredientData,
   measureUnits,
   error,
+  name,
 }) => {
   const [cursor, setCursor] = useState(-1);
   const [query, setQuery] = useState(ingredientData.name || '');
@@ -206,7 +207,9 @@ const InputsContainer = ({
       </div>
       <input
         className={`${Style.input} ${Style.input_type_quantity} ${
-          error === 'quantity' && Style.input_error
+          error === 'quantity' &&
+          name === `ingredient[${index}].quantity` &&
+          Style.input_error
         }`}
         {...register(`ingredient[${index}].quantity`, {
           valueAsNumber: true,

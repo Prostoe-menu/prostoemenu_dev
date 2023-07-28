@@ -25,6 +25,7 @@ const Ingredients = () => {
   const { ingredients } = useSelector((state) => state.form);
   const [measureUnits, setMeasureUnits] = useState([]);
   const [errorType, setErrorType] = useState('');
+  const [errorRefName, setErrorRefName] = useState('');
   const dispatch = useDispatch();
 
   const onSubmit = () => {
@@ -44,6 +45,7 @@ const Ingredients = () => {
           if (item.name.type === 'required' || item.name.type === 'pattern') {
             dispatch(addNotification(item.name.message));
           }
+          setErrorRefName(item.name.ref.name);
         } else if ('quantity' in item) {
           setErrorType('quantity');
           if (
@@ -52,6 +54,7 @@ const Ingredients = () => {
           ) {
             dispatch(addNotification(item.quantity.message));
           }
+          setErrorRefName(item.quantity.ref.name);
         }
       });
     } else {
@@ -107,6 +110,7 @@ const Ingredients = () => {
                 ingredientData={ingredient}
                 hideButton={ingredients.length <= 1}
                 error={errorType}
+                name={errorRefName}
               />
             </li>
           ))}

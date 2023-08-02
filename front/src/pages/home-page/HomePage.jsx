@@ -1,5 +1,11 @@
-import React from 'react';
 
-const HomePage = () => <div>Здесь будет собрана страница с рецептами</div>;
+import React from 'react';
+import RecipeGallery from '../../components/RecipeGallery/RecipeGallery';
+
+const HomePage = () => (
+  <div>
+    <RecipeGallery />
+  </div>
+);
 
 export default HomePage;

@@ -16,6 +16,7 @@ import toastReducer from './slices/toast/toastSlice';
 const rootReducer = combineReducers({
   form: formReducer,
   toast: toastReducer,
+  receipt: receiptReducer
 });
 
 const persistConfig = {

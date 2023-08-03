@@ -7,7 +7,15 @@ const API_ENDPOINT = 'http://109.172.82.25/api/recipes/';
 const fetchRecipes = createAsyncThunk('recipes/fetchRecipes', async () => {
   try {
     const response = await axios.get(API_ENDPOINT);
-    return response.data; // Assuming the API returns an array of recipes
+    const originalRecipes = response.data.results; // Assuming the 'results' array contains the recipes
+    const multipliedRecipes = [];
+
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < 6; i++) {
+      multipliedRecipes.push(...originalRecipes);
+    }
+
+    return multipliedRecipes;
   } catch (error) {
     throw new Error('Failed to fetch recipes.');
   }

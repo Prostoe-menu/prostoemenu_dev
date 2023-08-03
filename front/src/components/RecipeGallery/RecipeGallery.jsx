@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
-
+import style from './RecipeGallery.module.css';
 import fetchRecipes from '../../store/slices/recipe/recipeThunk';
+import RecipeItem from './RecipeItem/RecipeItem';
 
 const RecipeGallery = () => {
-  const { results } = useSelector((state) => state.recipe.recipes);
+  const results = useSelector((state) => state.recipe.recipes);
   const dispatch = useDispatch();
   // const currentStage = useSelector((state) => state.form.currentFormStage);
 
@@ -15,14 +16,10 @@ const RecipeGallery = () => {
 
   if (results) {
     return (
-      <section>
-        {results.map((recipe, index) => (
+      <section className={style.container}>
+        {results.map((recipe) => (
           // eslint-disable-next-line react/no-array-index-key
-          <div className="gallery-item" key={`${index}ght`}>
-            <h3>{recipe.name}</h3>
-            <p>{recipe.description}</p>
-            <img src={recipe.photos[0]?.photo} alt={recipe.name} />
-          </div>
+          <RecipeItem className={style.galleryItem} recipe={recipe} />
         ))}
       </section>
     );

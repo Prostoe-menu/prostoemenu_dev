@@ -1,0 +1,19 @@
+.wrapper{
+  width: 400px;
+  border: chocolate 1px solid;
+  height: 300px;
+
+}
+
+.name,
+.description {
+  /* Set styles for the title and description */
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.imageContainer {
+  width: 400px;
+  height: 220px;
+}

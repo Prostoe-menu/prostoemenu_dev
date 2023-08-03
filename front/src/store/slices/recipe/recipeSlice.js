@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import fetchRecipes from './recipeThunk';
 
-
 const initialState = {
   recipes: [],
   isLoading: false,

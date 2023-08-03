@@ -12,5 +12,6 @@ const getRecipes = async () => {
   const { results } = reponse.data;
   return results;
 };
+const recipeService = { getRecipes };
 
-export default getRecipes;
+export default recipeService;

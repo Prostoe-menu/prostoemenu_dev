@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import fetchRecipes from './recipeThunk';
 
 
 const initialState = {
@@ -6,8 +7,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   errorMessage: null,
-}
-
+};
 
 const recipeSlice = createSlice({
   name: 'recipe',
@@ -26,8 +26,25 @@ const recipeSlice = createSlice({
       state.recipes = action.payload;
     },
   },
-  extraReducers: ( builder ) =>{
+  extraReducers: (builder) => {
     builder
-      .addCase()
-  }
-})
+      .addCase(fetchRecipes.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.errorMessage = null;
+      })
+      .addCase(fetchRecipes.fulfilled, (state, action) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.errorMessage = null;
+        state.recipes = action.payload;
+      })
+      .addCase(fetchRecipes.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.error.message;
+      });
+  },
+});
+export const { resetRecipesState } = recipeSlice.actions;
+export default recipeSlice.reducer;

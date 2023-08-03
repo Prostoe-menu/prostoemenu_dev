@@ -1,19 +1,31 @@
 .wrapper{
   width: 400px;
   border: chocolate 1px solid;
-  height: 300px;
+  height: 270px;
 
 }
 
 .name,
 .description {
   /* Set styles for the title and description */
-  margin: 0;
+  margin: 5px 15px ;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 22px;
 }
 .imageContainer {
   width: 400px;
   height: 220px;
 }
+h3,p{
+  font-family: "Biolilbert", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 32px;
+  color: #232323;
+  margin: 0;
+  padding: 0;
+}
+

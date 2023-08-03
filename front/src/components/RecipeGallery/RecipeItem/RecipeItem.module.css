@@ -1,5 +1,5 @@
 .wrapper{
-  width: 400px;
+  width: 415px;
   border: chocolate 1px solid;
   height: 270px;
 
@@ -8,15 +8,15 @@
 .name,
 .description {
   /* Set styles for the title and description */
-  margin: 5px 15px ;
+  margin: 0 10px ;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 22px;
 }
 .imageContainer {
-  width: 400px;
-  height: 220px;
+  width: 415px;
+  height: 230px;
 }
 h3,p{
   font-family: "Biolilbert", sans-serif;

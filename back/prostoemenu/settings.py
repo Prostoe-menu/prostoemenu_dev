@@ -169,6 +169,8 @@ MEDIA_URL = '/media/'
 #    "127.0.0.1"
 #]
 
+DOMAIN_NAME = 'https://109.172.82.25/'
+
 
 DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE': True,
@@ -197,3 +199,4 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
+

@@ -22,8 +22,6 @@ User = get_user_model()
 class UserProfileListCreateView(ListCreateAPIView):
     queryset = Profile.objects.all()
     serializer_class = UserProfileSerializer
-
-    # permission_classes = [IsAuthenticated]
     def perform_create(self, serializer):
         user = self.request.user
         serializer.save(user=user)
@@ -43,77 +41,71 @@ class UserActivationAPIView(APIView):
     return: статус запроса, словарь с результатами проверки кода активации
     """
 
-    def check_code(self, user_pk, entered_code_value):
-        user_related_object = User.objects.select_related('activ_code').get(id=user_pk)
-        activation_code_pk = user_related_object.activ_code.pk
-        activation_code_value = user_related_object.activ_code.code
-        date_code_created = user_related_object.activ_code.datetime_created
+    def check_code(self, user_object, entered_code_value):
+        activation_code_value = user_object.activ_code.code
+        date_code_created = user_object.activ_code.datetime_created
         time_diff = timezone.now() - date_code_created
+        context = {
+            'code_is_correct': True,
+            'code_not_expired': False,
+            'code_releases_exceeded': False,
+        }
 
         if entered_code_value == activation_code_value:
             expiration_time = 24 * 3600  # 24 hours
 
             # code is correct, not expired
             if time_diff.total_seconds() < expiration_time:
-                context = {
-                    'message': 'Code is correct',
-                    'activation_code_pk': activation_code_pk,
-                }
+                context['code_not_expired'] = True
                 return context
 
-            # code is correct, expired
-            code_generated_times = user_related_object.activ_code.code_generated_num
-
-            # can release code again
+            code_generated_times = user_object.activ_code.code_generated_num
+            # code is correct, expired, can release code again
             if code_generated_times < 3:
-                context = {
-                    'message': 'Code is expired',
-                    'activation_code_pk': activation_code_pk,
-                }
                 return context
 
             # code releases exceeded
-            context = {
-                'message': 'Code releases exceeded',
-            }
+            context['code_releases_exceeded'] = True
             return context
 
         # code is incorrect
-        context = {
-            'message': 'Code is incorrect',
-        }
+        context['code_is_correct'] = False
         return context
 
-    def patch(self, request):
-        user_object = get_object_or_404(User, username=request.data.get('username'))
-        check_result = self.check_code(user_pk=user_object.pk, entered_code_value=request.data.get('activ_code'))
+    def post(self, request):
+        user_object = get_object_or_404(User.objects.select_related(), username=request.data.get('username'))
+        check_result = self.check_code(user_object, entered_code_value=request.data.get('activ_code'))
 
-        # code is correct
-        if check_result['message'] == 'Code is correct':
+        if check_result['code_is_correct']:
+            if not check_result['code_not_expired']:
+                # code is correct, expired, code releases exceed -> delete user
+                if check_result['code_releases_exceeded']:
+                    user_object.delete()
+                    check_result.clear()
+                    check_result['message'] = 'User deleted'
+                    return Response(check_result, status=status.HTTP_400_BAD_REQUEST)
+
+                # code is correct, expired, code releases not exceeded -> renew activation code
+                activ_code_object = user_object.activ_code
+                new_code = generate_activation_code()
+                activ_code_object.code = new_code
+                send_email(user_object, new_code)
+                activ_code_object.code_generated_num += 1
+                activ_code_object.save()
+                check_result.clear()
+                check_result['message'] = 'Activation code reissued'
+                return Response(check_result, status=status.HTTP_400_BAD_REQUEST)
+
+            # code is correct, not expired -> activate user
             user_object.is_active = True
             user_object.save()
-            activ_code_object = ActivationCode.objects.get(pk=check_result['activation_code_pk'])
+            activ_code_object = user_object.activ_code
             activ_code_object.delete()
-            check_result['message'] += '. User activated'
+            check_result.clear()
+            check_result['message'] = 'User activated'
             return Response(check_result, status=status.HTTP_200_OK)
 
-        # code is expired, renew activation code
-        elif check_result['message'] == 'Code is expired':
-            activ_code_object = ActivationCode.objects.get(pk=check_result['activation_code_pk'])
-            new_code = generate_activation_code()
-            activ_code_object.code = new_code
-            send_email(user_object, new_code)
-            activ_code_object.code_generated_num += 1
-            activ_code_object.save()
-            check_result['message'] += '. Reissued.'
-            return Response(check_result, status=status.HTTP_400_BAD_REQUEST)
-
-        # code releases exceed, delete user
-        elif check_result['message'] == 'Code releases exceeded':
-            user_object.delete()
-            check_result['message'] += '. User deleted.'
-            return Response(check_result, status=status.HTTP_400_BAD_REQUEST)
-
         # code is incorrect
-        elif check_result['message'] == 'Code is incorrect':
-            return Response(check_result, status=status.HTTP_400_BAD_REQUEST)
+        check_result.clear()
+        check_result['message'] = 'Code is incorrect'
+        return Response(check_result, status=status.HTTP_400_BAD_REQUEST)

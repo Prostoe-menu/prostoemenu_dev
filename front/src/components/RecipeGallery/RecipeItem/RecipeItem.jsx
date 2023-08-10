@@ -3,8 +3,7 @@ import React from 'react';
 import styles from './RecipeItem.module.css';
 
 const RecipeItem = ({ recipe }) => {
-  // eslint-disable-next-line no-console
-  console.log(recipe.photos[0].photo);
+
 
   return (
     <div className={styles.wrapper}>

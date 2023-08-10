@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 // Replace 'your_api_endpoint' with the actual API endpoint
-const API_ENDPOINT = 'http://109.172.82.25/api/recipes/';
+const API_ENDPOINT = `${process.env.REACT_APP_API_URL}/recipes/`;
 
 const fetchRecipes = createAsyncThunk('recipes/fetchRecipes', async () => {
   try {

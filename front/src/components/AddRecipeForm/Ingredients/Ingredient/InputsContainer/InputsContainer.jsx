@@ -1,8 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useDispatch } from 'react-redux';
-
 import getIngredients from '../../../../../helpers/getIngredients';
 import useAsync from '../../../../../hooks/useAsync';
 import {
@@ -21,12 +20,18 @@ const InputsContainer = ({
   error,
   name,
 }) => {
+  const { ingredients } = useSelector((state) => state.form);
   const [cursor, setCursor] = useState(-1);
   const [query, setQuery] = useState(ingredientData.name || '');
 
   const dispatch = useDispatch();
 
-  const { value: ingredients } = useAsync(getIngredients, query, true, 800);
+  const { value: ingredientsApiData } = useAsync(
+    getIngredients,
+    query,
+    true,
+    800
+  );
 
   const [openIngredientDropdown, setOpenIngredientDropdown] = useState(false);
   const selectIngredient = useClickOutside(() =>
@@ -133,9 +138,8 @@ const InputsContainer = ({
             error === 'name' && Style.input_error
           }`}
           {...register(`ingredient[${index}].name`, {
-            onChange: handleNameInput,
             required: {
-              value: index === 0,
+              value: ingredients[0].name === '' && ingredients.length <= 1,
               message: 'Добавьте в рецепт минимум 1 ингредиент',
             },
             pattern: {
@@ -143,12 +147,13 @@ const InputsContainer = ({
               message: `Допустимы кириллица, латиница, цифры и спецсимволы !-"№;%:?*()'/.,\\«»`,
             },
           })}
+          onChange={handleNameInput}
           onKeyDown={(e) =>
             handleKeyboardNavigation(
               e,
               selectIngredient,
               openIngredientDropdown,
-              ingredients,
+              ingredientsApiData,
               setOpenIngredientDropdown,
               chooseIngredient
             )
@@ -164,7 +169,7 @@ const InputsContainer = ({
           ref={selectIngredient}
         >
           {(() => {
-            if (ingredients.length === 0) {
+            if (ingredientsApiData.length === 0) {
               return (
                 <li
                   className={`${Style.dropdownMenu__option} ${Style.dropdownMenu__option_notfound}`}
@@ -179,7 +184,7 @@ const InputsContainer = ({
                 </li>
               );
             }
-            return ingredients?.map((ingredient, idx) => (
+            return ingredientsApiData?.map((ingredient, idx) => (
               <li className={Style.listItem} key={ingredient.id}>
                 <div
                   className={`${Style.dropdownMenu__option} ${
@@ -214,20 +219,20 @@ const InputsContainer = ({
         {...register(`ingredient[${index}].quantity`, {
           valueAsNumber: true,
           required: {
-            value: query.length !== 0,
+            value: ingredientData.name !== '' && ingredientData.volume === '',
             message: 'Введите количество ингредиента',
           },
           min: {
             value: 0.1,
             message: 'Количество должно быть более нуля',
           },
-          onChange: handleVolumeInput,
         })}
         type="number"
         step="0.1"
         placeholder="0"
         autoComplete="off"
         value={ingredientData.volume}
+        onChange={handleVolumeInput}
       />
       <div
         className={`${Style.dropdownMenu} ${Style.dropdownMenu_type_measureInuts}`}

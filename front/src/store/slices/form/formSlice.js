@@ -74,7 +74,7 @@ const formSlice = createSlice({
       updatedIngredients[ingredientIndex] = {
         ...storedIngredient,
         name: action.payload.name,
-        ingredientID: action.payload.id,
+        elementID: action.payload.id,
       };
 
       state.ingredients = updatedIngredients;

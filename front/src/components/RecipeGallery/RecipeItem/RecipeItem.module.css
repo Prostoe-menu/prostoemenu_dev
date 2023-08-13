@@ -1,10 +1,7 @@
 .wrapper{
   width: 415px;
-  border: chocolate 1px solid;
   height: 270px;
-
 }
-
 .name,
 .description {
   /* Set styles for the title and description */

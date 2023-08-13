@@ -1,24 +1,21 @@
-.wrapper {
+.wrapper{
   width: 415px;
   height: 270px;
 }
-
 .name,
 .description {
   /* Set styles for the title and description */
-  margin: 0 10px;
+  margin: 0 10px ;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 22px;
 }
-
 .imageContainer {
   width: 415px;
   height: 230px;
 }
-
-h3, p {
+h3,p{
   font-family: "Biolilbert", sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -29,4 +26,3 @@ h3, p {
   padding: 0;
 }
 
-/*# sourceMappingURL=RecipeItem.module.css.map */

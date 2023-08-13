@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
-import style from './RecipeGallery.module.css';
+import style from './RecipeGallery.module.scss';
 import fetchRecipes from '../../store/slices/recipe/recipeThunk';
 import RecipeItem from './RecipeItem/RecipeItem';
 

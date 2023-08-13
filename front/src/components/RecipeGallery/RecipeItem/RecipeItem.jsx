@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './RecipeItem.module.css';
+import styles from './RecipeItem.module.scss';
 
 const RecipeItem = ({ recipe }) => (
   <div className={styles.wrapper}>

@@ -18,7 +18,6 @@ const AdditionalInfo = () => {
   const { comment, author, email, isCheckbox } = useSelector(
     (state) => state.form
   );
-
   const {
     register,
     formState: { errors },

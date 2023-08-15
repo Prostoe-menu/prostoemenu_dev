@@ -7,12 +7,14 @@ import Footer from './components/Layout/Footer/Footer';
 
 import Modal from './components/Modal/Modal';
 import ToastNotifications from './components/Toast/ToastNotifications';
+import HomePage from './pages/home-page/HomePage';
 
 const App = () => (
   <div className={Style.app}>
     <Header />
     <Routes>
-      <Route path="/" element={<AddRecipeForm />} />
+      <Route path="/catalog" element={<HomePage />} />
+      <Route path="/new-recipe" element={<AddRecipeForm />} />
     </Routes>
     <Modal />
     <Footer />

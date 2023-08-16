@@ -21,12 +21,12 @@ import Style from './Ingredients.module.scss';
 import getMeasurements from '../../../helpers/getMeasurements';
 
 const Ingredients = () => {
-  const { register, handleSubmit } = useForm();
   const { ingredients } = useSelector((state) => state.form);
+  const { register, handleSubmit } = useForm({ values: ingredients });
+  const dispatch = useDispatch();
   const [measureUnits, setMeasureUnits] = useState([]);
   const [errorType, setErrorType] = useState('');
   const [errorRefName, setErrorRefName] = useState('');
-  const dispatch = useDispatch();
 
   const onSubmit = () => {
     dispatch(saveAllIngredients());

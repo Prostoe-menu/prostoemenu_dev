@@ -1,0 +1,66 @@
+[
+  {
+      "name": "грамм",
+      "abbreviation": "г."
+  },
+  {
+      "name": "миллилитр",
+      "abbreviation": "мл."
+  },
+  {
+      "name": "штука",
+      "abbreviation": "шт."
+  },
+  {
+      "name": "столовая ложка",
+      "abbreviation": "ст. л."
+  },
+  {
+      "name": "чайная ложка",
+      "abbreviation": "ч. л."
+  },
+  {
+      "name": "зубчик",
+      "abbreviation": "зубчик"
+  },
+  {
+      "name": "пучок",
+      "abbreviation": "пучок"
+  },
+  {
+      "name": "горсть",
+      "abbreviation": "горсть"
+  },
+  {
+      "name": "щепотка",
+      "abbreviation": "щепотка"
+  },
+  {
+      "name": "ломтик",
+      "abbreviation": "ломтик"
+  },
+  {
+      "name": "кочан",
+      "abbreviation": "кочан"
+  },
+  {
+      "name": "веточка",
+      "abbreviation": "веточка"
+  },
+  {
+      "name": "стакан",
+      "abbreviation": "стакан"
+  },
+  {
+      "name": "киллограмм",
+      "abbreviation": "кг."
+  },
+  {
+      "name": "литр",
+      "abbreviation": "л."
+  },
+  {
+      "name": "по вкусу",
+      "abbreviation": "по вкусу"
+  }
+]

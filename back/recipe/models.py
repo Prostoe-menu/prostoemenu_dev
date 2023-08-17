@@ -322,7 +322,7 @@ class Measurement(models.Model):
     class Meta:
         verbose_name = 'Единица измерения'
         verbose_name_plural = 'Единицы измерения'
-        ordering = ['rank_size']
+        ordering = ['name']
 
 
 #############################################

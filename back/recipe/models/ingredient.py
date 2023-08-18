@@ -9,7 +9,7 @@ class Ingredient(models.Model):
     category = models.CharField(
         max_length=100,
         verbose_name='Категория ингредиента')
-    sort = models.IntegerField(null=True, verbose_name='Порядок ингредиента')
+    sort = models.PositiveSmallIntegerField(null=True, verbose_name='Порядок ингредиента')
 
     def __str__(self):
         return self.name

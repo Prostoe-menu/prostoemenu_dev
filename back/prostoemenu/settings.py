@@ -39,14 +39,11 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'debug_toolbar',
     'corsheaders',
-    'djoser',
     'drf_spectacular',
 
     # Project Applications
     'recipe',
     'api',
-    'kaiten',
-    'account',
 ]
 
 REST_FRAMEWORK = {
@@ -96,25 +93,25 @@ WSGI_APPLICATION = 'prostoemenu.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-  'default': {
-      'ENGINE': os.getenv(
-          'DB_ENGINE', default='django.db.backends.postgresql'
-      ),
-      'NAME': os.getenv('DB_NAME', default='prostoemenu'),
-      'USER': os.getenv('POSTGRES_USER', default='postgres'),
-      'PASSWORD': os.getenv('POSTGRES_PASSWORD', default=''),
-      'HOST': os.getenv('DB_HOST', default='db'),
-      'PORT': os.getenv('DB_PORT', default='5432')
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+# DATABASES = {
+#   'default': {
+#       'ENGINE': os.getenv(
+#           'DB_ENGINE', default='django.db.backends.postgresql'
+#       ),
+#       'NAME': os.getenv('DB_NAME', default='prostoemenu'),
+#       'USER': os.getenv('POSTGRES_USER', default='postgres'),
+#       'PASSWORD': os.getenv('POSTGRES_PASSWORD', default=''),
+#       'HOST': os.getenv('DB_HOST', default='db'),
+#       'PORT': os.getenv('DB_PORT', default='5432')
+#   }
+# }
 
 
 # Password validation

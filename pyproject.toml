@@ -13,6 +13,11 @@ djangorestframework = "^3.14.0"
 drf-spectacular = "^0.26.4"
 black = "^23.7.0"
 ruff = "^0.0.285"
+python-dotenv = "^1.0.0"
+psycopg2-binary = "^2.9.7"
+django-filter = "^23.2"
+django-cors-headers = "^4.2.0"
+django-debug-toolbar = "^4.2.0"
 
 
 [build-system]

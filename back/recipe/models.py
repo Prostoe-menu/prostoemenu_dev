@@ -1,33 +1,9 @@
 from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator
 from django.db import models
-from django.contrib.postgres.indexes import GinIndex
-
-from account.models import Profile
 
 
-class Ingredient(models.Model):
-    name = models.CharField(
-        max_length=100,
-        verbose_name='Название ингредиента',
-        unique=True)
-    category = models.CharField(
-        max_length=100,
-        verbose_name='Категория ингредиента',
-        default='Category')
-    sort = models.IntegerField(null=True, verbose_name='Порядок ингредиента')
 
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        indexes = [
-            GinIndex(
-                name='ingredient_name_gin_idx',
-                fields=['name'],
-                opclasses=['gin_trgm_ops'])]
-        verbose_name = 'Ингредиент'
-        verbose_name_plural = 'Ингредиенты'
 
 
 class Tag(models.Model):

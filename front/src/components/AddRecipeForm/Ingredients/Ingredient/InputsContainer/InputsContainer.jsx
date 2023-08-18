@@ -10,6 +10,7 @@ import {
   changeIngredientMeasureUnits,
 } from '../../../../../store/slices/form/formSlice';
 import useClickOutside from '../../../../../helpers/useClickOutside';
+import Input from '../../../../UI/Input/Input';
 import Style from './InputsContainer.module.scss';
 
 const InputsContainer = ({
@@ -133,7 +134,7 @@ const InputsContainer = ({
   return (
     <div className={Style.container}>
       <div className={`${Style.dropdownMenu} ${Style.dropdownMenu_type_name}`}>
-        <input
+        {/* <input
           className={`${Style.input} ${Style.input_type_name} ${
             error === 'name' && Style.input_error
           }`}
@@ -161,6 +162,29 @@ const InputsContainer = ({
           placeholder="Начните вводить название"
           autoComplete="off"
           value={query}
+        /> */}
+        <Input
+          inputClassName="input_type_name"
+          isError={error === 'name'}
+          register={register}
+          inputName={`ingredient[${index}].name`}
+          requiredValue={ingredients[0].name === '' && ingredients.length <= 1}
+          requiredMessage="Добавьте в рецепт минимум 1 ингредиент"
+          patternValue={/[A-Za-zА-Яа-яЁё0-9\s!-"№;%:?*()'/.,\\«»]/gi}
+          patternMessage={`Допустимы кириллица, латиница, цифры и спецсимволы !-"№;%:?*()'/.,\\«»`}
+          handleChangeInput={handleNameInput}
+          handleOnKeyDown={(e) =>
+            handleKeyboardNavigation(
+              e,
+              selectIngredient,
+              openIngredientDropdown,
+              ingredientsApiData,
+              setOpenIngredientDropdown,
+              chooseIngredient
+            )
+          }
+          placeholderText="Начните вводить название"
+          inputValue={query}
         />
         <ul
           className={`${Style.dropdownMenu__options} ${

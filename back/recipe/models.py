@@ -3,56 +3,6 @@ from django.core.validators import FileExtensionValidator
 from django.db import models
 
 
-class Step(models.Model):
-    step_number = models.IntegerField(
-        verbose_name='Номер шага')
-    description = models.TextField(
-        verbose_name='Описание шага')
-    photo = models.ImageField(
-        null=True,
-        verbose_name='Фотография')
-
-    def __str__(self):
-        return self.step_number
-
-    class Meta:
-        verbose_name = 'Метод'
-        verbose_name_plural = 'Методы'
-        ordering = ['step_number']
-
-
-class Photo(models.Model):
-    photo = models.ImageField(
-        upload_to='images/',
-        verbose_name='Фотография',
-        validators=[FileExtensionValidator(['jpeg', 'jpg', 'png', 'webp'])])
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Фотография'
-        verbose_name_plural = 'Фотографии'
-
-
-class Method(models.Model):
-    name = models.CharField(
-        max_length=100,
-        verbose_name='Название метода',
-        unique=True)
-    description = models.TextField(
-        null=True,
-        verbose_name='Описание метода')
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Метод'
-        verbose_name_plural = 'Методы'
-        ordering = ['name']
-
-
 class Recipe(models.Model):
     name = models.CharField(
         max_length=100,
@@ -252,17 +202,7 @@ class RecipeIngredients(models.Model):
 
 
 # Measurement for frontend
-class Measurement(models.Model):
-    name = models.CharField(max_length=30, unique=True)
-    abbreviation = models.CharField(max_length=30)
 
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Единица измерения'
-        verbose_name_plural = 'Единицы измерения'
-        ordering = ['name']
 
 
 #############################################
@@ -290,55 +230,3 @@ class IngredientAlternatives(models.Model):
         verbose_name_plural = 'Ингредиенты для замены'
         ordering = ['ingredient']
         unique_together = ('ingredient', 'ingredient_alternative')
-
-
-# Feedback
-class Feedback(models.Model):
-    email = models.EmailField()
-    message = models.TextField(verbose_name='Сообщение')
-    date = models.DateField(verbose_name='Когда прислали')
-    page_id = models.IntegerField(null=True, verbose_name='Номер страницы')
-    name = models.CharField(max_length=50, verbose_name='Заголовок сообщения')
-    response = models.URLField(verbose_name='Адрес страницы')
-
-
-# Comment recipe_comment
-class Comment(models.Model):
-    text = models.TextField(verbose_name='Текст комментария')
-    header = models.CharField(max_length=100, verbose_name='Заголовок')
-    username = models.CharField(
-        max_length=100, verbose_name='Имя пользователя')
-    email = models.EmailField()
-    user_id = models.IntegerField(verbose_name='Номер пользователя')
-    description = models.TextField(null=True)
-    photo = models.ImageField(
-        verbose_name='Фото к комментарию',
-        validators=[FileExtensionValidator(['jpeg', 'jpg', 'png', 'webp'])])
-    comment_date = models.DateField(verbose_name='Дата комментария')
-
-    recipe = models.ManyToManyField(Recipe, through='RecipeComment')
-
-    def __str__(self):
-        return self.username
-
-    class Meta:
-        verbose_name = 'Комментарий'
-        verbose_name_plural = 'Комментарии'
-        ordering = ['comment_date']
-
-
-class RecipeComment(models.Model):
-    recipe = models.ForeignKey(
-        Recipe, on_delete=models.CASCADE,
-        verbose_name='Номер рецепта')
-    comment = models.ForeignKey(
-        Comment, on_delete=models.CASCADE,
-        verbose_name='Номер коммента')
-    exist = models.BooleanField(verbose_name='Существует')
-
-    def __str__(self):
-        return self.comment.__str__() + " " + self.recipe.__str__()
-
-    class Meta:
-        verbose_name = 'Комментарий к рецепту'
-        verbose_name_plural = 'Комментарии к рецепту'

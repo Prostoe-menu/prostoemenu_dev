@@ -4,8 +4,7 @@ from django.contrib.auth import get_user_model
 
 from recipe.models import Ingredient
 from recipe.models import Measurement
-from recipe.models import Tag
-from recipe.models import Basemodel
+from recipe.models.basemodel import Basemodel
 
 User = get_user_model()
 

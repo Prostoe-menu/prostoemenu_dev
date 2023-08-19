@@ -1,5 +1,5 @@
+from recipe.models.basemodel import Basemodel
 from django.db import models
-from recipe.models import Basemodel
 
 
 class Ingredient(Basemodel):

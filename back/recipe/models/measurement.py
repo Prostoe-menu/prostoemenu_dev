@@ -1,4 +1,4 @@
-from recipe.models import Basemodel
+from recipe.models.basemodel import Basemodel
 from django.db import models
 
 class Measurement(Basemodel):

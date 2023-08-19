@@ -1,7 +1,8 @@
 from django.db import models
+from recipe.models import Basemodel
 
 
-class Ingredient(models.Model):
+class Ingredient(Basemodel):
     name = models.CharField(
         max_length=100,
         verbose_name='Название ингредиента',

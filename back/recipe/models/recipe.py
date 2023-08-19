@@ -2,14 +2,15 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth import get_user_model
 
-from recipe.models.ingredient import Ingredient
-from recipe.models.measurement import Measurement
-from recipe.models.tag import Tag
+from recipe.models import Ingredient
+from recipe.models import Measurement
+from recipe.models import Tag
+from recipe.models import Basemodel
 
 User = get_user_model()
 
 
-class RecipeIngredients(models.Model):
+class RecipeIngredients(Basemodel):
     recipe = models.ForeignKey(
         'Recipe',
         on_delete=models.CASCADE,
@@ -29,7 +30,7 @@ class RecipeIngredients(models.Model):
         verbose_name='Единица измерения')
 
 
-class RecipeTags(models.Model):
+class RecipeTags(Basemodel):
     recipe = models.ForeignKey(
         'Recipe',
         on_delete=models.CASCADE,
@@ -40,7 +41,7 @@ class RecipeTags(models.Model):
         verbose_name='Тэг')
 
 
-class Recipe(models.Model):
+class Recipe(Basemodel):
     name = models.CharField(
         max_length=100,
         verbose_name='Рецепт')
@@ -51,12 +52,6 @@ class Recipe(models.Model):
     oven_time = models.IntegerField(
         verbose_name='Время готовки у плиты, мин.',
         default=0)
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name='Дата создания')
-    update_at= models.DateTimeField(
-        auto_now=True,
-        verbose_name='Дата обновления')
     is_visible = models.BooleanField(
         default=False, verbose_name='Видимость')
     is_moderated = models.BooleanField(

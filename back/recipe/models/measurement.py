@@ -1,7 +1,7 @@
+from recipe.models import Basemodel
 from django.db import models
 
-
-class Measurement(models.Model):
+class Measurement(Basemodel):
     name = models.CharField(max_length=30, unique=True)
     abbreviation = models.CharField(max_length=30)
 

@@ -1,11 +1,12 @@
 from django.db import models
+from recipe.models import Basemodel
 
 
-class Tag(models.Model):
+class Tag(Basemodel):
     name = models.CharField(
         max_length=100,
-        verbose_name='Название тэга',
-        unique=True)
+        unique=True,
+        verbose_name='Название тэга')
 
     def __str__(self):
         return self.name

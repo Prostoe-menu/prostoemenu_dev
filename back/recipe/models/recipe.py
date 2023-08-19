@@ -30,17 +30,6 @@ class RecipeIngredients(Basemodel):
         verbose_name='Единица измерения')
 
 
-class RecipeTags(Basemodel):
-    recipe = models.ForeignKey(
-        'Recipe',
-        on_delete=models.CASCADE,
-        verbose_name='Рецепт')
-    tag = models.ForeignKey(
-        Tag,
-        on_delete=models.CASCADE,
-        verbose_name='Тэг')
-
-
 class Recipe(Basemodel):
     name = models.CharField(
         max_length=100,
@@ -52,28 +41,14 @@ class Recipe(Basemodel):
     oven_time = models.IntegerField(
         verbose_name='Время готовки у плиты, мин.',
         default=0)
-    is_visible = models.BooleanField(
-        default=False, verbose_name='Видимость')
-    is_moderated = models.BooleanField(
-        default=False, verbose_name='Прошло модерацию')
     complexity = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(1),MaxValueValidator(3)],
         verbose_name='Сложность готовки')
-    author = models.ForeignKey(
-        User,
-        null=True,
-        on_delete=models.SET_NULL,
-        verbose_name='Автор',
-        related_name='recipes')
     ingredient = models.ManyToManyField(
         Ingredient,
         through='RecipeIngredients',
         related_name='ingredients',
         verbose_name='Ингредиенты')
-    tag = models.ManyToManyField(
-        Tag,
-        through='RecipeTags',
-        related_name='tags')
     steps = models.JSONField(
         default=dict,
         null=False,

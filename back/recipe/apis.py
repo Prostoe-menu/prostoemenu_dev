@@ -1,11 +1,14 @@
-from rest_framework.views import APIView
-from rest_framework import serializers
-from rest_framework.response import Response
-from recipe.selectors import ingredient_list, get_object, measurement_list
-from drf_spectacular.utils import extend_schema
 from drf_spectacular.openapi import OpenApiParameter
+from drf_spectacular.utils import extend_schema
 from loguru import logger
-from recipe.models import Ingredient
+from rest_framework import serializers, status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from recipe.models import Ingredient, Measurement
+from recipe.selectors import get_object, ingredient_list, measurement_list
+from recipe.services import recipe_create
+from recipe.utils import inline_serializer
 
 
 class IngredientListApi(APIView):
@@ -129,3 +132,56 @@ class MeasurementListApi(APIView):
         measurements = measurement_list()
         data = self.OutputSerializer(measurements, many=True).data
         return Response(data)
+
+
+class RecipeCreateApi(APIView):
+    """
+    Класс для представления эндпоинта по созданию рецепта.
+    Методы:
+        post: вернет ответ со статусом результата.
+    """
+
+    class InputSerializer(serializers.Serializer):
+        """Сериализатор входящих данных."""
+
+        name = serializers.CharField(required=True)
+        description = serializers.CharField(required=True)
+        cooking_time = serializers.IntegerField(required=True)
+        oven_time = serializers.IntegerField(required=True)
+        complexity = serializers.IntegerField(required=True)
+        ingredients = inline_serializer(
+            fields={
+                "ingredient_id": serializers.PrimaryKeyRelatedField(
+                    queryset=Ingredient.objects.all()
+                ),
+                "measurement_id": serializers.PrimaryKeyRelatedField(
+                    queryset=Measurement.objects.all()
+                ),
+                "amount": serializers.FloatField(min_value=0),
+            },
+            many=True,
+        )
+        steps = inline_serializer(
+            fields={
+                "step_number": serializers.IntegerField(),
+                "description": serializers.CharField(),
+            },
+            many=True,
+        )
+
+        class Meta:
+            ref_name = "RecipeCreate"
+
+    @extend_schema(
+        operation_id="recipe_create",
+        summary="Создать рецепт.",
+        description="Эндпоинт создания рецепта.",
+        tags=("Recipes",),
+        request=InputSerializer,
+        responses={201: []},
+    )
+    def post(self, request):
+        serializer = self.InputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        recipe_create(serializer.validated_data)
+        return Response(status=status.HTTP_201_CREATED)

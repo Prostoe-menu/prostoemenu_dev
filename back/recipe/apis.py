@@ -100,18 +100,30 @@ class IngredientDetailApi(APIView):
         data = self.OutputSerializer(ingredient).data
         return Response(data)
 
+
 class MeasurementListApi(APIView):
-    """."""
+    """
+    Класс для представления эндпоинта по получению списка мер измерений.
+    Методы:
+        get: Вернет список всех мер измерений.
+    """
+
     class OutputSerializer(serializers.Serializer):
+        """Сериализатор выходящих данных."""
+
         id = serializers.IntegerField()
         name = serializers.CharField()
         abbreviation = serializers.CharField()
-    
+
+        class Meta:
+            ref_name = "MeasurementList"
+
     @extend_schema(
-        summary='Список всех мер измерений.',
-        description='Эндпоинт получения списка всех мер измерений.',
-        tags=('Measurements',),
-        responses={200: OutputSerializer}
+        operation_id="measurement_list",
+        summary="Список всех мер измерений.",
+        description="Эндпоинт получения списка всех мер измерений.",
+        tags=("Measurements",),
+        responses={200: OutputSerializer},
     )
     def get(self, request):
         measurements = measurement_list()

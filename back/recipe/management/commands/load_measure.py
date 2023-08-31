@@ -7,6 +7,7 @@ from recipe.models import Measurement
 
 
 class Command(BaseCommand):
+    """Класс для загрузки единиц измерения из файла measurements.json."""
 
     def add_objects(self, model, reader):
         model_object = model
@@ -14,12 +15,12 @@ class Command(BaseCommand):
             try:
                 model_object.objects.create(**row)
             except IntegrityError as e:
-                print(f'Ошибка {e} при загрузке {row}')
-        return f'Database Update {model}'
+                print(f"Ошибка {e} при загрузке {row}")
+        return f"Database Update {model}"
 
     def handle(self, *args, **options):
-        with open('data/measurements.json', 'rb') as measurements:
+        with open("data/measurements.json", "rb") as measurements:
             reader_measurements = json.load(measurements)
         self.stdout.write(
-            self.style.SUCCESS(
-                self.add_objects(Measurement, reader_measurements)))
+            self.style.SUCCESS(self.add_objects(Measurement, reader_measurements))
+        )

@@ -19,8 +19,18 @@ django-filter = "^23.2"
 django-cors-headers = "^4.2.0"
 django-debug-toolbar = "^4.2.0"
 loguru = "^0.7.0"
+ulid-py = "^1.1.0"
+isort = "^5.12.0"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.isort]
+profile = "black"
+src_paths = ["back"]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]

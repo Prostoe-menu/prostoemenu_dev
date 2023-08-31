@@ -1,7 +1,8 @@
-from recipe.models import Ingredient, Measurement
-from recipe.filters import BaseIngdredientFilter
-from django.shortcuts import get_object_or_404
 from django.http import Http404
+from django.shortcuts import get_object_or_404
+
+from recipe.filters import BaseIngdredientFilter
+from recipe.models import Ingredient, Measurement
 
 
 def ingredient_list(filters=None):
@@ -20,6 +21,7 @@ def get_object(model, **kwargs):
         return get_object_or_404(model, **kwargs)
     except Http404:
         return None
+
 
 def measurement_list():
     return Measurement.objects.all()

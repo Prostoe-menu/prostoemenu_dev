@@ -16,30 +16,40 @@ class IngredientListApi(APIView):
     Допустимые параметры запроса:
         name: Поиск ингредиента по суффиксу.
     """
+
     class OutputSerializer(serializers.Serializer):
         """Сериализатор выходящих данных."""
+
         id = serializers.IntegerField()
         name = serializers.CharField()
-    
+
+        class Meta:
+            ref_name = "IngredientList"
+
     class FilterSerializer(serializers.Serializer):
         """Сериализатор параметров запроса."""
+
         name = serializers.CharField(required=False)
 
-    
+        class Meta:
+            ref_name = "IngredientFilter"
+
     @extend_schema(
-        summary='Список всех ингредиентов.',
-        description='Эндпоинт получения списка всех ингредиентов с возможностью поиска по суффиксу.',
-        tags=('Ingredients',),
+        operation_id="ingredients_list",
+        summary="Список всех ингредиентов.",
+        description="Эндпоинт получения списка всех ингредиентов с возможностью поиска "
+        "по суффиксу.",
+        tags=("Ingredients",),
         parameters=[
             OpenApiParameter(
                 name="name",
                 description="Поиск ингредиента по суффиксу.",
                 type=str,
                 location=OpenApiParameter.QUERY,
-                required=False
+                required=False,
             )
         ],
-        responses={200: OutputSerializer}
+        responses={200: OutputSerializer},
     )
     def get(self, request):
         logger.debug(request.query_params)
@@ -59,25 +69,31 @@ class IngredientDetailApi(APIView):
     Допустимые параметры пути:
         id: ID необходимого ингредиента.
     """
+
     class OutputSerializer(serializers.Serializer):
         """Сериализатор выходящих данных."""
+
         id = serializers.IntegerField()
         name = serializers.CharField()
-    
+
+        class Meta:
+            ref_name = "IngredientDetail"
+
     @extend_schema(
-        summary='Получить ингредиент по ID.',
-        description='Эндпоинт получения ингредиента по ID.',
-        tags=('Ingredients',),
+        operation_id="ingredient_detail",
+        summary="Получить ингредиент по ID.",
+        description="Эндпоинт получения ингредиента по ID.",
+        tags=("Ingredients",),
         parameters=[
             OpenApiParameter(
                 name="id",
                 description="ID ингредиента.",
                 type=int,
                 location=OpenApiParameter.PATH,
-                required=True
+                required=True,
             )
         ],
-        responses={200: OutputSerializer}
+        responses={200: OutputSerializer},
     )
     def get(self, request, id=None):
         ingredient = get_object(Ingredient, id=id)

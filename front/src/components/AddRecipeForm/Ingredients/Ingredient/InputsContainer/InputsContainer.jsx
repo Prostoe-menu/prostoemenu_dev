@@ -134,35 +134,6 @@ const InputsContainer = ({
   return (
     <div className={Style.container}>
       <div className={`${Style.dropdownMenu} ${Style.dropdownMenu_type_name}`}>
-        {/* <input
-          className={`${Style.input} ${Style.input_type_name} ${
-            error === 'name' && Style.input_error
-          }`}
-          {...register(`ingredient[${index}].name`, {
-            required: {
-              value: ingredients[0].name === '' && ingredients.length <= 1,
-              message: 'Добавьте в рецепт минимум 1 ингредиент',
-            },
-            pattern: {
-              value: /[A-Za-zА-Яа-яЁё0-9\s!-"№;%:?*()'/.,\\«»]/gi,
-              message: `Допустимы кириллица, латиница, цифры и спецсимволы !-"№;%:?*()'/.,\\«»`,
-            },
-          })}
-          onChange={handleNameInput}
-          onKeyDown={(e) =>
-            handleKeyboardNavigation(
-              e,
-              selectIngredient,
-              openIngredientDropdown,
-              ingredientsApiData,
-              setOpenIngredientDropdown,
-              chooseIngredient
-            )
-          }
-          placeholder="Начните вводить название"
-          autoComplete="off"
-          value={query}
-        /> */}
         <Input
           inputClassName="input_type_name"
           isError={error === 'name'}
@@ -234,29 +205,24 @@ const InputsContainer = ({
           })()}
         </ul>
       </div>
-      <input
-        className={`${Style.input} ${Style.input_type_quantity} ${
-          error === 'quantity' &&
-          name === `ingredient[${index}].quantity` &&
-          Style.input_error
-        }`}
-        {...register(`ingredient[${index}].quantity`, {
-          valueAsNumber: true,
-          required: {
-            value: ingredientData.name !== '' && ingredientData.volume === '',
-            message: 'Введите количество ингредиента',
-          },
-          min: {
-            value: 0.1,
-            message: 'Количество должно быть более нуля',
-          },
-        })}
-        type="number"
-        step="0.1"
-        placeholder="0"
-        autoComplete="off"
-        value={ingredientData.volume}
-        onChange={handleVolumeInput}
+      <Input
+        inputClassName="input_type_quantity"
+        isError={
+          error === 'quantity' && name === `ingredient[${index}].quantity`
+        }
+        register={register}
+        inputName={`ingredient[${index}].quantity`}
+        requiredValue={
+          ingredientData.name !== '' && ingredientData.volume === ''
+        }
+        requiredMessage="Введите количество ингредиента"
+        minValue={0.1}
+        minMessage="Количество должно быть более нуля"
+        handleChangeInput={handleVolumeInput}
+        placeholderText="0"
+        inputValue={ingredientData.volume}
+        inputType="number"
+        inputStep="0.1"
       />
       <div
         className={`${Style.dropdownMenu} ${Style.dropdownMenu_type_measureInuts}`}

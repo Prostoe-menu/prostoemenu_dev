@@ -11,10 +11,14 @@ const Input = ({
   requiredMessage,
   patternValue,
   patternMessage,
+  minValue,
+  minMessage,
   handleChangeInput,
   handleOnKeyDown,
   placeholderText,
   inputValue,
+  inputType = 'text',
+  inputStep,
 }) => (
   <input
     className={`${styles.input} ${styles[inputClassName]} ${
@@ -29,12 +33,18 @@ const Input = ({
         value: patternValue,
         message: patternMessage,
       },
+      min: {
+        value: minValue,
+        message: minMessage,
+      },
     })}
     onChange={handleChangeInput}
     onKeyDown={handleOnKeyDown}
     placeholder={placeholderText}
     autoComplete="off"
     value={inputValue}
+    type={inputType}
+    step={inputStep}
   />
 );
 

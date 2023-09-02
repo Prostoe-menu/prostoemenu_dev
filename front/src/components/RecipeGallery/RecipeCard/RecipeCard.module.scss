@@ -1,0 +1,40 @@
+.cardWrapper{
+  display: flex;
+  flex-direction: column;
+  max-width: 312px;
+  height: 318px;
+  gap: 8px;
+}
+.cardImage {
+  max-width: 100%;
+  height: 234px;
+  border-radius: 10px;
+}
+.cardDescriptionWrapper{
+  display: flex;
+  justify-content: flex-start;
+}
+.cardDescription__text{
+  font-family: "Mulish";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  color: #818181;
+}
+.cardName{
+  font-family: "Biolilbert", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 32px;
+  color: #232323;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+h3,p{
+  margin: 0;
+  padding: 0;
+}
+

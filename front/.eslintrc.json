@@ -31,5 +31,6 @@
       ]
     }],
     "no-console": 1
-  }
+  },
+  "root":false
 }

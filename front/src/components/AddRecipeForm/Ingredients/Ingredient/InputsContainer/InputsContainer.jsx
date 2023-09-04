@@ -137,6 +137,7 @@ const InputsContainer = ({
   return (
     <div className={Style.container}>
       <DropdownSearch
+        dropdownClassName="dropdownSearch_type_ingredient"
         isDropdownOpen={openIngredientDropdown}
         setIsDropdownOpen={setOpenIngredientDropdown}
         selectItemRef={selectIngredientRef}
@@ -189,6 +190,7 @@ const InputsContainer = ({
         inputStep="0.1"
       />
       <DropdownMenu
+        dropdownClassName="dropdownMenu_type_measure-unit"
         setIsDropdownOpen={setOpenUnitDropdown}
         onInputKeyDown={(e) =>
           handleKeyboardNavigation(

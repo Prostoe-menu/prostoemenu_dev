@@ -1,6 +1,9 @@
 .dropdownMenu {
   position: relative;
-  grid-area: measureUnits;
+
+  &_type_measure-unit {
+    grid-area: measureUnits;
+  }
 
   &__options {
     display: none;
@@ -64,4 +67,21 @@
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+}
+
+.listItem {
+  padding: 0;
+  display: flex;
+}
+
+@media screen and (max-width: 576px) {
+  .input {
+    width: 144px;
+  }
+
+  .dropdownMenu {
+    &__options {
+      max-height: 176px;
+    }
+  }
 }

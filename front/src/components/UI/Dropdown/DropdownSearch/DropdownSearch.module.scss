@@ -1,12 +1,8 @@
 .dropdownSearch {
   position: relative;
 
-  &_type_name {
+  &_type_ingredient {
     grid-area: name;
-  }
-
-  &_type_measureInuts {
-    grid-area: measureUnits;
   }
 
   &__options {
@@ -58,4 +54,9 @@
       }
     }
   }
+}
+
+.listItem {
+  padding: 0;
+  display: flex;
 }

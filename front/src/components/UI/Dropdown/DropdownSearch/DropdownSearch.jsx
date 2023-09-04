@@ -3,6 +3,7 @@ import Input from '../../Input/Input';
 import styles from './DropdownSearch.module.scss';
 
 const DropdownSearch = ({
+  dropdownClassName,
   isDropdownOpen,
   setIsDropdownOpen,
   selectItemRef,
@@ -24,7 +25,7 @@ const DropdownSearch = ({
   cursor,
   ariaLabelText,
 }) => (
-  <div className={styles.dropdownSearch}>
+  <div className={`${styles.dropdownSearch} ${styles[dropdownClassName]}}`}>
     <Input
       inputClassName={inputClassName}
       isError={isInputError}

@@ -3,6 +3,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styles from './DropdownMenu.module.scss';
 
 const DropdownMenu = ({
+  dropdownClassName,
   setIsDropdownOpen,
   onInputKeyDown,
   openDropdownAriaLabelText,
@@ -14,7 +15,7 @@ const DropdownMenu = ({
   chooseItem,
   chooseItemAriaLabelText,
 }) => (
-  <div className={styles.dropdownMenu}>
+  <div className={`${styles.dropdownMenu} ${styles[dropdownClassName]}}`}>
     <div
       className={styles.input}
       onClick={() => setIsDropdownOpen((prevValue) => !prevValue)}

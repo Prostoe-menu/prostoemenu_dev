@@ -1,0 +1,61 @@
+.dropdownSearch {
+  position: relative;
+
+  &_type_name {
+    grid-area: name;
+  }
+
+  &_type_measureInuts {
+    grid-area: measureUnits;
+  }
+
+  &__options {
+    display: none;
+    overflow-y: scroll;
+    position: absolute;
+    z-index: 5;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px 0;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px 5px rgba(1, 7, 62, 0.08);
+    max-height: 216px;
+
+    &_visible {
+      display: block;
+    }
+  }
+
+  &__option {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 8px;
+    background: #fff;
+    font-family: 'Mulish', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #232323;
+
+    &:hover,
+    &:focus,
+    &_active {
+      outline: none;
+      background: #FFFAF0;
+      border-radius: 0;
+    }
+
+    &_notfound {
+      cursor: default;
+
+      &:hover {
+        background: #fff;
+      }
+    }
+  }
+}

@@ -10,6 +10,7 @@ import {
   changeIngredientMeasureUnits,
 } from '../../../../../store/slices/form/formSlice';
 import useClickOutside from '../../../../../helpers/useClickOutside';
+import DropdownSearch from '../../../../UI/Dropdown/DropdownSearch/DropdownSearch';
 import Input from '../../../../UI/Input/Input';
 import Style from './InputsContainer.module.scss';
 
@@ -35,7 +36,7 @@ const InputsContainer = ({
   );
 
   const [openIngredientDropdown, setOpenIngredientDropdown] = useState(false);
-  const selectIngredient = useClickOutside(() =>
+  const selectIngredientRef = useClickOutside(() =>
     setOpenIngredientDropdown(false)
   );
 
@@ -133,78 +134,39 @@ const InputsContainer = ({
 
   return (
     <div className={Style.container}>
-      <div className={`${Style.dropdownMenu} ${Style.dropdownMenu_type_name}`}>
-        <Input
-          inputClassName="input_type_name"
-          isError={error === 'name'}
-          register={register}
-          inputName={`ingredient[${index}].name`}
-          requiredValue={ingredients[0].name === '' && ingredients.length <= 1}
-          requiredMessage="Добавьте в рецепт минимум 1 ингредиент"
-          patternValue={/[A-Za-zА-Яа-яЁё0-9\s!-"№;%:?*()'/.,\\«»]/gi}
-          patternMessage={`Допустимы кириллица, латиница, цифры и спецсимволы !-"№;%:?*()'/.,\\«»`}
-          handleChangeInput={handleNameInput}
-          handleOnKeyDown={(e) =>
-            handleKeyboardNavigation(
-              e,
-              selectIngredient,
-              openIngredientDropdown,
-              ingredientsApiData,
-              setOpenIngredientDropdown,
-              chooseIngredient
-            )
-          }
-          placeholderText="Начните вводить название"
-          inputValue={query}
-        />
-        <ul
-          className={`${Style.dropdownMenu__options} ${
-            Style.dropdownMenu__options_type_ingredients
-          } ${openIngredientDropdown && Style.dropdownMenu__options_visible}`}
-          ref={selectIngredient}
-        >
-          {(() => {
-            if (ingredientsApiData.length === 0) {
-              return (
-                <li
-                  className={`${Style.dropdownMenu__option} ${Style.dropdownMenu__option_notfound}`}
-                >
-                  <div
-                    style={{
-                      width: '100%',
-                    }}
-                  >
-                    Ингредиент не найден
-                  </div>
-                </li>
-              );
-            }
-            return ingredientsApiData?.map((ingredient, idx) => (
-              <li className={Style.listItem} key={ingredient.id}>
-                <div
-                  className={`${Style.dropdownMenu__option} ${
-                    idx === cursor && Style.dropdownMenu__option_active
-                  }`}
-                  onClick={() => chooseIngredient(ingredient)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Escape') {
-                      setOpenIngredientDropdown(false);
-                    }
-                  }}
-                  role="button"
-                  tabIndex="0"
-                  aria-label="Выбрать ингредиент"
-                  style={{
-                    width: '100%',
-                  }}
-                >
-                  {ingredient.name}
-                </div>
-              </li>
-            ));
-          })()}
-        </ul>
-      </div>
+      <DropdownSearch
+        isDropdownOpen={openIngredientDropdown}
+        setIsDropdownOpen={setOpenIngredientDropdown}
+        selectItemRef={selectIngredientRef}
+        inputClassName="input_type_name"
+        isInputError={error === 'name'}
+        inputRegister={register}
+        inputName={`ingredient[${index}].name`}
+        inputRequiredValue={
+          ingredients[0].name === '' && ingredients.length <= 1
+        }
+        inputRequiredMessage="Добавьте в рецепт минимум 1 ингредиент"
+        inputPatternValue={/[A-Za-zА-Яа-яЁё0-9\s!-"№;%:?*()'/.,\\«»]/gi}
+        inputPatternMessage={`Допустимы кириллица, латиница, цифры и спецсимволы !-"№;%:?*()'/.,\\«»`}
+        onInputChange={handleNameInput}
+        onInputKeyDown={(e) =>
+          handleKeyboardNavigation(
+            e,
+            selectIngredientRef,
+            openIngredientDropdown,
+            ingredientsApiData,
+            setOpenIngredientDropdown,
+            chooseIngredient
+          )
+        }
+        inputPlaceholder="Начните вводить название"
+        inputValue={query}
+        onChooseItem={chooseIngredient}
+        requiredData={ingredientsApiData}
+        notFoundMessage="Ингредиент не найден"
+        cursor={cursor}
+        ariaLabelText="Выбрать ингредиент"
+      />
       <Input
         inputClassName="input_type_quantity"
         isError={

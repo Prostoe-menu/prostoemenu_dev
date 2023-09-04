@@ -2,6 +2,11 @@ import React from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styles from './DropdownMenu.module.scss';
 
+/**
+ * Переиспользуемый компонент выпадающего меню.
+ * Адаптация стилей и логики происходит через пропсы.
+ * */
+
 const DropdownMenu = ({
   dropdownClassName,
   setIsDropdownOpen,

@@ -2,6 +2,12 @@ import React from 'react';
 import Input from '../../Input/Input';
 import styles from './DropdownSearch.module.scss';
 
+/**
+ * Переиспользуемый компонент выпадающего меню для поиска.
+ * Включает в себя импортируемый компонент Input, куда вводится запрос, выпадающий список результатов поиска и обработку ошибки "Не найдено".
+ * Адаптация стилей и логики происходит через пропсы.
+ * */
+
 const DropdownSearch = ({
   dropdownClassName,
   isDropdownOpen,

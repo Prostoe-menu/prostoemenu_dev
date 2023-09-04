@@ -2,6 +2,11 @@
 import React from 'react';
 import styles from './Input.module.scss';
 
+/**
+ * Переиспользуемый компонент инпута.
+ * Представляет собой инпут с по умолчанию type='text', адаптация стилей и логики происходит через пропсы.
+ * */
+
 const Input = ({
   inputClassName,
   isError,

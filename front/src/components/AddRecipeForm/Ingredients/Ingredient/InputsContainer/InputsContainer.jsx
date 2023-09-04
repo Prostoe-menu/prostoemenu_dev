@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import getIngredients from '../../../../../helpers/getIngredients';
 import useAsync from '../../../../../hooks/useAsync';
 import {
@@ -11,6 +10,7 @@ import {
 } from '../../../../../store/slices/form/formSlice';
 import useClickOutside from '../../../../../helpers/useClickOutside';
 import DropdownSearch from '../../../../UI/Dropdown/DropdownSearch/DropdownSearch';
+import DropdownMenu from '../../../../UI/Dropdown/DropdownMenu/DropdownMenu';
 import Input from '../../../../UI/Input/Input';
 import Style from './InputsContainer.module.scss';
 
@@ -41,7 +41,9 @@ const InputsContainer = ({
   );
 
   const [openUnitDropdown, setOpenUnitDropdown] = useState(false);
-  const selectMeasureInut = useClickOutside(() => setOpenUnitDropdown(false));
+  const selectMeasureInputRef = useClickOutside(() =>
+    setOpenUnitDropdown(false)
+  );
 
   const scrollToSelected = (ref) => {
     const selectedItem = ref?.current?.children[cursor];
@@ -186,67 +188,27 @@ const InputsContainer = ({
         inputType="number"
         inputStep="0.1"
       />
-      <div
-        className={`${Style.dropdownMenu} ${Style.dropdownMenu_type_measureInuts}`}
-      >
-        <div
-          className={`${Style.input} ${Style.input_type_dropdown}`}
-          onClick={() => setOpenUnitDropdown((prevValue) => !prevValue)}
-          onKeyDown={(e) =>
-            handleKeyboardNavigation(
-              e,
-              selectMeasureInut,
-              openUnitDropdown,
-              measureUnits,
-              setOpenUnitDropdown,
-              chooseUnit
-            )
-          }
-          role="button"
-          tabIndex="0"
-          aria-label="Открыть меню единиц измерения"
-        >
-          <span>{ingredientData.measure}</span>
-          <ExpandMoreIcon
-            style={{
-              color: '#818181',
-              stroke: '#ffffff',
-              strokeWidth: 1,
-            }}
-          />
-        </div>
-        <ul
-          className={`${Style.dropdownMenu__options} ${
-            Style.dropdownMenu__options_type_measureUnits
-          } ${openUnitDropdown && Style.dropdownMenu__options_visible}`}
-          ref={selectMeasureInut}
-        >
-          {measureUnits?.map((item, idx) => (
-            <li className={Style.listItem} key={item.id}>
-              <div
-                className={`${Style.dropdownMenu__option} ${
-                  idx === cursor && Style.dropdownMenu__option_active
-                }`}
-                key={item.id}
-                onClick={() => chooseUnit(item.unitName)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Escape') {
-                    setOpenUnitDropdown(false);
-                  }
-                }}
-                role="button"
-                tabIndex="0"
-                aria-label="Выбрать единицу измерения"
-                style={{
-                  width: '100%',
-                }}
-              >
-                {item.unitName}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <DropdownMenu
+        setIsDropdownOpen={setOpenUnitDropdown}
+        onInputKeyDown={(e) =>
+          handleKeyboardNavigation(
+            e,
+            selectMeasureInputRef,
+            openUnitDropdown,
+            measureUnits,
+            setOpenUnitDropdown,
+            chooseUnit
+          )
+        }
+        openDropdownAriaLabelText="Открыть меню единиц измерения"
+        previewText={ingredientData.measure}
+        isDropdownOpen={openUnitDropdown}
+        selectItemInputRef={selectMeasureInputRef}
+        dropdownData={measureUnits}
+        cursor
+        chooseItem={chooseUnit}
+        chooseItemAriaLabelText="Выбрать единицу измерения"
+      />
     </div>
   );
 };

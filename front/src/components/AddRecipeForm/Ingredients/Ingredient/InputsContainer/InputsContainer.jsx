@@ -23,7 +23,6 @@ const InputsContainer = ({
   name,
 }) => {
   const { ingredients } = useSelector((state) => state.form);
-  const [cursor, setCursor] = useState(-1);
   const [query, setQuery] = useState(ingredientData.name || '');
 
   const dispatch = useDispatch();
@@ -44,53 +43,6 @@ const InputsContainer = ({
   const selectMeasureInputRef = useClickOutside(() =>
     setOpenUnitDropdown(false)
   );
-
-  const scrollToSelected = (ref) => {
-    const selectedItem = ref?.current?.children[cursor];
-
-    if (selectedItem !== undefined) {
-      selectedItem.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-    }
-  };
-
-  const handleKeyboardNavigation = (
-    e,
-    ref,
-    isVisible,
-    items,
-    setVisibility,
-    chooseItem
-  ) => {
-    if (e.key === 'ArrowDown') {
-      if (isVisible) {
-        e.preventDefault();
-        setCursor((c) => (c < items.length - 1 ? c + 1 : c));
-      } else {
-        setVisibility(true);
-      }
-    }
-    if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setCursor((c) => (c > 0 ? c - 1 : 0));
-    }
-    if (e.key === 'Escape') {
-      setVisibility(false);
-      setCursor(-1);
-    }
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      if (items === measureUnits) {
-        chooseItem(items[cursor].unitName);
-      } else {
-        chooseItem(items[cursor]);
-      }
-    }
-
-    scrollToSelected(ref);
-  };
 
   const chooseIngredient = (ingredient) => {
     setOpenIngredientDropdown(false);
@@ -152,22 +104,11 @@ const InputsContainer = ({
         inputPatternValue={/[A-Za-zА-Яа-яЁё0-9\s!-"№;%:?*()'/.,\\«»]/gi}
         inputPatternMessage={`Допустимы кириллица, латиница, цифры и спецсимволы !-"№;%:?*()'/.,\\«»`}
         onInputChange={handleNameInput}
-        onInputKeyDown={(e) =>
-          handleKeyboardNavigation(
-            e,
-            selectIngredientRef,
-            openIngredientDropdown,
-            ingredientsApiData,
-            setOpenIngredientDropdown,
-            chooseIngredient
-          )
-        }
         inputPlaceholder="Начните вводить название"
         inputValue={query}
         onChooseItem={chooseIngredient}
         requiredData={ingredientsApiData}
         notFoundMessage="Ингредиент не найден"
-        cursor={cursor}
         ariaLabelText="Выбрать ингредиент"
       />
       <Input
@@ -191,23 +132,12 @@ const InputsContainer = ({
       />
       <DropdownMenu
         dropdownClassName="dropdownMenu_type_measure-unit"
+        isDropdownOpen={openUnitDropdown}
         setIsDropdownOpen={setOpenUnitDropdown}
-        onInputKeyDown={(e) =>
-          handleKeyboardNavigation(
-            e,
-            selectMeasureInputRef,
-            openUnitDropdown,
-            measureUnits,
-            setOpenUnitDropdown,
-            chooseUnit
-          )
-        }
         openDropdownAriaLabelText="Открыть меню единиц измерения"
         previewText={ingredientData.measure}
-        isDropdownOpen={openUnitDropdown}
         selectItemInputRef={selectMeasureInputRef}
         dropdownData={measureUnits}
-        cursor
         chooseItem={chooseUnit}
         chooseItemAriaLabelText="Выбрать единицу измерения"
       />

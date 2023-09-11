@@ -2,7 +2,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 
 from recipe.filters import BaseIngdredientFilter
-from recipe.models import Ingredient, Measurement
+from recipe.models import Ingredient, Measurement, Recipe
 
 
 def ingredient_list(filters=None):
@@ -25,3 +25,6 @@ def get_object(model, **kwargs):
 
 def measurement_list():
     return Measurement.objects.all()
+
+def recipe_list():
+    return Recipe.objects.all()

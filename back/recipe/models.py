@@ -314,8 +314,6 @@ class RecipeIngredients(models.Model):
 class Measurement(models.Model):
     name = models.CharField(max_length=30, unique=True)
     abbreviation = models.CharField(max_length=30)
-    # Rank size is to keep order of measurement for example gramm < kg etc
-    rank_size = models.IntegerField()
 
     def __str__(self):
         return self.name
@@ -323,7 +321,7 @@ class Measurement(models.Model):
     class Meta:
         verbose_name = 'Единица измерения'
         verbose_name_plural = 'Единицы измерения'
-        ordering = ['rank_size']
+        ordering = ['name']
 
 
 #############################################

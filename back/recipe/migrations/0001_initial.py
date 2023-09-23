@@ -5,6 +5,7 @@ import django.contrib.postgres.indexes
 import django.core.validators
 from django.db import migrations, models
 import django.db.models.deletion
+from django.contrib.postgres.operations import TrigramExtension
 
 
 class Migration(migrations.Migration):
@@ -60,6 +61,11 @@ class Migration(migrations.Migration):
                 ('response', models.URLField(verbose_name='Адрес страницы')),
             ],
         ),
+        migrations.RunSQL(
+            sql='CREATE EXTENSION IF NOT EXISTS pg_trgm;',
+            reverse_sql=migrations.RunSQL.noop
+        ),
+        TrigramExtension(),
         migrations.CreateModel(
             name='Ingredient',
             fields=[

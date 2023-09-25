@@ -21,23 +21,25 @@ const DropdownMenu = ({
 }) => {
   const [cursor, setCursor] = useState(-1);
 
+  const toggleDropdown = () => setIsDropdownOpen((prevValue) => !prevValue);
+  const handleKeyDown = (e) =>
+    handleKeyboardNavigation(
+      e,
+      selectItemInputRef,
+      isDropdownOpen,
+      cursor,
+      setCursor,
+      dropdownData,
+      setIsDropdownOpen,
+      chooseItem
+    );
+
   return (
     <div className={`${styles.dropdownMenu} ${styles[dropdownClassName]}}`}>
       <div
         className={styles.input}
-        onClick={() => setIsDropdownOpen((prevValue) => !prevValue)}
-        onKeyDown={(e) =>
-          handleKeyboardNavigation(
-            e,
-            selectItemInputRef,
-            isDropdownOpen,
-            cursor,
-            setCursor,
-            dropdownData,
-            setIsDropdownOpen,
-            chooseItem
-          )
-        }
+        onClick={toggleDropdown}
+        onKeyDown={handleKeyDown}
         role="button"
         tabIndex="0"
         aria-label={openDropdownAriaLabelText}

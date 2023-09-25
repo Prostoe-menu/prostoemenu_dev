@@ -9,6 +9,10 @@ import {
   changeIngredientMeasureUnits,
 } from '../../../../../store/slices/form/formSlice';
 import useClickOutside from '../../../../../helpers/useClickOutside';
+import {
+  TEXT_INPUT_PATTERN,
+  TEXT_INPUT_ERROR_MESSAGE,
+} from '../../../../../utils/constants';
 import DropdownSearch from '../../../../UI/Dropdown/DropdownSearch/DropdownSearch';
 import DropdownMenu from '../../../../UI/Dropdown/DropdownMenu/DropdownMenu';
 import Input from '../../../../UI/Input/Input';
@@ -23,7 +27,10 @@ const InputsContainer = ({
   name,
 }) => {
   const { ingredients } = useSelector((state) => state.form);
+
   const [query, setQuery] = useState(ingredientData.name || '');
+  const [openIngredientDropdown, setOpenIngredientDropdown] = useState(false);
+  const [openUnitDropdown, setOpenUnitDropdown] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -34,12 +41,9 @@ const InputsContainer = ({
     800
   );
 
-  const [openIngredientDropdown, setOpenIngredientDropdown] = useState(false);
   const selectIngredientRef = useClickOutside(() =>
     setOpenIngredientDropdown(false)
   );
-
-  const [openUnitDropdown, setOpenUnitDropdown] = useState(false);
   const selectMeasureInputRef = useClickOutside(() =>
     setOpenUnitDropdown(false)
   );
@@ -101,8 +105,8 @@ const InputsContainer = ({
           ingredients[0].name === '' && ingredients.length <= 1
         }
         inputRequiredMessage="Добавьте в рецепт минимум 1 ингредиент"
-        inputPatternValue={/[A-Za-zА-Яа-яЁё0-9\s!-"№;%:?*()'/.,\\«»]/gi}
-        inputPatternMessage={`Допустимы кириллица, латиница, цифры и спецсимволы !-"№;%:?*()'/.,\\«»`}
+        inputPatternValue={TEXT_INPUT_PATTERN}
+        inputPatternMessage={TEXT_INPUT_ERROR_MESSAGE}
         onInputChange={handleNameInput}
         inputPlaceholder="Начните вводить название"
         inputValue={query}

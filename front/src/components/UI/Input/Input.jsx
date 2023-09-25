@@ -24,33 +24,41 @@ const Input = ({
   inputValue,
   inputType = 'text',
   inputStep,
-}) => (
-  <input
-    className={`${styles.input} ${styles[inputClassName]} ${
-      isError && styles.input_error
-    }}`}
-    {...register(inputName, {
-      required: {
-        value: requiredValue,
-        message: requiredMessage,
-      },
-      pattern: {
-        value: patternValue,
-        message: patternMessage,
-      },
-      min: {
-        value: minValue,
-        message: minMessage,
-      },
-    })}
-    onChange={handleChangeInput}
-    onKeyDown={handleOnKeyDown}
-    placeholder={placeholderText}
-    autoComplete="off"
-    value={inputValue}
-    type={inputType}
-    step={inputStep}
-  />
-);
+}) => {
+  const inputClasses = [
+    styles.input,
+    styles[inputClassName],
+    isError && styles.input_error,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  return (
+    <input
+      className={inputClasses}
+      {...register(inputName, {
+        required: {
+          value: requiredValue,
+          message: requiredMessage,
+        },
+        pattern: {
+          value: patternValue,
+          message: patternMessage,
+        },
+        min: {
+          value: minValue,
+          message: minMessage,
+        },
+      })}
+      onChange={handleChangeInput}
+      onKeyDown={handleOnKeyDown}
+      placeholder={placeholderText}
+      autoComplete="off"
+      value={inputValue}
+      type={inputType}
+      step={inputStep}
+    />
+  );
+};
 
 export default Input;

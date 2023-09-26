@@ -7,7 +7,7 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure-*rojrw1fe1v4h)bkz^6amo-p1824p5@yw7z9+hps)rb*ptq_th"
+SECRET_KEY = os.getenv("SECRET_KEY", default="django-insecure-*rojrw1fe1v4h)bkz^6amo-p1824p5@yw7z9+hps)rb*ptq_th")
 
 DEBUG = True
 
@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.postgres",
+
     # Third-party Applications
     "rest_framework",
     "django_filters",
@@ -29,6 +30,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "corsheaders",
     "drf_spectacular",
+
     # Project Applications
     "recipe",
     "api",
@@ -150,7 +152,7 @@ EMAIL_PORT = 587
 
 # drf-spectacular
 SPECTACULAR_SETTINGS = {
-    "TITLE": "ProstoeMenu API",
+    "TITLE": "ProstoeMenu API. КАСТОМНАЯ ВЕРСИЯ",
     "DESCRIPTION": "Документация к API сервиса ProstoeMenu",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,

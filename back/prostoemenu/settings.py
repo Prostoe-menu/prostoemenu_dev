@@ -11,7 +11,10 @@ SECRET_KEY = os.getenv("SECRET_KEY", default="django-insecure-*rojrw1fe1v4h)bkz^
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["*", "188.225.38.21"]
+ALLOWED_HOSTS = [
+    "*",
+    "localhost",
+    ]
 
 INSTALLED_APPS = [
     # Django Applications
@@ -88,8 +91,8 @@ DATABASES = {
       'NAME': os.getenv('POSTGRES_DB', default='prostoemenu'),
       'USER': os.getenv('POSTGRES_USER', default='postgres'),
       'PASSWORD': os.getenv('POSTGRES_PASSWORD', default=''),
-      'HOST': os.getenv('DB_HOST', default='localhost'),
-      'PORT': os.getenv('DB_PORT', default='5431')
+      'HOST': os.getenv('DB_HOST', default='db'),
+      'PORT': os.getenv('DB_PORT', default='5432')
   }
 }
 

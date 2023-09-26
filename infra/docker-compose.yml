@@ -3,15 +3,58 @@ version: '3.9'
 services:
   db:
     restart: always
-    container_name: db
+    container_name: menu_db
     image: postgres:15-alpine
     volumes:
       - db_value:/var/lib/postgresql/data/
-    ports:
-      - "5431:5432"
     env_file:
       - ../.env
+    networks:
+      - db 
 
+  back:
+    container_name: menu_back
+    build:
+      context: ../back
+      dockerfile: Dockerfile
+    command: >
+      sh -c "python manage.py migrate &&
+             gunicorn prostoemenu.wsgi:application --bind 0.0.0.0:8000"
+    restart: always
+    depends_on:
+      - db
+    env_file:
+      - ../.env
+    volumes:
+      - static_value:/app/static/
+      - media_value:/app/media/
+    networks:
+      - db
+      - prostoemenu
+
+  nginx:
+    container_name: menu_nginx
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - static_value:/usr/share/nginx/html/static/
+      - media_value:/usr/share/nginx/html/media/
+    depends_on:
+      - back
+    networks:
+      - prostoemenu
+
+networks:
+  prostoemenu:
+    name: prostoemenu
+    external: true
+  db:
+    name: db
+    external: false
 
 volumes:
   db_value:
+  static_value:
+  media_value:

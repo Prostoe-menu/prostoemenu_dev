@@ -1,5 +1,7 @@
 FROM python:3.10-slim
 WORKDIR /app
-COPY ./ .
-RUN pip3 install -r requirements.txt --no-cache-dir
-CMD ["gunicorn", "prostoemenu.wsgi:application", "--bind", "0:8000" ]
+COPY requirements.txt .
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt --no-cache-dir
+COPY . .
+RUN python manage.py collectstatic --noinput

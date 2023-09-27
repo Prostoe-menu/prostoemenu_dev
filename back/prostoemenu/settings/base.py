@@ -209,3 +209,6 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
+
+# global variables
+DOMAIN_NAME = 'https://109.172.82.25/'

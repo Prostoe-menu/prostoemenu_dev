@@ -1,6 +1,6 @@
 from random import choice
 from django.core.mail import EmailMessage
-from prostoemenu.settings import DOMAIN_NAME
+from rest_framework.settings import api_settings
 
 import string
 
@@ -10,7 +10,7 @@ def send_email(instance, activation_code):
         subject='Активация аккаунта Prostoemenu.',
         body=f'Привет, {instance.username}! \nВаш код активации Prostoemenu: {activation_code}.'
              f'\n  Для завершения процесса регистрации введите его на странице '
-             f'{DOMAIN_NAME}account/check-code/ ',
+             f'{api_settings.DOMAIN_NAME}account/check-code/ ',
         from_email='prostoemenu2023@yandex.ru',
         to=[instance.email],
     )

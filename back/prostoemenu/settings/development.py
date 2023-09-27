@@ -8,13 +8,15 @@ ALLOWED_HOSTS += [
     'web'
 ]
 
-INSTALLED_APPS += [
-    'debug_toolbar',
-]
+# уже есть в base.py
+# INSTALLED_APPS += [
+#     'debug_toolbar',
+# ]
 
-MIDDLEWARE += [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-]
+# уже есть в base.py
+# MIDDLEWARE += [
+#     'debug_toolbar.middleware.DebugToolbarMiddleware',
+# ]
 
 DATABASES = {
     'default': {

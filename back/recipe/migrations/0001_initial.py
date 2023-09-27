@@ -61,10 +61,10 @@ class Migration(migrations.Migration):
                 ('response', models.URLField(verbose_name='Адрес страницы')),
             ],
         ),
-        migrations.RunSQL(
-            sql='CREATE EXTENSION IF NOT EXISTS pg_trgm;',
-            reverse_sql=migrations.RunSQL.noop
-        ),
+        # migrations.RunSQL(
+        #     sql='CREATE EXTENSION IF NOT EXISTS pg_trgm;',
+        #     reverse_sql=migrations.RunSQL.noop
+        # ),
         TrigramExtension(),
         migrations.CreateModel(
             name='Ingredient',

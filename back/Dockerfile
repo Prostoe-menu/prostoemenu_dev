@@ -4,4 +4,4 @@ COPY requirements.txt .
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt --no-cache-dir
 COPY . .
-CMD ["gunicorn", "prostoemenu.wsgi:application", "--bind", "0:8000" ]
+RUN python manage.py collectstatic --noinput

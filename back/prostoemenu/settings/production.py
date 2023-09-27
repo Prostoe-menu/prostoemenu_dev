@@ -13,6 +13,10 @@ INSTALLED_APPS += [
     'corsheaders',
 ]
 
+MIDDLEWARE += [
+    'corsheaders.middleware.CorsMiddleware',
+]
+
 DATABASES = {
   'default': {
       'ENGINE': os.getenv(

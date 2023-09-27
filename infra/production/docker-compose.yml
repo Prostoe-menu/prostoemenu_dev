@@ -16,7 +16,9 @@ services:
       context: ../../back
       dockerfile: Dockerfile
     container_name: web
-    command: python manage.py migrate
+    command: >
+      sh -c "python manage.py migrate &&
+             gunicorn prostoemenu.wsgi:application --bind 0.0.0.0:8000"
     restart: always
     depends_on:
       - db

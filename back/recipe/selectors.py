@@ -26,5 +26,6 @@ def get_object(model, **kwargs):
 def measurement_list():
     return Measurement.objects.all()
 
+
 def recipe_list():
     return Recipe.objects.all()

@@ -41,6 +41,22 @@ class RecipeCreateApi(APIView):
 
         class Meta:
             ref_name = "RecipeCreate"
+    
+    
+    class OutputSerializer(serializers.Serializer):
+        """Сериализатор выходящих данных."""
+        
+        id = serializers.ReadOnlyField()
+        name = serializers.CharField()
+        description = serializers.CharField()
+        cooking_time = serializers.IntegerField()
+        oven_time = serializers.IntegerField()
+        complexity = serializers.IntegerField()
+        ingredients = serializers.JSONField()
+        steps = serializers.JSONField()
+        
+        class Meta:
+            ref_name = "RecipeCreate"
 
     @extend_schema(
         operation_id="recipe_create",
@@ -48,13 +64,14 @@ class RecipeCreateApi(APIView):
         description="Эндпоинт создания рецепта.",
         tags=("Recipes",),
         request=InputSerializer,
-        responses={201: {}},
+        responses={201: OutputSerializer},
     )
     def post(self, request):
         serializer = self.InputSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        recipe_create(serializer.validated_data)
-        return Response(status=status.HTTP_201_CREATED, data={"success": True})
+        recipe = recipe_create(serializer.validated_data)
+        response = self.OutputSerializer(recipe).data
+        return Response(status=status.HTTP_201_CREATED, data=response)
 
 
 class RecipeListApi(APIView):

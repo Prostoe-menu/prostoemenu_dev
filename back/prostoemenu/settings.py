@@ -7,14 +7,17 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv("SECRET_KEY", default="django-insecure-*rojrw1fe1v4h)bkz^6amo-p1824p5@yw7z9+hps)rb*ptq_th")
+SECRET_KEY = os.getenv(
+    "SECRET_KEY",
+    default="django-insecure-*rojrw1fe1v4h)bkz^6amo-p1824p5@yw7z9+hps)rb*ptq_th",
+)
 
 DEBUG = True
 
 ALLOWED_HOSTS = [
     "*",
     "localhost",
-    ]
+]
 
 INSTALLED_APPS = [
     # Django Applications
@@ -25,7 +28,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.postgres",
-
     # Third-party Applications
     "rest_framework",
     "django_filters",
@@ -33,7 +35,6 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "corsheaders",
     "drf_spectacular",
-
     # Project Applications
     "recipe",
     "api",
@@ -84,21 +85,19 @@ TEMPLATES = [
 WSGI_APPLICATION = "prostoemenu.wsgi.application"
 
 DATABASES = {
-  'default': {
-      'ENGINE': os.getenv(
-          'DB_ENGINE', default='django.db.backends.postgresql'
-      ),
-      'NAME': os.getenv('POSTGRES_DB', default='prostoemenu'),
-      'USER': os.getenv('POSTGRES_USER', default='postgres'),
-      'PASSWORD': os.getenv('POSTGRES_PASSWORD', default=''),
-      'HOST': os.getenv('DB_HOST', default='db'),
-      'PORT': os.getenv('DB_PORT', default='5432')
-  }
+    "default": {
+        "ENGINE": os.getenv("DB_ENGINE", default="django.db.backends.postgresql"),
+        "NAME": os.getenv("POSTGRES_DB", default="prostoemenu"),
+        "USER": os.getenv("POSTGRES_USER", default="postgres"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD", default=""),
+        "HOST": os.getenv("DB_HOST", default="db"),
+        "PORT": os.getenv("DB_PORT", default="5432"),
+    }
 }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator", # noqa
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",

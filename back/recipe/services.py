@@ -1,5 +1,7 @@
-from recipe.models import Recipe, Ingredient
+from django.shortcuts import get_object_or_404
 from rest_framework.serializers import ValidationError
+
+from recipe.models import Ingredient, Recipe
 
 
 def recipe_create(data) -> Recipe:
@@ -34,3 +36,8 @@ def recipe_create(data) -> Recipe:
         )
     recipe = Recipe.objects.create(**data)
     return recipe
+
+
+def obj_delete(model, id: int):
+    recipe = get_object_or_404(model, id=id)
+    recipe.delete()

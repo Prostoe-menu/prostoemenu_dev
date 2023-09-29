@@ -1,11 +1,11 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -17,8 +17,8 @@ SECRET_KEY = 'django-insecure-*rojrw1fe1v4h)bkz^6amo-p1824p5@yw7z9+hps)rb*ptq_th
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '*',
-    '188.225.38.21'
+    '127.0.0.1',
+    '109.172.82.25'
 ]
 
 # Application definition
@@ -57,7 +57,6 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -66,9 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #"debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
-
 
 ROOT_URLCONF = 'prostoemenu.urls'
 
@@ -90,7 +87,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'prostoemenu.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 DATABASES = {
@@ -99,32 +95,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': 'prostoemenu',
-#        'USER': 'postgres',
-#        'PASSWORD': os.getenv('DB_pass'),  # Добавьте свои данные для БД
-#        'HOST': '127.0.0.1',
-#        'PORT': '5432',
-#    }
-#}
-
-
-# DATABASES = {
-#   'default': {
-#       'ENGINE': os.getenv(
-#           'DB_ENGINE', default='django.db.backends.postgresql'
-#       ),
-#       'NAME': os.getenv('DB_NAME', default='prostoemenu'),
-#       'USER': os.getenv('POSTGRES_USER', default='postgres'),
-#       'PASSWORD': os.getenv('POSTGRES_PASSWORD', default=''),
-#       'HOST': os.getenv('DB_HOST', default='db'),
-#       'PORT': os.getenv('DB_PORT', default='5432')
-#   }
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -144,7 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -156,13 +125,11 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -174,11 +141,7 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
 # URL used to access the media
 MEDIA_URL = '/media/'
 
-#INTERNAL_IPS = [
-#    "127.0.0.1"
-#]
-
-
+#Djoser settings
 DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_CONFIRM_URL': '/password/reset/confirm/{uid}/{token}',

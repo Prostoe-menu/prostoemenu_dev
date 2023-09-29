@@ -117,6 +117,7 @@ class Recipe(models.Model):
         verbose_name='Рецепт',
         unique=True)
     description = models.TextField(
+        null=True,
         verbose_name='Описание')
     cooking_time = models.IntegerField(
         verbose_name='Время готовки')
@@ -130,16 +131,19 @@ class Recipe(models.Model):
         auto_now=True,
         verbose_name='Дата обновления')
     rating = models.DecimalField(
-        null=True, max_digits=1,
+        null=True,
+        max_digits=1,
         decimal_places=1, verbose_name='Рейтинг')
     number_of_votes = models.IntegerField(
         null=True, verbose_name='Количество голосов')
     exists = models.BooleanField(
         default=True, verbose_name='Существует')
     quantity = models.IntegerField(
-        default=1, verbose_name='Количество порций')
+        default=1,
+        verbose_name='Количество порций')
     info = models.TextField(
-        null=True, verbose_name='Доп. информация')
+        null=True,
+        verbose_name='Доп. информация')
     valid = models.BooleanField(
         default=False, verbose_name='Прошло модерацию')
     parced = models.BooleanField(

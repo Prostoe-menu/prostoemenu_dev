@@ -182,6 +182,8 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
                   'description',
                   'complexity',
                   'cooking_time',
+                  'oven_time',
+                  'quantity',
                   'ingredients',
                   'steps',
                   'photos']

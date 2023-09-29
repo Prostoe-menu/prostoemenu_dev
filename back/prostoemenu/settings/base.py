@@ -21,8 +21,11 @@ ALLOWED_HOSTS = [
     '109.172.82.25'
 ]
 
-# Application definition
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
+# Application definition
 INSTALLED_APPS = [
     # Django Applications
     'django.contrib.admin',
@@ -141,7 +144,7 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
 # URL used to access the media
 MEDIA_URL = '/media/'
 
-#Djoser settings
+# Djoser settings
 DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_CONFIRM_URL': '/password/reset/confirm/{uid}/{token}',
@@ -171,3 +174,5 @@ SPECTACULAR_SETTINGS = {
 }
 
 DOMAIN_NAME = "http://109.172.82.25/"
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

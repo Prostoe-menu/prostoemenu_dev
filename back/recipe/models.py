@@ -170,7 +170,7 @@ class Recipe(models.Model):
     photo = models.ManyToManyField(
         Photo,
         through='RecipePhotos',
-        related_name='photos'
+        related_name='photos',
         )
     tag = models.ManyToManyField(
         Tag,

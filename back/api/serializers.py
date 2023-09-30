@@ -130,7 +130,7 @@ class RecipeStepCreateSerializer(serializers.ModelSerializer):
 
 
 class RecipePhotoCreateSerializer(serializers.ModelSerializer):
-    photo = serializers.CharField()
+    photo = serializers.CharField(allow_null=True)
 
     class Meta:
         model = RecipePhotos
@@ -182,6 +182,8 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
                   'description',
                   'complexity',
                   'cooking_time',
+                  'oven_time',
+                  'quantity',
                   'ingredients',
                   'steps',
                   'photos']
@@ -225,9 +227,12 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
                 RecipeSteps.objects.create(recipe=recipe, step=step_to_add)
 
             for photo_data in photos_data:
-                photo_to_add = Photo.objects.create(
-                    photo=photo_data.get('photo'))
-                RecipePhotos.objects.create(recipe=recipe, photo=photo_to_add)
+                if photo_data.get('photo') is None:
+                    RecipePhotos.objects.create(recipe=recipe, photo=Photo(pk=1, photo='default_photo.jpg'))
+                else:
+                    photo_to_add = Photo.objects.create(photo=photo_data.get('photo'))
+                    RecipePhotos.objects.create(recipe=recipe, photo=photo_to_add)
+
         except IntegrityError as e:
             raise APIException(detail=e)
 

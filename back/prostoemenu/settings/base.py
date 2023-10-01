@@ -18,7 +18,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    '109.172.82.25'
+    '109.172.82.25',
+    'test-menu.wowit.ru'
 ]
 
 INTERNAL_IPS = [
@@ -173,6 +174,6 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
-DOMAIN_NAME = "http://109.172.82.25/"
+DOMAIN_NAME = "https://test-menu.wowit.ru/"
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

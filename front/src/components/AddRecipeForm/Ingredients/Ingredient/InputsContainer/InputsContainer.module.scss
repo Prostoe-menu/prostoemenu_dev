@@ -1,0 +1,194 @@
+.container {
+  box-sizing: border-box;
+  display: grid;
+  gap: 12px;
+  grid-template-areas: "name quantity measureUnits";
+}
+
+.input {
+  box-sizing: border-box;
+  height: 40px;
+  border: 1px solid #DBDBDB;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: 'Mulish', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #232323;
+  margin: 0;
+
+  &::placeholder {
+    font-family: 'Mulish', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #818181;
+  }
+
+  &:hover {
+    border: 1px solid #818181;
+  }
+
+  &:focus {
+    outline: none;
+    border: 1px solid #818181;
+  }
+
+  &_type_name {
+    width: 304px;
+  }
+
+  &_type_quantity {
+    text-align: center;
+    width: 72px;
+    grid-area: quantity;
+  }
+
+  &_type_dropdown {
+    width: 144px;
+    font-weight: 500;
+    color: #232323;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  &_error {
+    border: 1px solid #D14941;
+  }
+
+  &::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  &::-webkit-search-decoration {
+    display: none;
+  }
+
+  &::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  &::-webkit-search-results-button {
+    display: none;
+  }
+
+  &::-webkit-search-results-decoration {
+    display: none;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+}
+
+.listItem {
+  padding: 0;
+  display: flex;
+}
+
+.dropdownMenu {
+  position: relative;
+
+  &_type_name {
+    grid-area: name;
+  }
+
+  &_type_measureInuts {
+    grid-area: measureUnits;
+  }
+
+  &__options {
+    display: none;
+    overflow-y: scroll;
+    position: absolute;
+    z-index: 5;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px 0;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px 5px rgba(1, 7, 62, 0.08);
+
+    &_type_ingredients {
+      max-height: 216px;
+    }
+
+    &_type_measureUnits {
+      max-height: 340px;
+    }
+
+    &_visible {
+      display: block;
+    }
+  }
+
+  &__option {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 8px;
+    background: #fff;
+    font-family: 'Mulish', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #232323;
+
+    &:hover, &:focus, &_active {
+      outline: none;
+      background: #FFFAF0;
+      border-radius: 0;
+    }
+
+    &_notfound {
+      cursor: default;
+
+      &:hover {
+        background: #fff;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .container {
+    grid-template-areas:
+    "name name"
+    "quantity measureUnits";
+    row-gap: 12px;
+    column-gap: 8px;
+  }
+
+  .input {
+    &_type_name {
+      width: 296px;
+    }
+
+    &_type_quantity {
+      width: 144px;
+    }
+  }
+
+  .dropdownMenu {
+    &__options {
+      max-height: 176px;
+    }
+  }
+}

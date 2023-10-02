@@ -12,10 +12,12 @@ import {
 import storageSession from 'redux-persist/lib/storage/session';
 import formReducer from './slices/form/formSlice';
 import toastReducer from './slices/toast/toastSlice';
+import recipeSlice from './slices/recipe/recipeSlice';
 
 const rootReducer = combineReducers({
   form: formReducer,
   toast: toastReducer,
+  recipe: recipeSlice,
 });
 
 const persistConfig = {

@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line import/no-unresolved
 import { useDropzone } from 'react-dropzone';
 import { Cropper } from 'react-cropper';
+import Modal from '../../Modal/Modal';
+import Button from '../Button/Button';
 import 'cropperjs/dist/cropper.css';
 import styles from './PhotoButton.module.scss';
 import {
@@ -17,7 +19,9 @@ import {
 
 const PhotoButton = () => {
   const dropZone = useRef();
-  const [cropVis, setCropVis] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const closeModal = () => setIsModalOpen(false);
+  // const [cropVis, setCropVis] = useState(false);
   const sourcePhoto = useSelector((store) => store.form.sourcePhoto);
   const dispatch = useDispatch();
   const croppedPhoto = useSelector((store) => store.form.finishedPhoto);
@@ -44,7 +48,7 @@ const PhotoButton = () => {
           cropperRef.current?.cropper.getCroppedCanvas().toDataURL()
         )
       );
-      setCropVis(false);
+      setIsModalOpen(false);
     }
   };
 
@@ -61,7 +65,7 @@ const PhotoButton = () => {
     multiple: false,
     // File is OK
     onDropAccepted: (acceptedFiles) => {
-      setCropVis(true);
+      setIsModalOpen(true);
       dispatch(
         loadPhoto(
           acceptedFiles.map((file) =>
@@ -87,7 +91,7 @@ const PhotoButton = () => {
 
   // Удаляем файлы по клику на кнопку на превью
   const handleClickRemovePhoto = () => {
-    setCropVis(false); // убираем Cropper
+    setIsModalOpen(false); // убираем Cropper
     dispatch(resetLoadPhoto());
     dispatch(resetCroppedPhoto());
     dropZone.current.classList.remove(styles.photo__input_hidden);
@@ -157,12 +161,11 @@ const PhotoButton = () => {
         </div>
       </section>
       <div className={styles.preview}>{thumbs}</div>
-      {cropVis && (
-        <>
-          {' '}
+      {isModalOpen && (
+        <Modal closeModal={closeModal} isModalOpen={setIsModalOpen}>
           <Cropper
             ref={cropperRef}
-            style={{ height: 400, width: '100%' }}
+            style={{ height: 400, width: 400 }}
             zoomTo={0.5}
             initialAspectRatio={4 / 3}
             // preview=".img-preview"
@@ -176,10 +179,19 @@ const PhotoButton = () => {
             checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
             guides
           />
-          <button type="button" onClick={getCropData}>
+          {/* <button type="button" onClick={getCropData}>
             ОБРЭЗАТ
-          </button>
-        </>
+          </button> */}
+          <Button
+            btnClassName="button_bg_yellow"
+            isSubmit={false}
+            isDisabled={false}
+            ariaLabelText="Обрезать фото"
+            onClickBtn={getCropData}
+          >
+            Обрезать фото
+          </Button>
+        </Modal>
       )}
     </>
   );

@@ -5,10 +5,8 @@ services:
     container_name: prostoemenu-frontend-container
     image: prostoemenu-frontend
     build:
-      context: . 
+      context: .
       dockerfile: Dockerfile
-      args:
-        PORT: 80
     restart: unless-stopped
     ports:
       - "3000:3000"

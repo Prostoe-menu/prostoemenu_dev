@@ -155,6 +155,7 @@ const MainInfo = () => {
                   defaultValue={0}
                   max={3}
                   size="large"
+                  onClick={() => clearErrors('rating')}
                   onChange={(event, newValue) => {
                     dispatch(saveRecipeComplexity(newValue));
                   }}
@@ -169,7 +170,11 @@ const MainInfo = () => {
         <div>
           <label htmlFor="portions" className={styles.title}>
             Количество порций
-            <div className={styles.wrap_counter}>
+            <div
+              className={`${styles.wrap_counter} ${
+                errors.portions ? `${styles.wrap_counter_error}` : ''
+              }`}
+            >
               <button
                 type="button"
                 className={`${styles.button} ${styles.buttonMinus}`}
@@ -186,19 +191,19 @@ const MainInfo = () => {
                 rules={{ required: true }}
                 render={({ field }) => (
                   <input
-                    {...register('portions', {
-                      required: true,
-                    })}
+                    {...register('portions')}
                     aria-invalid={errors.portions ? 'true' : 'false'}
                     type="text"
                     id="portions"
                     placeholder="0"
                     value={portion}
                     onClick={() => clearErrors('portions')}
-                    onChange={field.onChange}
+                    onChange={(e) => field.onChange(e)}
                     className={
                       portion === 0
-                        ? styles.portion
+                        ? `${styles.portion} ${
+                            errors?.portions ? `${styles.portion_error}` : ''
+                          }`
                         : `${styles.portion} ${styles.portion_active}`
                     }
                   />
@@ -237,7 +242,9 @@ const MainInfo = () => {
                 placeholder="0"
                 defaultValue=""
                 className={`${styles.time} ${
-                  errors.allhours ? `${styles.name__input_error}` : ''
+                  errors.allhours
+                    ? `${styles.name__input_error} ${styles.time_error}`
+                    : ''
                 }`}
                 onClick={() => clearErrors('allhours')}
               />
@@ -256,7 +263,11 @@ const MainInfo = () => {
                 id="allminutes"
                 placeholder="0"
                 defaultValue=""
-                className={styles.time}
+                className={`${styles.time} ${
+                  errors.allminutes
+                    ? `${styles.name__input_error} ${styles.time_error}`
+                    : ''
+                }`}
                 onClick={() => clearErrors(['allhours', 'allminutes'])}
               />
               &nbsp;минут
@@ -282,7 +293,9 @@ const MainInfo = () => {
                 maxLength={2}
                 onClick={() => clearErrors('cookhours')}
                 className={`${styles.time} ${
-                  errors.cookhours ? `${styles.name__input_error}` : ''
+                  errors.cookhours
+                    ? `${styles.name__input_error} ${styles.time_error}`
+                    : ''
                 }`}
               />
               &nbsp;час(ов)
@@ -300,7 +313,11 @@ const MainInfo = () => {
                 id="cookminutes"
                 placeholder="0"
                 onClick={() => clearErrors(['cookhours', 'cookminutes'])}
-                className={styles.time}
+                className={`${styles.time} ${
+                  errors.cookminutes
+                    ? `${styles.name__input_error} ${styles.time_error}`
+                    : ''
+                }`}
               />
               &nbsp;минут
             </label>

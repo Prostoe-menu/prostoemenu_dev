@@ -109,6 +109,7 @@
 
   &_error::placeholder {
     color: red;
+    opacity: .6;
   }
 }
 
@@ -161,7 +162,13 @@
   height: 38px;
   width: 130px;
   margin-top: 12px;
-}
+
+  &_error {
+    border: 1px solid red;
+    color: red;
+    }
+  }
+
 
 .button {
   background-color: transparent;
@@ -230,8 +237,9 @@
     color: transparent;
   }
 
-  &_error::placeholder {
+  &_error {
     color: red;
+    opacity: .6;
   }
 }
 
@@ -286,6 +294,10 @@
 
   &:focus-visible {
     outline: 0;
+  }
+
+  &_error {
+    border: 1px solid red;
   }
 }
 

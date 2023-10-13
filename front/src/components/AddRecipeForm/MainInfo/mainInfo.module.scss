@@ -54,7 +54,7 @@
   align-items: flex-end;
   padding: 8px 16px;
   width: 576px;
-  height: 40px;
+  min-height: 40px;
   background: #ffffff;
   border: 1px solid #dbdbdb;
   border-radius: 8px;
@@ -67,18 +67,33 @@
   &:focus {
     border: 1px solid #818181;
   }
+
+  &_error {
+    border: 1px solid red;
+    color: red;
+  }
 }
 
 .title {
   @extend %mulish-16-500;
 }
 
-.name_input {
+.error {
+  @extend %mulish-12-300;
+  color: red;
+  position: absolute;
+  margin: 5px 0;
+}
+
+.name__input {
   @extend %mulish-16-300;
   border: none;
   width: 483px;
-  height: 24px;
+  min-height: 24px;
   color: #818181;
+  resize: none;
+  overflow: hidden;
+  word-wrap: normal;
 
   &:focus {
     border: none;
@@ -86,6 +101,15 @@
 
   &:focus-visible {
     outline: 0;
+  }
+
+  &:focus::placeholder {
+    color: transparent;
+  }
+
+  &_error::placeholder {
+    color: red;
+    opacity: .6;
   }
 }
 
@@ -95,6 +119,10 @@
   align-items: center;
   text-align: right;
   color: #818181;
+
+  &_error {
+    color: red;
+  }
 }
 
 .wrap_complexity {
@@ -134,7 +162,13 @@
   height: 38px;
   width: 130px;
   margin-top: 12px;
-}
+
+  &_error {
+    border: 1px solid red;
+    color: red;
+    }
+  }
+
 
 .button {
   background-color: transparent;
@@ -158,6 +192,12 @@
   &:hover {
     background-image: url('../../../images/plusButton-active.svg');
   }
+
+  &:disabled,
+  &:disabled:hover {
+    background-image: url('../../../images/minusButton-disabled.png');
+    cursor: auto;
+  }
 }
 
 .buttonMinus {
@@ -170,7 +210,8 @@
     background-image: url('../../../images/minusButton-active.svg');
   }
 
-  &:disabled {
+  &:disabled,
+  &:disabled:hover {
     background-image: url('../../../images/minusButton-disabled.png');
     cursor: auto;
   }
@@ -181,6 +222,25 @@
   text-align: center;
   color: #818181;
   margin: 0 20px;
+  border: none;
+  width: 25px;
+
+  &:focus {
+    border: none;
+  }
+
+  &:focus-visible {
+    outline: 0;
+  }
+
+  &:focus::placeholder {
+    color: transparent;
+  }
+
+  &_error {
+    color: red;
+    opacity: .6;
+  }
 }
 
 .portion_active {
@@ -235,6 +295,10 @@
   &:focus-visible {
     outline: 0;
   }
+
+  &_error {
+    border: 1px solid red;
+  }
 }
 
 .wrap_description {
@@ -249,7 +313,7 @@
   padding: 0;
 }
 
-.descinput_wrap {
+.descinput__wrap {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -269,9 +333,14 @@
   &:focus {
     border: 1px solid #818181;
   }
+
+  &_error {
+    border: 1px solid red;
+    color: red;
+  }
 }
 
-.desc_input {
+.desc__input {
   @extend %mulish-12-300;
   width: 544px;
   height: 112px;
@@ -305,12 +374,24 @@
     background: #f7f7f7;
     border-radius: 2px;
   }
+
+  &_error::placeholder {
+    color: red;
+  }
+
+  &_error:focus::placeholder {
+    color: transparent;
+  }
 }
 
-.desc_counter {
+.desc__counter {
   position: relative;
   right: 0px;
   top: 0px;
+
+  &_error {
+    color: red;
+  }
 }
 
 .fotoReqs {
@@ -349,5 +430,5 @@
 
 .controls {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }

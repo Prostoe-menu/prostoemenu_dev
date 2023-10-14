@@ -13,7 +13,7 @@ const App = () => (
   <div className={Style.app}>
     <Header />
     <Routes>
-      <Route path="/catalog" element={<HomePage />} />
+      <Route path="/" element={<HomePage />} />
       <Route path="/new-recipe" element={<AddRecipeForm />} />
     </Routes>
     <Modal />

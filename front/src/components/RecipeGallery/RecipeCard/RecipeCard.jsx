@@ -20,7 +20,7 @@ const RecipeCard = ({ recipe }) => (
           <p className={styles.cardDescription__text}>1 час 30 мин.</p>
         </div>
       </div>
-      <h3 className={styles.cardName}>{recipe.name}</h3>
+      {/* <h3 className={styles.cardName}>{recipe.name}</h3> */}
     </div>
   </div>
 );

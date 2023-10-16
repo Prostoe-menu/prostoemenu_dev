@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { handleKeyboardNavigation } from '../../../../helpers/useKeyboardNavigation';
+import DropdownItem from '../DropdownItem/DropdownItem';
 import styles from './DropdownMenu.module.scss';
 
 /**
@@ -60,28 +61,18 @@ const DropdownMenu = ({
         ref={selectItemInputRef}
       >
         {dropdownData?.map((item, idx) => (
-          <li className={styles.listItem} key={item.id}>
-            <div
-              className={`${styles.dropdownMenu__option} ${
-                idx === cursor && styles.dropdownMenu__option_active
-              }`}
-              key={item.id}
-              onClick={() => chooseItem(item)}
-              onKeyDown={(e) => {
-                if (e.key === 'Escape') {
-                  setIsDropdownOpen(false);
-                }
-              }}
-              role="button"
-              tabIndex="0"
-              aria-label={chooseItemAriaLabelText}
-              style={{
-                width: '100%',
-              }}
-            >
-              {item.name}
-            </div>
-          </li>
+          <DropdownItem
+            item={item}
+            itemIndex={idx}
+            cursor={cursor}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') {
+                setIsDropdownOpen(false);
+              }
+            }}
+            onClick={() => chooseItem(item)}
+            selectItemAriaLabelText={chooseItemAriaLabelText}
+          />
         ))}
       </ul>
     </div>

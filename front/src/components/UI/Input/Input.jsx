@@ -7,24 +7,26 @@ import styles from './Input.module.scss';
  * Представляет собой инпут с по умолчанию type='text', адаптация стилей и логики происходит через пропсы.
  * */
 
-const Input = ({
-  inputClassName,
-  isError,
-  register,
-  inputName,
-  requiredValue,
-  requiredMessage,
-  patternValue,
-  patternMessage,
-  minValue,
-  minMessage,
-  handleChangeInput,
-  handleOnKeyDown,
-  placeholderText,
-  inputValue,
-  inputType = 'text',
-  inputStep,
-}) => {
+const Input = (props) => {
+  const {
+    inputClassName,
+    isError,
+    register,
+    inputName,
+    requiredValue,
+    requiredMessage,
+    patternValue,
+    patternMessage,
+    minValue,
+    minMessage,
+    onChange,
+    onKeyDown,
+    placeholderText,
+    inputValue,
+    inputType,
+    inputStep,
+  } = props;
+
   const inputClasses = [
     styles.input,
     styles[inputClassName],
@@ -50,8 +52,8 @@ const Input = ({
           message: minMessage,
         },
       })}
-      onChange={handleChangeInput}
-      onKeyDown={handleOnKeyDown}
+      onChange={onChange}
+      onKeyDown={onKeyDown}
       placeholder={placeholderText}
       autoComplete="off"
       value={inputValue}

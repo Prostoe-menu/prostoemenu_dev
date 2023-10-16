@@ -29,8 +29,9 @@ const InputsContainer = ({
   const { ingredients } = useSelector((state) => state.form);
 
   const [query, setQuery] = useState(ingredientData.name || '');
-  const [openIngredientDropdown, setOpenIngredientDropdown] = useState(false);
-  const [openUnitDropdown, setOpenUnitDropdown] = useState(false);
+  const [isIngredientDropdownOpen, setIsIngredientDropdownOpen] =
+    useState(false);
+  const [isUnitDropdownOpen, setIsUnitDropdownOpen] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -42,14 +43,14 @@ const InputsContainer = ({
   );
 
   const selectIngredientRef = useClickOutside(() =>
-    setOpenIngredientDropdown(false)
+    setIsIngredientDropdownOpen(false)
   );
   const selectMeasureInputRef = useClickOutside(() =>
-    setOpenUnitDropdown(false)
+    setIsUnitDropdownOpen(false)
   );
 
-  const chooseIngredient = (ingredient) => {
-    setOpenIngredientDropdown(false);
+  const handleIngredientSelection = (ingredient) => {
+    setIsIngredientDropdownOpen(false);
     setQuery(ingredient.name);
     dispatch(
       saveIngredient({ id: ingredientData.elementID, name: ingredient.name })
@@ -62,10 +63,10 @@ const InputsContainer = ({
     // eslint-disable-next-line no-unused-expressions
     if (query.length >= 2) {
       setTimeout(() => {
-        setOpenIngredientDropdown(true);
+        setIsIngredientDropdownOpen(true);
       }, 1100);
     } else {
-      setOpenIngredientDropdown(false);
+      setIsIngredientDropdownOpen(false);
     }
   };
 
@@ -80,22 +81,22 @@ const InputsContainer = ({
     );
   };
 
-  const chooseUnit = (measureUnit) => {
+  const handleUnitSelection = (measureUnit) => {
     dispatch(
       changeIngredientMeasureUnits({
         measureUnit,
         id: ingredientData.elementID,
       })
     );
-    setOpenUnitDropdown(false);
+    setIsUnitDropdownOpen(false);
   };
 
   return (
     <div className={Style.container}>
       <DropdownSearch
         dropdownClassName="dropdownSearch_type_ingredient"
-        isDropdownOpen={openIngredientDropdown}
-        setIsDropdownOpen={setOpenIngredientDropdown}
+        isDropdownOpen={isIngredientDropdownOpen}
+        setIsDropdownOpen={setIsIngredientDropdownOpen}
         selectItemRef={selectIngredientRef}
         inputClassName="input_type_name"
         isInputError={error === 'name'}
@@ -110,7 +111,7 @@ const InputsContainer = ({
         onInputChange={handleNameInput}
         inputPlaceholder="Начните вводить название"
         inputValue={query}
-        onChooseItem={chooseIngredient}
+        onChooseItem={handleIngredientSelection}
         requiredData={ingredientsApiData}
         notFoundMessage="Ингредиент не найден"
         ariaLabelText="Выбрать ингредиент"
@@ -128,7 +129,7 @@ const InputsContainer = ({
         requiredMessage="Введите количество ингредиента"
         minValue={0.1}
         minMessage="Количество должно быть более нуля"
-        handleChangeInput={handleVolumeInput}
+        onChange={handleVolumeInput}
         placeholderText="0"
         inputValue={ingredientData.volume}
         inputType="number"
@@ -136,13 +137,13 @@ const InputsContainer = ({
       />
       <DropdownMenu
         dropdownClassName="dropdownMenu_type_measure-unit"
-        isDropdownOpen={openUnitDropdown}
-        setIsDropdownOpen={setOpenUnitDropdown}
+        isDropdownOpen={isUnitDropdownOpen}
+        setIsDropdownOpen={setIsUnitDropdownOpen}
         openDropdownAriaLabelText="Открыть меню единиц измерения"
         previewText={ingredientData.measure}
         selectItemInputRef={selectMeasureInputRef}
         dropdownData={measureUnits}
-        chooseItem={chooseUnit}
+        chooseItem={handleUnitSelection}
         chooseItemAriaLabelText="Выбрать единицу измерения"
       />
     </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Input from '../../Input/Input';
 import { handleKeyboardNavigation } from '../../../../helpers/useKeyboardNavigation';
+import DropdownItem from '../DropdownItem/DropdownItem';
 import styles from './DropdownSearch.module.scss';
 
 /**
@@ -9,27 +10,29 @@ import styles from './DropdownSearch.module.scss';
  * Адаптация стилей и логики происходит через пропсы.
  * */
 
-const DropdownSearch = ({
-  dropdownClassName,
-  isDropdownOpen,
-  setIsDropdownOpen,
-  selectItemRef,
-  inputClassName,
-  isInputError,
-  inputRegister,
-  inputName,
-  inputRequiredValue,
-  inputRequiredMessage,
-  inputPatternValue,
-  inputPatternMessage,
-  onInputChange,
-  inputPlaceholder,
-  inputValue,
-  onChooseItem,
-  requiredData,
-  notFoundMessage,
-  ariaLabelText,
-}) => {
+const DropdownSearch = (props) => {
+  const {
+    dropdownClassName,
+    isDropdownOpen,
+    setIsDropdownOpen,
+    selectItemRef,
+    inputClassName,
+    isInputError,
+    inputRegister,
+    inputName,
+    inputRequiredValue,
+    inputRequiredMessage,
+    inputPatternValue,
+    inputPatternMessage,
+    onInputChange,
+    inputPlaceholder,
+    inputValue,
+    onChooseItem,
+    requiredData,
+    notFoundMessage,
+    ariaLabelText,
+  } = props;
+
   const [cursor, setCursor] = useState(-1);
 
   return (
@@ -43,8 +46,8 @@ const DropdownSearch = ({
         requiredMessage={inputRequiredMessage}
         patternValue={inputPatternValue}
         patternMessage={inputPatternMessage}
-        handleChangeInput={onInputChange}
-        handleOnKeyDown={(e) =>
+        onChange={onInputChange}
+        onKeyDown={(e) =>
           handleKeyboardNavigation(
             e,
             selectItemRef,
@@ -82,27 +85,18 @@ const DropdownSearch = ({
             );
           }
           return requiredData?.map((item, idx) => (
-            <li className={styles.listItem} key={item.id}>
-              <div
-                className={`${styles.dropdownSearch__option} ${
-                  idx === cursor && styles.dropdownSearch__option_active
-                }`}
-                onClick={() => onChooseItem(item)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Escape') {
-                    setIsDropdownOpen(false);
-                  }
-                }}
-                role="button"
-                tabIndex="0"
-                aria-label={ariaLabelText}
-                style={{
-                  width: '100%',
-                }}
-              >
-                {item.name}
-              </div>
-            </li>
+            <DropdownItem
+              item={item}
+              itemIndex={idx}
+              cursor={cursor}
+              onKeyDown={(e) => {
+                if (e.key === 'Escape') {
+                  setIsDropdownOpen(false);
+                }
+              }}
+              onClick={() => onChooseItem(item)}
+              selectItemAriaLabelText={ariaLabelText}
+            />
           ));
         })()}
       </ul>

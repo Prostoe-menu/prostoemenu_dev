@@ -22,31 +22,6 @@
       display: block;
     }
   }
-
-  &__option {
-    box-sizing: border-box;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    height: 40px;
-    padding: 0 16px;
-    border-radius: 8px;
-    background: #fff;
-    font-family: 'Mulish', sans-serif;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #232323;
-
-    &:hover,
-    &:focus,
-    &_active {
-      outline: none;
-      background: #FFFAF0;
-      border-radius: 0;
-    }
-  }
 }
 
 .input {
@@ -67,11 +42,6 @@
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-}
-
-.listItem {
-  padding: 0;
-  display: flex;
 }
 
 @media screen and (max-width: 576px) {

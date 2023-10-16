@@ -101,7 +101,7 @@ const formSlice = createSlice({
       const storedIngredient = updatedIngredients[ingredientIndex];
       updatedIngredients[ingredientIndex] = {
         ...storedIngredient,
-        measure: action.payload.measureUnit,
+        measure: action.payload.measureUnit.name,
       };
 
       state.ingredients = updatedIngredients;

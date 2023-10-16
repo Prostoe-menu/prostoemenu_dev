@@ -1,3 +1,15 @@
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type='number'],
+input[type="number"]:hover,
+input[type="number"]:focus {
+    appearance: none;
+    // -moz-appearance: textfield; // в яндекс браузере ломает валидацию
+}
+
 %mulish-16-500 {
   font-family: 'Mulish';
   font-style: normal;
@@ -107,10 +119,10 @@
     color: transparent;
   }
 
-  &_error::placeholder {
-    color: red;
-    opacity: .6;
-  }
+  // &_error::placeholder {
+  //   color: red;
+  //   opacity: .6;
+  // }
 }
 
 .counter {
@@ -136,9 +148,8 @@
 .stars {
   display: flex;
   list-style-type: none;
-  margin: 0;
+  margin: 12px 0 10px;
   padding: 0;
-  margin-top: 12px;
 }
 
 .star {

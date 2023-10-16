@@ -17,7 +17,7 @@ import {
   saveCroppedPhoto,
 } from '../../../store/slices/form/formSlice';
 
-const PhotoButton = () => {
+const PhotoButton = (error) => {
   const dropZone = useRef();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const closeModal = () => setIsModalOpen(false);
@@ -132,7 +132,12 @@ const PhotoButton = () => {
 
   return (
     <>
-      <section ref={dropZone} className={styles.photo}>
+      <section
+        ref={dropZone}
+        className={`${styles.photo} ${
+          error ? `${styles.photo__input_error}` : ''
+        }`}
+      >
         <div {...getRootProps({ className: 'dropzone' })}>
           <input {...getInputProps()} />
           <div className={styles.photo__input}>
@@ -179,9 +184,6 @@ const PhotoButton = () => {
             checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
             guides
           />
-          {/* <button type="button" onClick={getCropData}>
-            ОБРЭЗАТ
-          </button> */}
           <Button
             btnClassName="button_bg_yellow"
             isSubmit={false}

@@ -99,4 +99,6 @@ const defaultMeasureUnits = [
   },
 ];
 
-export { buttons, progressBarSteps, defaultMeasureUnits };
+const inputPattern = '/^[a-zA-Zа-яА-ЯёЁ0-9s!%№()-[];\':"\\|,. /?]+$/i';
+
+export { buttons, progressBarSteps, defaultMeasureUnits, inputPattern };

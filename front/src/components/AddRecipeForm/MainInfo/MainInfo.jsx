@@ -16,7 +16,7 @@ import {
   saveServings,
 } from '../../../store/slices/form/formSlice';
 import styles from './mainInfo.module.scss';
-import { buttons } from '../../../utils/constants';
+import { buttons, inputPattern } from '../../../utils/constants';
 import arrowRight from '../../../images/arrow-right.svg';
 
 const MainInfo = () => {
@@ -61,7 +61,7 @@ const MainInfo = () => {
     }
   };
 
-  function nameChange(event) {
+  function handleNameChange(event) {
     setNameCounter(event.target.value.length);
   }
 
@@ -113,56 +113,51 @@ const MainInfo = () => {
       className={styles.mainInfo}
       onSubmit={handleSubmit(onSubmit, onError)}
     >
-      <div>
-        <h3 className={styles.title}>Название рецепта</h3>
-        <div
-          className={`${styles.wrap} ${
-            errors.recipeName ? `${styles.wrap_error}` : ''
+      <h3 className={styles.title}>Название рецепта</h3>
+      <div
+        className={`${styles.wrap} ${
+          errors.recipeName ? `${styles.wrap_error}` : ''
+        }`}
+      >
+        <textarea
+          {...register('recipeName', {
+            required: true,
+            minLength: 2,
+            maxLength: 100,
+            pattern: {
+              value: inputPattern,
+            },
+          })}
+          className={`${styles.name__input}`}
+          onChange={handleNameChange}
+          onClick={() => clearErrors('recipeName')}
+          type="text"
+          maxLength={100}
+          rows={nameCounter > 50 ? 2 : 1}
+          wrap="soft"
+          placeholder="Название вашего блюда"
+        />
+
+        <p
+          className={`${styles.counter} ${
+            errors.recipeName ? `${styles.counter_error}` : ''
           }`}
         >
-          <textarea
-            {...register('recipeName', {
-              required: true,
-              minLength: 2,
-              maxLength: 100,
-              pattern: {
-                value: /^[a-zA-Zа-яА-ЯёЁ0-9\s!%№()\-[\];':"\\|,. /?]+$/i,
-              },
-            })}
-            className={`${styles.name__input}`}
-            onChange={nameChange}
-            onClick={() => clearErrors('recipeName')}
-            type="text"
-            maxLength={100}
-            rows={nameCounter > 50 ? 2 : 1}
-            wrap="soft"
-            placeholder="Название вашего блюда"
-          />
-
-          <p
-            className={`${styles.counter} ${
-              errors.recipeName ? `${styles.counter_error}` : ''
-            }`}
-          >
-            {nameCounter} / 100
-          </p>
-        </div>
-        {/* {errors?.recipeName?.type === 'required' && (
-          // dispatch(addNotification('Заполните все обязательные поля'))
-          // <p className={styles.error}>Это поле обязательно к заполнению</p>
-        )} */}
-        {errors?.recipeName?.type === 'minLength' && (
-          <p className={styles.error}>Введите не менее двух символов</p>
-        )}
-        {errors?.recipeName?.type === 'maxLength' && (
-          <p className={styles.error}>Максимальная длина 100 символов</p>
-        )}
-        {errors?.recipeName?.type === 'pattern' && (
-          <p className={styles.error}>
-            Используйте буквы, цифры и символы !-&rdquo;№;%:?*()&rsquo;/.,\\«»
-          </p>
-        )}
+          {nameCounter} / 100
+        </p>
       </div>
+      {errors?.recipeName?.type === 'minLength' && (
+        <p className={styles.error}>Введите не менее двух символов</p>
+      )}
+      {errors?.recipeName?.type === 'maxLength' && (
+        <p className={styles.error}>Максимальная длина 100 символов</p>
+      )}
+      {errors?.recipeName?.type === 'pattern' && (
+        <p className={styles.error}>
+          Используйте буквы, цифры и символы !-&rdquo;№;%:?*()&rsquo;/.,\\«»
+        </p>
+      )}
+
       <div className={styles.wrap_complexity}>
         <div className={styles.complexity}>
           <div className={styles.tooltipContainer}>
@@ -245,9 +240,6 @@ const MainInfo = () => {
               </button>
             </div>
           </label>
-          {/* {errors?.portions?.type === 'required' && (
-            <p className={styles.error}>Это поле обязательно к заполнению</p>
-          )} */}
         </div>
       </div>
       <div>
@@ -272,9 +264,6 @@ const MainInfo = () => {
               />
               &nbsp;час(ов)
             </label>
-            {/* {errors?.allhours?.type === 'required' && (
-              <p className={styles.error}>Это поле обязательно к заполнению</p>
-            )} */}
             <label htmlFor="allminutes" className={styles.label}>
               <input
                 {...register('allminutes', {
@@ -318,9 +307,6 @@ const MainInfo = () => {
               />
               &nbsp;час(ов)
             </label>
-            {/* {errors?.cookhours?.type === 'required' && (
-              <p className={styles.error}>Это поле обязательно к заполнению</p>
-            )} */}
             <label htmlFor="cookminutes" className={styles.label}>
               <input
                 {...register('cookminutes', {
@@ -361,8 +347,7 @@ const MainInfo = () => {
               minLength: 2,
               maxLength: 500,
               pattern: {
-                value:
-                  /^[a-zA-Zа-яА-ЯёЁ0-9\s!@#$%^&№()_+\-=[\]{};':"\\|,.<>/?]+$/i,
+                value: inputPattern,
               },
             })}
             className={`${styles.desc__input} ${
@@ -384,9 +369,6 @@ const MainInfo = () => {
             {descCounter} / 500
           </p>
         </div>
-        {/* {errors?.recipedesc?.type === 'required' && (
-          <p className={styles.error}>Это поле обязательно к заполнению</p>
-        )} */}
         {errors?.recipedesc?.type === 'minLength' && (
           <p className={styles.error}>Введите не менее двух символов</p>
         )}
@@ -405,11 +387,8 @@ const MainInfo = () => {
           name="cropPhoto"
           control={control}
           rules={{ required: true }}
-          render={({ field }) => (
-            <PhotoButton
-              error={errors?.cropPhoto?.type === 'required'}
-              {...field}
-            />
+          render={() => (
+            <PhotoButton error={errors?.cropPhoto?.type === 'required'} />
           )}
         />
         <p className={styles.fotoReqs}>Требования к фото:</p>

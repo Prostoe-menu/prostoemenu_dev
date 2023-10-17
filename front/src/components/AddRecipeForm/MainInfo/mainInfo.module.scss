@@ -7,7 +7,6 @@ input[type='number'],
 input[type="number"]:hover,
 input[type="number"]:focus {
     appearance: none;
-    // -moz-appearance: textfield; // в яндекс браузере ломает валидацию
 }
 
 %mulish-16-500 {
@@ -119,10 +118,6 @@ input[type="number"]:focus {
     color: transparent;
   }
 
-  // &_error::placeholder {
-  //   color: red;
-  //   opacity: .6;
-  // }
 }
 
 .counter {

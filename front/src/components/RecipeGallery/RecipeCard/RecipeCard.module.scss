@@ -1,22 +1,9 @@
-h3,p{
+h3,
+p {
   margin: 0;
   padding: 0;
 }
-.cardWrapper{
-  // display: flex;
-  // flex-direction: column;
-  // max-width: 312px;
-  // height: 318px;
-  // gap: 8px;
-
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(633px, 1fr));
-  // grid-template-rows: masonry;
-  gap: 35px;
-  // margin-right: 1em;
-  // margin-left: 1em;
-}
-.card{
+.cardWrapper {
   display: grid;
   grid-template-columns: repeat (1fr, 2);
   max-width: 100%;
@@ -30,7 +17,7 @@ h3,p{
   // height: 234px;
   border-radius: 16px;
 }
-.cardName{
+.cardName {
   margin-bottom: 10px;
   font-family: "Biolilbert", sans-serif;
   font-size: 26px;
@@ -42,13 +29,13 @@ h3,p{
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.cardDescriptionWrapper{
+.cardDescriptionWrapper {
   display: flex;
   justify-content: flex-start;
   gap: 14px;
   padding: 20px 20px 24px;
 }
-.cardDescription__text{
+.cardDescription__text {
   font-family: "Mulish";
   font-size: 18px;
   font-style: normal;
@@ -56,4 +43,3 @@ h3,p{
   line-height: 22px;
   color: #909090;
 }
-

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
-import style from './RecipeGallery.module.scss';
+import styles from './RecipeGallery.module.scss';
 import fetchRecipes from '../../store/slices/recipe/recipeThunk';
 import RecipeCard from './RecipeCard/RecipeCard';
 
@@ -14,13 +14,14 @@ const RecipeGallery = () => {
   }, [dispatch]);
   return (
     <div>
+      <h2 className={styles.catalogTitle}>Каталог рецептов</h2>
       {recipes.length ? (
-        <section className={style.container}>
+        <section className={styles.container}>
           {recipes.map((recipe, index) => (
             <RecipeCard
               /* eslint-disable-next-line react/no-array-index-key */
               key={index}
-              className={style.galleryItem}
+              className={styles.galleryItem}
               recipe={recipe}
             />
           ))}

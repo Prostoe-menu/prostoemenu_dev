@@ -28,7 +28,7 @@ const RecipeGallery = () => {
             ))}
           </section>
         ) : (
-          <div>Loading...</div>
+          <div className={styles.loading}>Пожалуйста, подождите, выполняется загрузка...</div>
         )}
       </div>
     </div>

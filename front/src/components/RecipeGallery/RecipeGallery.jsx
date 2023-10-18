@@ -13,22 +13,24 @@ const RecipeGallery = () => {
     dispatch(fetchRecipes());
   }, [dispatch]);
   return (
-    <div>
+    <div className={styles.wrapper}>
       <h2 className={styles.catalogTitle}>Каталог рецептов</h2>
-      {recipes.length ? (
-        <section className={styles.container}>
-          {recipes.map((recipe, index) => (
-            <RecipeCard
-              /* eslint-disable-next-line react/no-array-index-key */
-              key={index}
-              className={styles.galleryItem}
-              recipe={recipe}
-            />
-          ))}
-        </section>
-      ) : (
-        <div>Loading...</div>
-      )}
+      <div>
+        {recipes.length ? (
+          <section className={styles.catalogContainer}>
+            {recipes.map((recipe, index) => (
+              <RecipeCard
+                /* eslint-disable-next-line react/no-array-index-key */
+                key={index}
+                className={styles.galleryItem}
+                recipe={recipe}
+              />
+            ))}
+          </section>
+        ) : (
+          <div>Loading...</div>
+        )}
+      </div>
     </div>
   );
 };

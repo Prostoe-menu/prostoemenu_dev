@@ -1,4 +1,17 @@
+h2, p{
+  margin: 0;
+  padding: 0;
+}
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1440px;
+  margin-top: calc(60px + 336px);
+  border: 2px solid red;
+}
 .catalogTitle{
+  margin-left: 70px;
   font-family: "Biolilbert", sans-serif;
   font-size: 36px;
   font-style: normal;
@@ -6,23 +19,10 @@
   line-height: 40px; 
   color: #232323;
 }
-.container{
-  // margin-top: 41px;
-  // width: 100%;
-  // max-width: 1440px;
-  // display: flex;
-  // flex-direction: row;
-  // justify-content: center;
-  // align-items: center;
-  // flex-wrap: wrap;
-  // gap: 30px;
+.catalogContainer{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(633px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(632px, 1fr));
   gap: 35px;
-}
-
-.gallery-container {
-  display: flex;
-  flex-wrap: wrap;
+  margin: 41px 70px 0;
 }
 

@@ -3,22 +3,25 @@ p {
   margin: 0;
   padding: 0;
 }
+
 .cardWrapper {
   display: grid;
-  grid-template-columns: repeat (1fr, 2);
-  max-width: 100%;
-  max-height: 288px;
-  // margin-top: 1em;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 632px;
+  height: 288px;
   border-radius: 16px;
   box-shadow: 3px 4px 24px 0px rgba(51, 45, 40, 0.06);
 }
+
 .cardImage {
-  max-width: 100%;
-  // height: 234px;
+  width: 100%;
+  height: 100%;
   border-radius: 16px;
 }
+
 .cardName {
   margin-bottom: 10px;
+  height: 165px;
   font-family: "Biolilbert", sans-serif;
   font-size: 26px;
   font-style: normal;
@@ -27,14 +30,20 @@ p {
   color: #232323;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
+
 .cardDescriptionWrapper {
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
-  gap: 14px;
-  padding: 20px 20px 24px;
+  padding: 20px 20px 20px 24px;
 }
+
+.cardDescription__item {
+  display: flex;
+  margin-top: 12px;
+}
+
 .cardDescription__text {
   font-family: "Mulish";
   font-size: 18px;
@@ -42,4 +51,23 @@ p {
   font-weight: 700;
   line-height: 22px;
   color: #909090;
+}
+.complexityImage{
+  width: 24px;
+  height: 24px;
+  margin-left: 8px;
+  margin-right: 4px;
+  background-image: url('../../../images/star-filled.svg');
+  background-position: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.timerImage {
+  width: 24px;
+  height: 24px;
+  margin-right: 4px;
+  background-image: url('../../../images/timer.svg');
+  background-position: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
 }

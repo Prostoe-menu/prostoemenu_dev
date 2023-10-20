@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'api',
     'kaiten',
     'account',
+    'measurement',
 ]
 
 REST_FRAMEWORK = {

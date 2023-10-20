@@ -5,7 +5,7 @@ from recipe.models import (Ingredient,
                            Recipe,
                            RecipePhotos,
                            RecipeSteps,
-                           RecipeIngredients, Measurement)
+                           RecipeIngredients)
 from django.db import IntegrityError
 from rest_framework.exceptions import APIException
 
@@ -237,9 +237,3 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
             raise APIException(detail=e)
 
         return recipe
-
-
-class MeasurementSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Measurement
-        fields = ('name', 'abbreviation')

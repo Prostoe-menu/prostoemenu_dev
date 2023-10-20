@@ -10,7 +10,7 @@ from recipe.models import Recipe, Ingredient, Measurement
 from .serializers import (RecipeDisplaySerializer,
                           RecipeCreateSerializer,
                           IngredientSerializerAllFields,
-                          MeasurementSerializer, IngredientSerializer)
+                          IngredientSerializer)
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
 

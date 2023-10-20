@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.decorators import APIView
 from rest_framework.generics import get_object_or_404
 from rest_framework.settings import api_settings
-from recipe.models import Recipe, Ingredient, Measurement
+from recipe.models import Recipe, Ingredient
 from .serializers import (RecipeDisplaySerializer,
                           RecipeCreateSerializer,
                           IngredientSerializerAllFields,

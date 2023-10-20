@@ -80,7 +80,7 @@ const Ingredients = () => {
       .then((data) => {
         const mappedData = data.map((item) => ({
           id: uuidV4(),
-          unitName: item.abbreviation,
+          name: item.abbreviation,
         }));
 
         return setMeasureUnits(mappedData);

@@ -19,86 +19,95 @@ const progressBarSteps = [
 const defaultMeasureUnits = [
   {
     id: 1,
-    unitName: 'г',
+    name: 'г',
   },
   {
     id: 2,
-    unitName: 'кг',
+    name: 'кг',
   },
   {
     id: 3,
-    unitName: 'мл',
+    name: 'мл',
   },
   {
     id: 4,
-    unitName: 'л',
+    name: 'л',
   },
   {
     id: 5,
-    unitName: 'ч. ложка',
+    name: 'ч. ложка',
   },
   {
     id: 6,
-    unitName: 'ст. ложка',
+    name: 'ст. ложка',
   },
   {
     id: 7,
-    unitName: 'штука',
+    name: 'штука',
   },
   {
     id: 8,
-    unitName: 'упаковка',
+    name: 'упаковка',
   },
   {
     id: 9,
-    unitName: 'стакан',
+    name: 'стакан',
   },
   {
     id: 10,
-    unitName: 'пучок',
+    name: 'пучок',
   },
   {
     id: 11,
-    unitName: 'пакет',
+    name: 'пакет',
   },
   {
     id: 12,
-    unitName: 'пачка',
+    name: 'пачка',
   },
   {
     id: 13,
-    unitName: 'горсть',
+    name: 'горсть',
   },
   {
     id: 14,
-    unitName: 'щепотка',
+    name: 'щепотка',
   },
   {
     id: 15,
-    unitName: 'ломтик',
+    name: 'ломтик',
   },
   {
     id: 16,
-    unitName: 'кочан',
+    name: 'кочан',
   },
   {
     id: 17,
-    unitName: 'веточка',
+    name: 'веточка',
   },
   {
     id: 18,
-    unitName: 'банка',
+    name: 'банка',
   },
   {
     id: 19,
-    unitName: 'зубчик',
+    name: 'зубчик',
   },
   {
     id: 20,
-    unitName: 'по вкусу',
+    name: 'по вкусу',
   },
 ];
 
-const inputPattern = '/^[a-zA-Zа-яА-ЯёЁ0-9s!%№()-[];\':"\\|,. /?]+$/i';
 
-export { buttons, progressBarSteps, defaultMeasureUnits, inputPattern };
+const TEXT_INPUT_PATTERN = `/[A-Za-zА-Яа-яЁё0-9s!-"№;%:?*()'/.,\\«»]/gi`;
+const TEXT_INPUT_ERROR_MESSAGE = `Допустимы кириллица, латиница, цифры и спецсимволы !-"№;%:?*()'/.,\\«»`;
+
+export {
+  buttons,
+  progressBarSteps,
+  defaultMeasureUnits,
+  TEXT_INPUT_PATTERN,
+  TEXT_INPUT_ERROR_MESSAGE,
+};
+

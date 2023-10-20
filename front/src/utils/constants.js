@@ -99,7 +99,6 @@ const defaultMeasureUnits = [
   },
 ];
 
-
 const TEXT_INPUT_PATTERN = `/[A-Za-zА-Яа-яЁё0-9s!-"№;%:?*()'/.,\\«»]/gi`;
 const TEXT_INPUT_ERROR_MESSAGE = `Допустимы кириллица, латиница, цифры и спецсимволы !-"№;%:?*()'/.,\\«»`;
 
@@ -110,4 +109,3 @@ export {
   TEXT_INPUT_PATTERN,
   TEXT_INPUT_ERROR_MESSAGE,
 };
-

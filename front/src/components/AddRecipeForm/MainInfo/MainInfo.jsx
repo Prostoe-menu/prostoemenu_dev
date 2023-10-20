@@ -16,7 +16,7 @@ import {
   saveServings,
 } from '../../../store/slices/form/formSlice';
 import styles from './mainInfo.module.scss';
-import { buttons, inputPattern } from '../../../utils/constants';
+import { buttons, TEXT_INPUT_PATTERN } from '../../../utils/constants';
 import arrowRight from '../../../images/arrow-right.svg';
 
 const MainInfo = () => {
@@ -125,7 +125,7 @@ const MainInfo = () => {
             minLength: 2,
             maxLength: 100,
             pattern: {
-              value: inputPattern,
+              value: TEXT_INPUT_PATTERN,
             },
           })}
           className={`${styles.name__input}`}
@@ -347,7 +347,7 @@ const MainInfo = () => {
               minLength: 2,
               maxLength: 500,
               pattern: {
-                value: inputPattern,
+                value: TEXT_INPUT_PATTERN,
               },
             })}
             className={`${styles.desc__input} ${

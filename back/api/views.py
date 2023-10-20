@@ -326,17 +326,3 @@ class IngredientList(APIView):
             serializer = IngredientSerializerAllFields(page, many=True)
 
         return paginator.get_paginated_response(serializer.data)
-
-
-class MeasurementList(APIView):
-    @extend_schema(
-        summary='Список всех мер измерений.',
-        description='Эндпоинт получения списка всех мер измерений.',
-        tags=('Ingredients',),
-        responses={200: MeasurementSerializer}
-    )
-    def get(self, request):
-        measurements = Measurement.objects.all()
-        serializer = MeasurementSerializer(measurements, many=True)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)

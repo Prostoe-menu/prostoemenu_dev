@@ -1,3 +1,19 @@
-from django.shortcuts import render
+from recipe.models import Measurement
+from rest_framework import status
+from rest_framework.decorators import APIView
+from rest_framework.response import Response
+from .serializers import MeasurementSerializer
 
-# Create your views here.
+
+class MeasurementList(APIView):
+    @extend_schema(
+        summary='Список всех мер измерений.',
+        description='Эндпоинт получения списка всех мер измерений.',
+        tags=('Ingredients',),
+        responses={200: MeasurementSerializer}
+    )
+    def get(self, request):
+        measurements = Measurement.objects.all()
+        serializer = MeasurementSerializer(measurements, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)

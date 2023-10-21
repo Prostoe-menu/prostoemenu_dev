@@ -7,19 +7,8 @@ from recipe.models import (Ingredient,
                            RecipeSteps,
                            RecipeIngredients)
 from django.db import IntegrityError
+from ingredient.serializers import IngredientSerializer
 from rest_framework.exceptions import APIException
-
-
-class IngredientSerializerAllFields(serializers.ModelSerializer):
-    class Meta:
-        model = Ingredient
-        fields = '__all__'
-
-
-class IngredientSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Ingredient
-        fields = ('id', 'name', 'sort')
 
 
 class RecipeIngredientAlternative(serializers.ModelSerializer):

@@ -1,18 +1,21 @@
-from rest_framework.decorators import APIView
+from .serializers import (IngredientSerializerAllFields,
+                          IngredientSerializer)
+from recipe.models import Ingredient
+from django.db.models import Q
+from functools import reduce
+
+
 from drf_spectacular.utils import (extend_schema,
                                    OpenApiParameter,
                                    OpenApiExample)
+from operator import or_
+from rest_framework import status
+
+from rest_framework.decorators import APIView
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
-from rest_framework import status
-from recipe.models import Ingredient
-from .serializers import (IngredientSerializerAllFields,
-                          IngredientSerializer)
 
-from functools import reduce
-from operator import or_
-from django.db.models import Q
 
 class IngredientDetail(APIView):
     @extend_schema(

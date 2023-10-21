@@ -1,16 +1,21 @@
-from functools import reduce
-from operator import or_
-
-from django.db.models import Q, Count
-from rest_framework import status
-from rest_framework.decorators import APIView
-from rest_framework.generics import get_object_or_404
-from rest_framework.settings import api_settings
-from recipe.models import Recipe
 from .serializers import (RecipeDisplaySerializer,
                           RecipeCreateSerializer)
+from recipe.models import Recipe
+from django.db.models import (Q,
+                              Count)
+from drf_spectacular.utils import (extend_schema,
+                                   OpenApiParameter,
+                                   OpenApiExample)
+
+from functools import reduce
+from operator import or_
+from rest_framework import status
+from rest_framework.decorators import APIView
+
+from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
+from rest_framework.settings import api_settings
+
 
 
 class RecipeList(APIView):

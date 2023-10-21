@@ -1,4 +1,3 @@
-from rest_framework import serializers
 from recipe.models import (Ingredient,
                            Step,
                            Photo,
@@ -7,7 +6,9 @@ from recipe.models import (Ingredient,
                            RecipeSteps,
                            RecipeIngredients)
 from django.db import IntegrityError
+
 from ingredient.serializers import IngredientSerializer
+from rest_framework import serializers
 from rest_framework.exceptions import APIException
 
 

@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# Простое Меню (Frontend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Фронтенд-часть веб-приложения по поиску рецептов.
 
-## Available Scripts
+## Инструкция по запуску
 
-In the project directory, you can run:
+**1. Склонировать проект**
 
-### `npm start`
+**2. Установить зависимости командой:**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+npm install
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Пакеты установятся на основе дерева в `package-lock.json`.
 
-### `npm test`
+В дальнейшем `package-lock.json` не должен изменяться, за исключением случаев, когда необходимо добавить новый пакет в проект (по согласованию с командой) или обновить имеющиеся зависимости.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**3. После успешной установки зависимостей создать файл `.env`, скопировать в него переменные из `.env.example` и обновить в соответствии с текущим IP бекенда.**
 
-### `npm run build`
+**4. Запуск приложения:**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm run start
+```
+Запускает приложение в режиме разработки.
+Открыть [http://localhost:3000](http://localhost:3000), чтобы посмотреть приложение в браузере.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Работа с git:
+1. Участник создает Issue для работы над задачей. Пример наименования Issue: `FRONTEND - {Краткое описание}`. В описании Issue Участник:
+    - подробно описывает задачу и возможные проблемы
+    - назначает себя в Assignee
+    - выбирает подходящий label-префикс
+2. Разработка фронтендовой части приложения ведется в ветке `frontend`. При работе над задачей Участник создаёт из `frontend` ветку с нужным префиксом (подробнее см. ниже)
+3. Участник комитит изменения, в начале названия комита пишет номер Issue, который он решает, со знака `#` и краткое описание проделанной работы. Например, `#1-create-Title-component`
+4. По окончанию работы над задачей Участник делает Pull Request (далее - PR) и добавляет туда лида и минимум еще одного участника команды фронтенда. Структура наименования PR: `FRONTEND - #{Issue} - {Краткое описание}`
+5. В описании PR участник ссылается на Issue, над которым работал, описывает результат и возможные проблемы/сложности
+6. После получения двух аппрувов, лид делает squash коммитов и мерджит во frontend-ветку. Без согласования с лидом самостоятельно PR во frontend не мерджится
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Пример наименования ветки: `fd-development-1-cooking-steps`
 
-### `npm run eject`
+- fd || bd - (frontend) или (backend) часть приложения
+- development - префикс
+- 1 - id Issue
+- cooking-steps - краткое описание
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Префиксы:
+- **development** - разработка новой фичи/компонента
+- **enhancement** - улучшение, доработки уже существующей фичи
+- **test** - добавление или изменение тестов
+- **fix** - исправление ошибок, багов
+- **documentation** - разработка/корректировка документации
+- **refactor** - техдолг (избавление от легаси, рефакторинг, опечатки и т.д.)
+- **style** - исправления по код-стайлу. Не связаны с функциональностью и ошибками (изменения табуляции, отступов, знаков препинания)

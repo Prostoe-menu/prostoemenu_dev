@@ -26,5 +26,4 @@ DATABASES = {
     #         'HOST': os.getenv('DB_HOST_DEV', default='db'),
     #         'PORT': os.getenv('DB_PORT', default='5432')
     #     }
-
 }

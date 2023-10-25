@@ -1,5 +1,7 @@
+from recipe.views import RecipeList, RecipeDetail
+from ingredient.views import IngredientDetail, IngredientList
 from django.urls import path, include
-from .views import RecipeList, RecipeDetail, IngredientDetail, IngredientList
+
 
 urlpatterns = [
     path('recipes/', RecipeList.as_view()),

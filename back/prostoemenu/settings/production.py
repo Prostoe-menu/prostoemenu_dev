@@ -3,14 +3,6 @@ from .base import *
 
 DEBUG = False
 
-INSTALLED_APPS += [
-    'corsheaders',
-]
-
-MIDDLEWARE += [
-    'corsheaders.middleware.CorsMiddleware',
-]
-
 DATABASES = {
     'default': {
         'ENGINE': os.getenv(
@@ -23,5 +15,3 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', default='5432')
     }
 }
-
-CORS_ORIGIN_ALLOW_ALL = True

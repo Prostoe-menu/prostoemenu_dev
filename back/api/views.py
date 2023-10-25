@@ -6,11 +6,11 @@ from rest_framework import status
 from rest_framework.decorators import APIView
 from rest_framework.generics import get_object_or_404
 from rest_framework.settings import api_settings
-from recipe.models import Recipe, Ingredient, Measurement
+from recipe.models import Recipe, Ingredient
 from .serializers import (RecipeDisplaySerializer,
                           RecipeCreateSerializer,
                           IngredientSerializerAllFields,
-                          MeasurementSerializer, IngredientSerializer)
+                          IngredientSerializer)
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
 
@@ -326,17 +326,3 @@ class IngredientList(APIView):
             serializer = IngredientSerializerAllFields(page, many=True)
 
         return paginator.get_paginated_response(serializer.data)
-
-
-class MeasurementList(APIView):
-    @extend_schema(
-        summary='Список всех мер измерений.',
-        description='Эндпоинт получения списка всех мер измерений.',
-        tags=('Ingredients',),
-        responses={200: MeasurementSerializer}
-    )
-    def get(self, request):
-        measurements = Measurement.objects.all()
-        serializer = MeasurementSerializer(measurements, many=True)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)

@@ -40,14 +40,6 @@ const Menu = ({ isOpen, onClose, navigation, isHeader }) => (
             </li>
           ))}
         </ul>
-        <input
-          className={`${Style.input} ${isHeader && Style.input_isVisible}`}
-          name="recipeName"
-          placeholder="Найти рецепт"
-          // onChange={handleRecipeSearch}
-          autoComplete="off"
-          // value={query}
-        />
       </nav>
     </div>
   </section>

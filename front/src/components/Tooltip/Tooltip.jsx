@@ -1,13 +1,13 @@
 import React from 'react';
-import Style from './Tooltip.module.scss';
+import classnames from 'classnames';
+import styles from './Tooltip.module.scss';
 
 const Tooltip = ({ toolTipContent, width }) => (
-  <div className={Style.container}>
+  <div className={styles.container}>
     <div
-      className={`${Style.tooltip}
-    ${Style[`tooltip_width_${width}`]}`}
+      className={classnames(styles.tooltip, styles[`tooltip_width_${width}`])}
     >
-      <span className={Style.tooltipText}>{toolTipContent}</span>
+      <span className={styles.tooltipText}>{toolTipContent}</span>
     </div>
     <svg
       alt="Иконка дополнительной информации"

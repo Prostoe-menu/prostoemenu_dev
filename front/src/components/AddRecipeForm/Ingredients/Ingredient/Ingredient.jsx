@@ -33,7 +33,7 @@ const Ingredient = ({
           name={name}
         />
         <CloseButton
-          hideButton={hideButton}
+          isHidden={hideButton}
           ariaLabelText="Удалить ингредиент"
           onClose={deleteInputElement}
         />

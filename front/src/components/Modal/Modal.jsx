@@ -1,12 +1,19 @@
 import React, { useEffect } from 'react';
+import classnames from 'classnames';
 import ReactPortal from '../ReactPortal/ReactPortal';
-import Style from './Modal.module.scss';
+import styles from './Modal.module.scss';
 import CloseButton from '../UI/CloseButton/CloseButton';
 // import ConfirmModal from './ConfirmModal/ConfirmModal';
+
+// Компонент будет дорабатываться, когда будет имплементирован в логику кода
 
 const Modal = ({ children, closeModal, isModalOpen }) => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
   // const closeModal = () => setIsModalOpen(false);
+
+  const modalClass = classnames(styles.modal, {
+    [styles.visible]: isModalOpen,
+  });
 
   useEffect(() => {
     const closeOnEscapeKey = (e) => (e.key === 'Escape' ? closeModal() : null);
@@ -22,17 +29,17 @@ const Modal = ({ children, closeModal, isModalOpen }) => {
 
   return (
     <ReactPortal wrapperId="modal-container">
-      <section className={`${Style.modal} ${isModalOpen && Style.openModal}`}>
+      <section className={modalClass}>
         <div
-          className={Style.overlay}
+          className={styles.overlay}
           role="button"
           tabIndex="0"
           aria-label="Закрыть модальное окно"
           onClick={closeModal}
           onKeyDown={closeModal}
         />
-        <div className={Style.content}>
-          <div className={Style.closeButtonContainer}>
+        <div className={styles.content}>
+          <div className={styles.closeButtonContainer}>
             <CloseButton sx={{ cursor: 'pointer' }} onClose={closeModal} />
           </div>
           {children}

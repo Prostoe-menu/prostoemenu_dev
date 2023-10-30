@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 import styles from './Menu.module.scss';
 
+// Компонент будет рефакториться и дорабатываться в рамках Issue https://github.com/Prostoe-menu/prostoemenu_dev/issues/109
 const Menu = ({ isOpen, onClose, navigation, isHeader }) => {
   const menuClass = classnames(
     styles.menu,

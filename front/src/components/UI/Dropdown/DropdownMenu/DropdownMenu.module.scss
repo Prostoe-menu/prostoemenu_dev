@@ -4,24 +4,6 @@
   &_type_measure-unit {
     grid-area: measureUnits;
   }
-
-  &__options {
-    display: none;
-    overflow-y: scroll;
-    position: absolute;
-    z-index: 5;
-    box-sizing: border-box;
-    width: 100%;
-    padding: 8px 0;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 4px 12px 5px rgba(1, 7, 62, 0.08);
-    max-height: 340px;
-
-    &_visible {
-      display: block;
-    }
-  }
 }
 
 .input {
@@ -44,14 +26,30 @@
   cursor: pointer;
 }
 
+.options {
+  display: none;
+  overflow-y: scroll;
+  position: absolute;
+  z-index: 5;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 8px 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px 5px rgba(1, 7, 62, 0.08);
+  max-height: 340px;
+}
+
+.visible {
+  display: block;
+}
+
 @media screen and (max-width: 576px) {
   .input {
     width: 144px;
   }
 
-  .dropdownMenu {
-    &__options {
-      max-height: 176px;
-    }
+  .options {
+    max-height: 176px;
   }
 }

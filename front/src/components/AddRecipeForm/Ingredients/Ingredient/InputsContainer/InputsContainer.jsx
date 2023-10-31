@@ -16,7 +16,7 @@ import {
 import DropdownSearch from '../../../../UI/Dropdown/DropdownSearch/DropdownSearch';
 import DropdownMenu from '../../../../UI/Dropdown/DropdownMenu/DropdownMenu';
 import Input from '../../../../UI/Input/Input';
-import Style from './InputsContainer.module.scss';
+import styles from './InputsContainer.module.scss';
 
 const InputsContainer = ({
   index,
@@ -92,7 +92,7 @@ const InputsContainer = ({
   };
 
   return (
-    <div className={Style.container}>
+    <div className={styles.container}>
       <DropdownSearch
         dropdownClassName="dropdownSearch_type_ingredient"
         isDropdownOpen={isIngredientDropdownOpen}

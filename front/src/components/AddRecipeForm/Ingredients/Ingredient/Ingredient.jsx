@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import CloseButton from '../../../UI/CloseButton/CloseButton';
 import InputsContainer from './InputsContainer/InputsContainer';
 import { deleteIngredient } from '../../../../store/slices/form/formSlice';
-import Style from './Ingredient.module.scss';
+import styles from './Ingredient.module.scss';
 
 const Ingredient = ({
   index,
@@ -21,8 +21,8 @@ const Ingredient = ({
   }, []);
 
   return (
-    <div className={Style.content}>
-      <div className={Style.ingredient}>
+    <div className={styles.content}>
+      <div className={styles.ingredient}>
         <InputsContainer
           index={index}
           register={register}

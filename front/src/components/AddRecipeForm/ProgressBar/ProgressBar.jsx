@@ -5,8 +5,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { changeCurrentStage } from '../../../store/slices/form/formSlice';
-import { progressBarSteps } from '../../../utils/constants';
+import { changeCurrentStage } from 'store/slices/form/formSlice';
+import { progressBarSteps } from 'utils/constants';
 
 import styles from './ProgressBar.module.scss';
 

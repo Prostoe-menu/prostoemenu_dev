@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-
 import { useDispatch } from 'react-redux';
-import CookingStep from './CookingStep/CookingStep';
-import Button from '../../UI/Button/Button';
-import { changeCurrentStage } from '../../../store/slices/form/formSlice';
-import { buttons } from '../../../utils/constants';
-
+import CookingStep from 'components/AddRecipeForm/CookingSteps/CookingStep/CookingStep';
+import Button from 'components/UI/Button/Button';
+import { changeCurrentStage } from 'store/slices/form/formSlice';
+import { buttons } from 'utils/constants';
+import addIcon from 'images/add.svg';
+import arrowRight from 'images/arrow-right.svg';
+import arrowLeft from 'images/arrow-left.svg';
 import styles from './CookingSteps.module.scss';
-import addIcon from '../../../images/add.svg';
-import arrowRight from '../../../images/arrow-right.svg';
-import arrowLeft from '../../../images/arrow-left.svg';
 
 const CookingSteps = () => {
   const [initialStepsCount, setInitialStepsCount] = useState(2);

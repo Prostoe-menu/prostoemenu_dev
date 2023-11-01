@@ -1,14 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-
-import PageTitle from '../PageTitle/PageTitle';
-
-import StageOne from './Stages/StageOne';
+import PageTitle from 'components/PageTitle/PageTitle';
+import StageOne from 'components/AddRecipeForm/Stages/StageOne';
+import StageTwo from 'components/AddRecipeForm/Stages/StageTwo';
+import StageThree from 'components/AddRecipeForm/Stages/StageThree';
+import StageFour from 'components/AddRecipeForm/Stages/StageFour';
+import ProgressBar from 'components/AddRecipeForm/ProgressBar/ProgressBar';
 import Style from './AddRecipeForm.module.scss';
-import StageTwo from './Stages/StageTwo';
-import StageThree from './Stages/StageThree';
-import StageFour from './Stages/StageFour';
-import ProgressBar from './ProgressBar/ProgressBar';
 
 const AddRecipeForm = () => {
   const currentStage = useSelector((state) => state.form.currentFormStage);

@@ -1,8 +1,8 @@
 import React, { memo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import CloseButton from '../../../UI/CloseButton/CloseButton';
-import InputsContainer from './InputsContainer/InputsContainer';
-import { deleteIngredient } from '../../../../store/slices/form/formSlice';
+import CloseButton from 'components/UI/CloseButton/CloseButton';
+import InputsContainer from 'components/AddRecipeForm/Ingredients/Ingredient/InputsContainer/InputsContainer';
+import { deleteIngredient } from 'store/slices/form/formSlice';
 import Style from './Ingredient.module.scss';
 
 const Ingredient = ({

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { handleKeyboardNavigation } from '../../../../helpers/useKeyboardNavigation';
-import DropdownItem from '../DropdownItem/DropdownItem';
+import DropdownItem from 'components/UI/Dropdown/DropdownItem/DropdownItem';
+import { handleKeyboardNavigation } from 'helpers/useKeyboardNavigation';
 import styles from './DropdownMenu.module.scss';
 
 /**

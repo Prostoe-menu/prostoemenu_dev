@@ -31,5 +31,13 @@
       ]
     }],
     "no-console": 1
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"],
+        "extensions": [".js", ".jsx"]
+      }
+    }
   }
 }

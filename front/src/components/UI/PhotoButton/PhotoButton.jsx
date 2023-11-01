@@ -6,16 +6,16 @@ import { useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line import/no-unresolved
 import { useDropzone } from 'react-dropzone';
 import { Cropper } from 'react-cropper';
-import Modal from '../../Modal/Modal';
-import Button from '../Button/Button';
 import 'cropperjs/dist/cropper.css';
-import styles from './PhotoButton.module.scss';
+import Modal from 'components/Modal/Modal';
+import Button from 'components/UI/Button/Button';
 import {
   loadPhoto,
   resetCroppedPhoto,
   resetLoadPhoto,
   saveCroppedPhoto,
-} from '../../../store/slices/form/formSlice';
+} from 'store/slices/form/formSlice';
+import styles from './PhotoButton.module.scss';
 
 const PhotoButton = () => {
   const dropZone = useRef();

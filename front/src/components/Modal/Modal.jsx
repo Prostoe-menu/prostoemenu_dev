@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import ReactPortal from '../ReactPortal/ReactPortal';
-import Style from './Modal.module.scss';
-import CloseButton from '../UI/CloseButton/CloseButton';
+import ReactPortal from 'components/ReactPortal/ReactPortal';
+import CloseButton from 'components/UI/CloseButton/CloseButton';
 // import ConfirmModal from './ConfirmModal/ConfirmModal';
+import Style from './Modal.module.scss';
 
 const Modal = ({ children, closeModal, isModalOpen }) => {
   // const [isModalOpen, setIsModalOpen] = useState(false);

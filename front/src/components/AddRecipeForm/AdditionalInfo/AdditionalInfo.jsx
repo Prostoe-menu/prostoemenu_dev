@@ -14,6 +14,8 @@ import {
 import styles from './AdditionalInfo.module.scss';
 import postRecipe from '../../../store/slices/form/formThunk';
 
+// Компонент будет доработан после утверждения окончательного дизайна
+
 const AdditionalInfo = () => {
   const { comment, author, email, isCheckbox } = useSelector(
     (state) => state.form

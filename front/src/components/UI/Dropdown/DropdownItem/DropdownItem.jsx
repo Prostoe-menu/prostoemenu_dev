@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import styles from './DropdownItem.module.scss';
 
 /**
@@ -13,24 +14,28 @@ const DropdownItem = ({
   onClick,
   onKeyDown,
   selectItemAriaLabelText,
-}) => (
-  <li className={styles.listItem} key={item.id}>
-    <div
-      className={`${styles.dropdownItem} ${
-        itemIndex === cursor && styles.dropdownItem_active
-      }`}
-      onClick={onClick}
-      onKeyDown={onKeyDown}
-      role="button"
-      tabIndex="0"
-      aria-label={selectItemAriaLabelText}
-      style={{
-        width: '100%',
-      }}
-    >
-      {item.name}
-    </div>
-  </li>
-);
+}) => {
+  const dropdownItemClass = classnames(styles.dropdownItem, {
+    [styles.dropdownItem_active]: itemIndex === cursor,
+  });
+
+  return (
+    <li className={styles.listItem} key={item.id}>
+      <div
+        className={dropdownItemClass}
+        onClick={onClick}
+        onKeyDown={onKeyDown}
+        role="button"
+        tabIndex="0"
+        aria-label={selectItemAriaLabelText}
+        style={{
+          width: '100%',
+        }}
+      >
+        {item.name}
+      </div>
+    </li>
+  );
+};
 
 export default DropdownItem;

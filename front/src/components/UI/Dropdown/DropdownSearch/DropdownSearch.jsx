@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classnames from 'classnames';
 import Input from '../../Input/Input';
 import { handleKeyboardNavigation } from '../../../../helpers/useKeyboardNavigation';
 import DropdownItem from '../DropdownItem/DropdownItem';
@@ -34,9 +35,14 @@ const DropdownSearch = (props) => {
   } = props;
 
   const [cursor, setCursor] = useState(-1);
+  const optionsClasses = classnames(styles.options, {
+    [styles.visible]: isDropdownOpen,
+  });
 
   return (
-    <div className={`${styles.dropdownSearch} ${styles[dropdownClassName]}}`}>
+    <div
+      className={classnames(styles.dropdownSearch, styles[dropdownClassName])}
+    >
       <Input
         inputClassName={inputClassName}
         isError={isInputError}
@@ -62,18 +68,11 @@ const DropdownSearch = (props) => {
         placeholderText={inputPlaceholder}
         inputValue={inputValue}
       />
-      <ul
-        className={`${styles.dropdownSearch__options} ${
-          isDropdownOpen && styles.dropdownSearch__options_visible
-        }`}
-        ref={selectItemRef}
-      >
+      <ul className={optionsClasses} ref={selectItemRef}>
         {(() => {
           if (requiredData.length === 0) {
             return (
-              <li
-                className={`${styles.dropdownSearch__option} ${styles.dropdownSearch__option_notfound}`}
-              >
+              <li className={classnames(styles.option, styles.option_notfound)}>
                 <div
                   style={{
                     width: '100%',

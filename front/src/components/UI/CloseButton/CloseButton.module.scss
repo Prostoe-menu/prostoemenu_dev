@@ -1,4 +1,4 @@
-.close {
+.button {
   width: 20px;
   height: 20px;
   background-color: transparent;
@@ -11,8 +11,8 @@
   &:hover {
     opacity: 1;
   }
+}
 
-  &_hidden {
-    display: none;
-  }
+.hidden {
+  display: none;
 }

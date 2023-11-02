@@ -50,10 +50,6 @@
     cursor: pointer;
   }
 
-  &_error {
-    border: 1px solid #D14941;
-  }
-
   &::-ms-clear {
     display: none;
     width: 0;
@@ -86,6 +82,10 @@
     -moz-appearance: textfield;
     appearance: textfield;
   }
+}
+
+.error {
+  border: 1px solid #D14941;
 }
 
 @media screen and (max-width: 576px) {

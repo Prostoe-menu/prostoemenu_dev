@@ -1,9 +1,10 @@
 import React from 'react';
+import classnames from 'classnames';
 import styles from './CloseButton.module.scss';
 
-const CloseButton = ({ hideButton, onClose }) => (
+const CloseButton = ({ isHidden, onClose }) => (
   <button
-    className={`${styles.close} ${hideButton && styles.close_hidden}`}
+    className={classnames(styles.button, { [styles.hidden]: isHidden })}
     type="button"
     aria-label="Кнопка закрыть"
     onClick={onClose}

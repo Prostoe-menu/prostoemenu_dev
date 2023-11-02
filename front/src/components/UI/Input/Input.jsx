@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+import classnames from 'classnames';
 import styles from './Input.module.scss';
 
 /**
@@ -27,13 +28,9 @@ const Input = (props) => {
     inputStep,
   } = props;
 
-  const inputClasses = [
-    styles.input,
-    styles[inputClassName],
-    isError && styles.input_error,
-  ]
-    .filter(Boolean)
-    .join(' ');
+  const inputClasses = classnames(styles.input, styles[inputClassName], {
+    [styles.error]: isError,
+  });
 
   return (
     <input

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classnames from 'classnames';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DropdownItem from 'components/UI/Dropdown/DropdownItem/DropdownItem';
 import { handleKeyboardNavigation } from 'helpers/useKeyboardNavigation';
@@ -21,6 +22,9 @@ const DropdownMenu = ({
   chooseItemAriaLabelText,
 }) => {
   const [cursor, setCursor] = useState(-1);
+  const optionsClasses = classnames(styles.options, {
+    [styles.visible]: isDropdownOpen,
+  });
 
   const toggleDropdown = () => setIsDropdownOpen((prevValue) => !prevValue);
   const handleKeyDown = (e) =>
@@ -36,7 +40,7 @@ const DropdownMenu = ({
     );
 
   return (
-    <div className={`${styles.dropdownMenu} ${styles[dropdownClassName]}}`}>
+    <div className={classnames(styles.dropdownMenu, styles[dropdownClassName])}>
       <div
         className={styles.input}
         onClick={toggleDropdown}
@@ -54,12 +58,7 @@ const DropdownMenu = ({
           }}
         />
       </div>
-      <ul
-        className={`${styles.dropdownMenu__options} ${
-          isDropdownOpen && styles.dropdownMenu__options_visible
-        }`}
-        ref={selectItemInputRef}
-      >
+      <ul className={optionsClasses} ref={selectItemInputRef}>
         {dropdownData?.map((item, idx) => (
           <DropdownItem
             item={item}

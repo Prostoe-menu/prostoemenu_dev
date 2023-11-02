@@ -1,56 +1,67 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Style from './Menu.module.scss';
+import classnames from 'classnames';
+import styles from './Menu.module.scss';
 
-const Menu = ({ isOpen, onClose, navigation, isHeader }) => (
-  <section
-    className={`
-      ${Style.menu}
-      ${isHeader && Style.menu_type_header}
-      ${isOpen && Style.menu_visible}`}
-  >
-    <div
-      className={`${Style.container}
-      ${isHeader && Style.container_type_header}`}
-    >
-      <button
-        className={`${Style.buttonClose}
-        ${isHeader && isOpen && Style.buttonClose_visible}`}
-        type="button"
-        onClick={onClose}
-        aria-label="Закрыть меню"
-      />
-      <nav className={`${Style.nav} ${isHeader && Style.nav_type_header}`}>
-        <ul className={Style.list}>
-          {navigation.map((item) => (
-            <li
-              key={item.id}
-              className={`${Style.list__item} ${
-                isHeader && Style.list__item_type_header
-              }`}
-            >
-              <NavLink
-                className={Style.list__link}
-                to={item.route}
-                key={item.id}
-                id={item.id}
-              >
-                {item.name}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-        <input
-          className={`${Style.input} ${isHeader && Style.input_isVisible}`}
-          name="recipeName"
-          placeholder="Найти рецепт"
-          // onChange={handleRecipeSearch}
-          autoComplete="off"
-          // value={query}
+// Компонент будет рефакториться и дорабатываться в рамках Issue https://github.com/Prostoe-menu/prostoemenu_dev/issues/109
+const Menu = ({ isOpen, onClose, navigation, isHeader }) => {
+  const menuClass = classnames(
+    styles.menu,
+    { [styles.menu_type_header]: isHeader },
+    { [styles.menu_visible]: isOpen }
+  );
+  const containerClass = classnames(styles.container, {
+    [styles.container_type_header]: isHeader,
+  });
+  const buttonClass = classnames(styles.buttonClose, {
+    [styles.buttonClose_visible]: isHeader && isOpen,
+  });
+  const navClass = classnames(styles.nav, {
+    [styles.nav_type_header]: isHeader,
+  });
+  const listItemClass = classnames(styles.list__item, {
+    [styles.list__item_type_header]: isHeader,
+  });
+  const inputClass = classnames(styles.input, {
+    [styles.input_visible]: isHeader,
+  });
+
+  return (
+    <section className={menuClass}>
+      <div className={containerClass}>
+        <button
+          className={buttonClass}
+          type="button"
+          onClick={onClose}
+          aria-label="Закрыть меню"
         />
-      </nav>
-    </div>
-  </section>
-);
+        <nav className={navClass}>
+          <ul className={styles.list}>
+            {navigation.map((item) => (
+              <li key={item.id} className={listItemClass}>
+                <NavLink
+                  className={styles.list__link}
+                  to={item.route}
+                  key={item.id}
+                  id={item.id}
+                >
+                  {item.name}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+          <input
+            className={inputClass}
+            name="recipeName"
+            placeholder="Найти рецепт"
+            // onChange={handleRecipeSearch}
+            autoComplete="off"
+            // value={query}
+          />
+        </nav>
+      </div>
+    </section>
+  );
+};
 
 export default Menu;

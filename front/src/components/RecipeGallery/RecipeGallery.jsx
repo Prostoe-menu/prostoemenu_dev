@@ -1,17 +1,23 @@
-import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
-import styles from './RecipeGallery.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
 import fetchRecipes from '../../store/slices/recipe/recipeThunk';
 import RecipeCard from './RecipeCard/RecipeCard';
+import styles from './RecipeGallery.module.scss';
 
 const RecipeGallery = () => {
   const recipes = useSelector((state) => state.recipe.recipes);
+
   const dispatch = useDispatch();
+
+  const handleClickShowMoreBtn = () => {
+    recipes((state) => state + 1);
+  };
 
   useEffect(() => {
     // Dispatch the fetchRecipes thunk to trigger the API call
     dispatch(fetchRecipes());
   }, [dispatch]);
+
   return (
     <div className={styles.wrapper}>
       <h2 className={styles.catalogTitle}>Каталог рецептов</h2>

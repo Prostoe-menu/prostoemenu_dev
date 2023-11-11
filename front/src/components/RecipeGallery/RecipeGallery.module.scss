@@ -7,10 +7,9 @@ h2, p{
   flex-direction: column;
   width: 100%;
   max-width: 1440px;
-  margin-top: calc(60px + 336px);
-  // border: 2px solid red;
 }
 .catalogTitle{
+  margin-top: calc(60px + 88px);
   margin-left: 70px;
   font-family: "Biolilbert", sans-serif;
   font-size: 36px;
@@ -23,7 +22,7 @@ h2, p{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(632px, 1fr));
   gap: 35px;
-  margin: 41px 70px 0;
+  margin: 41px 70px 60px;
 }
 .loading{
   margin-top: 100px;

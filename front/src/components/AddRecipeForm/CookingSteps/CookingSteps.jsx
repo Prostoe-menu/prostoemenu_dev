@@ -11,6 +11,8 @@ import addIcon from '../../../images/add.svg';
 import arrowRight from '../../../images/arrow-right.svg';
 import arrowLeft from '../../../images/arrow-left.svg';
 
+// Компонент будет доработан после утверждения окончательного дизайна
+
 const CookingSteps = () => {
   const [initialStepsCount, setInitialStepsCount] = useState(2);
 

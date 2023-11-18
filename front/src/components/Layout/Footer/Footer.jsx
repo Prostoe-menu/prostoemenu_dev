@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AGREEMENT_URL } from '../../../utils/constants';
 import Logo from '../Logo/Logo';
 import styles from './Footer.module.scss';
 
@@ -10,7 +11,12 @@ const Footer = () => (
     </Link>
 
     <p className={styles.links}>
-      <a className={styles.agreement} href="*" target="_blank" rel="noreferrer">
+      <a
+        className={styles.agreement}
+        href={AGREEMENT_URL}
+        target="_blank"
+        rel="noreferrer"
+      >
         Пользовательское соглашение
       </a>
       <span className={styles.copyright}>

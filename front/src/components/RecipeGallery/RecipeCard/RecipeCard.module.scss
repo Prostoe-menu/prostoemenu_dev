@@ -1,9 +1,4 @@
-h3,
-p {
-  margin: 0;
-  padding: 0;
-}
-.cardWrapper {
+.card {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   max-width: 632px;
@@ -21,8 +16,9 @@ p {
   }
 }
 .cardName {
-  margin-bottom: 10px;
   height: 165px;
+  margin: 0 0 10px 0;
+  padding: 0;
   font-family: "Biolilbert", sans-serif;
   font-size: 26px;
   font-style: normal;
@@ -32,7 +28,7 @@ p {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.cardDescriptionWrapper {
+.cardDescription {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -43,6 +39,8 @@ p {
   margin-top: 12px;
 }
 .cardDescription__text {
+  margin: 0;
+  padding: 0;
   font-family: "Mulish";
   font-size: 18px;
   font-style: normal;

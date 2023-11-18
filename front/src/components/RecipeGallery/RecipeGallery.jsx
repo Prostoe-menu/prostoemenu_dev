@@ -14,20 +14,18 @@ const RecipeGallery = () => {
   };
 
   useEffect(() => {
-    // Dispatch the fetchRecipes thunk to trigger the API call
     dispatch(fetchRecipes());
   }, [dispatch]);
 
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.catalogTitle}>Каталог рецептов</h2>
+      <h2 className={styles.title}>Каталог рецептов</h2>
       <div>
         {recipes.length ? (
           <section className={styles.catalogContainer}>
-            {recipes.map((recipe, index) => (
+            {recipes.map((recipe, id) => (
               <RecipeCard
-                /* eslint-disable-next-line react/no-array-index-key */
-                key={index}
+                key={id}
                 className={styles.galleryItem}
                 recipe={recipe}
               />

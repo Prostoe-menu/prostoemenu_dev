@@ -21,7 +21,6 @@
     "react-hook-form": "^7.43.7",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.1",
-    "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
@@ -30,12 +29,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "vite",
+    "build": "vite build",
     "lint": "npx eslint .",
     "lint-and-fix": "eslint . --fix",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "vite test",
+    "eject": "vite eject"
   },
   "eslintConfig": {
     "extends": [
@@ -63,6 +62,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/user-event": "^14.4.3",
+    "@vitejs/plugin-react": "^4.2.0",
     "eslint": "^8.33.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.6.0",
@@ -71,6 +71,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "2.8.4"
+    "prettier": "2.8.4",
+    "vite": "^5.0.0"
   }
 }

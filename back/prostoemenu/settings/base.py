@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'kaiten',
     'account',
     'measurement',
+    'ingredient',
 ]
 
 REST_FRAMEWORK = {

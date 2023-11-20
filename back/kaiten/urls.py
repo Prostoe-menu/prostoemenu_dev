@@ -1,7 +1,6 @@
 from django.urls import path
-from .views import *
+from .views import KaitenData
 
 urlpatterns = [
-    path('kaiten/', KaitenData.as_view()),
+    path('', KaitenData.as_view()),
 ]
-

@@ -7,7 +7,6 @@ from rest_framework.decorators import APIView
 from rest_framework.response import Response
 
 
-
 class MeasurementList(APIView):
     @extend_schema(
         summary='Список всех мер измерений.',

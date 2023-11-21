@@ -9,9 +9,6 @@
     "react",
     "^(?!react)\\w+$",
     "<THIRD_PARTY_MODULES>",
-    "^@core/(.*)$",
-    "^@server/(.*)$",
-    "^@ui/(.*)$",
     "^[./]"
   ],
   "importOrderSortSpecifiers": true

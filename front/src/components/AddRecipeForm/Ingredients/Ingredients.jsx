@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
 import Ingredient from 'components/AddRecipeForm/Ingredients/Ingredient/Ingredient';
 // import RecipeTitle from 'components/AddRecipeForm/RecipeTitle/RecipeTitle';
 import Button from 'components/UI/Button/Button';
-import { buttons, defaultMeasureUnits } from 'utils/constants';
 import getMeasurements from 'helpers/getMeasurements';
-import { addNotification } from 'store/slices/toast/toastSlice';
+import addIcon from 'images/add.svg';
+import arrowLeft from 'images/arrow-left.svg';
+import arrowRight from 'images/arrow-right.svg';
 import {
   addEmptyIngredient,
   changeCurrentStage,
   saveAllIngredients,
 } from 'store/slices/form/formSlice';
-import addIcon from 'images/add.svg';
-import arrowRight from 'images/arrow-right.svg';
-import arrowLeft from 'images/arrow-left.svg';
+import { addNotification } from 'store/slices/toast/toastSlice';
+import { buttons, defaultMeasureUnits } from 'utils/constants';
 import styles from './Ingredients.module.scss';
 
 // Компонент будет доработан после утверждения окончательного дизайна

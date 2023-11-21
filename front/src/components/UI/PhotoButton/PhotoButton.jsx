@@ -1,14 +1,16 @@
 /* eslint-disable react/no-unescaped-entities */
+
 /* eslint-disable react/jsx-props-no-spreading */
+
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useEffect, useState, useRef, createRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { createRef, useEffect, useRef, useState } from 'react';
+import { Cropper } from 'react-cropper';
 // eslint-disable-next-line import/no-unresolved
 import { useDropzone } from 'react-dropzone';
-import { Cropper } from 'react-cropper';
-import 'cropperjs/dist/cropper.css';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'components/Modal/Modal';
 import Button from 'components/UI/Button/Button';
+import 'cropperjs/dist/cropper.css';
 import {
   loadPhoto,
   resetCroppedPhoto,

@@ -1,5 +1,5 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 // Replace 'your_api_endpoint' with the actual API endpoint
 const API_ENDPOINT = `${import.meta.env.VITE_API_URL}/recipes/`;

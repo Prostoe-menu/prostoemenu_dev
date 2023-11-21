@@ -1,7 +1,7 @@
 import React from 'react';
+import AdditionalInfo from 'components/AddRecipeForm/AdditionalInfo/AdditionalInfo';
 import RecipeBox from 'components/AddRecipeForm/RecipeBox/RecipeBox';
 import RecipeTitle from 'components/AddRecipeForm/RecipeTitle/RecipeTitle';
-import AdditionalInfo from 'components/AddRecipeForm/AdditionalInfo/AdditionalInfo';
 
 const StageFour = () => (
   <RecipeBox>

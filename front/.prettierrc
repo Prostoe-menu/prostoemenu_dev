@@ -4,5 +4,15 @@
   "singleQuote": true,
   "printWidth": 80,
   "tabWidth": 2,
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "importOrder": [
+    "react",
+    "^(?!react)\\w+$",
+    "<THIRD_PARTY_MODULES>",
+    "^@core/(.*)$",
+    "^@server/(.*)$",
+    "^@ui/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSortSpecifiers": true
 }

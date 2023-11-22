@@ -49,6 +49,9 @@
     justify-content: space-between;
     cursor: pointer;
   }
+  &_type_home {
+    width: 1033px;
+  }
 
   &::-ms-clear {
     display: none;

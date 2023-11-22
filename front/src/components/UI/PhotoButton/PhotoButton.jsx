@@ -17,29 +17,14 @@ import {
   saveCroppedPhoto,
 } from '../../../store/slices/form/formSlice';
 
-const PhotoButton = () => {
+const PhotoButton = ({ error }) => {
   const dropZone = useRef();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const closeModal = () => setIsModalOpen(false);
-  // const [cropVis, setCropVis] = useState(false);
   const sourcePhoto = useSelector((store) => store.form.sourcePhoto);
   const dispatch = useDispatch();
   const croppedPhoto = useSelector((store) => store.form.finishedPhoto);
   const cropperRef = createRef();
-  // const onChange = (e) => {
-  //   e.preventDefault();
-  //   let filess;
-  //   if (e.dataTransfer) {
-  //     filess = e.dataTransfer.filess;
-  //   } else if (e.target) {
-  //     filess = e.target.filess;
-  //   }
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     setImage(reader.result);
-  //   };
-  //   reader.readAsDataURL(filess[0]);
-  // };
 
   const getCropData = () => {
     if (typeof cropperRef.current?.cropper !== 'undefined') {
@@ -52,8 +37,6 @@ const PhotoButton = () => {
     }
   };
 
-  // DROPZONE
-
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       'image/jpeg': ['.jpeg', '.jpg'],
@@ -63,7 +46,6 @@ const PhotoButton = () => {
     maxFiles: 1,
     maxSize: 5242880,
     multiple: false,
-    // File is OK
     onDropAccepted: (acceptedFiles) => {
       setIsModalOpen(true);
       dispatch(
@@ -79,25 +61,20 @@ const PhotoButton = () => {
       dropZone.current.classList.remove(styles.photo__input_error);
       dropZone.current.classList.add(styles.photo__input_hidden);
     },
-    // File is bad
     onDropRejected: (file) => {
-      // Вот так можно посмотреть что за ошибка
       // eslint-disable-next-line no-console
       console.log(file[0].errors[0]);
-      // Помечаем красным бордером
       dropZone.current.classList.add(styles.photo__input_error);
     },
   });
 
-  // Удаляем файлы по клику на кнопку на превью
   const handleClickRemovePhoto = () => {
-    setIsModalOpen(false); // убираем Cropper
+    setIsModalOpen(false);
     dispatch(resetLoadPhoto());
     dispatch(resetCroppedPhoto());
     dropZone.current.classList.remove(styles.photo__input_hidden);
   };
 
-  // Превьюшка
   const thumbs = sourcePhoto?.map((file) => (
     <div className={styles.preview__container} key={file.name}>
       {croppedPhoto && (
@@ -105,7 +82,6 @@ const PhotoButton = () => {
           className={styles.preview__img}
           src={croppedPhoto}
           alt="preview"
-          // Revoke data uri after image is loaded
           onLoad={() => {
             URL.revokeObjectURL(file.preview);
           }}
@@ -123,16 +99,19 @@ const PhotoButton = () => {
   ));
 
   useEffect(
-    () =>
-      // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
-      () =>
-        sourcePhoto?.forEach((file) => URL.revokeObjectURL(file.preview)),
+    () => () =>
+      sourcePhoto?.forEach((file) => URL.revokeObjectURL(file.preview)),
     []
   );
 
   return (
     <>
-      <section ref={dropZone} className={styles.photo}>
+      <section
+        ref={dropZone}
+        className={`${styles.photo} ${
+          error ? `${styles.photo__input_error}` : ''
+        }`}
+      >
         <div {...getRootProps({ className: 'dropzone' })}>
           <input {...getInputProps()} />
           <div className={styles.photo__input}>
@@ -168,7 +147,6 @@ const PhotoButton = () => {
             style={{ height: 400, width: 400 }}
             zoomTo={0.5}
             initialAspectRatio={4 / 3}
-            // preview=".img-preview"
             src={sourcePhoto[0].preview}
             viewMode={1}
             minCropBoxHeight={10}
@@ -176,12 +154,9 @@ const PhotoButton = () => {
             background={false}
             responsive
             autoCropArea={1}
-            checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+            checkOrientation={false}
             guides
           />
-          {/* <button type="button" onClick={getCropData}>
-            ОБРЭЗАТ
-          </button> */}
           <Button
             btnClassName="button_bg_yellow"
             isSubmit={false}

@@ -7,6 +7,8 @@ import Tooltip from '../../Tooltip/Tooltip';
 import TooltipDifficultyContent from '../../Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
 import PhotoButton from '../../UI/PhotoButton/PhotoButton';
 import Button from '../../UI/Button/Button';
+import { addNotification } from '../../../store/slices/toast/toastSlice';
+import getErrorTypes from '../../../helpers/getErrorTypes';
 import {
   changeCurrentStage,
   saveGeneralRecipeInfo,
@@ -14,13 +16,14 @@ import {
   saveServings,
 } from '../../../store/slices/form/formSlice';
 import styles from './mainInfo.module.scss';
-import { buttons } from '../../../utils/constants';
+import { buttons, TEXT_INPUT_PATTERN } from '../../../utils/constants';
 import arrowRight from '../../../images/arrow-right.svg';
 
 const MainInfo = () => {
   const [nameCounter, setNameCounter] = useState(0);
   const [descCounter, setDescCounter] = useState(0);
   const [portion, setPortion] = useState(0);
+  const [rating, setRating] = useState(0);
 
   const dispatch = useDispatch();
   const { recipeName } = useSelector((state) => state.form);
@@ -32,6 +35,7 @@ const MainInfo = () => {
     formState: { errors },
     clearErrors,
     getValues,
+    setValue,
   } = useForm({
     defaultValues: { recipeName },
     mode: 'onBlur',
@@ -46,7 +50,18 @@ const MainInfo = () => {
     });
   };
 
-  function nameChange(event) {
+  const onError = (errorsObj) => {
+    const types = getErrorTypes(errorsObj);
+
+    if (types.includes('required')) {
+      dispatch(addNotification('Заполните все обязательные поля'));
+    }
+    if (types.includes('minLength') || types.includes('pattern')) {
+      dispatch(addNotification('Проверьте правильность заполнения полей'));
+    }
+  };
+
+  function handleNameChange(event) {
     setNameCounter(event.target.value.length);
   }
 
@@ -56,13 +71,15 @@ const MainInfo = () => {
 
   function incrementPortion() {
     setPortion(portion + 1);
-    dispatch(saveServings(portion + 1));
+    setValue('portions', portion + 1);
+    dispatch(saveServings(getValues('portions')));
     clearErrors('portions');
   }
 
   function decrementPortion() {
     setPortion(portion - 1);
-    dispatch(saveServings(portion - 1));
+    setValue('portions', portion - 1);
+    dispatch(saveServings(getValues('portions')));
     clearErrors('portions');
   }
 
@@ -78,61 +95,69 @@ const MainInfo = () => {
     }
     return false;
   };
+  const ratingValue = () => {
+    if (getValues('rating') === undefined || 0) {
+      return true;
+    }
+    return false;
+  };
+  const portionsValue = () => {
+    if (getValues('portions') === undefined || 0) {
+      return true;
+    }
+    return false;
+  };
 
   return (
-    <form className={styles.mainInfo} onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <h3 className={styles.title}>Название рецепта</h3>
-        <div
-          className={`${styles.wrap} ${
-            errors.recipeName ? `${styles.wrap_error}` : ''
+    <form
+      className={styles.mainInfo}
+      onSubmit={handleSubmit(onSubmit, onError)}
+    >
+      <h3 className={styles.title}>Название рецепта</h3>
+      <div
+        className={`${styles.wrap} ${
+          errors.recipeName ? `${styles.wrap_error}` : ''
+        }`}
+      >
+        <textarea
+          {...register('recipeName', {
+            required: true,
+            minLength: 2,
+            maxLength: 100,
+            pattern: {
+              value: TEXT_INPUT_PATTERN,
+            },
+          })}
+          className={`${styles.name__input}`}
+          onChange={handleNameChange}
+          onClick={() => clearErrors('recipeName')}
+          type="text"
+          maxLength={100}
+          rows={nameCounter > 50 ? 2 : 1}
+          wrap="soft"
+          placeholder="Название вашего блюда"
+        />
+
+        <p
+          className={`${styles.counter} ${
+            errors.recipeName ? `${styles.counter_error}` : ''
           }`}
         >
-          <textarea
-            {...register('recipeName', {
-              required: true,
-              minLength: 2,
-              maxLength: 100,
-              pattern: {
-                value:
-                  /^[a-zA-Zа-яА-ЯёЁ0-9\s!@#$%^&№()_+\-=[\]{};':"\\|,.<>/?]+$/i,
-              },
-            })}
-            className={`${styles.name__input} ${
-              errors.recipeName ? `${styles.name__input_error}` : ''
-            }`}
-            onChange={nameChange}
-            onClick={() => clearErrors('recipeName')}
-            type="text"
-            maxLength={100}
-            rows={nameCounter > 58 ? 2 : 1}
-            wrap="soft"
-            placeholder="Название вашего блюда"
-          />
-
-          <p
-            className={`${styles.counter} ${
-              errors.recipeName ? `${styles.counter_error}` : ''
-            }`}
-          >
-            {nameCounter} / 100
-          </p>
-        </div>
-        {errors?.recipeName?.type === 'required' && (
-          <p className={styles.error}>Это поле обязательно к заполнению</p>
-        )}
-        {errors?.recipeName?.type === 'minLength' && (
-          <p className={styles.error}>Введите не менее двух символов</p>
-        )}
-        {errors?.recipeName?.type === 'maxLength' && (
-          <p className={styles.error}>Максимальная длина 100 символов</p>
-        )}
-        {errors?.recipeName?.type === 'pattern' && (
-          <p className={styles.error}>
-            Используйте буквы, цифры и символы !-&rdquo;№;%:?*()&rsquo;/.,\\«»
-          </p>
-        )}
+          {nameCounter} / 100
+        </p>
       </div>
+      {errors?.recipeName?.type === 'minLength' && (
+        <p className={styles.error}>Введите не менее двух символов</p>
+      )}
+      {errors?.recipeName?.type === 'maxLength' && (
+        <p className={styles.error}>Максимальная длина 100 символов</p>
+      )}
+      {errors?.recipeName?.type === 'pattern' && (
+        <p className={styles.error}>
+          Используйте буквы, цифры и символы !-&rdquo;№;%:?*()&rsquo;/.,\\«»
+        </p>
+      )}
+
       <div className={styles.wrap_complexity}>
         <div className={styles.complexity}>
           <div className={styles.tooltipContainer}>
@@ -146,18 +171,18 @@ const MainInfo = () => {
             <Controller
               name="rating"
               control={control}
-              defaultValue={0}
-              rules={{ required: true }}
-              // eslint-disable-next-line no-unused-vars
-              render={(props) => (
+              rules={{ required: ratingValue }}
+              render={({ field }) => (
                 <Rating
-                  name="recipeComplexity"
-                  defaultValue={0}
+                  {...field}
+                  value={rating}
                   max={3}
                   size="large"
                   onClick={() => clearErrors('rating')}
                   onChange={(event, newValue) => {
                     dispatch(saveRecipeComplexity(newValue));
+                    setRating(newValue);
+                    field.onChange(event);
                   }}
                 />
               )}
@@ -188,22 +213,16 @@ const MainInfo = () => {
               <Controller
                 name="portions"
                 control={control}
-                rules={{ required: true }}
+                rules={{ required: portionsValue }}
                 render={({ field }) => (
                   <input
-                    {...register('portions')}
+                    {...field}
                     aria-invalid={errors.portions ? 'true' : 'false'}
-                    type="text"
-                    id="portions"
-                    placeholder="0"
+                    type="number"
                     value={portion}
-                    onClick={() => clearErrors('portions')}
-                    onChange={(e) => field.onChange(e)}
                     className={
                       portion === 0
-                        ? `${styles.portion} ${
-                            errors?.portions ? `${styles.portion_error}` : ''
-                          }`
+                        ? `${styles.portion}`
                         : `${styles.portion} ${styles.portion_active}`
                     }
                   />
@@ -221,9 +240,6 @@ const MainInfo = () => {
               </button>
             </div>
           </label>
-          {errors?.portions?.type === 'required' && (
-            <p className={styles.error}>Это поле обязательно к заполнению</p>
-          )}
         </div>
       </div>
       <div>
@@ -242,17 +258,12 @@ const MainInfo = () => {
                 placeholder="0"
                 defaultValue=""
                 className={`${styles.time} ${
-                  errors.allhours
-                    ? `${styles.name__input_error} ${styles.time_error}`
-                    : ''
+                  errors.allhours ? `${styles.time_error}` : ''
                 }`}
                 onClick={() => clearErrors('allhours')}
               />
               &nbsp;час(ов)
             </label>
-            {errors?.allhours?.type === 'required' && (
-              <p className={styles.error}>Это поле обязательно к заполнению</p>
-            )}
             <label htmlFor="allminutes" className={styles.label}>
               <input
                 {...register('allminutes', {
@@ -264,9 +275,7 @@ const MainInfo = () => {
                 placeholder="0"
                 defaultValue=""
                 className={`${styles.time} ${
-                  errors.allminutes
-                    ? `${styles.name__input_error} ${styles.time_error}`
-                    : ''
+                  errors.allminutes ? `${styles.time_error}` : ''
                 }`}
                 onClick={() => clearErrors(['allhours', 'allminutes'])}
               />
@@ -293,16 +302,11 @@ const MainInfo = () => {
                 maxLength={2}
                 onClick={() => clearErrors('cookhours')}
                 className={`${styles.time} ${
-                  errors.cookhours
-                    ? `${styles.name__input_error} ${styles.time_error}`
-                    : ''
+                  errors.cookhours ? `${styles.time_error}` : ''
                 }`}
               />
               &nbsp;час(ов)
             </label>
-            {errors?.cookhours?.type === 'required' && (
-              <p className={styles.error}>Это поле обязательно к заполнению</p>
-            )}
             <label htmlFor="cookminutes" className={styles.label}>
               <input
                 {...register('cookminutes', {
@@ -314,9 +318,7 @@ const MainInfo = () => {
                 placeholder="0"
                 onClick={() => clearErrors(['cookhours', 'cookminutes'])}
                 className={`${styles.time} ${
-                  errors.cookminutes
-                    ? `${styles.name__input_error} ${styles.time_error}`
-                    : ''
+                  errors.cookminutes ? `${styles.time_error}` : ''
                 }`}
               />
               &nbsp;минут
@@ -345,8 +347,7 @@ const MainInfo = () => {
               minLength: 2,
               maxLength: 500,
               pattern: {
-                value:
-                  /^[a-zA-Zа-яА-ЯёЁ0-9\s!@#$%^&№()_+\-=[\]{};':"\\|,.<>/?]+$/i,
+                value: TEXT_INPUT_PATTERN,
               },
             })}
             className={`${styles.desc__input} ${
@@ -368,9 +369,6 @@ const MainInfo = () => {
             {descCounter} / 500
           </p>
         </div>
-        {errors?.recipedesc?.type === 'required' && (
-          <p className={styles.error}>Это поле обязательно к заполнению</p>
-        )}
         {errors?.recipedesc?.type === 'minLength' && (
           <p className={styles.error}>Введите не менее двух символов</p>
         )}
@@ -385,7 +383,14 @@ const MainInfo = () => {
       </div>
       <div>
         <p className={styles.title}>Фото готового блюда</p>
-        <PhotoButton />
+        <Controller
+          name="cropPhoto"
+          control={control}
+          rules={{ required: true }}
+          render={() => (
+            <PhotoButton error={errors?.cropPhoto?.type === 'required'} />
+          )}
+        />
         <p className={styles.fotoReqs}>Требования к фото:</p>
         <ul className={styles.reqlist}>
           <li className={styles.reqlist_item}>

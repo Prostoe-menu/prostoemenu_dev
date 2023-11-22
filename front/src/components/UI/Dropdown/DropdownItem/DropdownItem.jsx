@@ -18,7 +18,6 @@ const DropdownItem = ({
   const dropdownItemClass = classnames(styles.dropdownItem, {
     [styles.dropdownItem_active]: itemIndex === cursor,
   });
-
   return (
     <li className={styles.listItem} key={item.id}>
       <div

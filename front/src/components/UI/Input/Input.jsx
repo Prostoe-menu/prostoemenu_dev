@@ -32,10 +32,8 @@ const Input = (props) => {
     [styles.error]: isError,
   });
 
-  return (
-    <input
-      className={inputClasses}
-      {...register(inputName, {
+  const registrationOptions = register
+    ? {
         required: {
           value: requiredValue,
           message: requiredMessage,
@@ -48,7 +46,13 @@ const Input = (props) => {
           value: minValue,
           message: minMessage,
         },
-      })}
+      }
+    : {}; // Пустой объект, если register не передан
+
+  return (
+    <input
+      className={inputClasses}
+      {...(register && { ...register(inputName, registrationOptions) })}
       onChange={onChange}
       onKeyDown={onKeyDown}
       placeholder={placeholderText}

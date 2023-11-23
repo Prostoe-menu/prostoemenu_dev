@@ -109,7 +109,7 @@
 
   &_error::placeholder {
     color: red;
-    opacity: .6;
+    opacity: 0.6;
   }
 }
 
@@ -166,9 +166,8 @@
   &_error {
     border: 1px solid red;
     color: red;
-    }
   }
-
+}
 
 .button {
   background-color: transparent;
@@ -239,7 +238,7 @@
 
   &_error {
     color: red;
-    opacity: .6;
+    opacity: 0.6;
   }
 }
 

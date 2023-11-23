@@ -5,11 +5,6 @@
   "printWidth": 80,
   "tabWidth": 2,
   "endOfLine": "auto",
-  "importOrder": [
-    "react",
-    "^(?!react)\\w+$",
-    "<THIRD_PARTY_MODULES>",
-    "^[./]"
-  ],
+  "importOrder": ["react", "^(?!react)\\w+$", "<THIRD_PARTY_MODULES>", "^[./]"],
   "importOrderSortSpecifiers": true
 }

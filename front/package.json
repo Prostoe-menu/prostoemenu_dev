@@ -32,6 +32,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
+    "format": "prettier . --write",
     "lint": "npx eslint .",
     "lint-and-fix": "eslint . --fix",
     "test": "vite test",

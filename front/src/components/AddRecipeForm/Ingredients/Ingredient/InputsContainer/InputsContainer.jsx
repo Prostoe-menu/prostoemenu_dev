@@ -1,21 +1,18 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import getIngredients from '../../../../../helpers/getIngredients';
-import useAsync from '../../../../../hooks/useAsync';
+import { useDispatch, useSelector } from 'react-redux';
+import DropdownMenu from 'components/UI/Dropdown/DropdownMenu/DropdownMenu';
+import DropdownSearch from 'components/UI/Dropdown/DropdownSearch/DropdownSearch';
+import Input from 'components/UI/Input/Input';
+import getIngredients from 'helpers/getIngredients';
+import useClickOutside from 'helpers/useClickOutside';
+import useAsync from 'hooks/useAsync';
 import {
-  saveIngredient,
-  changeIngredientVolume,
   changeIngredientMeasureUnits,
-} from '../../../../../store/slices/form/formSlice';
-import useClickOutside from '../../../../../helpers/useClickOutside';
-import {
-  TEXT_INPUT_PATTERN,
-  TEXT_INPUT_ERROR_MESSAGE,
-} from '../../../../../utils/constants';
-import DropdownSearch from '../../../../UI/Dropdown/DropdownSearch/DropdownSearch';
-import DropdownMenu from '../../../../UI/Dropdown/DropdownMenu/DropdownMenu';
-import Input from '../../../../UI/Input/Input';
+  changeIngredientVolume,
+  saveIngredient,
+} from 'store/slices/form/formSlice';
+import { TEXT_INPUT_ERROR_MESSAGE, TEXT_INPUT_PATTERN } from 'utils/constants';
 import styles from './InputsContainer.module.scss';
 
 const InputsContainer = ({

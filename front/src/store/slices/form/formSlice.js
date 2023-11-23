@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidV4 } from 'uuid';
+import { createSlice } from '@reduxjs/toolkit';
 import postRecipe from './formThunk';
 
 const initialState = {

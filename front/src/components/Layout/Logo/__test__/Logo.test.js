@@ -1,8 +1,8 @@
 /* eslint-disable   */
-import React from 'react';
 import { render, screen } from '@testing-library/react';
+import React from 'react';
+import testUtils from 'src/test-utils/test-with-store';
 import Logo from '../Logo';
-import testUtils from '../../../../test-utils/test-with-store';
 
 describe('Логотип', () => {
   test('должен отображаться на странице', () => {

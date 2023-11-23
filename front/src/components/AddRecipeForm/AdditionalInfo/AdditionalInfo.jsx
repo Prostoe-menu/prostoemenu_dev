@@ -1,18 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import Button from '../../UI/Button/Button';
-import { buttons } from '../../../utils/constants';
-import Legal from './Legal/Legal';
-import { addNotification } from '../../../store/slices/toast/toastSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import getErrorTypes from '../../../helpers/getErrorTypes';
 import arrowLeft from '../../../images/arrow-left.svg';
 import {
   changeCurrentStage,
   saveAdditionalInfo,
 } from '../../../store/slices/form/formSlice';
-import styles from './AdditionalInfo.module.scss';
 import postRecipe from '../../../store/slices/form/formThunk';
+import { addNotification } from '../../../store/slices/toast/toastSlice';
+import { buttons } from '../../../utils/constants';
+import Button from '../../UI/Button/Button';
+import styles from './AdditionalInfo.module.scss';
+import Legal from './Legal/Legal';
 
 // Компонент будет доработан после утверждения окончательного дизайна
 

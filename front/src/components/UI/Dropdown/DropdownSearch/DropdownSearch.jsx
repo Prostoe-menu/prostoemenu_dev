@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import classnames from 'classnames';
-import Input from '../../Input/Input';
-import { handleKeyboardNavigation } from '../../../../helpers/useKeyboardNavigation';
-import DropdownItem from '../DropdownItem/DropdownItem';
+import DropdownItem from 'components/UI/Dropdown/DropdownItem/DropdownItem';
+import Input from 'components/UI/Input/Input';
+import { handleKeyboardNavigation } from 'helpers/useKeyboardNavigation';
 import styles from './DropdownSearch.module.scss';
 
 /**

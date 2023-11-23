@@ -1,6 +1,6 @@
 import React from 'react';
+import Button from 'components/UI/Button/Button';
 import styles from './ConfirmModal.module.scss';
-import Button from '../../UI/Button/Button';
 
 // Компонент будет дорабатываться, когда будет имплементирован в логику кода
 

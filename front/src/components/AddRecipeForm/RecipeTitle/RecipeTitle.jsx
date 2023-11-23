@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './recipeTitle.module.scss';
+import styles from './RecipeTitle.module.scss';
 
 const RecipeTitle = ({ children }) => (
   <h2 className={styles.title}>{children}</h2>

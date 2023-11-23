@@ -1,7 +1,7 @@
 .input {
   box-sizing: border-box;
   height: 40px;
-  border: 1px solid #DBDBDB;
+  border: 1px solid #dbdbdb;
   border-radius: 8px;
   padding: 8px 16px;
   font-family: 'Mulish', sans-serif;
@@ -78,14 +78,14 @@
     margin: 0;
   }
 
-  &[type=number] {
+  &[type='number'] {
     -moz-appearance: textfield;
     appearance: textfield;
   }
 }
 
 .error {
-  border: 1px solid #D14941;
+  border: 1px solid #d14941;
 }
 
 @media screen and (max-width: 576px) {

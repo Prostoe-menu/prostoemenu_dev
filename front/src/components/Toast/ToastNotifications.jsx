@@ -1,6 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { createPortal } from 'react-dom';
+import { useSelector } from 'react-redux';
 import Toast from './Toast';
 import styles from './ToastNotifications.module.scss';
 

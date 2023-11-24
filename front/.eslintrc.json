@@ -9,7 +9,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier"],
+  "plugins": ["react", "prettier", "@stylistic"],
   "rules": {
     "react/prop-types": "off",
     "prettier/prettier": 2,
@@ -26,7 +26,12 @@
         "ignorePropertyModificationsFor": ["state"]
       }
     ],
-    "no-console": 1
+    "no-console": 1,
+    "@stylistic/padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "if" },
+      { "blankLine": "always", "prev": "*", "next": "switch" }
+    ]
   },
   "settings": {
     "import/resolver": {

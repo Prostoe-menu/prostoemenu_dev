@@ -27,14 +27,17 @@ export const handleKeyboardNavigation = (
       setVisibility(true);
     }
   }
+
   if (e.key === 'ArrowUp') {
     e.preventDefault();
     setCursor((c) => (c > 0 ? c - 1 : 0));
   }
+
   if (e.key === 'Escape') {
     setVisibility(false);
     setCursor(-1);
   }
+
   if (e.key === 'Enter') {
     e.preventDefault();
     chooseItem(items[cursor]);

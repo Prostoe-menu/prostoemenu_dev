@@ -59,6 +59,7 @@ const AdditionalInfo = () => {
     if (types.includes('required')) {
       dispatch(addNotification('Заполните все обязательные поля'));
     }
+
     if (types.includes('minLength') || types.includes('pattern')) {
       dispatch(addNotification('Проверьте правильность заполнения полей'));
     }

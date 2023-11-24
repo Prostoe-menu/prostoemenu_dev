@@ -2,6 +2,8 @@
 
 Фронтенд-часть веб-приложения по поиску рецептов.
 
+### [Стайлгайд](https://github.com/Prostoe-menu/prostoemenu_dev/blob/frontend/front/src/docs/style-guide.md)
+
 ## Инструкция по запуску
 
 **1. Склонировать проект**

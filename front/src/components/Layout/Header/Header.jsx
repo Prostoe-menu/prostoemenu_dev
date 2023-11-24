@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from 'components/Layout/Logo/Logo';
-import Menu from 'components/Navigation/Menu/Menu';
+import Navbar from 'components/Navbar/Navbar';
 import Style from './Header.module.scss';
 
 const Header = () => {
   const navigation = [
     {
-      name: 'Каталог рецептов',
+      name: 'Главная',
       route: '/',
       id: 1,
     },
@@ -33,7 +33,7 @@ const Header = () => {
         aria-label="Открыть меню"
         onClick={openMenu}
       />
-      <Menu
+      <Navbar
         navigation={navigation}
         isHeader="true"
         isOpen={isMenuOpen}

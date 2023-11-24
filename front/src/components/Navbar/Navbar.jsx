@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
-import styles from './Menu.module.scss';
+import CloseButton from 'components/UI/CloseButton/CloseButton';
+import styles from './Navbar.module.scss';
 
 // Компонент будет рефакториться и дорабатываться в рамках Issue https://github.com/Prostoe-menu/prostoemenu_dev/issues/109
-const Menu = ({ isOpen, onClose, navigation, isHeader }) => {
+const Navbar = ({ isOpen, onClose, navigation, isHeader }) => {
   const menuClass = classnames(
     styles.menu,
     { [styles.menu_type_header]: isHeader },
@@ -22,19 +23,17 @@ const Menu = ({ isOpen, onClose, navigation, isHeader }) => {
   const listItemClass = classnames(styles.list__item, {
     [styles.list__item_type_header]: isHeader,
   });
-  const inputClass = classnames(styles.input, {
-    [styles.input_visible]: isHeader,
-  });
 
   return (
     <section className={menuClass}>
       <div className={containerClass}>
-        <button
+        {/* <button
           className={buttonClass}
           type="button"
           onClick={onClose}
           aria-label="Закрыть меню"
-        />
+        /> */}
+        <CloseButton onClose={onClose} className={buttonClass} />
         <nav className={navClass}>
           <ul className={styles.list}>
             {navigation.map((item) => (
@@ -50,18 +49,10 @@ const Menu = ({ isOpen, onClose, navigation, isHeader }) => {
               </li>
             ))}
           </ul>
-          <input
-            className={inputClass}
-            name="recipeName"
-            placeholder="Найти рецепт"
-            // onChange={handleRecipeSearch}
-            autoComplete="off"
-            // value={query}
-          />
         </nav>
       </div>
     </section>
   );
 };
 
-export default Menu;
+export default Navbar;

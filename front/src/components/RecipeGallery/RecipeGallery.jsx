@@ -1,33 +1,34 @@
-import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
-import style from './RecipeGallery.module.scss';
-import fetchRecipes from '../../store/slices/recipe/recipeThunk';
-import RecipeItem from './RecipeItem/RecipeItem';
+import { useDispatch, useSelector } from 'react-redux';
+import fetchRecipes from 'store/slices/recipe/recipeThunk';
+import RecipeCard from './RecipeCard/RecipeCard';
+import styles from './RecipeGallery.module.scss';
 
 const RecipeGallery = () => {
   const recipes = useSelector((state) => state.recipe.recipes);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Dispatch the fetchRecipes thunk to trigger the API call
     dispatch(fetchRecipes());
   }, [dispatch]);
+
   return (
-    <div>
-      {recipes.length ? (
-        <section className={style.container}>
-          {recipes.map((recipe, index) => (
-            <RecipeItem
-              /* eslint-disable-next-line react/no-array-index-key */
-              key={index}
-              className={style.galleryItem}
-              recipe={recipe}
-            />
-          ))}
-        </section>
-      ) : (
-        <div>Loading...</div>
-      )}
+    <div className={styles.wrapper}>
+      <h2 className={styles.title}>Каталог рецептов</h2>
+      <div>
+        {recipes.length ? (
+          <section className={styles.catalogContainer}>
+            {recipes.map((recipe) => (
+              <RecipeCard className={styles.galleryItem} recipe={recipe} />
+            ))}
+          </section>
+        ) : (
+          <div className={styles.loading}>
+            Пожалуйста, подождите, выполняется загрузка...
+          </div>
+        )}
+      </div>
     </div>
   );
 };

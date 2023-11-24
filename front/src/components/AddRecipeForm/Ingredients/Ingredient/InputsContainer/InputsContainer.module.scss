@@ -2,14 +2,14 @@
   box-sizing: border-box;
   display: grid;
   gap: 12px;
-  grid-template-areas: "name quantity measureUnits";
+  grid-template-areas: 'name quantity measureUnits';
 }
 
 @media screen and (max-width: 576px) {
   .container {
     grid-template-areas:
-    "name name"
-    "quantity measureUnits";
+      'name name'
+      'quantity measureUnits';
     row-gap: 12px;
     column-gap: 8px;
   }

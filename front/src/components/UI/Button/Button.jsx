@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import styles from './Button.module.scss';
 
 const Button = ({
@@ -16,7 +17,7 @@ const Button = ({
 
   return (
     <button
-      className={`${styles.button} ${styles[btnClassName]}`}
+      className={classnames(styles.button, styles[btnClassName])}
       type={isSubmit ? 'submit' : 'button'}
       disabled={isDisabled}
       onClick={isSubmit ? null : handleClickBtn}

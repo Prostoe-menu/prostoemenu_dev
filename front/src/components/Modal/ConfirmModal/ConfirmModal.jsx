@@ -1,17 +1,19 @@
 import React from 'react';
-import Style from './ConfirmModal.module.scss';
-import Button from '../../UI/Button/Button';
+import Button from 'components/UI/Button/Button';
+import styles from './ConfirmModal.module.scss';
+
+// Компонент будет дорабатываться, когда будет имплементирован в логику кода
 
 const ConfirmModal = ({ onClickClose }) => (
-  <div className={Style.modalContainer}>
-    <h2 className={Style.title}>Спасибо!</h2>
-    <p className={Style.text}>
+  <div className={styles.modalContainer}>
+    <h2 className={styles.title}>Спасибо!</h2>
+    <p className={styles.text}>
       Ваш рецепт будет опубликован после модерации. Уведомление об этом пришлём
       вам на почту:
     </p>
     {/* TO DO: to be updated */}
-    <p className={Style.email}>mail@mail.ru</p>
-    <div className={Style.buttonContainer}>
+    <p className={styles.email}>mail@mail.ru</p>
+    <div className={styles.buttonContainer}>
       {/* TO DO:
       After Main Page component is created, implement this requirement:
       "После закрытия модального окна происходит переход на главную страницу." */}

@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
-import Ingredient from './Ingredient/Ingredient';
-// import RecipeTitle from '../../RecipeTitle/RecipeTitle';
-import { addNotification } from '../../../store/slices/toast/toastSlice';
-import Button from '../../UI/Button/Button';
-import addIcon from '../../../images/add.svg';
-import { buttons, defaultMeasureUnits } from '../../../utils/constants';
-import arrowRight from '../../../images/arrow-right.svg';
-import arrowLeft from '../../../images/arrow-left.svg';
-
+import Ingredient from 'components/AddRecipeForm/Ingredients/Ingredient/Ingredient';
+// import RecipeTitle from 'components/AddRecipeForm/RecipeTitle/RecipeTitle';
+import Button from 'components/UI/Button/Button';
+import getMeasurements from 'helpers/getMeasurements';
+import addIcon from 'images/add.svg';
+import arrowLeft from 'images/arrow-left.svg';
+import arrowRight from 'images/arrow-right.svg';
 import {
   addEmptyIngredient,
   changeCurrentStage,
   saveAllIngredients,
-} from '../../../store/slices/form/formSlice';
-import Style from './Ingredients.module.scss';
+} from 'store/slices/form/formSlice';
+import { addNotification } from 'store/slices/toast/toastSlice';
+import { buttons, defaultMeasureUnits } from 'utils/constants';
+import styles from './Ingredients.module.scss';
 
-import getMeasurements from '../../../helpers/getMeasurements';
+// Компонент будет доработан после утверждения окончательного дизайна
 
 const Ingredients = () => {
   const { ingredients } = useSelector((state) => state.form);
@@ -91,16 +91,16 @@ const Ingredients = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)}>
-      <section className={Style.ingredients}>
+      <section className={styles.ingredients}>
         {/* <RecipeTitle>
-        <span className={Style.mobileTitle}>2. </span>Ингредиенты*
+        <span className={styles.mobileTitle}>2. </span>Ингредиенты*
       </RecipeTitle> */}
-        <div className={Style.textContainer}>
-          <p className={Style.text}>
+        <div className={styles.textContainer}>
+          <p className={styles.text}>
             Добавьте ингредиенты для вашего блюда, укажите их количество.
           </p>
         </div>
-        <ul className={Style.ingredients__list}>
+        <ul className={styles.list}>
           {ingredients.map((ingredient, index) => (
             <li key={ingredient.elementID}>
               <Ingredient
@@ -122,11 +122,11 @@ const Ingredients = () => {
           onClickBtn={addEmptyInput}
           ariaLabelText="Добавить ингредиент"
         >
-          <img className={Style.icon} src={addIcon} alt="Иконка 'плюсик'" />
+          <img className={styles.icon} src={addIcon} alt="Иконка 'плюсик'" />
           Добавить ингредиент
         </Button>
       </section>
-      <div className={Style.controls}>
+      <div className={styles.controls}>
         <Button
           btnClassName={buttons.withBorder.yellow}
           isSubmit={false}

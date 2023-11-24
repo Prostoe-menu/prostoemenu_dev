@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import classnames from 'classnames';
-import ReactPortal from '../ReactPortal/ReactPortal';
-import styles from './Modal.module.scss';
-import CloseButton from '../UI/CloseButton/CloseButton';
+import ReactPortal from 'components/ReactPortal/ReactPortal';
+import CloseButton from 'components/UI/CloseButton/CloseButton';
 // import ConfirmModal from './ConfirmModal/ConfirmModal';
+import styles from './Modal.module.scss';
 
 // Компонент будет дорабатываться, когда будет имплементирован в логику кода
 

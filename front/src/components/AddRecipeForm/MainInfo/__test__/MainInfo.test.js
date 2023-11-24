@@ -1,14 +1,14 @@
 /* eslint-disable   */
-import React from 'react';
 import { screen } from '@testing-library/react';
-import MainInfo from '../MainInfo';
-import testUtils from '../../../../test-utils/test-with-store';
-import {
-  initialTestFormState,
-  filledTestFormState,
-} from '../../../../test-utils/store-test-state';
-import '../../../../setupTests';
+import React from 'react';
 import userEvent from '@testing-library/user-event';
+import 'src/setupTests';
+import {
+  filledTestFormState,
+  initialTestFormState,
+} from 'src/test-utils/store-test-state';
+import testUtils from 'src/test-utils/test-with-store';
+import MainInfo from '../MainInfo';
 
 const text =
   'abcdefghijklmnopqrstuvwxyz-ABCDEFGHIJKLMNOPQRSTUVWXYZ-0123456789-абвгдеёжзийклмнопрстуфхцчшщъыьэюя'; // length = 98

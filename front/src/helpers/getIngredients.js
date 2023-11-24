@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const URL = `${process.env.REACT_APP_API_URL}/ingredients/?format=json&ingredient_suffix=`;
+const URL = `${
+  import.meta.env.VITE_API_URL
+}/ingredients/?format=json&ingredient_suffix=`;
 
 const getIngredients = async (query) => {
   const reponse = await axios({

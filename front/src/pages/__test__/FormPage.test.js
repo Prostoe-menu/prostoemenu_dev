@@ -1,9 +1,9 @@
 /* eslint-disable   */
-import React from 'react';
 import { screen } from '@testing-library/react';
+import React from 'react';
+import { filledTestFormState } from 'src/test-utils/store-test-state';
+import testUtils from 'src/test-utils/test-with-store';
 import FormPage from '../FormPage';
-import testUtils from '../../test-utils/test-with-store';
-import { filledTestFormState } from '../../test-utils/store-test-state';
 
 describe('страница добавления рецепта', () => {
   test('должна отображать форму ОСНОВНАЯ ИНФОРМАЦИЯ на первом этапе', () => {

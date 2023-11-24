@@ -1,33 +1,32 @@
-.wrapper{
+.wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 1440px;
 }
-.title{
+.title {
   margin: calc(60px + 88px) 0 0 70px;
   padding: 0;
-  font-family: "Biolilbert", sans-serif;
+  font-family: 'Biolilbert', sans-serif;
   font-size: 36px;
   font-style: normal;
   font-weight: 400;
-  line-height: 40px; 
+  line-height: 40px;
   color: #232323;
 }
-.catalogContainer{
+.catalogContainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(632px, 1fr));
   gap: 35px;
   margin: 41px 70px 60px;
 }
-.loading{
+.loading {
   margin-top: 100px;
   margin-left: 70px;
-  font-family: "Biolilbert", sans-serif;
+  font-family: 'Biolilbert', sans-serif;
   font-size: 36px;
   font-style: normal;
   font-weight: 400;
-  line-height: 40px; 
+  line-height: 40px;
   color: #232323;
 }
-

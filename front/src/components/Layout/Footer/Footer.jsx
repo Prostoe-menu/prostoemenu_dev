@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AGREEMENT_URL } from '../../../utils/constants';
-import Logo from '../Logo/Logo';
+import Logo from 'components/Layout/Logo/Logo';
+import { AGREEMENT_URL } from 'utils/constants';
 import styles from './Footer.module.scss';
 
 const Footer = () => (

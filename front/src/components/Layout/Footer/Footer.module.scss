@@ -9,7 +9,7 @@
 
 .logo {
   display: block;
-  height: 38px;  
+  height: 38px;
   margin-bottom: 68px;
 }
 
@@ -20,7 +20,8 @@
   align-items: center;
 }
 
-.copyright, .agreement {
+.copyright,
+.agreement {
   margin: 0;
   font-family: 'Mulish', sans-serif;
   font-style: normal;
@@ -43,7 +44,7 @@
 }
 
 @media screen and (max-width: 690px) {
-  .footer {    
+  .footer {
     max-width: 576px;
     padding: 16px 16px 20px 16px;
   }
@@ -54,7 +55,7 @@
     gap: 12px;
   }
 
-  .logo {    
-    margin-bottom: 30px;    
-  }  
+  .logo {
+    margin-bottom: 30px;
+  }
 }

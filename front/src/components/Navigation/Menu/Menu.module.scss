@@ -60,10 +60,11 @@
 .input {
   display: none;
   box-sizing: border-box;
-  background: url('../../../images/header_search.svg') center right 16px no-repeat;
+  background: url('../../../images/header_search.svg') center right 16px
+    no-repeat;
   width: 312px;
   height: 48px;
-  border: 1px solid #DBDBDB;
+  border: 1px solid #dbdbdb;
   border-radius: 8px;
   padding: 12px 16px;
   font-family: 'Mulish', sans-serif;
@@ -124,7 +125,7 @@
     margin: 0;
   }
 
-  &[type=number] {
+  &[type='number'] {
     -moz-appearance: textfield;
     appearance: textfield;
   }

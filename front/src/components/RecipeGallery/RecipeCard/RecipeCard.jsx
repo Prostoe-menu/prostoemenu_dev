@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './RecipeCard.module.scss';
+import StarRating from '../../UI/StarRating/StarRating';
 
 const RecipeCard = ({ recipe }) => (
   <div className={styles.card}>
@@ -10,16 +11,19 @@ const RecipeCard = ({ recipe }) => (
       alt="картофель тушеный с курицей и грибами"
     />
     <div className={styles.cardDescription}>
-      <h3 className={styles.cardName}>Тушёный картофель с курицей и грибами в чесночном соусе в мультиварке</h3>
+      <h3 className={styles.cardName}>
+        Тушёный картофель с курицей и грибами в чесночном соусе в мультиварке
+      </h3>
       <div className={styles.cardDescription__item}>
-        <p className={styles.cardDescription__text}>Сложность:</p>
-        {/*TO DO https://github.com/Prostoe-menu/prostoemenu_dev/issues/125 */}
-        <div className={styles.complexityImage}></div>
-        <div className={styles.complexityImage}></div>
-        <div className={styles.complexityImage}></div>
+        <StarRating label="Сложность" amount={3} />
+        {/* <p className={styles.cardDescription__text}>Сложность:</p>
+        {/* TO DO https://github.com/Prostoe-menu/prostoemenu_dev/issues/125 */}
+        <div className={styles.complexityImage} />
+        <div className={styles.complexityImage} />
+        <div className={styles.complexityImage} /> */}
       </div>
       <div className={styles.cardDescription__item}>
-        <div className={styles.timerImage}></div>
+        <div className={styles.timerImage} />
         <p className={styles.cardDescription__text}>1 час 30 мин.</p>
       </div>
     </div>

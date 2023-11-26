@@ -4,6 +4,7 @@
   gap: 10px;
   padding: 0;
   max-width: 1033px;
+  margin: 20px 0 0 0;
 }
 
 .item {
@@ -16,24 +17,24 @@
   font-family: Mulish;
   font-weight: 300;
   line-height: 24px;
+  align-items: center;
+  height: fit-content;
 }
 
 .remove_btn {
-  border: none;
-  background-color: inherit;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  cursor: pointer;
+  height: 38px;
 
-  &_all {
-    @extend .remove_btn;
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    cursor: pointer;
-
-    & p {
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 300;
-      line-height: 20px;
-    }
+  & p {
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 20px;
+    color: #232323;
+    margin: 0;
   }
 }

@@ -1,8 +1,7 @@
-/* eslint-disable */
 import React from 'react';
-import style from './SelectedRecipeList.module.scss';
-import CloseButton from '../UI/CloseButton/CloseButton';
 import { v4 as uuidV4 } from 'uuid';
+import CloseButton from '../UI/CloseButton/CloseButton';
+import style from './SelectedRecipeList.module.scss';
 
 const SelectedRecipeList = ({ selected, setSelected }) => {
   const removeIngredient = (item) => {
@@ -13,30 +12,21 @@ const SelectedRecipeList = ({ selected, setSelected }) => {
     setSelected([]);
   };
   return (
-    <div>
-      {selected.length !== 0 ? (
-        <ul className={style.container}>
-          {selected.map((el) => (
-            <li className={style.item} key={uuidV4()}>
-              {el}{' '}
-              <div
-                className={style.remove_btn}
-                onClick={() => removeIngredient(el)}
-              >
-                <CloseButton />
-              </div>
-            </li>
-          ))}
-
-          <div className={style.remove_btn_all} onClick={removeAll}>
-            <p>Очистить всё</p>
-            <CloseButton />
-          </div>
-        </ul>
-      ) : (
-        ''
-      )}
-    </div>
+    selected.length > 0 && (
+      <ul className={style.container}>
+        {selected.map((el) => (
+          <li className={style.item} key={uuidV4()}>
+            {el}
+            <CloseButton onClose={() => removeIngredient(el)} />
+          </li>
+        ))}
+        {/* eslint-disable-next-line */}
+        <div className={style.remove_btn} onClick={removeAll}>
+          <p>Очистить всё</p>
+          <CloseButton />
+        </div>
+      </ul>
+    )
   );
 };
 

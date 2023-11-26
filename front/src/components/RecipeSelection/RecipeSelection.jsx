@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import SelectedRecipeList from 'components/SelectedRecipeList/SelectedRecipeList';
+import DropdownSearch from 'components/UI/Dropdown/DropdownSearch/DropdownSearch';
+import getIngredients from 'helpers/getIngredients';
+import useAsync from 'hooks/useAsync';
 import style from './RecipeSelection.module.scss';
-import DropdownSearch from '../UI/Dropdown/DropdownSearch/DropdownSearch';
-import useAsync from '../../hooks/useAsync';
-import getIngredients from '../../helpers/getIngredients';
-import SelectedRecipeList from '../SelectedRecipeList/SelectedRecipeList';
 
 const RecipeSelection = () => {
   const [query, setQuery] = useState('');
@@ -23,6 +23,7 @@ const RecipeSelection = () => {
     if (!selected.includes(ingredient.name)) {
       setSelected((prevSelected) => [...prevSelected, ingredient.name]);
     }
+    setQuery('');
   };
 
   const handleNameInput = (e) => {
@@ -37,7 +38,7 @@ const RecipeSelection = () => {
   };
 
   return (
-    <div className={style.section}>
+    <section className={style.section}>
       <h1 className={style.title}>Из чего будем готовить?</h1>
       <p className={style.text}>
         Поможем найти рецепт на основе ингредиентов, которые у вас уже есть или
@@ -58,7 +59,7 @@ const RecipeSelection = () => {
         </button>
       </div>
       <SelectedRecipeList selected={selected} setSelected={setSelected} />
-    </div>
+    </section>
   );
 };
 

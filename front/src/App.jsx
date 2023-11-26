@@ -7,12 +7,10 @@ import Modal from 'components/Modal/Modal';
 import ToastNotifications from 'components/Toast/ToastNotifications';
 import HomePage from 'pages/HomePage';
 import styles from './App.module.scss';
-import RecipeSelection from './components/RecipeSelection/RecipeSelection';
 
 const App = () => (
   <div className={styles.app}>
     <Header />
-    <RecipeSelection />
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/new-recipe" element={<AddRecipeForm />} />

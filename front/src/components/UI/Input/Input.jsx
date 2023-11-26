@@ -32,27 +32,27 @@ const Input = (props) => {
     [styles.error]: isError,
   });
 
-  const registrationOptions = register
-  ? {
-      required: {
-        value: requiredValue,
-        message: requiredMessage,
-      },
-      pattern: {
-        value: patternValue,
-        message: patternMessage,
-      },
-      min: {
-        value: minValue,
-        message: minMessage,
-      },
-    }
-  : {};
+  const registerProperties = register
+    ? {
+        required: {
+          value: requiredValue,
+          message: requiredMessage,
+        },
+        pattern: {
+          value: patternValue,
+          message: patternMessage,
+        },
+        min: {
+          value: minValue,
+          message: minMessage,
+        },
+      }
+    : {};
 
   return (
     <input
       className={inputClasses}
-      {...(register && { ...register(inputName, registrationOptions) })}
+      {...(register && { ...register(inputName, registerProperties) })}
       onChange={onChange}
       onKeyDown={onKeyDown}
       placeholder={placeholderText}

@@ -51,6 +51,9 @@
   }
   &_type_home {
     width: 1033px;
+    background: url('../../../images/header_search.svg') center right 16px
+      no-repeat;
+    height: 46px;
   }
 
   &::-ms-clear {

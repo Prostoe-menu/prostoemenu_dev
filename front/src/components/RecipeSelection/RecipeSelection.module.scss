@@ -1,6 +1,5 @@
 .section {
-  margin: 148px 0 12px 70px;
-  align-self: flex-start;
+  margin-top: 148px;
 }
 
 .title {
@@ -20,9 +19,10 @@
 }
 
 .search_container {
-  margin: 45px 0 20px 0;
+  margin: 45px 0 0 0;
   display: flex;
   gap: 35px;
+  align-items: center;
 }
 
 .search_btn {

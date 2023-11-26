@@ -1,8 +1,8 @@
 /* eslint-disable   */
-import React from 'react';
-import useAsync from '../useAsync';
 import { renderHook, waitFor } from '@testing-library/react';
 import { act } from '@testing-library/react';
+import React from 'react';
+import useAsync from '../useAsync';
 
 beforeEach(() => {
   jest.useFakeTimers();

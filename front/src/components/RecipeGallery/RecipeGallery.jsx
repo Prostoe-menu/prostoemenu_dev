@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import fetchRecipes from '../../store/slices/recipe/recipeThunk';
+import fetchRecipes from 'store/slices/recipe/recipeThunk';
 import RecipeCard from './RecipeCard/RecipeCard';
 import styles from './RecipeGallery.module.scss';
 
@@ -8,10 +8,6 @@ const RecipeGallery = () => {
   const recipes = useSelector((state) => state.recipe.recipes);
 
   const dispatch = useDispatch();
-
-  const handleClickShowMoreBtn = () => {
-    recipes((state) => state + 1);
-  };
 
   useEffect(() => {
     dispatch(fetchRecipes());
@@ -23,16 +19,14 @@ const RecipeGallery = () => {
       <div>
         {recipes.length ? (
           <section className={styles.catalogContainer}>
-            {recipes.map((recipe, id) => (
-              <RecipeCard
-                key={id}
-                className={styles.galleryItem}
-                recipe={recipe}
-              />
+            {recipes.map((recipe) => (
+              <RecipeCard className={styles.galleryItem} recipe={recipe} />
             ))}
           </section>
         ) : (
-          <div className={styles.loading}>Пожалуйста, подождите, выполняется загрузка...</div>
+          <div className={styles.loading}>
+            Пожалуйста, подождите, выполняется загрузка...
+          </div>
         )}
       </div>
     </div>

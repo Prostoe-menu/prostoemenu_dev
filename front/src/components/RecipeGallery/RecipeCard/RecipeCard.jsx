@@ -2,10 +2,9 @@ import React from 'react';
 import styles from './RecipeCard.module.scss';
 import StarRating from '../../UI/StarRating/StarRating';
 
-const RecipeCard = ({ recipe }) => (
+const RecipeCard = () => (
   <div className={styles.card}>
     <img
-
       src="https://cdn.lifehacker.ru/wp-content/uploads/2018/09/7-klassnyx-sposobov-prigotovit-kartoshku-s-gribami-na-skovorode-i-v-duxovke_1537481399-640x320.jpg"
       className={styles.cardImage}
       alt="картофель тушеный с курицей и грибами"

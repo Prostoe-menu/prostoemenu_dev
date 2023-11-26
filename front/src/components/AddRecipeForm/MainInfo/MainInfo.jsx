@@ -1,21 +1,21 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Rating } from '@mui/material';
-import Tooltip from '../../Tooltip/Tooltip';
-import TooltipDifficultyContent from '../../Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
-import PhotoButton from '../../UI/PhotoButton/PhotoButton';
-import Button from '../../UI/Button/Button';
+import Tooltip from 'components/Tooltip/Tooltip';
+import TooltipDifficultyContent from 'components/Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
+import Button from 'components/UI/Button/Button';
+import PhotoButton from 'components/UI/PhotoButton/PhotoButton';
+import arrowRight from 'images/arrow-right.svg';
 import {
   changeCurrentStage,
   saveGeneralRecipeInfo,
   saveRecipeComplexity,
   saveServings,
-} from '../../../store/slices/form/formSlice';
+} from 'store/slices/form/formSlice';
+import { buttons } from 'utils/constants';
 import styles from './mainInfo.module.scss';
-import { buttons } from '../../../utils/constants';
-import arrowRight from '../../../images/arrow-right.svg';
 
 const MainInfo = () => {
   const [nameCounter, setNameCounter] = useState(0);

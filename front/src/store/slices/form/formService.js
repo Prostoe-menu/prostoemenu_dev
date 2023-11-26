@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_ENDPOINT_URL = `${process.env.REACT_APP_API_URL}/recipes/?format=json`;
+const API_ENDPOINT_URL = `${import.meta.env.VITE_API_URL}/recipes/?format=json`;
 
 const postRecipe = async (recipeData) => {
   const response = await axios({

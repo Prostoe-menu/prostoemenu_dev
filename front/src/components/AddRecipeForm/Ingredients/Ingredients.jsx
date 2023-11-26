@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
-import Ingredient from './Ingredient/Ingredient';
-// import RecipeTitle from '../../RecipeTitle/RecipeTitle';
-import { addNotification } from '../../../store/slices/toast/toastSlice';
-import Button from '../../UI/Button/Button';
-import addIcon from '../../../images/add.svg';
-import { buttons, defaultMeasureUnits } from '../../../utils/constants';
-import arrowRight from '../../../images/arrow-right.svg';
-import arrowLeft from '../../../images/arrow-left.svg';
+import Ingredient from 'components/AddRecipeForm/Ingredients/Ingredient/Ingredient';
+// import RecipeTitle from 'components/AddRecipeForm/RecipeTitle/RecipeTitle';
+import Button from 'components/UI/Button/Button';
+import getMeasurements from 'helpers/getMeasurements';
+import addIcon from 'images/add.svg';
+import arrowLeft from 'images/arrow-left.svg';
+import arrowRight from 'images/arrow-right.svg';
 import {
   addEmptyIngredient,
   changeCurrentStage,
   saveAllIngredients,
-} from '../../../store/slices/form/formSlice';
+} from 'store/slices/form/formSlice';
+import { addNotification } from 'store/slices/toast/toastSlice';
+import { buttons, defaultMeasureUnits } from 'utils/constants';
 import styles from './Ingredients.module.scss';
-
-import getMeasurements from '../../../helpers/getMeasurements';
 
 // Компонент будет доработан после утверждения окончательного дизайна
 
@@ -43,12 +42,14 @@ const Ingredients = () => {
       errors.ingredient.forEach((item) => {
         if ('name' in item) {
           setErrorType('name');
+
           if (item.name.type === 'required' || item.name.type === 'pattern') {
             dispatch(addNotification(item.name.message));
           }
           setErrorRefName(item.name.ref.name);
         } else if ('quantity' in item) {
           setErrorType('quantity');
+
           if (
             item.quantity.type === 'required' ||
             item.quantity.type === 'min'

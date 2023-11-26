@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidV4 } from 'uuid';
+import { createSlice } from '@reduxjs/toolkit';
 
 //   notification schema
 //   {id: number, message:string}
@@ -15,6 +15,7 @@ const toastSlice = createSlice({
     addNotification: (state, action) => {
       if (state.notifications.length === 0) {
         const updatedNotifications = [...state.notifications];
+
         if (updatedNotifications.length > 2) {
           updatedNotifications.shift();
         }

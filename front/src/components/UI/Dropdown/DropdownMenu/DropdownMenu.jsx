@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import classnames from 'classnames';
+import { v4 as uuidV4 } from 'uuid';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DropdownItem from 'components/UI/Dropdown/DropdownItem/DropdownItem';
 import { handleKeyboardNavigation } from 'helpers/useKeyboardNavigation';
@@ -71,6 +72,7 @@ const DropdownMenu = ({
             }}
             onClick={() => chooseItem(item)}
             selectItemAriaLabelText={chooseItemAriaLabelText}
+            key={uuidV4()}
           />
         ))}
       </ul>

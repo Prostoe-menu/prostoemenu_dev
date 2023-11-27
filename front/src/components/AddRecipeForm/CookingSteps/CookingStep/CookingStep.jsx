@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PhotoButton from 'components/UI/PhotoButton/PhotoButton';
 import styles from './CookingStep.module.scss';
 

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import classnames from 'classnames';
+import { v4 as uuidV4 } from 'uuid';
 import DropdownItem from 'components/UI/Dropdown/DropdownItem/DropdownItem';
 import Input from 'components/UI/Input/Input';
 import { handleKeyboardNavigation } from 'helpers/useKeyboardNavigation';
@@ -95,6 +96,7 @@ const DropdownSearch = (props) => {
               }}
               onClick={() => onChooseItem(item)}
               selectItemAriaLabelText={ariaLabelText}
+              key={uuidV4()}
             />
           ));
         })()}

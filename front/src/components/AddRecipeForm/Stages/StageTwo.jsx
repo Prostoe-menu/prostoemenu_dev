@@ -1,4 +1,3 @@
-import React from 'react';
 import Ingredients from 'components/AddRecipeForm/Ingredients/Ingredients';
 import RecipeBox from 'components/AddRecipeForm/RecipeBox/RecipeBox';
 import RecipeTitle from 'components/AddRecipeForm/RecipeTitle/RecipeTitle';

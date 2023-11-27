@@ -1,6 +1,5 @@
-import React from 'react';
+import StarRating from 'components/UI/StarRating';
 import styles from './RecipeCard.module.scss';
-import StarRating from '../../UI/StarRating/StarRating';
 
 const RecipeCard = () => (
   <div className={styles.card}>
@@ -14,12 +13,7 @@ const RecipeCard = () => (
         Тушёный картофель с курицей и грибами в чесночном соусе в мультиварке
       </h3>
       <div className={styles.cardDescription__item}>
-        <StarRating label="Сложность" amount={3} />
-        {/* <p className={styles.cardDescription__text}>Сложность:</p>
-        {/* TO DO https://github.com/Prostoe-menu/prostoemenu_dev/issues/125 */}
-        <div className={styles.complexityImage} />
-        <div className={styles.complexityImage} />
-        <div className={styles.complexityImage} /> */}
+        <StarRating label="Сложность" amount={2} />
       </div>
       <div className={styles.cardDescription__item}>
         <div className={styles.timerImage} />

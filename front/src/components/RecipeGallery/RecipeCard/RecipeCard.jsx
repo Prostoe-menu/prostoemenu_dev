@@ -1,3 +1,4 @@
+import React from 'react';
 import StarRating from 'components/UI/StarRating';
 import styles from './RecipeCard.module.scss';
 

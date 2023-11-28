@@ -2,6 +2,8 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
 import eslint from 'vite-plugin-eslint';
+import svgr from "vite-plugin-svgr";
+
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,7 +14,7 @@ export default defineConfig({
   build: {
     outDir: 'build',
   },
-  plugins: [react(), eslint()],
+  plugins: [react(), svgr(), eslint()],
   resolve: {
     alias: {
       '*': path.resolve(__dirname, './src'),

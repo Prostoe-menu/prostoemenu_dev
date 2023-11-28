@@ -17,8 +17,7 @@ const RecipeCard = () => (
         <StarRating label="Сложность" amount={2} />
       </div>
       <div className={styles.cardDescription__item}>
-        <div className={styles.timerImage} />
-        <p className={styles.cardDescription__text}>1 час 30 мин.</p>
+        <div className={styles.timerImage} /> 1 час 30 мин.
       </div>
     </div>
   </div>

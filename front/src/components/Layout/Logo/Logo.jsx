@@ -1,9 +1,9 @@
 import React from 'react';
-import logo from 'images/logo.svg';
-import Style from './Logo.module.scss';
+import logo from 'assets/images/logo.svg';
+import styles from './Logo.module.scss';
 
 const Logo = () => (
-  <img className={Style.logo} src={logo} alt="Логотип приложения" />
+  <img className={styles.logo} src={logo} alt="Логотип приложения" />
 );
 
 export default Logo;

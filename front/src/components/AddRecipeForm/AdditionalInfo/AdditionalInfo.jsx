@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import arrowLeft from 'assets/images/arrow-left.svg';
 import getErrorTypes from '../../../helpers/getErrorTypes';
-import arrowLeft from '../../../images/arrow-left.svg';
 import {
   changeCurrentStage,
   saveAdditionalInfo,

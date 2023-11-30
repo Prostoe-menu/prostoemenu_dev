@@ -123,7 +123,7 @@ const PhotoButton = () => {
       // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
       () =>
         sourcePhoto?.forEach((file) => URL.revokeObjectURL(file.preview)),
-    []
+    [sourcePhoto]
   );
 
   return (

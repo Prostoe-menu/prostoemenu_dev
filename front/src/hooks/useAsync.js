@@ -13,7 +13,7 @@ const useAsync = (callback, query, debounce, delay) => {
       .then(setValue)
       .catch(setError)
       .finally(() => setLoading(false));
-  }, [query]);
+  }, [callback, query]);
 
   useEffect(() => {
     if (query.length >= 2) {

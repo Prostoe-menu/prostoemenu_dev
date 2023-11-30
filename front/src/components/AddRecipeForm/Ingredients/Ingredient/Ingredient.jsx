@@ -18,7 +18,7 @@ const Ingredient = ({
 
   const deleteInputElement = useCallback(() => {
     dispatch(deleteIngredient(ingredientData.elementID));
-  }, []);
+  }, [dispatch, ingredientData.elementID]);
 
   return (
     <div className={styles.content}>

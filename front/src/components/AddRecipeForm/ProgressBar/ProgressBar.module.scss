@@ -31,7 +31,7 @@
 
   &_active {
     .round {
-      background-color: #f1b823;
+      background: vars.$btn-bg-primary;
     }
 
     .text {
@@ -58,7 +58,7 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  border: 2px solid #f1b823;
+  border: 2px solid vars.$btn-bg-primary;
 
   &::after {
     content: '';
@@ -67,7 +67,7 @@
     left: 11px;
     width: 2px;
     height: 21px;
-    background-color: #f1b823;
+    background: vars.$btn-bg-primary;
   }
 }
 

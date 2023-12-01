@@ -58,12 +58,12 @@ $font-body: 'Mulish', sans-serif;
 
       &:checked {
         & + .legal__checkbox {
-          background-color: #f1b823;
+          background-color: vars.$btn-bg-primary;
           background-image: url('assets/images/checked-icon.svg');
           background-size: contain;
           background-position: center center;
           background-repeat: no-repeat;
-          border-color: #f1b823;
+          border-color: vars.$btn-bg-primary;
         }
       }
 
@@ -108,7 +108,7 @@ $font-body: 'Mulish', sans-serif;
     cursor: pointer;
 
     &:hover {
-      border-color: #f1b823;
+      border-color: vars.$btn-bg-primary;
     }
 
     &_error {

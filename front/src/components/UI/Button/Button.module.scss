@@ -20,7 +20,7 @@
     width: 160px;
     font-size: 16px;
     line-height: 1.5;
-    border: 1px solid #f1b823;
+    border: 1px solid vars.$btn-bg-primary;
 
     img {
       margin-top: 2px;
@@ -71,7 +71,7 @@
     width: 384px;
     font-weight: 700;
     color: #fff;
-    background-color: #f1b823;
+    background: vars.$btn-bg-primary;
 
     &:hover {
       background-color: #f4a100;
@@ -105,7 +105,7 @@
       width: 260px;
 
       &:hover {
-        background-color: #f1b823;
+        background: vars.$btn-bg-primary;
       }
     }
   }

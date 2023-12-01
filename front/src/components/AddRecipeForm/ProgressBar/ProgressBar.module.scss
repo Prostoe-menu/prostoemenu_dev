@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 .progress {
   margin: 38px 0 0 72px;
   max-width: 312px;
@@ -33,7 +35,7 @@
     }
 
     .text {
-      color: #232323;
+      color: vars.$color-primary;
       background-color: #fff2da;
     }
   }
@@ -79,6 +81,6 @@
   border-radius: 8px;
 
   &:hover {
-    color: #232323;
+    color: vars.$color-primary;
   }
 }

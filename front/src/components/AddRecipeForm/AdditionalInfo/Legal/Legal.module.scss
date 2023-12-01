@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 $font-body: 'Mulish', sans-serif;
 
 .legal {
@@ -13,7 +15,7 @@ $font-body: 'Mulish', sans-serif;
     font-size: 28px;
     line-height: 32px;
     font-weight: 400;
-    color: #232323;
+    color: vars.$color-primary;
   }
 
   &__email {
@@ -26,7 +28,7 @@ $font-body: 'Mulish', sans-serif;
     font-size: 12px;
     line-height: 1.67;
     font-weight: 300;
-    color: #232323;
+    color: vars.$color-primary;
   }
 
   &__input {
@@ -37,7 +39,7 @@ $font-body: 'Mulish', sans-serif;
     font-weight: 300;
     font-size: 16px;
     line-height: 24px;
-    color: #232323;
+    color: vars.$color-primary;
     border: 1px solid #dbdbdb;
     border-radius: 8px;
     box-sizing: border-box;

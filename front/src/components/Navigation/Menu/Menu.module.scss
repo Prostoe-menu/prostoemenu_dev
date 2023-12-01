@@ -1,6 +1,8 @@
+@use 'src/styles/variables' as vars;
+
 .menu {
   box-sizing: border-box;
-  background-color: white;
+  background: vars.$bg-primary;
 }
 
 .container {
@@ -46,7 +48,7 @@
   }
 
   &__link {
-    color: #232323;
+    color: vars.$color-primary;
     text-decoration: none;
     border-bottom: none;
   }
@@ -72,7 +74,7 @@
   font-weight: 300;
   font-size: 16px;
   line-height: 1.5;
-  color: #232323;
+  color: vars.$color-primary;
   margin: 0;
 
   &_visible {

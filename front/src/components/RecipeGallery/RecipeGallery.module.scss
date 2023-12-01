@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -12,7 +14,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: 40px;
-  color: #232323;
+  color: vars.$color-primary;
 }
 .catalogContainer {
   display: grid;
@@ -28,5 +30,5 @@
   font-style: normal;
   font-weight: 400;
   line-height: 40px;
-  color: #232323;
+  color: vars.$color-primary;
 }

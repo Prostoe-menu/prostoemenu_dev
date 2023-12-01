@@ -1,6 +1,7 @@
 $bg-primary: #ffffff;
 
 $color-primary: #232323;
+$color-secondary: #909090;
 
 $btn-bg-primary: #f1b823;
 $btn-bg-primary-hover: #f4a100;
@@ -9,6 +10,7 @@ $btn-bg-primary-active: #f49300;
 :export {
   $bg-primary: $bg-primary;
   $color-primary: $color-primary;
+  $color-secondary: $color-secondary;
   $btn-bg-primary: $btn-bg-primary;
   $btn-bg-primary-hover: $btn-bg-primary-hover;
   $btn-bg-primary-active: $btn-bg-primary-active;

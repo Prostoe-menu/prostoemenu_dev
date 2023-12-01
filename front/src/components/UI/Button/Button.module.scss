@@ -27,7 +27,7 @@
     }
 
     &:hover {
-      background-color: #fffaf0;
+      background: vars.$btn-bg-secondary-hover;
     }
 
     &:active {
@@ -37,7 +37,7 @@
     &:disabled,
     &[disabled] {
       color: #818181;
-      background-color: #f6f6f6;
+      background: vars.$btn-bg-secondary-disabled;
       border-color: #dbdbdb;
       cursor: default;
     }
@@ -51,7 +51,7 @@
     border: 1px solid #818181;
 
     &:hover {
-      background-color: #f6f6f6;
+      background: vars.$btn-bg-secondary-disabled;
     }
 
     &:active {
@@ -61,7 +61,7 @@
     &:disabled,
     &[disabled] {
       color: #818181;
-      background-color: #f6f6f6;
+      background: vars.$btn-bg-secondary-disabled;
       border-color: #dbdbdb;
       cursor: default;
     }

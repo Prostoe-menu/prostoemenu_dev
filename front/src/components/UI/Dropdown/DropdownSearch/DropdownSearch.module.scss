@@ -50,7 +50,7 @@
   &:focus,
   &_active {
     outline: none;
-    background: #fffaf0;
+    background: vars.$btn-bg-secondary-hover;
     border-radius: 0;
   }
 

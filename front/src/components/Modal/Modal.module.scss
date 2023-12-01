@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 .modal {
   position: fixed;
   top: 0;
@@ -30,7 +32,7 @@
 .content {
   box-sizing: border-box;
   position: relative;
-  background-color: #ffffff;
+  background: vars.$bg-primary;
   border-radius: 20px;
   padding: 36px;
 }

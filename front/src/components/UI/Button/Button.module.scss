@@ -74,11 +74,11 @@
     background: vars.$btn-bg-primary;
 
     &:hover {
-      background-color: #f4a100;
+      background: vars.$btn-bg-primary-hover;
     }
 
     &:active {
-      background-color: #f49300;
+      background: vars.$btn-bg-primary-active;
     }
 
     &:disabled,

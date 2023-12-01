@@ -43,7 +43,7 @@ svg path {
 }
 
 svg:hover path {
-  stroke: #f49300;
+  stroke: vars.$btn-bg-primary-active;
 }
 
 .container:hover .tooltip {

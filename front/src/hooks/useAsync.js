@@ -13,7 +13,8 @@ const useAsync = (callback, query, debounce, delay) => {
       .then(setValue)
       .catch(setError)
       .finally(() => setLoading(false));
-  }, [callback, query]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
 
   useEffect(() => {
     if (query.length >= 2) {

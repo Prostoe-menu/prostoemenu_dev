@@ -72,7 +72,7 @@ const DropdownMenu = ({
             }}
             onClick={() => chooseItem(item)}
             selectItemAriaLabelText={chooseItemAriaLabelText}
-            key={uuidV4()}
+            key={uuidV4()} // заменить на item.id 
           />
         ))}
       </ul>

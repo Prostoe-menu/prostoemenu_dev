@@ -2,38 +2,16 @@
   max-width: 1440px;
   width: 100%;
   box-sizing: border-box;
-  padding: 21px 72px;
+  padding: 44px 72px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background: #fff;
+  background: #ffffff;
   position: fixed;
   top: 0;
+  z-index: 10;
 }
 
-.logoLink {
+.logo_link {
   height: 38px;
-}
-
-.buttonMenu {
-  display: none;
-}
-
-@media screen and (max-width: 576px) {
-  .header {
-    max-width: 576px;
-    padding: 12px 16px;
-  }
-
-  .logoLink {
-    height: 24px;
-  }
-
-  .buttonMenu {
-    display: inline-block;
-    background: url('../../../images/icon-burger-menu.svg') center;
-    width: 32px;
-    height: 32px;
-    border: none;
-  }
+  margin-right: 202px;
 }

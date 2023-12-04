@@ -6,7 +6,7 @@ const Navbar = ({ navigation }) => (
   <nav>
     <ul className={styles.list}>
       {navigation.map((item) => (
-        <li key={item.id} className={styles.list_item}>
+        <li key={item.id} className={styles.item}>
           <NavLink className={styles.link} to={item.route}>
             {item.name}
           </NavLink>

@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from 'components/Layout/Logo/Logo';
 import Navbar from 'components/Navbar/Navbar';
+import navigation from 'utils/navigation';
 import styles from './Header.module.scss';
-import navigation from './navigation';
 
 const Header = () => (
   <header className={styles.header}>

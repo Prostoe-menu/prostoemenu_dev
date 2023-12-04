@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DropdownMenu from 'components/UI/Dropdown/DropdownMenu/DropdownMenu';
 import DropdownSearch from 'components/UI/Dropdown/DropdownSearch/DropdownSearch';

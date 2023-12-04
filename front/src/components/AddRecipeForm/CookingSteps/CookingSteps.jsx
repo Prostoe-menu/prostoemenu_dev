@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { v4 as uuidV4 } from 'uuid';
 import CookingStep from 'components/AddRecipeForm/CookingSteps/CookingStep/CookingStep';
 import Button from 'components/UI/Button/Button';
 import addIcon from 'images/add.svg';
@@ -43,7 +44,7 @@ const CookingSteps = () => {
       <div className={styles.steps}>
         <ul className={styles.steps__list}>
           {[...Array(initialStepsCount)].map((_, i) => (
-            <li className={styles.steps__item}>
+            <li className={styles.steps__item} key={uuidV4()}>
               <CookingStep stepNumber={i + 1} />
             </li>
           ))}

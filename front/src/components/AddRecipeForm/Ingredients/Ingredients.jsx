@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
@@ -42,12 +42,14 @@ const Ingredients = () => {
       errors.ingredient.forEach((item) => {
         if ('name' in item) {
           setErrorType('name');
+
           if (item.name.type === 'required' || item.name.type === 'pattern') {
             dispatch(addNotification(item.name.message));
           }
           setErrorRefName(item.name.ref.name);
         } else if ('quantity' in item) {
           setErrorType('quantity');
+
           if (
             item.quantity.type === 'required' ||
             item.quantity.type === 'min'

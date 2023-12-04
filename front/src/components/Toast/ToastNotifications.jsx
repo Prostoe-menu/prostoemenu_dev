@@ -1,4 +1,3 @@
-import React from 'react';
 import { createPortal } from 'react-dom';
 import { useSelector } from 'react-redux';
 import Toast from './Toast';

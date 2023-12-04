@@ -1,4 +1,3 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import getErrorTypes from '../../../helpers/getErrorTypes';
@@ -59,6 +58,7 @@ const AdditionalInfo = () => {
     if (types.includes('required')) {
       dispatch(addNotification('Заполните все обязательные поля'));
     }
+
     if (types.includes('minLength') || types.includes('pattern')) {
       dispatch(addNotification('Проверьте правильность заполнения полей'));
     }

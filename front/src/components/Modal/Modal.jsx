@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import classnames from 'classnames';
 import ReactPortal from 'components/ReactPortal/ReactPortal';
 import CloseButton from 'components/UI/CloseButton/CloseButton';

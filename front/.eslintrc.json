@@ -4,7 +4,13 @@
     "es2021": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react-hooks/recommended", "plugin:react/jsx-runtime", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:react/jsx-runtime",
+    "prettier"
+  ],
   "overrides": [],
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -19,7 +25,7 @@
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
     "prettier/prettier": 2,
-    "react-hooks/rules-of-hooks": "error", 
+    "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/function-component-definition": [
       2,
@@ -43,9 +49,9 @@
   },
   "settings": {
     "react": {
-			"pragma": "React",
-			"version": "detect"
-		}
+      "pragma": "React",
+      "version": "detect"
+    }
   },
   "root": true
 }

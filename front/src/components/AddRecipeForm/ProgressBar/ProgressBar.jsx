@@ -1,13 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
-/* eslint-disable react/jsx-no-comment-textnodes */
-
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import classnames from 'classnames';
 import { changeCurrentStage } from 'store/slices/form/formSlice';

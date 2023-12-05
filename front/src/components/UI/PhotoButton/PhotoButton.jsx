@@ -1,11 +1,5 @@
-/* eslint-disable react/no-unescaped-entities */
-
-/* eslint-disable react/jsx-props-no-spreading */
-
-/* eslint-disable import/no-extraneous-dependencies */
-import React, { createRef, useEffect, useRef, useState } from 'react';
+import { createRef, useEffect, useRef, useState } from 'react';
 import { Cropper } from 'react-cropper';
-// eslint-disable-next-line import/no-unresolved
 import { useDropzone } from 'react-dropzone';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'components/Modal/Modal';
@@ -129,7 +123,7 @@ const PhotoButton = () => {
       // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
       () =>
         sourcePhoto?.forEach((file) => URL.revokeObjectURL(file.preview)),
-    []
+    [sourcePhoto]
   );
 
   return (

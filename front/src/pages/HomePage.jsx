@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import RecipeList from 'components/RecipeList/RecipeList';
 import fetchRecipes from 'store/slices/recipe/recipeThunk';

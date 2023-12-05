@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from 'components/Layout/Logo/Logo';
 import { AGREEMENT_URL } from 'utils/constants';

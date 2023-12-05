@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AddRecipeForm from 'components/AddRecipeForm/AddRecipeForm';
 import Layout from 'components/Layout/Layout';

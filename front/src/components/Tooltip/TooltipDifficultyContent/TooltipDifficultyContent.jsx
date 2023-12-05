@@ -1,4 +1,3 @@
-import React from 'react';
 import starFilled from 'assets/images/star-filled.svg';
 import styles from './TooltipDifficultyContent.module.scss';
 

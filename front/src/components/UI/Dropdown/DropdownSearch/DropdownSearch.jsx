@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import classnames from 'classnames';
 import DropdownItem from 'components/UI/Dropdown/DropdownItem/DropdownItem';
 import Input from 'components/UI/Input/Input';
@@ -95,6 +95,7 @@ const DropdownSearch = (props) => {
               }}
               onClick={() => onChooseItem(item)}
               selectItemAriaLabelText={ariaLabelText}
+              key={item.id}
             />
           ));
         })()}

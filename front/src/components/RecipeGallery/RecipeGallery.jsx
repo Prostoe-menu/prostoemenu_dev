@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidV4 } from 'uuid';
 import fetchRecipes from 'store/slices/recipe/recipeThunk';
 import RecipeCard from './RecipeCard/RecipeCard';
 import styles from './RecipeGallery.module.scss';
@@ -20,7 +21,11 @@ const RecipeGallery = () => {
         {recipes.length ? (
           <section className={styles.catalogContainer}>
             {recipes.map((recipe) => (
-              <RecipeCard className={styles.galleryItem} recipe={recipe} />
+              <RecipeCard
+                className={styles.galleryItem}
+                recipe={recipe}
+                key={uuidV4()}
+              />
             ))}
           </section>
         ) : (

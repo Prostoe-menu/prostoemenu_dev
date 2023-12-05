@@ -10,7 +10,7 @@
   font-family: 'Mulish', sans-serif;
   font-weight: 500;
   color: vars.$color-primary;
-  background-color: transparent;
+  background: vars.$bg-primary;
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -20,7 +20,7 @@
     width: 160px;
     font-size: 16px;
     line-height: 1.5;
-    border: 1px solid vars.$btn-bg-primary;
+    border: 1px solid vars.$btn-border-secondary;
 
     img {
       margin-top: 2px;
@@ -31,14 +31,14 @@
     }
 
     &:active {
-      background-color: #fff2da;
+      background: vars.$btn-bg-secondary-active;
     }
 
     &:disabled,
     &[disabled] {
-      color: #818181;
+      color: vars.$color-secondary;
       background: vars.$btn-bg-secondary-disabled;
-      border-color: #dbdbdb;
+      border-color: vars.$btn-border-secondary-disabled;
       cursor: default;
     }
   }
@@ -48,21 +48,21 @@
     padding: 8px 24px;
     font-size: 12px;
     line-height: 1.67;
-    border: 1px solid #818181;
+    border: 1px solid vars.$btn-border-tertiary;
 
     &:hover {
-      background: vars.$btn-bg-secondary-disabled;
+      background: vars.$btn-bg-tertiary-hover;
     }
 
     &:active {
-      background-color: #dbdbdb;
+      background: vars.$btn-bg-tertiary-active;
     }
 
     &:disabled,
     &[disabled] {
-      color: #818181;
+      color: vars.$color-secondary;
       background: vars.$btn-bg-secondary-disabled;
-      border-color: #dbdbdb;
+      border-color: vars.$btn-border-tertiary-disabled;
       cursor: default;
     }
   }
@@ -70,7 +70,7 @@
   &_bg_yellow {
     width: 384px;
     font-weight: 700;
-    color: #fff;
+    color: vars.$btn-color-primary;
     background: vars.$btn-bg-primary;
 
     &:hover {
@@ -83,8 +83,8 @@
 
     &:disabled,
     &[disabled] {
-      color: #818181;
-      background-color: #dbdbdb;
+      color: vars.$color-secondary;
+      background: vars.$btn-bg-primary-disabled;
       cursor: default;
     }
   }

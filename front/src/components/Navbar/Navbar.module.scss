@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 .list {
   margin: 0;
   padding: 0;
@@ -17,7 +19,7 @@
 }
 
 .link {
-  color: #232323;
+  color: vars.$color-primary;
   text-decoration: none;
   border-bottom: none;
 }

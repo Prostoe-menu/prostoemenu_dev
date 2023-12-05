@@ -10,6 +10,8 @@ $btn-bg-primary-active: #f49300;
 $btn-bg-secondary-hover: #fffaf0;
 $btn-bg-secondary-disabled: #f6f6f6;
 
+$input-border-color: #e5e4e4;
+
 :export {
   $bg-primary: $bg-primary;
   $color-primary: $color-primary;
@@ -19,4 +21,5 @@ $btn-bg-secondary-disabled: #f6f6f6;
   $btn-bg-primary-active: $btn-bg-primary-active;
   $btn-bg-secondary-hover: $btn-bg-secondary-hover;
   $btn-bg-secondary-disabled: $btn-bg-secondary-disabled;
+  $input-border-color: $input-border-color;
 }

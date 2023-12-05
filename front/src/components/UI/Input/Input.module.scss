@@ -3,7 +3,7 @@
 .input {
   box-sizing: border-box;
   height: 40px;
-  border: 1px solid #dbdbdb;
+  border: 1px solid vars.$input-border-color;
   border-radius: 8px;
   padding: 8px 16px;
   font-family: 'Mulish', sans-serif;
@@ -13,6 +13,7 @@
   line-height: 1.5;
   color: vars.$color-primary;
   margin: 0;
+  transition: border .3s ease-in;
 
   &::placeholder {
     font-family: 'Mulish', sans-serif;
@@ -20,16 +21,16 @@
     font-weight: 300;
     font-size: 16px;
     line-height: 1.5;
-    color: #818181;
+    color: vars.$color-secondary;
   }
 
   &:hover {
-    border: 1px solid #818181;
+    border: 1px solid vars.$color-secondary;
   }
 
   &:focus {
     outline: none;
-    border: 1px solid #818181;
+    border: 1px solid vars.$color-secondary;
   }
 
   &_type_name {

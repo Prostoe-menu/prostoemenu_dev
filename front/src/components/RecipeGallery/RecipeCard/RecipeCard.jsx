@@ -13,7 +13,7 @@ const RecipeCard = () => (
         Тушёный картофель с курицей и грибами в чесночном соусе в мультиварке
       </h3>
       <div className={styles.cardDescription__item}>
-        <StarRating label="Сложность" amount={2} />
+        <StarRating label="Сложность" rating={2} />
       </div>
       <div className={styles.cardDescription__item}>
         <div className={styles.timerImage} /> 1 час 30 мин.

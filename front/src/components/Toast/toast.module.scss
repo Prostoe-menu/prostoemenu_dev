@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 .container {
   font-family: vars.$font-body;
   background: #f7f7f7;

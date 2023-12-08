@@ -16,7 +16,7 @@
 
 @media screen and (max-width: 576px) {
   .title {
-    font-size: 28px;
+    font-size: vars.$font-size-l;
     line-height: 32px;
     width: 293px;
     margin-top: 36px;

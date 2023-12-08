@@ -11,7 +11,7 @@ $font-body: 'Mulish', sans-serif;
 
   &__title {
     margin: 0;
-    font-family: 'Biolilbert', sans-serif;
+    font-family: vars.$font-header;
     font-size: 28px;
     line-height: 32px;
     font-weight: 400;

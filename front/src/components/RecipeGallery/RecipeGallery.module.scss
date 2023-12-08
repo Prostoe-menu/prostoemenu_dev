@@ -9,7 +9,7 @@
 .title {
   margin: calc(60px + 88px) 0 0 70px;
   padding: 0;
-  font-family: 'Biolilbert', sans-serif;
+  font-family: vars.$font-header;
   font-size: 36px;
   font-style: normal;
   font-weight: 400;
@@ -25,7 +25,7 @@
 .loading {
   margin-top: 100px;
   margin-left: 70px;
-  font-family: 'Biolilbert', sans-serif;
+  font-family: vars.$font-header;
   font-size: 36px;
   font-style: normal;
   font-weight: 400;

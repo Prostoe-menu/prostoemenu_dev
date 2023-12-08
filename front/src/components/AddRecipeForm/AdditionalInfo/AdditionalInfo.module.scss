@@ -1,6 +1,4 @@
 @use 'src/styles/variables' as vars;
-
-$font-header: 'Biolilbert', sans-serif;
 $font-body: 'Mulish', sans-serif;
 
 .additionalInfo {
@@ -15,7 +13,7 @@ $font-body: 'Mulish', sans-serif;
 
   &__header {
     margin: 0;
-    font-family: $font-header;
+    font-family: vars.$font-header;
     font-style: normal;
     font-weight: 400;
     font-size: 28px;

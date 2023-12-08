@@ -1,7 +1,7 @@
 @use 'src/styles/variables' as vars;
 
 .title {
-  font-family: 'Biolilbert', sans-serif;
+  font-family: vars.$font-header;
   font-style: normal;
   font-weight: 400;
   font-size: 44px;

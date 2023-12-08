@@ -1,7 +1,5 @@
 @use 'src/styles/variables' as vars;
 
-$font-body: 'Mulish', sans-serif;
-
 .legal {
   display: flex;
   flex-direction: column;
@@ -24,7 +22,7 @@ $font-body: 'Mulish', sans-serif;
     gap: 16px;
     margin-top: 4px;
     width: 60%;
-    font-family: 'Mulish', sans-serif;
+    font-family: vars.$font-body;
     font-size: 12px;
     line-height: 1.67;
     font-weight: 300;
@@ -35,7 +33,7 @@ $font-body: 'Mulish', sans-serif;
     padding: 8px 16px;
     width: 100%;
     height: 40px;
-    font-family: 'Mulish';
+    font-family: vars.$font-body;
     font-weight: 300;
     font-size: 16px;
     line-height: 24px;
@@ -89,7 +87,7 @@ $font-body: 'Mulish', sans-serif;
     display: flex;
     align-items: center;
     gap: 8px;
-    font-family: 'Mulish', sans-serif;
+    font-family: vars.$font-body;
     font-size: 16px;
     font-weight: 300;
     line-height: 24px;
@@ -125,7 +123,7 @@ $font-body: 'Mulish', sans-serif;
 }
 
 .error {
-  font-family: $font-body;
+  font-family: vars.$font-body;
   width: 100%;
   margin: 0;
   color: red;

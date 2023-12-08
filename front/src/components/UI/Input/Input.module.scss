@@ -6,7 +6,7 @@
   border: 1px solid vars.$input-border-color;
   border-radius: 8px;
   padding: 8px 16px;
-  font-family: 'Mulish', sans-serif;
+  font-family: vars.$font-body;
   font-style: normal;
   font-weight: 300;
   font-size: 16px;
@@ -16,7 +16,7 @@
   transition: border .3s ease-in;
 
   &::placeholder {
-    font-family: 'Mulish', sans-serif;
+    font-family: vars.$font-body;
     font-style: normal;
     font-weight: 300;
     font-size: 16px;

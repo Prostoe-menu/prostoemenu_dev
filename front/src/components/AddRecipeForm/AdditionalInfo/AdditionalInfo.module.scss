@@ -1,5 +1,4 @@
 @use 'src/styles/variables' as vars;
-$font-body: 'Mulish', sans-serif;
 
 .additionalInfo {
   display: flex;
@@ -47,7 +46,7 @@ $font-body: 'Mulish', sans-serif;
     height: 112px;
     resize: none;
     border: none;
-    font-family: $font-body;
+    font-family: vars.$font-body;
     font-style: normal;
     font-weight: 300;
     font-size: 12px;
@@ -81,7 +80,7 @@ $font-body: 'Mulish', sans-serif;
   align-items: flex-start;
   padding: 0px;
   gap: 12px;
-  font-family: $font-body;
+  font-family: vars.$font-body;
   font-style: normal;
   max-width: 560px;
   width: 100%;
@@ -158,7 +157,7 @@ $font-body: 'Mulish', sans-serif;
 }
 
 .error {
-  font-family: $font-body;
+  font-family: vars.$font-body;
   width: 100%;
   margin: 0;
   color: red;

@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 .modalContainer {
   box-sizing: border-box;
   width: 384px;
@@ -10,7 +12,7 @@
   font-family: vars.$font-heading;
   font-style: normal;
   font-weight: 400;
-  font-size: 36px;
+  font-size: vars.$font-size-xl;
   line-height: 40px;
   color: #333333;
   margin: 0;

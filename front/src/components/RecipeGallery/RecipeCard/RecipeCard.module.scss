@@ -35,14 +35,6 @@
   flex-direction: column;
   justify-content: flex-start;
   padding: 20px 20px 20px 24px;
-}
-.cardDescription__item {
-  display: flex;
-  margin-top: 12px;
-}
-.cardDescription__text {
-  margin: 0;
-  padding: 0;
   font-family: vars.$font-body;
   font-size: 18px;
   font-style: normal;
@@ -50,6 +42,11 @@
   line-height: 22px;
   color: vars.$color-secondary;
 }
+.cardDescription__item {
+  display: flex;
+  margin-top: 12px;
+}
+
 .complexityImage {
   width: 24px;
   height: 24px;

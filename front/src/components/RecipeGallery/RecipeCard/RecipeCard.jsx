@@ -1,3 +1,4 @@
+import StarRating from 'components/UI/StarRating';
 import styles from './RecipeCard.module.scss';
 
 const RecipeCard = () => (
@@ -12,15 +13,10 @@ const RecipeCard = () => (
         Тушёный картофель с курицей и грибами в чесночном соусе в мультиварке
       </h3>
       <div className={styles.cardDescription__item}>
-        <p className={styles.cardDescription__text}>Сложность:</p>
-        {/* TO DO https://github.com/Prostoe-menu/prostoemenu_dev/issues/125 */}
-        <div className={styles.complexityImage} />
-        <div className={styles.complexityImage} />
-        <div className={styles.complexityImage} />
+        <StarRating label="Сложность" rating={2} />
       </div>
       <div className={styles.cardDescription__item}>
-        <div className={styles.timerImage} />
-        <p className={styles.cardDescription__text}>1 час 30 мин.</p>
+        <div className={styles.timerImage} /> 1 час 30 мин.
       </div>
     </div>
   </div>

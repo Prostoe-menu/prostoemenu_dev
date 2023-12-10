@@ -9,7 +9,7 @@
   font-family: vars.$font-body;
   font-style: normal;
   font-weight: 300;
-  font-size: 16px;
+  font-size: vars.$font-size-xxs;
   line-height: 1.5;
   color: vars.$color-primary;
   margin: 0;
@@ -19,7 +19,7 @@
     font-family: vars.$font-body;
     font-style: normal;
     font-weight: 300;
-    font-size: 16px;
+    font-size: vars.$font-size-xxs;
     line-height: 1.5;
     color: vars.$color-secondary;
   }

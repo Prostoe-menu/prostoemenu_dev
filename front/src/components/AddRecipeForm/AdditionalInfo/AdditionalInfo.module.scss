@@ -88,7 +88,7 @@
   &__subtitle {
     margin: 0;
     font-weight: 500;
-    font-size: 16px;
+    font-size: vars.$font-size-xxs;
     line-height: 1.5;
   }
 
@@ -106,7 +106,7 @@
     border-radius: 8px;
     box-sizing: border-box;
     font-weight: 300;
-    font-size: 16px;
+    font-size: vars.$font-size-xxs;
     line-height: 1.5;
     width: 100%;
   }

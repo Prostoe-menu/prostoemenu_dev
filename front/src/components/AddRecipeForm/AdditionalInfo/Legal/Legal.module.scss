@@ -35,7 +35,7 @@
     height: 40px;
     font-family: vars.$font-body;
     font-weight: 300;
-    font-size: 16px;
+    font-size: vars.$font-size-xxs;
     line-height: 24px;
     color: vars.$color-primary;
     border: 1px solid #dbdbdb;
@@ -88,7 +88,7 @@
     align-items: center;
     gap: 8px;
     font-family: vars.$font-body;
-    font-size: 16px;
+    font-size: vars.$font-size-xxs;
     font-weight: 300;
     line-height: 24px;
 

@@ -16,7 +16,7 @@
     font-style: normal;
     font-weight: 400;
     font-size: vars.$font-size-l;
-    line-height: 1.14;
+    line-height: vars.$line-height-l;
   }
 
   &__comment {

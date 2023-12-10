@@ -13,7 +13,7 @@
 
 @media screen and (max-width: 576px) {
   .title {
-    font-size: 20px;
+    font-size: vars.$font-size-s;
     line-height: 24px;
   }
 }

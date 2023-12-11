@@ -9,7 +9,7 @@
   border-radius: 8px;
   padding: 8px 12px;
   z-index: 2;
-  transition: all 0.4s ease;
+  transition: all vars.$trans-300;
   position: absolute;
   top: 0;
   left: 20px;
@@ -49,5 +49,5 @@
 .container:hover .tooltip {
   visibility: visible;
   opacity: 1;
-  transition: all 0.5s ease;
+  transition: all vars.$trans-300;
 }

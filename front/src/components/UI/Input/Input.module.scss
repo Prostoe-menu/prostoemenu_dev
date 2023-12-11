@@ -13,7 +13,7 @@
   line-height: vars.$line-height-xxs;
   color: vars.$color-primary;
   margin: 0;
-  transition: border .3s ease-in;
+  transition: border vars.$trans-300;
 
   &::placeholder {
     font-family: vars.$font-body;

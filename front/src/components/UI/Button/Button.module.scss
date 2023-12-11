@@ -19,7 +19,7 @@
   &_border_yellow {
     width: 160px;
     font-size: vars.$font-size-xxs;
-    line-height: 1.5;
+    line-height: vars.$line-height-xxs;
     border: 1px solid vars.$btn-border-secondary;
 
     img {

@@ -10,7 +10,7 @@
   font-style: normal;
   font-weight: 300;
   font-size: vars.$font-size-xxs;
-  line-height: 1.5;
+  line-height: vars.$line-height-xxs;
   color: vars.$color-primary;
   margin: 0;
   transition: border .3s ease-in;
@@ -20,7 +20,7 @@
     font-style: normal;
     font-weight: 300;
     font-size: vars.$font-size-xxs;
-    line-height: 1.5;
+    line-height: vars.$line-height-xxs;
     color: vars.$color-secondary;
   }
 

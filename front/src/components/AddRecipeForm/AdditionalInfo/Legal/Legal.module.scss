@@ -36,7 +36,7 @@
     font-family: vars.$font-body;
     font-weight: 300;
     font-size: vars.$font-size-xxs;
-    line-height: 24px;
+    line-height: vars.$line-height-xxs;
     color: vars.$color-primary;
     border: 1px solid #dbdbdb;
     border-radius: 8px;
@@ -90,7 +90,7 @@
     font-family: vars.$font-body;
     font-size: vars.$font-size-xxs;
     font-weight: 300;
-    line-height: 24px;
+    line-height: vars.$line-height-xxs;
 
     &:has(.legal__input_hide:disabled) {
       color: #818181;

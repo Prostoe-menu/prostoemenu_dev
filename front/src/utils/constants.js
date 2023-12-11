@@ -111,3 +111,5 @@ export {
   TEXT_INPUT_ERROR_MESSAGE,
   AGREEMENT_URL,
 };
+
+export const STARS_TOTAL = 3;

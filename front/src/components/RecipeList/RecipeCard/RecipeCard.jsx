@@ -1,10 +1,10 @@
-import React from 'react';
+import { timeFormat } from 'helpers/utils';
 import styles from './RecipeCard.module.scss';
 
 const RecipeCard = ({ recipe }) => {
   const { name, cooking_time: cookingTime, photos } = recipe;
 
-  const imgUrl = photos[0]?.photo;
+  const imgUrl = photos && photos[0]?.photo;
 
   return (
     <div className={styles.recipe}>
@@ -17,7 +17,7 @@ const RecipeCard = ({ recipe }) => {
           <span className={styles.star} />
           <span className={styles.star} />
         </p>
-        <p className={styles.cookingTime}>{cookingTime}</p>
+        <p className={styles.cookingTime}>{timeFormat(cookingTime)}</p>
       </div>
     </div>
   );

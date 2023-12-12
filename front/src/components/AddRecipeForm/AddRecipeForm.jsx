@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import ProgressBar from 'components/AddRecipeForm/ProgressBar/ProgressBar';
 import StageFour from 'components/AddRecipeForm/Stages/StageFour';

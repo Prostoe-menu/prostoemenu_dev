@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 const buttons = {
   withBorder: {
     yellow: 'button_border_yellow',
@@ -112,3 +111,5 @@ export {
   TEXT_INPUT_ERROR_MESSAGE,
   AGREEMENT_URL,
 };
+
+export const STARS_TOTAL = 3;

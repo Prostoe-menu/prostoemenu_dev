@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import classnames from 'classnames';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DropdownItem from 'components/UI/Dropdown/DropdownItem/DropdownItem';
@@ -71,6 +71,7 @@ const DropdownMenu = ({
             }}
             onClick={() => chooseItem(item)}
             selectItemAriaLabelText={chooseItemAriaLabelText}
+            key={item.id}
           />
         ))}
       </ul>

@@ -1,8 +1,9 @@
+import StarRating from 'components/UI/StarRating';
 import { timeFormat } from 'helpers/utils';
 import styles from './RecipeCard.module.scss';
 
 const RecipeCard = ({ recipe }) => {
-  const { name, cooking_time: cookingTime, photos } = recipe;
+  const { name, cooking_time: cookingTime, photos, complexity } = recipe;
 
   const imgUrl = photos && photos[0]?.photo;
 
@@ -12,10 +13,7 @@ const RecipeCard = ({ recipe }) => {
       <div className={styles.description}>
         <h3 className={styles.title}>{name}</h3>
         <p className={styles.complexity}>
-          Сложность:
-          <span className={styles.star} />
-          <span className={styles.star} />
-          <span className={styles.star} />
+          <StarRating label="Сложность" rating={parseInt(complexity)} />
         </p>
         <p className={styles.cookingTime}>{timeFormat(cookingTime)}</p>
       </div>

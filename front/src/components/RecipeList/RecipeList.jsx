@@ -1,4 +1,3 @@
-import React from 'react';
 import { v4 as uuidV4 } from 'uuid';
 import RecipeCard from './RecipeCard/RecipeCard';
 import styles from './RecipeList.module.scss';

@@ -41,6 +41,7 @@
   line-height: 32px;
   color: #232323;
   text-overflow: ellipsis;
+  mask-image: linear-gradient(to bottom, black 72%, transparent 97%);  
   
   @media only screen and (min-width: 768px) {
     height: 178px;

@@ -157,11 +157,7 @@ const AdditionalInfo = () => {
         <Legal register={register} errors={errors} />
       </section>
       <div className={styles.controls}>
-        <Button
-          view="secondary"
-          handleClick={onGoBack}
-          className={styles.button}
-        >
+        <Button view="secondary" onClick={onGoBack} className={styles.button}>
           Назад
         </Button>
         <Button type="submit" className={styles.button_main}>

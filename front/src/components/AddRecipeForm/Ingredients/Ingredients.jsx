@@ -7,15 +7,13 @@ import Ingredient from 'components/AddRecipeForm/Ingredients/Ingredient/Ingredie
 import Button from 'components/UI/Button/Button';
 import getMeasurements from 'helpers/getMeasurements';
 import addIcon from 'images/add.svg';
-import arrowLeft from 'images/arrow-left.svg';
-import arrowRight from 'images/arrow-right.svg';
 import {
   addEmptyIngredient,
   changeCurrentStage,
   saveAllIngredients,
 } from 'store/slices/form/formSlice';
 import { addNotification } from 'store/slices/toast/toastSlice';
-import { buttons, defaultMeasureUnits } from 'utils/constants';
+import { defaultMeasureUnits } from 'utils/constants';
 import styles from './Ingredients.module.scss';
 
 // Компонент будет доработан после утверждения окончательного дизайна
@@ -118,26 +116,22 @@ const Ingredients = () => {
           ))}
         </ul>
         <Button
-          btnClassName="button_border_grey"
-          isSubmit={false}
-          isDisabled={ingredients.length >= 20}
-          onClickBtn={addEmptyInput}
-          ariaLabelText="Добавить ингредиент"
+          view="tertiary"
+          className={styles.button_tertiary}
+          disabled={ingredients.length >= 20}
+          onClick={addEmptyInput}
+          aria-label="Добавить ингредиент"
         >
           <img className={styles.icon} src={addIcon} alt="Иконка 'плюсик'" />
           Добавить ингредиент
         </Button>
       </section>
       <div className={styles.controls}>
-        <Button
-          btnClassName={buttons.withBorder.yellow}
-          isSubmit={false}
-          onClickBtn={onGoBack}
-        >
-          <img src={arrowLeft} alt="стрелка влево" /> Назад
+        <Button view="secondary" onClick={onGoBack} className={styles.button}>
+          Назад
         </Button>
-        <Button btnClassName={buttons.withBorder.yellow} isSubmit>
-          Далее <img src={arrowRight} alt="стрелка вправо" />
+        <Button type="submit" className={styles.button}>
+          Далее
         </Button>
       </div>
     </form>

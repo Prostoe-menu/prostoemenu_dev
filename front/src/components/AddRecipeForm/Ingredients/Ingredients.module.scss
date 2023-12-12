@@ -33,6 +33,14 @@
   height: 16px;
 }
 
+.button {
+  width: 147px;
+
+  &_tertiary {
+    width: 240px;
+  }
+}
+
 @media screen and (max-width: 576px) {
   .ingredients {
     margin: 0 auto;

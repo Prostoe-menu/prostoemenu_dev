@@ -1,13 +1,3 @@
-const buttons = {
-  withBorder: {
-    yellow: 'button_border_yellow',
-    grey: 'button_border_grey',
-  },
-  withBg: {
-    yellow: 'button_bg_yellow',
-  },
-};
-
 const progressBarSteps = [
   { id: 1, text: 'Основная информация', path: 'main' },
   { id: 2, text: 'Ингредиенты', path: 'ingredients' },
@@ -104,7 +94,6 @@ const AGREEMENT_URL =
   'https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FpLbl5zUkeYjYBOkGqqwoieqol9TU%2Bil2AbAW6HiflVfSX%2B%2Buiu0GjXWxHiex0GHIq%2FJ6bpmRyOJonT3VoXnDag%3D%3D&name=%D0%9F%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%BE%D0%B5%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%88%D0%B5%D0%BD%D0%B8%D0%B5.docx&nosw=1';
 
 export {
-  buttons,
   progressBarSteps,
   defaultMeasureUnits,
   TEXT_INPUT_PATTERN,

@@ -1,7 +1,8 @@
-.recipe {  
+.recipe {
   border: 1px solid rgba(236, 236, 236, 1);
   border-radius: 16px;
-  box-shadow: 3px 4px 24px 0px rgba(51, 45, 40, 0.06), -1px 2px 6px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 3px 4px 24px 0px rgba(51, 45, 40, 0.06),
+    -1px 2px 6px 0px rgba(0, 0, 0, 0.1);
 
   @media only screen and (min-width: 768px) {
     display: grid;
@@ -21,7 +22,7 @@
   border-radius: 16px;
   &:hover {
     transition: opacity 0.4s linear, transform 0.4s linear, filter 0.3s linear;
-  } 
+  }
 }
 
 .description {
@@ -31,7 +32,7 @@
   padding: 20px 20px 20px 24px;
 }
 
-.title {  
+.title {
   margin: 0 0 10px 0;
   padding: 0;
   font-family: 'Biolilbert', sans-serif;
@@ -41,15 +42,16 @@
   line-height: 32px;
   color: #232323;
   text-overflow: ellipsis;
-  mask-image: linear-gradient(to bottom, black 72%, transparent 97%);  
-  
+  mask-image: linear-gradient(to bottom, black 72%, transparent 97%);
+
   @media only screen and (min-width: 768px) {
     height: 178px;
     overflow: hidden;
   }
 }
 
-.complexity, .cookingTime {
+.complexity,
+.cookingTime {
   font-family: 'Mulish';
   font-size: 18px;
   font-style: normal;

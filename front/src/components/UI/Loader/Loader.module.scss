@@ -14,9 +14,13 @@
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background: rgb(63,249,220);
-  background: linear-gradient(0deg, rgba(44, 116, 41,0.1) 33%, rgba(44, 116, 41,1) 100%);
-  animation: spin .6s linear 0s infinite;
+  background: rgb(63, 249, 220);
+  background: linear-gradient(
+    0deg,
+    rgba(44, 116, 41, 0.1) 33%,
+    rgba(44, 116, 41, 1) 100%
+  );
+  animation: spin 0.6s linear 0s infinite;
 }
 
 .core {
@@ -30,7 +34,7 @@
   from {
     transform: rotate(0);
   }
-  to{
+  to {
     transform: rotate(359deg);
   }
 }

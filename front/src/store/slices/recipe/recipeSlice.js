@@ -33,7 +33,7 @@ const recipeSlice = createSlice({
         state.errorMessage = null;
       })
       .addCase(fetchRecipes.fulfilled, (state, action) => {
-        state.isLoading = true;
+        state.isLoading = false;
         state.isError = false;
         state.errorMessage = null;
         state.recipes = action.payload;

@@ -1,5 +1,6 @@
 .button {
   box-sizing: border-box;
+  background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,6 +13,10 @@
 
 .reverse {
   flex-direction: row-reverse;
+}
+
+.hidden {
+  display: none;
 }
 
 .view-primary {
@@ -91,6 +96,16 @@
     background-color: #f6f6f6;
     border-color: #E5E4E4;
     cursor: default;
+  }
+}
+
+.view-cross {
+  background-image: url('images/close_btn.svg');
+  opacity: 0.6;
+  transition: opacity 0.6s;
+
+  &:hover {
+    opacity: 1;
   }
 }
 

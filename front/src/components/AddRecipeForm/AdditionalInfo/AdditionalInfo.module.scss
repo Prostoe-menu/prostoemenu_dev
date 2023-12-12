@@ -164,3 +164,11 @@ $font-body: 'Mulish', sans-serif;
   color: red;
   font-size: 10px;
 }
+
+.button {
+  width: 147px;
+
+  &_main {
+    width: 213px;
+  }
+}

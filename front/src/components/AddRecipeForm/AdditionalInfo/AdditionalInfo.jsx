@@ -1,14 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import getErrorTypes from '../../../helpers/getErrorTypes';
-import arrowLeft from '../../../images/arrow-left.svg';
 import {
   changeCurrentStage,
   saveAdditionalInfo,
 } from '../../../store/slices/form/formSlice';
 import postRecipe from '../../../store/slices/form/formThunk';
 import { addNotification } from '../../../store/slices/toast/toastSlice';
-import { buttons } from '../../../utils/constants';
 import Button from '../../UI/Button/Button';
 import styles from './AdditionalInfo.module.scss';
 import Legal from './Legal/Legal';
@@ -160,14 +158,14 @@ const AdditionalInfo = () => {
       </section>
       <div className={styles.controls}>
         <Button
-          btnClassName={buttons.withBorder.yellow}
-          isSubmit={false}
-          onClickBtn={onGoBack}
+          view="secondary"
+          handleClick={onGoBack}
+          className={styles.button}
         >
-          <img src={arrowLeft} alt="стрелка влево" /> назад
+          Назад
         </Button>
-        <Button btnClassName={buttons.withBg.yellow} isSubmit>
-          добавить рецепт
+        <Button type="submit" className={styles.button_main}>
+          Добавить рецепт
         </Button>
       </div>
     </form>

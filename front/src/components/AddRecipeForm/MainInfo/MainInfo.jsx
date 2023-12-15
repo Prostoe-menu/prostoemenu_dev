@@ -3,11 +3,11 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Rating } from '@mui/material';
+import arrowRight from 'assets/images/arrow-right.svg';
 import Tooltip from 'components/Tooltip/Tooltip';
 import TooltipDifficultyContent from 'components/Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
 import Button from 'components/UI/Button/Button';
 import PhotoButton from 'components/UI/PhotoButton/PhotoButton';
-import arrowRight from 'images/arrow-right.svg';
 import {
   changeCurrentStage,
   saveGeneralRecipeInfo,

@@ -1,11 +1,13 @@
-.header {
+@use 'src/styles/variables' as vars;
+
+header {
   max-width: 1440px;
   width: 100%;
   box-sizing: border-box;
   padding: 44px 72px;
   display: flex;
   align-items: center;
-  background: #ffffff;
+  background: vars.$bg-primary;
   position: fixed;
   top: 0;
   z-index: 10;

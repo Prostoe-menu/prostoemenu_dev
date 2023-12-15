@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 .stars {
   display: flex;
   align-items: center;
@@ -5,14 +7,14 @@
 }
 
 .active {
-  fill: #F1B823;
+  fill: vars.$btn-bg-primary;
 }
 
 .label {
-  font-family: 'Mulish';
-  font-size: 18px;
+  font-family: vars.$font-body;
+  font-size: vars.$font-size-xs;
   font-style: normal;
   font-weight: 700;
-  line-height: 22px;
-  color: #909090;
+  line-height: vars.$line-height-xs;
+  color: vars.$color-secondary;
 }

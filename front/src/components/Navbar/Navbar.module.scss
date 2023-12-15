@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 .list {
   margin: 0;
   padding: 0;
@@ -9,15 +11,15 @@
 }
 
 .item {
-  font-family: 'Mulish', sans-serif;
+  font-family: vars.$font-body;
   font-style: normal;
   font-weight: 300;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: vars.$font-size-xxs;
+  line-height: vars.$line-height-xxs;
 }
 
 .link {
-  color: #232323;
+  color: vars.$color-primary;
   text-decoration: none;
   border-bottom: none;
 }

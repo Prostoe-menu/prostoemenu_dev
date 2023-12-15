@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 .button {
   display: flex;
   justify-content: center;
@@ -5,10 +7,10 @@
   gap: 8px;
   padding: 12px 0;
   height: 48px;
-  font-family: 'Mulish', sans-serif;
+  font-family: vars.$font-body;
   font-weight: 500;
-  color: #232323;
-  background-color: transparent;
+  color: vars.$color-primary;
+  background: vars.$bg-primary;
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -16,27 +18,27 @@
 
   &_border_yellow {
     width: 160px;
-    font-size: 16px;
-    line-height: 1.5;
-    border: 1px solid #f1b823;
+    font-size: vars.$font-size-xxs;
+    line-height: vars.$line-height-xxs;
+    border: 1px solid vars.$btn-border-secondary;
 
     img {
       margin-top: 2px;
     }
 
     &:hover {
-      background-color: #fffaf0;
+      background: vars.$btn-bg-secondary-hover;
     }
 
     &:active {
-      background-color: #fff2da;
+      background: vars.$btn-bg-secondary-active;
     }
 
     &:disabled,
     &[disabled] {
-      color: #818181;
-      background-color: #f6f6f6;
-      border-color: #dbdbdb;
+      color: vars.$color-secondary;
+      background: vars.$btn-bg-secondary-disabled;
+      border-color: vars.$btn-border-secondary-disabled;
       cursor: default;
     }
   }
@@ -46,21 +48,21 @@
     padding: 8px 24px;
     font-size: 12px;
     line-height: 1.67;
-    border: 1px solid #818181;
+    border: 1px solid vars.$btn-border-tertiary;
 
     &:hover {
-      background-color: #f6f6f6;
+      background: vars.$btn-bg-tertiary-hover;
     }
 
     &:active {
-      background-color: #dbdbdb;
+      background: vars.$btn-bg-tertiary-active;
     }
 
     &:disabled,
     &[disabled] {
-      color: #818181;
-      background-color: #f6f6f6;
-      border-color: #dbdbdb;
+      color: vars.$color-secondary;
+      background: vars.$btn-bg-secondary-disabled;
+      border-color: vars.$btn-border-tertiary-disabled;
       cursor: default;
     }
   }
@@ -68,21 +70,21 @@
   &_bg_yellow {
     width: 384px;
     font-weight: 700;
-    color: #fff;
-    background-color: #f1b823;
+    color: vars.$btn-color-primary;
+    background: vars.$btn-bg-primary;
 
     &:hover {
-      background-color: #f4a100;
+      background: vars.$btn-bg-primary-hover;
     }
 
     &:active {
-      background-color: #f49300;
+      background: vars.$btn-bg-primary-active;
     }
 
     &:disabled,
     &[disabled] {
-      color: #818181;
-      background-color: #dbdbdb;
+      color: vars.$color-secondary;
+      background: vars.$btn-bg-primary-disabled;
       cursor: default;
     }
   }
@@ -103,7 +105,7 @@
       width: 260px;
 
       &:hover {
-        background-color: #f1b823;
+        background: vars.$btn-bg-primary;
       }
     }
   }
@@ -115,7 +117,7 @@
       width: 328px;
 
       &:hover {
-        background-color: white;
+        background: vars.$bg-primary;
       }
     }
 

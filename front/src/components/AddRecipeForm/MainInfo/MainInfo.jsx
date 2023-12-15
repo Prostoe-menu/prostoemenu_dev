@@ -13,7 +13,7 @@ import {
   saveRecipeComplexity,
   saveServings,
 } from 'store/slices/form/formSlice';
-import styles from './mainInfo.module.scss';
+import styles from './MainInfo.module.scss';
 
 const MainInfo = () => {
   const [nameCounter, setNameCounter] = useState(0);

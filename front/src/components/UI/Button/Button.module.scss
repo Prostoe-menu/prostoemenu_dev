@@ -1,14 +1,16 @@
+@use 'src/styles/variables' as vars;
+
 .button {
   box-sizing: border-box;
   background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Mulish', sans-serif;
+  font-family: vars.$font-body;
   font-weight: 500;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color vars.$trans-300;
 }
 
 .reverse {
@@ -21,88 +23,88 @@
 
 .view-primary {
   font-weight: 700;
-  font-size: 18px;
-  line-height: 22px;
-  color: #fff;
-  background: #f1b823;
+  font-size: vars.$font-size-xs;
+  line-height: vars.$line-height-xs;
+  color: vars.$btn-color-primary;
+  background: vars.$btn-bg-primary;
   gap: 8px;
   padding: 13px 0;
   border-radius: 12px;
 
   &:hover {
-    background: #f4a100;
+    background: vars.$btn-bg-primary-hover;
   }
 
   &:active {
-    background: #f49300;
+    background: vars.$btn-bg-primary-active;
   }
 
   &:disabled,
   &[disabled] {
-    color: #909090;
-    background: #E5E4E4;
+    color: vars.$color-secondary;
+    background: vars.$btn-bg-primary-disabled;
     cursor: default;
   }
 }
 
 .view-secondary {
-  font-size: 18px;
-  line-height: 24px;
-  color: #232323;
-  background: #FFFFFF;
-  border: 1px solid #F1B823;
+  font-size: vars.$font-size-xs;
+  line-height: vars.$line-height-xs;
+  color: vars.$color-primary;
+  background: vars.$bg-primary;
+  border: 1px solid vars.$btn-border-secondary;
   gap: 8px;
   padding: 12px 0;
   border-radius: 12px;
 
   &:hover {
-    background: #FFFAF0;
+    background: vars.$btn-bg-secondary-hover;
   }
 
   &:active {
-    background: #FDF1D4;
+    background: vars.$btn-bg-secondary-active;
   }
 
   &:disabled,
   &[disabled] {
-    color: #909090;
-    background: #F6F6F6;
-    border-color: #E5E4E4;
+    color: vars.$color-secondary;
+    background: vars.$btn-bg-secondary-disabled;
+    border-color: vars.$btn-border-secondary-disabled;
     cursor: default;
   }
 }
 
 .view-tertiary {
-  font-size: 16px;
-  line-height: 24px;
-  color: #232323;
-  background: #FFFFFF;
-  border: 1px solid #909090;
+  font-size: vars.$font-size-xxs;
+  line-height: vars.$line-height-xxs;
+  color: vars.$color-primary;
+  background: vars.$bg-primary;
+  border: 1px solid vars.$btn-border-tertiary;
   gap: 6px;
   padding: 8px 0;
   border-radius: 8px;
 
   &:hover {
-    background-color: #f6f6f6;
+    background: vars.$btn-bg-tertiary-hover;
   }
 
   &:active {
-    background-color: #E5E4E4;
+    background: vars.$btn-bg-tertiary-active;
   }
 
   &:disabled,
   &[disabled] {
-    color: #909090;
-    background-color: #f6f6f6;
-    border-color: #E5E4E4;
+    color: vars.$color-secondary;
+    background: vars.$btn-bg-tertiary-disabled;
+    border-color: vars.$btn-border-tertiary-disabled;
     cursor: default;
   }
 }
 
 .view-cross {
-  background-image: url('images/close_btn.svg');
+  background: url('assets/images/close_btn.svg');
   opacity: 0.6;
-  transition: opacity 0.6s;
+  transition: opacity vars.$trans-300;
 
   &:hover {
     opacity: 1;

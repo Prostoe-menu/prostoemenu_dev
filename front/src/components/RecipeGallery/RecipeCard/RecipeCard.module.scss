@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 .card {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -19,12 +21,12 @@
   height: 165px;
   margin: 0 0 10px 0;
   padding: 0;
-  font-family: 'Biolilbert', sans-serif;
-  font-size: 26px;
+  font-family: vars.$font-heading;
+  font-size: vars.$font-size-m;
   font-style: normal;
   font-weight: 400;
-  line-height: 32px;
-  color: #232323;
+  line-height: vars.$line-height-m;
+  color: vars.$color-primary;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -33,12 +35,12 @@
   flex-direction: column;
   justify-content: flex-start;
   padding: 20px 20px 20px 24px;
-  font-family: 'Mulish';
-  font-size: 18px;
+  font-family: vars.$font-body;
+  font-size: vars.$font-size-xs;
   font-style: normal;
   font-weight: 700;
-  line-height: 22px;
-  color: #909090;
+  line-height: vars.$line-height-xs;
+  color: vars.$color-secondary;
 }
 .cardDescription__item {
   display: flex;
@@ -50,7 +52,7 @@
   height: 24px;
   margin-left: 8px;
   margin-right: 4px;
-  background-image: url('../../../images/star-filled.svg');
+  background-image: url('assets/images/star-filled.svg');
   background-position: 50%;
   background-size: contain;
   background-repeat: no-repeat;
@@ -59,7 +61,7 @@
   width: 24px;
   height: 24px;
   margin-right: 4px;
-  background-image: url('../../../images/timer.svg');
+  background-image: url('assets/images/timer.svg');
   background-position: 50%;
   background-size: contain;
   background-repeat: no-repeat;

@@ -1,10 +1,12 @@
+@use 'src/styles/variables' as vars;
+
 .footer {
   max-width: 1440px;
   width: 100%;
   box-sizing: border-box;
   margin-top: auto;
   padding: 20px 72px 16px 72px;
-  background: #fff;
+  background: vars.$bg-primary;
 }
 
 .logo {
@@ -23,15 +25,15 @@
 .copyright,
 .agreement {
   margin: 0;
-  font-family: 'Mulish', sans-serif;
+  font-family: vars.$font-body;
   font-style: normal;
   font-weight: 300;
-  font-size: 12px;
-  line-height: 20px;
+  font-size: vars.$font-size-footnotes;
+  line-height: vars.$line-height-footnotes;
 }
 
 .agreement {
-  color: #232323;
+  color: vars.$color-primary;
   text-decoration: none;
 
   &:hover {
@@ -40,7 +42,7 @@
 }
 
 .copyright {
-  color: #909090;
+  color: vars.$color-secondary;
 }
 
 @media screen and (max-width: 690px) {

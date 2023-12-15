@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 .modal {
   position: fixed;
   top: 0;
@@ -10,7 +12,7 @@
   align-items: center;
   visibility: hidden;
   opacity: 0;
-  transition: all 0.4s ease-in-out;
+  transition: all vars.$trans-300;
 }
 
 .visible {
@@ -30,7 +32,7 @@
 .content {
   box-sizing: border-box;
   position: relative;
-  background-color: #ffffff;
+  background: vars.$bg-primary;
   border-radius: 20px;
   padding: 36px;
 }

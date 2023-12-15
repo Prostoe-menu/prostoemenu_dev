@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 .modalContainer {
   box-sizing: border-box;
   width: 384px;
@@ -7,11 +9,11 @@
 }
 
 .title {
-  font-family: 'Biolilbert', sans-serif;
+  font-family: vars.$font-heading;
   font-style: normal;
   font-weight: 400;
-  font-size: 36px;
-  line-height: 40px;
+  font-size: vars.$font-size-xl;
+  line-height: vars.$line-height-xl;
   color: #333333;
   margin: 0;
   margin-bottom: 24px;
@@ -19,22 +21,22 @@
 
 .text {
   width: 100%;
-  font-family: 'Mulish', sans-serif;
+  font-family: vars.$font-body;
   font-style: normal;
   font-weight: 300;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: vars.$font-size-xxs;
+  line-height: vars.$line-height-xxs;
   color: #333333;
   margin: 0;
   margin-bottom: 8px;
 }
 
 .email {
-  font-family: 'Mulish', sans-serif;
+  font-family: vars.$font-body;
   font-style: normal;
   font-weight: 700;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: vars.$font-size-xxs;
+  line-height: vars.$line-height-xxs;
   color: #2c7429;
   margin: 0;
 }
@@ -51,8 +53,8 @@
   }
 
   .title {
-    font-size: 28px;
-    line-height: 32px;
+    font-size: vars.$font-size-l;
+    line-height: vars.$line-height-l;
     margin-top: 36px;
     margin-bottom: 28px;
   }

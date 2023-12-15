@@ -1,5 +1,7 @@
+@use 'src/styles/variables' as vars;
+
 .container {
-  font-family: 'Mulish', sans-serif;
+  font-family: vars.$font-body;
   background: #f7f7f7;
   border: 1px solid #dbdbdb;
   box-shadow: 0px 2px 10px 1px rgba(1, 7, 62, 0.08);
@@ -13,11 +15,11 @@
 }
 
 .text {
-  font-family: 'Mulish', sans-serif;
+  font-family: vars.$font-body;
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: vars.$font-size-xxs;
+  line-height: vars.$line-height-xxs;
   color: #333333;
   margin: 16px;
   max-width: 288px;

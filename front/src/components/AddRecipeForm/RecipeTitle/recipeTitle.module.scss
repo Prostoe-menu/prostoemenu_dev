@@ -1,17 +1,19 @@
+@use 'src/styles/variables' as vars;
+
 .title {
-  font-family: 'Biolilbert', sans-serif;
+  font-family: vars.$font-heading;
   font-style: normal;
   font-weight: 400;
-  font-size: 28px;
-  line-height: 32px;
-  color: #232323;
+  font-size: vars.$font-size-l;
+  line-height: vars.$line-height-l;
+  color: vars.$color-primary;
   margin: 0;
   padding: 0;
 }
 
 @media screen and (max-width: 576px) {
   .title {
-    font-size: 20px;
-    line-height: 24px;
+    font-size: vars.$font-size-s;
+    line-height: vars.$line-height-s;
   }
 }

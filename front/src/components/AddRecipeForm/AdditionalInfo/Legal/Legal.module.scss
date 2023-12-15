@@ -1,4 +1,4 @@
-$font-body: 'Mulish', sans-serif;
+@use 'src/styles/variables' as vars;
 
 .legal {
   display: flex;
@@ -9,11 +9,11 @@ $font-body: 'Mulish', sans-serif;
 
   &__title {
     margin: 0;
-    font-family: 'Biolilbert', sans-serif;
-    font-size: 28px;
-    line-height: 32px;
+    font-family: vars.$font-heading;
+    font-size: vars.$font-size-l;
+    line-height: vars.$line-height-l;
     font-weight: 400;
-    color: #232323;
+    color: vars.$color-primary;
   }
 
   &__email {
@@ -22,22 +22,22 @@ $font-body: 'Mulish', sans-serif;
     gap: 16px;
     margin-top: 4px;
     width: 60%;
-    font-family: 'Mulish', sans-serif;
+    font-family: vars.$font-body;
     font-size: 12px;
     line-height: 1.67;
     font-weight: 300;
-    color: #232323;
+    color: vars.$color-primary;
   }
 
   &__input {
     padding: 8px 16px;
     width: 100%;
     height: 40px;
-    font-family: 'Mulish';
+    font-family: vars.$font-body;
     font-weight: 300;
-    font-size: 16px;
-    line-height: 24px;
-    color: #232323;
+    font-size: vars.$font-size-xxs;
+    line-height: vars.$line-height-xxs;
+    color: vars.$color-primary;
     border: 1px solid #dbdbdb;
     border-radius: 8px;
     box-sizing: border-box;
@@ -56,12 +56,12 @@ $font-body: 'Mulish', sans-serif;
 
       &:checked {
         & + .legal__checkbox {
-          background-color: #f1b823;
-          background-image: url('../../../../images/checked-icon.svg');
+          background-color: vars.$btn-bg-primary;
+          background-image: url('assets/images/checked-icon.svg');
           background-size: contain;
           background-position: center center;
           background-repeat: no-repeat;
-          border-color: #f1b823;
+          border-color: vars.$btn-bg-primary;
         }
       }
 
@@ -87,10 +87,10 @@ $font-body: 'Mulish', sans-serif;
     display: flex;
     align-items: center;
     gap: 8px;
-    font-family: 'Mulish', sans-serif;
-    font-size: 16px;
+    font-family: vars.$font-body;
+    font-size: vars.$font-size-xxs;
     font-weight: 300;
-    line-height: 24px;
+    line-height: vars.$line-height-xxs;
 
     &:has(.legal__input_hide:disabled) {
       color: #818181;
@@ -106,7 +106,7 @@ $font-body: 'Mulish', sans-serif;
     cursor: pointer;
 
     &:hover {
-      border-color: #f1b823;
+      border-color: vars.$btn-bg-primary;
     }
 
     &_error {
@@ -123,7 +123,7 @@ $font-body: 'Mulish', sans-serif;
 }
 
 .error {
-  font-family: $font-body;
+  font-family: vars.$font-body;
   width: 100%;
   margin: 0;
   color: red;

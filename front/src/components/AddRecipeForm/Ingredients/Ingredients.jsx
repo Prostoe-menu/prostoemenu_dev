@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
+import addIcon from 'assets/images/add.svg';
 import Ingredient from 'components/AddRecipeForm/Ingredients/Ingredient/Ingredient';
 // import RecipeTitle from 'components/AddRecipeForm/RecipeTitle/RecipeTitle';
 import Button from 'components/UI/Button/Button';
 import getMeasurements from 'helpers/getMeasurements';
-import addIcon from 'images/add.svg';
 import {
   addEmptyIngredient,
   changeCurrentStage,

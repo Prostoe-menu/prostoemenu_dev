@@ -22,6 +22,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Install, build, test
       run: |
+        cd front/
         npm install
         npm run build
 

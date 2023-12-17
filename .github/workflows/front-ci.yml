@@ -3,29 +3,47 @@ name: Node CI
 on:
   push:
     branches:
+        - test-ci-front
+  pull_request:
+    branches:
       - test-ci-front
 
 jobs:
-  buildAndTest:
-
+  installAndbuild:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [16.x, 18.x, 20.x]
-
     steps:
     - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Install, build, test
+    - name: Install Dependencies
       run: |
         cd front/
         npm install
-        npm run build
-
+    - name: build
+      run: npm run build
+    - name: Comment on pull request
+      if: ${{ job.status == 'failure' }}
+      uses: actions/github-script@v3.1.0
+      with:
+        github-token: ${{ secrets.GH_TOKEN }}
+        script: |
+          const { context } = require('@actions/github');
+          const octokit = context.github.getOctokit(process.env.GH_TOKEN);
+          octokit.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body: 'Ошибка в job'
+          });
+    - name: Check job status
+      if: ${{ job.status == 'failure' }}
+      run: exit 1
+        
 
   # checkCodestyle:
   #   runs-on: ubuntu-latest

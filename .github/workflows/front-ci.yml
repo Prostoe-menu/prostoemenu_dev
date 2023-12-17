@@ -3,8 +3,9 @@ name: Node CI
 on:
   push:
     branches:
-        - test-ci-front
+      - test-ci-front
   pull_request:
+    types: [opened, reopened]
     branches:
       - test-ci-front
 
@@ -28,7 +29,7 @@ jobs:
       run: npm run build
     - name: Comment on pull request
       if: ${{ job.status == 'failure' }}
-      uses: actions/github-script@v3.1.0
+      uses: actions/github-script@v7
       with:
         github-token: ${{ secrets.GH_TOKEN }}
         script: |
@@ -38,7 +39,7 @@ jobs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: context.issue.number,
-            body: 'Ошибка в job'
+            body: 'Ошибка в при выполнении CI.'
           });
     - name: Check job status
       if: ${{ job.status == 'failure' }}

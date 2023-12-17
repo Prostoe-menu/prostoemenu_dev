@@ -1,5 +1,7 @@
 .section {
   margin-top: 148px;
+  width: 100%;
+  max-width: 1301px;
 }
 
 .title {
@@ -23,6 +25,7 @@
   display: flex;
   gap: 35px;
   align-items: center;
+  width: 100%;
 }
 
 .search_btn {

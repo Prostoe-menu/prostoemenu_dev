@@ -1,6 +1,6 @@
 import React from 'react';
 import { v4 as uuidV4 } from 'uuid';
-import CloseButton from '../UI/CloseButton/CloseButton';
+import CloseButton from 'components/UI/CloseButton/CloseButton';
 import style from './SelectedRecipeList.module.scss';
 
 const SelectedRecipeList = ({ selected, setSelected }) => {

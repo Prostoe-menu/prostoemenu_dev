@@ -3,7 +3,7 @@ import SelectedRecipeList from 'components/SelectedRecipeList/SelectedRecipeList
 import DropdownSearch from 'components/UI/Dropdown/DropdownSearch/DropdownSearch';
 import getIngredients from 'helpers/getIngredients';
 import useAsync from 'hooks/useAsync';
-import style from './RecipeSelection.module.scss';
+import styles from './RecipeSelection.module.scss';
 
 const RecipeSelection = () => {
   const [query, setQuery] = useState('');
@@ -38,23 +38,24 @@ const RecipeSelection = () => {
   };
 
   return (
-    <section className={style.section}>
-      <h1 className={style.title}>Из чего будем готовить?</h1>
-      <p className={style.text}>
+    <section className={styles.section}>
+      <h1 className={styles.title}>Из чего будем готовить?</h1>
+      <p className={styles.text}>
         Поможем найти рецепт на основе ингредиентов, которые у вас уже есть или
         которые планируете купить.
       </p>
-      <div className={style.search_container}>
+      <div className={styles.search_container}>
         <DropdownSearch
           inputClassName="input_type_home"
           inputPlaceholder="Начните вводить название продукта"
           onChooseItem={handleIngredientSelection}
           isDropdownOpen={isIngredientDropdownOpen}
+          inputValue={query}
           onInputChange={handleNameInput}
           setIsDropdownOpen={setIsIngredientDropdownOpen}
           requiredData={ingredientsApiData}
         />
-        <button className={style.search_btn} type="button">
+        <button className={styles.search_btn} type="button">
           Подобрать рецепт
         </button>
       </div>

@@ -1,5 +1,7 @@
 .dropdownSearch {
   position: relative;
+  width: 100%;
+  max-width: 1033px;
 
   &_type_ingredient {
     grid-area: name;

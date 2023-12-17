@@ -8,7 +8,7 @@ const RecipeCard = ({ recipe }) => {
   const imgUrl = photos && photos[0]?.photo;
 
   return (
-    <div className={styles.recipe}>
+    <article className={styles.recipe}>
       {imgUrl && <img src={imgUrl} className={styles.img} alt={name} />}
       <div className={styles.description}>
         <h3 className={styles.title}>{name}</h3>
@@ -17,7 +17,7 @@ const RecipeCard = ({ recipe }) => {
         </p>
         <p className={styles.cookingTime}>{timeFormat(cookingTime)}</p>
       </div>
-    </div>
+    </article>
   );
 };
 export default RecipeCard;

@@ -12,16 +12,17 @@
 .recipeList {
   margin-top: 41px;
   margin-bottom: 60px;
+  padding: 0;
+  list-style: none;
+  gap: 35px;
 
   @media only screen and (min-width: 1231px) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
   }
 
   @media only screen and (max-width: 1230px) {
     display: flex;
     flex-direction: column;
-    gap: 35px;
   }
 }

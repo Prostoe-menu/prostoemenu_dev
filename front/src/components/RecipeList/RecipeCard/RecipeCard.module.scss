@@ -1,7 +1,7 @@
 @use 'src/styles/variables' as vars;
 
 .recipe {
-  border: 1px solid rgba(236, 236, 236, 1);
+  border: 1px solid vars.$shadow-color;
   border-radius: 16px;
   box-shadow: 3px 4px 24px 0px rgba(51, 45, 40, 0.06),
     -1px 2px 6px 0px rgba(0, 0, 0, 0.1);
@@ -41,7 +41,7 @@
   font-size: vars.$font-size-m;
   font-style: normal;
   font-weight: 400;
-  line-height: 32px;
+  line-height: vars.$line-height-m;
   color: vars.$color-primary;
   text-overflow: ellipsis;
   mask-image: linear-gradient(to bottom, black 72%, transparent 97%);

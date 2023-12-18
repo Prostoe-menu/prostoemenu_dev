@@ -1,12 +1,14 @@
+@use 'src/styles/variables' as vars;
+
 .title {
   margin-top: 0;
   padding: 0;
-  font-family: 'Biolilbert', sans-serif;
-  font-size: 36px;
+  font-family: vars.$font-heading;
+  font-size: vars.$font-size-xl;
   font-style: normal;
   font-weight: 400;
-  line-height: 40px;
-  color: #232323;
+  line-height: vars.$line-height-xl;
+  color: vars.$color-primary;
 }
 
 .recipeList {

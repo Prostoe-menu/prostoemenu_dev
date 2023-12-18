@@ -25,12 +25,17 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Install Dependencies
+    - name: Install dependencies
       run: |
         cd front/
         npm install
 
-    - name: build
+    - name: Check linter
+      run: |
+        cd front/
+        npm run lint
+
+    - name: Build
       run: |
         cd front/
         npm run build --if-present

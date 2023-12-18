@@ -34,7 +34,7 @@
     "build": "vite build",
     "format": "prettier . --write",
     "lint": "npx eslint .",
-    "lint-and-fix": "eslint . --fix",
+    "lint-and-fix": "eslint --fix --ext .js,.jsx .",
     "test": "vite test",
     "eject": "vite eject"
   },
@@ -62,11 +62,11 @@
     ]
   },
   "devDependencies": {
+    "@stylistic/eslint-plugin": "1.4.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/user-event": "^14.4.3",
     "@vitejs/plugin-react": "^4.2.0",
     "eslint": "^8.33.0",
-    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
@@ -75,6 +75,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "2.8.4",
     "vite": "^5.0.0",
-    "vite-plugin-eslint": "^1.8.1"
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-svgr": "^4.2.0"
   }
 }

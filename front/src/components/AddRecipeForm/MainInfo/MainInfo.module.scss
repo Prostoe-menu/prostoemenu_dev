@@ -1,10 +1,14 @@
+@use 'src/styles/variables' as vars;
+
+// Переписать стили этого компонента с использованием общих переменных
+
 %mulish-16-500 {
   font-family: 'Mulish';
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  color: #232323;
+  color: vars.$color-primary;
   margin: 0;
   padding: 0;
 }
@@ -142,7 +146,7 @@
 }
 
 .star {
-  background-image: url('../../../images/star.svg');
+  background-image: url('assets/images/star.svg');
   background-position: 50%;
   background-size: contain;
   background-repeat: no-repeat;
@@ -180,38 +184,42 @@
   &:hover {
     cursor: pointer;
   }
+
+  &_primary {
+    width: 148px;
+  }
 }
 
 .buttonPlus {
-  background-image: url('../../../images/plusButton.svg');
+  background-image: url('assets/images/plusButton.svg');
   background-position: 50%;
   background-size: contain;
   background-repeat: no-repeat;
 
   &:hover {
-    background-image: url('../../../images/plusButton-active.svg');
+    background-image: url('assets/images/plusButton-active.svg');
   }
 
   &:disabled,
   &:disabled:hover {
-    background-image: url('../../../images/minusButton-disabled.png');
+    background-image: url('assets/images/minusButton-disabled.png');
     cursor: auto;
   }
 }
 
 .buttonMinus {
-  background-image: url('../../../images/minusButton.png');
+  background-image: url('assets/images/minusButton.png');
   background-position: 50%;
   background-size: contain;
   background-repeat: no-repeat;
 
   &:hover {
-    background-image: url('../../../images/minusButton-active.svg');
+    background-image: url('assets/images/minusButton-active.svg');
   }
 
   &:disabled,
   &:disabled:hover {
-    background-image: url('../../../images/minusButton-disabled.png');
+    background-image: url('assets/images/minusButton-disabled.png');
     cursor: auto;
   }
 }
@@ -243,7 +251,7 @@
 }
 
 .portion_active {
-  color: #232323;
+  color: vars.$color-primary;
 }
 
 .wrap_count {
@@ -261,14 +269,14 @@
 .totalTime,
 .cookTime {
   @extend %mulish-16-500;
-  color: #232323;
+  color: vars.$color-primary;
   margin-top: 16px;
   margin-bottom: 12px;
 }
 
 .label {
   @extend %mulish-16-300;
-  color: #232323;
+  color: vars.$color-primary;
   margin-right: 20px;
 }
 
@@ -302,7 +310,7 @@
 
 .wrap_description {
   @extend %mulish-12-300;
-  color: #232323;
+  color: vars.$color-primary;
   margin-top: 12px;
   margin-bottom: 16px;
 }
@@ -395,19 +403,19 @@
 
 .fotoReqs {
   @extend %mulish-12-500;
-  color: #232323;
+  color: vars.$color-primary;
 }
 
 .reqlist {
   margin: 0;
   padding: 0;
   margin-left: 10px;
-  list-style-image: url('../../../images/list-marker.svg');
+  list-style-image: url('assets/images/list-marker.svg');
 }
 
 .reqlist_item {
   @extend %mulish-12-300;
-  color: #232323;
+  color: vars.$color-primary;
   margin-bottom: 10px;
   margin-top: 10px;
   margin-left: 5px;

@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 .photo {
   border-radius: 12px;
 
@@ -9,10 +11,10 @@
     padding: 20px 0;
     width: 100%;
     min-height: 104px;
-    font-family: 'Mulish';
-    font-size: 16px;
+    font-family: vars.$font-body;
+    font-size: vars.$font-size-xxs;
     font-weight: 700;
-    line-height: 1.5;
+    line-height: vars.$line-height-xxs;
     color: #818181;
     background-color: #f6f6f6;
     box-sizing: border-box;
@@ -63,7 +65,7 @@
     width: 20px;
     height: 20px;
     background-color: transparent;
-    background-image: url('../../../images/remove-img.svg');
+    background-image: url('assets/images/remove-img.svg');
     border: none;
     opacity: 0.6;
     transition: opacity 0.6s;

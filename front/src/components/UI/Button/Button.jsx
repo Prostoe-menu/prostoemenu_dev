@@ -1,32 +1,35 @@
-import React from 'react';
 import classnames from 'classnames';
 import styles from './Button.module.scss';
 
+/**
+ * Компонент кнопки (с иконкой и без).
+ * Адаптация стилей и логики происходит через пропсы. Содержимое кнопки передается через пропс children.
+ * По умолчанию имеет type 'button'.
+ * Имеет следующие стили: primary, secondary, tertiary, cross (для кнопок удаления или закрытия компонента).
+ * */
+
 const Button = ({
-  btnClassName,
-  isSubmit,
+  view = 'primary',
+  iconPosition = 'left',
+  isHidden = false,
+  className,
+  type = 'button',
   children,
-  isDisabled,
-  onClickBtn,
-  ariaLabelText,
+  ...props
 }) => {
-  const handleClickBtn = (evt) => {
-    evt.preventDefault();
-    onClickBtn();
-  };
+  const btnClasses = classnames(
+    styles.button,
+    styles[`view-${view}`],
+    {
+      [styles.reverse]: iconPosition === 'right',
+      [styles.hidden]: isHidden,
+    },
+    className
+  );
 
   return (
-    <button
-      className={classnames(styles.button, styles[btnClassName])}
-      type={isSubmit ? 'submit' : 'button'}
-      disabled={isDisabled}
-      onClick={isSubmit ? null : handleClickBtn}
-      aria-label={ariaLabelText}
-    >
-      {
-        // При создании кнопки сюда пишем текст и если нужно добавляем тег img с иконкой
-        children
-      }
+    <button className={btnClasses} type={type} {...props}>
+      {children}
     </button>
   );
 };

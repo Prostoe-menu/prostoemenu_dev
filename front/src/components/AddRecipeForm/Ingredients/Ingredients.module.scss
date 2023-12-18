@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 .ingredients {
   width: 100%;
   box-sizing: border-box;
@@ -12,7 +14,7 @@
 }
 
 .text {
-  font-family: 'Mulish', sans-serif;
+  font-family: vars.$font-body;
   font-style: normal;
   font-weight: 300;
   font-size: 12px;
@@ -31,6 +33,14 @@
 .icon {
   width: 16px;
   height: 16px;
+}
+
+.button {
+  width: 147px;
+
+  &_tertiary {
+    width: 240px;
+  }
 }
 
 @media screen and (max-width: 576px) {

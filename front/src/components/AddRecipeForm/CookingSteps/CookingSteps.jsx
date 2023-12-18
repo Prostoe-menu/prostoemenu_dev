@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { v4 as uuidV4 } from 'uuid';
+import addIcon from 'assets/images/add.svg';
 import CookingStep from 'components/AddRecipeForm/CookingSteps/CookingStep/CookingStep';
 import Button from 'components/UI/Button/Button';
-import addIcon from 'images/add.svg';
-import arrowLeft from 'images/arrow-left.svg';
-import arrowRight from 'images/arrow-right.svg';
 import { changeCurrentStage } from 'store/slices/form/formSlice';
-import { buttons } from 'utils/constants';
 import styles from './CookingSteps.module.scss';
 
 // Компонент будет доработан после утверждения окончательного дизайна
@@ -43,30 +41,27 @@ const CookingSteps = () => {
       <div className={styles.steps}>
         <ul className={styles.steps__list}>
           {[...Array(initialStepsCount)].map((_, i) => (
-            <li className={styles.steps__item}>
+            <li className={styles.steps__item} key={uuidV4()}>
               <CookingStep stepNumber={i + 1} />
             </li>
           ))}
         </ul>
         <Button
-          btnClassName={buttons.withBorder.grey}
-          ariaLabelText="Добавить еще один шаг"
-          onClickBtn={handleClickAddStepBtn}
+          view="tertiary"
+          aria-label="Добавить еще один шаг"
+          onClick={handleClickAddStepBtn}
+          className={styles.button_tertiary}
         >
           <img src={addIcon} alt="Плюсик" />
           Добавить шаг
         </Button>
       </div>
       <div className={styles.controls}>
-        <Button
-          btnClassName={buttons.withBorder.yellow}
-          isSubmit={false}
-          onClickBtn={onGoBack}
-        >
-          <img src={arrowLeft} alt="стрелка влево" /> назад
+        <Button view="secondary" onClick={onGoBack} className={styles.button}>
+          Назад
         </Button>
-        <Button btnClassName={buttons.withBorder.yellow} isSubmit>
-          далее <img src={arrowRight} alt="стрелка вправо" />
+        <Button type="submit" className={styles.button}>
+          Далее
         </Button>
       </div>
     </form>

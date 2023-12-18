@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './RecipeTitle.module.scss';
 
 const RecipeTitle = ({ children }) => (

@@ -1,7 +1,7 @@
-import React, { memo, useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import InputsContainer from 'components/AddRecipeForm/Ingredients/Ingredient/InputsContainer/InputsContainer';
-import CloseButton from 'components/UI/CloseButton/CloseButton';
+import Button from 'components/UI/Button/Button';
 import { deleteIngredient } from 'store/slices/form/formSlice';
 import styles from './Ingredient.module.scss';
 
@@ -18,7 +18,7 @@ const Ingredient = ({
 
   const deleteInputElement = useCallback(() => {
     dispatch(deleteIngredient(ingredientData.elementID));
-  }, []);
+  }, [dispatch, ingredientData.elementID]);
 
   return (
     <div className={styles.content}>
@@ -32,10 +32,12 @@ const Ingredient = ({
           error={error}
           name={name}
         />
-        <CloseButton
+        <Button
+          view="cross"
           isHidden={hideButton}
-          ariaLabelText="Удалить ингредиент"
-          onClose={deleteInputElement}
+          className={styles.button}
+          aria-label="Удалить ингредиент"
+          onClick={deleteInputElement}
         />
       </div>
     </div>

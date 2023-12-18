@@ -1,5 +1,4 @@
-$font-header: 'Biolilbert', sans-serif;
-$font-body: 'Mulish', sans-serif;
+@use 'src/styles/variables' as vars;
 
 .additionalInfo {
   display: flex;
@@ -9,15 +8,15 @@ $font-body: 'Mulish', sans-serif;
   gap: 28px;
   max-width: 574px;
   min-height: 450px;
-  color: #232323;
+  color: vars.$color-primary;
 
   &__header {
     margin: 0;
-    font-family: $font-header;
+    font-family: vars.$font-heading;
     font-style: normal;
     font-weight: 400;
-    font-size: 28px;
-    line-height: 1.14;
+    font-size: vars.$font-size-l;
+    line-height: vars.$line-height-l;
   }
 
   &__comment {
@@ -47,7 +46,7 @@ $font-body: 'Mulish', sans-serif;
     height: 112px;
     resize: none;
     border: none;
-    font-family: $font-body;
+    font-family: vars.$font-body;
     font-style: normal;
     font-weight: 300;
     font-size: 12px;
@@ -81,7 +80,7 @@ $font-body: 'Mulish', sans-serif;
   align-items: flex-start;
   padding: 0px;
   gap: 12px;
-  font-family: $font-body;
+  font-family: vars.$font-body;
   font-style: normal;
   max-width: 560px;
   width: 100%;
@@ -89,8 +88,8 @@ $font-body: 'Mulish', sans-serif;
   &__subtitle {
     margin: 0;
     font-weight: 500;
-    font-size: 16px;
-    line-height: 1.5;
+    font-size: vars.$font-size-xxs;
+    line-height: vars.$line-height-xxs;
   }
 
   &__text {
@@ -107,8 +106,8 @@ $font-body: 'Mulish', sans-serif;
     border-radius: 8px;
     box-sizing: border-box;
     font-weight: 300;
-    font-size: 16px;
-    line-height: 1.5;
+    font-size: vars.$font-size-xxs;
+    line-height: vars.$line-height-xxs;
     width: 100%;
   }
   &__input_error {
@@ -137,8 +136,8 @@ $font-body: 'Mulish', sans-serif;
 
     &__header {
       font-weight: 400;
-      font-size: 20px;
-      line-height: 24px;
+      font-size: vars.$font-size-s;
+      line-height: vars.$line-height-s;
     }
 
     &__comment {
@@ -158,9 +157,17 @@ $font-body: 'Mulish', sans-serif;
 }
 
 .error {
-  font-family: $font-body;
+  font-family: vars.$font-body;
   width: 100%;
   margin: 0;
   color: red;
   font-size: 10px;
+}
+
+.button {
+  width: 147px;
+
+  &_main {
+    width: 213px;
+  }
 }

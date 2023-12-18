@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 .step {
   display: flex;
   flex-direction: column;
@@ -7,11 +9,11 @@
 
   &__title {
     margin: 0;
-    font-family: 'Mulish', sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
+    font-family: vars.$font-body;
+    font-size: vars.$font-size-xxs;
+    line-height: vars.$line-height-xxs;
     font-weight: 500;
-    color: #232323;
+    color: vars.$color-primary;
   }
 
   &__fieldset {
@@ -46,7 +48,7 @@
   &__input {
     position: relative;
     width: 100%;
-    font-family: 'Mulish', sans-serif;
+    font-family: vars.$font-body;
     font-size: 12px;
     line-height: 1.6;
     font-weight: 300;
@@ -64,7 +66,7 @@
 
     &:focus,
     &:active {
-      color: #232323;
+      color: vars.$color-primary;
       outline: none;
     }
 
@@ -106,7 +108,7 @@
     position: absolute;
     bottom: 12px;
     right: 32px;
-    font-family: 'Mulish', sans-serif;
+    font-family: vars.$font-body;
     font-size: 12px;
     line-height: 1.6;
     font-weight: 300;
@@ -120,7 +122,7 @@
     align-self: center;
     background-color: transparent;
     border: none;
-    background-image: url('../../../../images/close_btn.svg');
+    background-image: url('assets/images/close_btn.svg');
     cursor: pointer;
     opacity: 0.6;
 

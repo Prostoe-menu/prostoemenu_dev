@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
+import addIcon from 'assets/images/add.svg';
+import arrowLeft from 'assets/images/arrow-left.svg';
+import arrowRight from 'assets/images/arrow-right.svg';
 import CookingStep from 'components/AddRecipeForm/CookingSteps/CookingStep/CookingStep';
 import Button from 'components/UI/Button/Button';
-import addIcon from 'images/add.svg';
-import arrowLeft from 'images/arrow-left.svg';
-import arrowRight from 'images/arrow-right.svg';
 import { changeCurrentStage } from 'store/slices/form/formSlice';
 import { buttons } from 'utils/constants';
 import styles from './CookingSteps.module.scss';

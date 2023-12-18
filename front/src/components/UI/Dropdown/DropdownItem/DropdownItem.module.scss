@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as vars;
+
 .dropdownItem {
   box-sizing: border-box;
   cursor: pointer;
@@ -6,19 +8,19 @@
   height: 40px;
   padding: 0 16px;
   border-radius: 8px;
-  background: #fff;
-  font-family: 'Mulish', sans-serif;
+  background: vars.$bg-primary;
+  font-family: vars.$font-body;
   font-style: normal;
   font-weight: 300;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #232323;
+  font-size: vars.$font-size-xxs;
+  line-height: vars.$line-height-xxs;
+  color: vars.$color-primary;
 
   &:hover,
   &:focus,
   &_active {
     outline: none;
-    background: #fffaf0;
+    background: vars.$btn-bg-secondary-hover;
     border-radius: 0;
   }
 }

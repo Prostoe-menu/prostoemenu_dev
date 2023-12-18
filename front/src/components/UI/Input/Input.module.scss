@@ -1,33 +1,36 @@
+@use 'src/styles/variables' as vars;
+
 .input {
   box-sizing: border-box;
   height: 40px;
-  border: 1px solid #dbdbdb;
+  border: 1px solid vars.$input-border-color;
   border-radius: 8px;
   padding: 8px 16px;
-  font-family: 'Mulish', sans-serif;
+  font-family: vars.$font-body;
   font-style: normal;
   font-weight: 300;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #232323;
+  font-size: vars.$font-size-xxs;
+  line-height: vars.$line-height-xxs;
+  color: vars.$color-primary;
   margin: 0;
+  transition: border vars.$trans-300;
 
   &::placeholder {
-    font-family: 'Mulish', sans-serif;
+    font-family: vars.$font-body;
     font-style: normal;
     font-weight: 300;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #818181;
+    font-size: vars.$font-size-xxs;
+    line-height: vars.$line-height-xxs;
+    color: vars.$color-secondary;
   }
 
   &:hover {
-    border: 1px solid #818181;
+    border: 1px solid vars.$color-secondary;
   }
 
   &:focus {
     outline: none;
-    border: 1px solid #818181;
+    border: 1px solid vars.$color-secondary;
   }
 
   &_type_name {
@@ -43,7 +46,7 @@
   &_type_dropdown {
     width: 144px;
     font-weight: 500;
-    color: #232323;
+    color: vars.$color-primary;
     display: flex;
     align-items: center;
     justify-content: space-between;

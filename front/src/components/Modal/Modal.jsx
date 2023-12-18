@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import classnames from 'classnames';
 import ReactPortal from 'components/ReactPortal/ReactPortal';
-import CloseButton from 'components/UI/CloseButton/CloseButton';
+import Button from 'components/UI/Button/Button';
 // import ConfirmModal from './ConfirmModal/ConfirmModal';
 import styles from './Modal.module.scss';
 
@@ -40,7 +40,12 @@ const Modal = ({ children, closeModal, isModalOpen }) => {
         />
         <div className={styles.content}>
           <div className={styles.closeButtonContainer}>
-            <CloseButton sx={{ cursor: 'pointer' }} onClose={closeModal} />
+            <Button
+              view="cross"
+              className={styles.button}
+              aria-label="Закрыть окно"
+              onClick={closeModal}
+            />
           </div>
           {children}
           {/* Confirm Modal will be provided as a child when api post-request for creating a new recipe is successful */}

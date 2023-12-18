@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Rating } from '@mui/material';
-import arrowRight from 'assets/images/arrow-right.svg';
 import Tooltip from 'components/Tooltip/Tooltip';
 import TooltipDifficultyContent from 'components/Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
 import Button from 'components/UI/Button/Button';
@@ -14,8 +13,7 @@ import {
   saveRecipeComplexity,
   saveServings,
 } from 'store/slices/form/formSlice';
-import { buttons } from 'utils/constants';
-import styles from './mainInfo.module.scss';
+import styles from './MainInfo.module.scss';
 
 const MainInfo = () => {
   const [nameCounter, setNameCounter] = useState(0);
@@ -398,8 +396,8 @@ const MainInfo = () => {
         </ul>
       </div>
       <div className={styles.controls}>
-        <Button btnClassName={buttons.withBorder.yellow} isSubmit>
-          далее <img src={arrowRight} alt="стрелка вправо" />
+        <Button className={styles.button_primary} type="submit">
+          Далее
         </Button>
       </div>
     </form>

@@ -163,3 +163,11 @@
   color: red;
   font-size: 10px;
 }
+
+.button {
+  width: 147px;
+
+  &_main {
+    width: 213px;
+  }
+}

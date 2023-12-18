@@ -1,132 +1,117 @@
 @use 'src/styles/variables' as vars;
 
 .button {
+  box-sizing: border-box;
+  background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  padding: 12px 0;
-  height: 48px;
   font-family: vars.$font-body;
   font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background-color vars.$trans-300;
+}
+
+.reverse {
+  flex-direction: row-reverse;
+}
+
+.hidden {
+  display: none;
+}
+
+.view-primary {
+  font-weight: 700;
+  font-size: vars.$font-size-xs;
+  line-height: vars.$line-height-xs;
+  color: vars.$btn-color-primary;
+  background: vars.$btn-bg-primary;
+  gap: 8px;
+  padding: 13px 0;
+  border-radius: 12px;
+
+  &:hover {
+    background: vars.$btn-bg-primary-hover;
+  }
+
+  &:active {
+    background: vars.$btn-bg-primary-active;
+  }
+
+  &:disabled,
+  &[disabled] {
+    color: vars.$color-secondary;
+    background: vars.$btn-bg-primary-disabled;
+    cursor: default;
+  }
+}
+
+.view-secondary {
+  font-size: vars.$font-size-xs;
+  line-height: vars.$line-height-xs;
   color: vars.$color-primary;
   background: vars.$bg-primary;
-  border: none;
+  border: 1px solid vars.$btn-border-secondary;
+  gap: 8px;
+  padding: 12px 0;
   border-radius: 12px;
-  cursor: pointer;
-  transition: background-color 0.6s;
 
-  &_border_yellow {
-    width: 160px;
-    font-size: vars.$font-size-xxs;
-    line-height: vars.$line-height-xxs;
-    border: 1px solid vars.$btn-border-secondary;
-
-    img {
-      margin-top: 2px;
-    }
-
-    &:hover {
-      background: vars.$btn-bg-secondary-hover;
-    }
-
-    &:active {
-      background: vars.$btn-bg-secondary-active;
-    }
-
-    &:disabled,
-    &[disabled] {
-      color: vars.$color-secondary;
-      background: vars.$btn-bg-secondary-disabled;
-      border-color: vars.$btn-border-secondary-disabled;
-      cursor: default;
-    }
+  &:hover {
+    background: vars.$btn-bg-secondary-hover;
   }
 
-  &_border_grey {
-    height: 36px;
-    padding: 8px 24px;
-    font-size: 12px;
-    line-height: 1.67;
-    border: 1px solid vars.$btn-border-tertiary;
-
-    &:hover {
-      background: vars.$btn-bg-tertiary-hover;
-    }
-
-    &:active {
-      background: vars.$btn-bg-tertiary-active;
-    }
-
-    &:disabled,
-    &[disabled] {
-      color: vars.$color-secondary;
-      background: vars.$btn-bg-secondary-disabled;
-      border-color: vars.$btn-border-tertiary-disabled;
-      cursor: default;
-    }
+  &:active {
+    background: vars.$btn-bg-secondary-active;
   }
 
-  &_bg_yellow {
-    width: 384px;
-    font-weight: 700;
-    color: vars.$btn-color-primary;
-    background: vars.$btn-bg-primary;
-
-    &:hover {
-      background: vars.$btn-bg-primary-hover;
-    }
-
-    &:active {
-      background: vars.$btn-bg-primary-active;
-    }
-
-    &:disabled,
-    &[disabled] {
-      color: vars.$color-secondary;
-      background: vars.$btn-bg-primary-disabled;
-      cursor: default;
-    }
-  }
-
-  // &[type='submit'] {
-  //   width: 260px;
-  // }
-
-  img {
-    width: 20px;
-    height: 20px;
+  &:disabled,
+  &[disabled] {
+    color: vars.$color-secondary;
+    background: vars.$btn-bg-secondary-disabled;
+    border-color: vars.$btn-border-secondary-disabled;
+    cursor: default;
   }
 }
 
-@media screen and (max-width: 280px) {
-  .button {
-    &_bg_yellow {
-      width: 260px;
+.view-tertiary {
+  font-size: vars.$font-size-xxs;
+  line-height: vars.$line-height-xxs;
+  color: vars.$color-primary;
+  background: vars.$bg-primary;
+  border: 1px solid vars.$btn-border-tertiary;
+  gap: 6px;
+  padding: 8px 0;
+  border-radius: 8px;
 
-      &:hover {
-        background: vars.$btn-bg-primary;
-      }
-    }
+  &:hover {
+    background: vars.$btn-bg-tertiary-hover;
+  }
+
+  &:active {
+    background: vars.$btn-bg-tertiary-active;
+  }
+
+  &:disabled,
+  &[disabled] {
+    color: vars.$color-secondary;
+    background: vars.$btn-bg-tertiary-disabled;
+    border-color: vars.$btn-border-tertiary-disabled;
+    cursor: default;
   }
 }
 
-@media screen and (min-width: 281px) and (max-width: 576px) {
-  .button {
-    &_border_grey {
-      width: 328px;
+.view-cross {
+  background: url('assets/images/close_btn.svg');
+  opacity: 0.6;
+  transition: opacity vars.$trans-300;
 
-      &:hover {
-        background: vars.$bg-primary;
-      }
-    }
-
-    &_bg_yellow {
-      width: 296px;
-    }
-
-    // &[type="submit"] {
-    //   width: 329px;
-    // }
+  &:hover {
+    opacity: 1;
   }
+}
+
+img {
+  width: 20px;
+  height: 20px;
 }

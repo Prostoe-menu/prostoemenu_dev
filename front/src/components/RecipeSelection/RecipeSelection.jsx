@@ -20,6 +20,7 @@ const RecipeSelection = () => {
   const handleIngredientSelection = (ingredient) => {
     setIsIngredientDropdownOpen(false);
     setQuery(ingredient.name);
+
     if (!selected.includes(ingredient.name)) {
       setSelected((prevSelected) => [...prevSelected, ingredient.name]);
     }
@@ -28,6 +29,7 @@ const RecipeSelection = () => {
 
   const handleNameInput = (e) => {
     setQuery(e.target.value);
+
     if (query.length >= 2) {
       setTimeout(() => {
         setIsIngredientDropdownOpen(true);

@@ -105,7 +105,11 @@
 .view-cross {
   background: url('assets/images/close-btn/close_btn.svg');
   opacity: 0.6;
-  transition: background-image vars.$trans-300;
+  transition: all vars.$trans-300;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 img {

@@ -1,9 +1,9 @@
 import RecipeGallery from 'components/RecipeGallery/RecipeGallery';
-import RecipeSelection from 'components/RecipeSearch/RecipeSearch';
+import RecipeSearch from 'components/RecipeSearch/RecipeSearch';
 
 const HomePage = () => (
   <>
-    <RecipeSelection />
+    <RecipeSearch />
     <RecipeGallery />;
   </>
 );

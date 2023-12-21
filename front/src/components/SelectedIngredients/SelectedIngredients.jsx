@@ -32,7 +32,7 @@ const SelectedIngredients = ({ selected, setSelected }) => {
           onMouseLeave={() => setHover(false)}
           onClick={removeAll}
         >
-          <p>Очистить всё</p>
+          Очистить всё
           <Button
             view="cross"
             className={

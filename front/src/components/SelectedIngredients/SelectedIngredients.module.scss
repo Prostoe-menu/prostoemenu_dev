@@ -1,5 +1,10 @@
 @use 'src/styles/variables' as vars;
 
+@mixin crossButtonStyles {
+  width: 20px;
+  height: 20px;
+}
+
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -24,40 +29,27 @@
 }
 
 .remove_btn {
+  box-sizing: border-box;
   display: flex;
   gap: 6px;
   align-items: center;
   cursor: pointer;
   height: 38px;
+  font-family: vars.$font-body;
+  font-size: vars.$font-size-xxs;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 20px;
+  color: vars.$color-primary;
+  transition: color vars.$trans-300;
 
   &:hover {
-    & p {
-      color: vars.$btn-chips-cross;
-    }
+    color: vars.$chips-color-hover;
   }
-
-  & p {
-    font-family: vars.$font-body;
-    font-size: vars.$font-size-xxs;
-    font-style: normal;
-    font-weight: 300;
-    line-height: 20px;
-    color: vars.$color-primary;
-    margin: 0;
-  }
-}
-
-@mixin crossButtonStyles {
-  width: 20px;
-  height: 20px;
-  border: none;
 }
 
 .cross_btn {
   @include crossButtonStyles;
-  &:hover {
-    background-image: url('assets/images/close-btn/close_btn_hover.svg');
-  }
 }
 
 .remove_all_cross {

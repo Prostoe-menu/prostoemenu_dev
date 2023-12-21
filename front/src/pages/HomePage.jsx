@@ -1,6 +1,5 @@
-import React from 'react';
 import RecipeGallery from 'components/RecipeGallery/RecipeGallery';
-import RecipeSelection from 'components/RecipeSelection/RecipeSelection';
+import RecipeSelection from 'components/RecipeSearch/RecipeSearch';
 
 const HomePage = () => (
   <>

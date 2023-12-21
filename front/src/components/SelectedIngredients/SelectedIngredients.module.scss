@@ -1,0 +1,66 @@
+@use 'src/styles/variables' as vars;
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0;
+  max-width: 1033px;
+  margin: 20px 0 0 0;
+}
+
+.item {
+  background-color: vars.$chips-bg-color;
+  border-radius: 16px;
+  padding: 9px 14px 9px 20px;
+  display: flex;
+  gap: 12px;
+  font-size: vars.$font-size-xxs;
+  font-family: vars.$font-body;
+  font-weight: 300;
+  line-height: vars.$line-height-xxs;
+  align-items: center;
+  height: fit-content;
+}
+
+.remove_btn {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  cursor: pointer;
+  height: 38px;
+
+  &:hover {
+    & p {
+      color: vars.$btn-chips-cross;
+    }
+  }
+
+  & p {
+    font-family: vars.$font-body;
+    font-size: vars.$font-size-xxs;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 20px;
+    color: vars.$color-primary;
+    margin: 0;
+  }
+}
+
+@mixin crossButtonStyles {
+  width: 20px;
+  height: 20px;
+  border: none;
+}
+
+.cross_btn {
+  @include crossButtonStyles;
+  &:hover {
+    background-image: url('assets/images/close-btn/close_btn_hover.svg');
+  }
+}
+
+.remove_all_cross {
+  @include crossButtonStyles;
+  background-image: url('assets/images/close-btn/close_btn-all_hover.svg');
+}

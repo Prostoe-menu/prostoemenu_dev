@@ -11,6 +11,7 @@
   border: none;
   cursor: pointer;
   transition: background-color vars.$trans-300;
+  padding: 0;
 }
 
 .reverse {
@@ -102,13 +103,9 @@
 }
 
 .view-cross {
-  background: url('../../../assets/images/close_btn.svg');
+  background: url('assets/images/close-btn/close_btn.svg');
   opacity: 0.6;
-  transition: opacity vars.$trans-300;
-
-  &:hover {
-    opacity: 1;
-  }
+  transition: background-image vars.$trans-300;
 }
 
 img {

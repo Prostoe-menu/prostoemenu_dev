@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import SelectedRecipeList from 'components/SelectedRecipeList/SelectedRecipeList';
+import { useState } from 'react';
+import SelectedIngredients from 'components/SelectedIngredients/SelectedIngredients';
+import Button from 'components/UI/Button/Button';
 import DropdownSearch from 'components/UI/Dropdown/DropdownSearch/DropdownSearch';
 import getIngredients from 'helpers/getIngredients';
 import useAsync from 'hooks/useAsync';
-import styles from './RecipeSelection.module.scss';
+import styles from './RecipeSearch.module.scss';
 
-const RecipeSelection = () => {
+const RecipeSearch = () => {
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState([]);
   const [isIngredientDropdownOpen, setIsIngredientDropdownOpen] =
@@ -57,13 +58,13 @@ const RecipeSelection = () => {
           setIsDropdownOpen={setIsIngredientDropdownOpen}
           requiredData={ingredientsApiData}
         />
-        <button className={styles.search_btn} type="button">
+        <Button className={styles.search_btn} type="button">
           Подобрать рецепт
-        </button>
+        </Button>
       </div>
-      <SelectedRecipeList selected={selected} setSelected={setSelected} />
+      <SelectedIngredients selected={selected} setSelected={setSelected} />
     </section>
   );
 };
 
-export default RecipeSelection;
+export default RecipeSearch;

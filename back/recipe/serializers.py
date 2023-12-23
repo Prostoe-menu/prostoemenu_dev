@@ -110,7 +110,6 @@ class RecipeListSerializer(serializers.ModelSerializer):
     cover_path = serializers.ReadOnlyField(source='main_photo.photo')
     ingredients = serializers.SerializerMethodField()
     steps = serializers.SerializerMethodField()
-    photos = serializers.SerializerMethodField()
 
     class Meta:
         model = Recipe
@@ -123,8 +122,7 @@ class RecipeListSerializer(serializers.ModelSerializer):
             'cooking_time',
             'oven_time',
             'ingredients',
-            'steps',
-            'photos')
+            'steps')
 
         read_only_fields = fields
 
@@ -139,11 +137,6 @@ class RecipeListSerializer(serializers.ModelSerializer):
             recipe=recipe_instance).values(
             'step__step_number', 'step__description', 'step__photo')
         return [RecipeStepSerializer(step).data for step in query_datas]
-
-    def get_photos(self, recipe_instance):
-        query_datas = RecipePhotos.objects.select_related('photo').filter(
-            recipe=recipe_instance).values('photo__photo')
-        return [RecipePhotoSerializer(photo).data for photo in query_datas]
 
 
 ##################################################

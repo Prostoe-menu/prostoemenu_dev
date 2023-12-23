@@ -1,5 +1,7 @@
 from .serializers import (RecipeDisplaySerializer,
-                          RecipeCreateSerializer)
+                          RecipeCreateSerializer,
+                          RecipeListSerializer)
+
 from recipe.models import Recipe
 from django.db.models import (Q,
                               Count)
@@ -22,7 +24,7 @@ class RecipeList(APIView):
         summary='Получить список рецептов.',
         description='Эндпоинт для получения списка рецептов.',
         tags=('Recipes',),
-        responses={200: RecipeDisplaySerializer},
+        responses={200: RecipeListSerializer},
         parameters=[
             OpenApiParameter(
                 name='ingredients_search[]',
@@ -171,9 +173,8 @@ class RecipeList(APIView):
         pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
         paginator = pagination_class()
         page = paginator.paginate_queryset(recipes, request, view=self)
-
-        serializer = RecipeDisplaySerializer(page, many=True)
-
+        serializer = RecipeListSerializer(page, many=True)
+        
         return paginator.get_paginated_response(serializer.data)
 
     @extend_schema(

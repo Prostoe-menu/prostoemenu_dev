@@ -23,6 +23,7 @@ class RecipeIngredientAlternative(serializers.ModelSerializer):
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
+
     id = serializers.IntegerField(source='ingredient.pk')
     name = serializers.CharField(source='ingredient.name')  # Showing name instead of id
     measure_unit = serializers.CharField(source='measure')
@@ -34,6 +35,7 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
                   'volume',
                   'measure_unit')
 
+        
     def get_replacement(self, recipe_instance):
         query_datas = RecipeIngredients.objects.select_related(
             'ingredient', 'recipe').filter(

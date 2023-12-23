@@ -1,6 +1,7 @@
 from .serializers import (RecipeDisplaySerializer,
                           RecipeCreateSerializer,
                           RecipeListSerializer)
+
 from recipe.models import Recipe
 from django.db.models import (Q,
                               Count)
@@ -173,6 +174,7 @@ class RecipeList(APIView):
         paginator = pagination_class()
         page = paginator.paginate_queryset(recipes, request, view=self)
         serializer = RecipeListSerializer(page, many=True)
+        
         return paginator.get_paginated_response(serializer.data)
 
     @extend_schema(

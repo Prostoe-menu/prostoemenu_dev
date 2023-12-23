@@ -23,14 +23,16 @@ class RecipeIngredientAlternative(serializers.ModelSerializer):
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
-    replacement = serializers.SerializerMethodField()
-    ingredient_name = serializers.CharField(
-        source='ingredient.name')  # Showing name instead of id
+    id = serializers.IntegerField(source='ingredient.pk')
+    name = serializers.CharField(source='ingredient.name')  # Showing name instead of id
+    measure_unit = serializers.CharField(source='measure')
 
     class Meta:
         model = RecipeIngredients
-        fields = ('ingredient', 'volume', 'measure',
-                  'ingredient_name', 'replacement')
+        fields = ('id',
+                  'name',
+                  'volume',
+                  'measure_unit')
 
     def get_replacement(self, recipe_instance):
         query_datas = RecipeIngredients.objects.select_related(
@@ -49,11 +51,13 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
 class RecipeStepSerializer(serializers.ModelSerializer):
     step_number = serializers.IntegerField(source='step__step_number')
     description = serializers.CharField(source='step__description')
-    photo = serializers.CharField(source='step__photo')
+    photo_path = serializers.CharField(source='step__photo')
 
     class Meta:
         model = RecipeSteps
-        fields = ('step_number', 'description', 'photo')
+        fields = ('step_number',
+                  'description',
+                  'photo_path')
 
 
 class RecipePhotoSerializer(serializers.ModelSerializer):
@@ -79,6 +83,48 @@ class RecipeDisplaySerializer(serializers.ModelSerializer):
                   'ingredients',
                   'steps',
                   'photos']
+
+        read_only_fields = fields
+
+    def get_ingredients(self, recipe_instance):
+        query_datas = RecipeIngredients.objects.select_related(
+            'ingredient', 'recipe').filter(recipe=recipe_instance).all()
+        return [RecipeIngredientSerializer(
+            ingredient).data for ingredient in query_datas]
+
+    def get_steps(self, recipe_instance):
+        query_datas = RecipeSteps.objects.select_related('step').filter(
+            recipe=recipe_instance).values(
+            'step__step_number', 'step__description', 'step__photo')
+        return [RecipeStepSerializer(step).data for step in query_datas]
+
+    def get_photos(self, recipe_instance):
+        query_datas = RecipePhotos.objects.select_related('photo').filter(
+            recipe=recipe_instance).values('photo__photo')
+        return [RecipePhotoSerializer(photo).data for photo in query_datas]
+
+
+class RecipeListSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(source='pk')
+    title = serializers.CharField(source='name')
+    cover_path = serializers.ReadOnlyField(source='main_photo.photo')
+    ingredients = serializers.SerializerMethodField()
+    steps = serializers.SerializerMethodField()
+    photos = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Recipe
+        fields = (
+            'id',
+            'title',
+            'description',
+            'cover_path',
+            'complexity',
+            'cooking_time',
+            'oven_time',
+            'ingredients',
+            'steps',
+            'photos')
 
         read_only_fields = fields
 

@@ -48,7 +48,8 @@ class Step(models.Model):
         verbose_name='Номер шага')
     description = models.TextField(
         verbose_name='Описание шага')
-    photo = models.ImageField(
+    photo = models.CharField(
+        max_length=100,
         null=True,
         verbose_name='Фотография')
 
@@ -62,13 +63,15 @@ class Step(models.Model):
 
 
 class Photo(models.Model):
-    photo = models.ImageField(
-        upload_to='images/',
-        verbose_name='Фотография',
-        validators=[FileExtensionValidator(['jpeg', 'jpg', 'png', 'webp'])])
+    photo = models.CharField(
+        max_length=100,
+        verbose_name='Путь к фото',
+        default='default_photo.jpg'
+    )
 
     def __str__(self):
-        return self.name
+        return self.photo
+
 
     class Meta:
         verbose_name = 'Фотография'
@@ -135,9 +138,11 @@ class Recipe(models.Model):
         max_digits=1,
         decimal_places=1, verbose_name='Рейтинг')
     number_of_votes = models.IntegerField(
-        null=True, verbose_name='Количество голосов')
+        null=True,
+        verbose_name='Количество голосов')
     exists = models.BooleanField(
-        default=True, verbose_name='Существует')
+        default=True,
+        verbose_name='Существует')
     quantity = models.IntegerField(
         default=1,
         verbose_name='Количество порций')
@@ -145,13 +150,16 @@ class Recipe(models.Model):
         null=True,
         verbose_name='Доп. информация')
     valid = models.BooleanField(
-        default=False, verbose_name='Прошло модерацию')
+        default=False,
+        verbose_name='Прошло модерацию')
     parced = models.BooleanField(
-        default=False, verbose_name='Получено от парсинга')
-    complexity = models.CharField(
-        max_length=40, verbose_name='Сложность готовки')
+        default=False,
+        verbose_name='Получено от парсинга')
+    complexity = models.SmallIntegerField(
+        verbose_name='Сложность готовки')
     is_approved = models.BooleanField(
-        default=False, verbose_name='Проверено')
+        default=False,
+        verbose_name='Проверено')
     user = models.ForeignKey(
         User,
         null=True,
@@ -160,18 +168,24 @@ class Recipe(models.Model):
         verbose_name='Id автора',
         related_name='recipes')
     ingredient = models.ManyToManyField(
-        Ingredient, through='RecipeIngredients',
+        Ingredient,
+        through='RecipeIngredients',
         through_fields=('recipe', 'ingredient'),
         related_name='ingredients')
     category = models.ManyToManyField(
         Category,
         through='RecipeCategories',
         related_name='categories')
+    main_photo = models.ForeignKey(
+        Photo,
+        null=False,
+        on_delete=models.SET_DEFAULT,
+        default=1,
+        verbose_name='Главное фото')
     photo = models.ManyToManyField(
         Photo,
         through='RecipePhotos',
-        related_name='photos',
-        )
+        related_name='photos')
     tag = models.ManyToManyField(
         Tag,
         through='RecipeTags',
@@ -227,10 +241,12 @@ class RecipeCategories(models.Model):
 
 class RecipePhotos(models.Model):
     recipe = models.ForeignKey(
-        Recipe, on_delete=models.CASCADE,
+        Recipe,
+        on_delete=models.CASCADE,
         verbose_name='Номер рецепта')
     photo = models.ForeignKey(
-        Photo, on_delete=models.CASCADE,
+        Photo,
+        on_delete=models.CASCADE,
         verbose_name='Номер фото')
 
     def __str__(self):
@@ -244,10 +260,12 @@ class RecipePhotos(models.Model):
 
 class RecipeSteps(models.Model):
     recipe = models.ForeignKey(
-        Recipe, on_delete=models.CASCADE,
+        Recipe,
+        on_delete=models.CASCADE,
         verbose_name='Номер рецепта')
     step = models.ForeignKey(
-        Step, on_delete=models.CASCADE,
+        Step,
+        on_delete=models.CASCADE,
         verbose_name='Номер метода')
 
     def __str__(self):
@@ -261,10 +279,12 @@ class RecipeSteps(models.Model):
 
 class RecipeTags(models.Model):
     recipe = models.ForeignKey(
-        Recipe, on_delete=models.CASCADE,
+        Recipe,
+        on_delete=models.CASCADE,
         verbose_name='Номер рецепта')
     tag = models.ForeignKey(
-        Tag, on_delete=models.CASCADE,
+        Tag,
+        on_delete=models.CASCADE,
         verbose_name='Номер тэга')
 
     def __str__(self):
@@ -278,8 +298,10 @@ class RecipeTags(models.Model):
 
 class RecipeIngredients(models.Model):
     recipe = models.ForeignKey(
-        Recipe, on_delete=models.CASCADE,
-        verbose_name='Номер рецепта')
+        Recipe,
+        on_delete=models.CASCADE,
+        verbose_name='Id рецепта',
+        related_name='recipe')
     ingredient = models.ForeignKey(
         Ingredient, on_delete=models.CASCADE,
         verbose_name='Номер ингредиента',

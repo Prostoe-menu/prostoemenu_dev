@@ -27,6 +27,22 @@
   }
 }
 
+.defaultImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: vars.$color-secondary;
+  border-radius: 16px;
+  min-height: 150px;
+
+  font-family: vars.$font-heading;
+  font-style: normal;
+  font-weight: 400;
+  font-size: vars.$font-size-l;
+  line-height: vars.$line-height-l;
+}
+
 .description {
   display: flex;
   flex-direction: column;

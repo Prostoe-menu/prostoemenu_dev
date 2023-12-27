@@ -8,16 +8,22 @@ const RecipeCard = ({ recipe }) => {
   const imgUrl = photos && photos[0]?.photo;
 
   return (
-    <article className={styles.recipe}>
-      {imgUrl && <img src={imgUrl} className={styles.img} alt={name} />}
-      <div className={styles.description}>
-        <h3 className={styles.title}>{name}</h3>
-        <p className={styles.complexity}>
-          <StarRating label="Сложность" rating={parseInt(complexity)} />
-        </p>
-        <p className={styles.cookingTime}>{timeFormat(cookingTime)}</p>
-      </div>
-    </article>
+    <li>
+      <article className={styles.recipe}>
+        {imgUrl ? (
+          <img src={imgUrl} className={styles.img} alt={name} />
+        ) : (
+          <div className={styles.defaultImg}>No Image</div>
+        )}
+        <div className={styles.description}>
+          <h3 className={styles.title}>{name}</h3>
+          <p className={styles.complexity}>
+            <StarRating label="Сложность" rating={parseInt(complexity)} />
+          </p>
+          <p className={styles.cookingTime}>{timeFormat(cookingTime)}</p>
+        </div>
+      </article>
+    </li>
   );
 };
 export default RecipeCard;

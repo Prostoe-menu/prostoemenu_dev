@@ -7,10 +7,8 @@ const RecipeList = ({ title, recipes }) => (
 
     {recipes.length && (
       <ul className={styles.recipeList}>
-        {recipes.map((recipe) => (
-          <li key={recipe.id}>
-            <RecipeCard recipe={recipe} />
-          </li>
+        {recipes.map((recipe, idx) => (
+          <RecipeCard recipe={recipe} key={`${recipe.id}-${idx}`} />
         ))}
       </ul>
     )}

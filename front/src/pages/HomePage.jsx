@@ -5,7 +5,9 @@ import Loader from 'components/UI/Loader/Loader';
 import fetchRecipes from 'store/slices/recipe/recipeThunk';
 
 const HomePage = () => {
-  const { recipes, isLoading } = useSelector((state) => state.recipe);
+  const { recipes, isLoading, isError, errorMessage } = useSelector(
+    (state) => state.recipe
+  );
 
   const dispatch = useDispatch();
 
@@ -13,10 +15,16 @@ const HomePage = () => {
     dispatch(fetchRecipes());
   }, [dispatch]);
 
-  return isLoading ? (
-    <Loader />
-  ) : (
-    <RecipeList title="Каталог рецептов" recipes={recipes} />
+  return (
+    <>
+      {isLoading && <Loader />}
+
+      {isError && <div className="error-message">{errorMessage}</div>}
+
+      {!isLoading && !isError && recipes && (
+        <RecipeList title="Каталог рецептов" recipes={recipes} />
+      )}
+    </>
   );
 };
 

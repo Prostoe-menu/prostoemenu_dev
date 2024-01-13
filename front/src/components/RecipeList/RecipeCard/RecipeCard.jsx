@@ -3,9 +3,12 @@ import { timeFormat } from 'helpers/utils';
 import styles from './RecipeCard.module.scss';
 
 const RecipeCard = ({ recipe }) => {
-  const { name, cooking_time: cookingTime, photos, complexity } = recipe;
-
-  const imgUrl = photos && photos[0]?.photo;
+  const {
+    title,
+    cooking_time: cookingTime,
+    cover_path: imgUrl,
+    complexity,
+  } = recipe;
 
   return (
     <li>
@@ -16,7 +19,7 @@ const RecipeCard = ({ recipe }) => {
           <div className={styles.defaultImg}>No Image</div>
         )}
         <div className={styles.description}>
-          <h3 className={styles.title}>{name}</h3>
+          <h3 className={styles.title}>{title}</h3>
           <p className={styles.complexity}>
             <StarRating label="Сложность" rating={parseInt(complexity)} />
           </p>

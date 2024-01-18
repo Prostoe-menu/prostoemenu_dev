@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
+import { ScrollUpButton } from 'components/UI/ScrollUpButton';
 import fetchRecipes from 'store/slices/recipe/recipeThunk';
 import RecipeCard from './RecipeCard/RecipeCard';
 import styles from './RecipeGallery.module.scss';
@@ -34,6 +35,7 @@ const RecipeGallery = () => {
           </div>
         )}
       </div>
+      <ScrollUpButton />
     </div>
   );
 };

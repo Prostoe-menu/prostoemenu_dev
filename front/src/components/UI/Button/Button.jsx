@@ -10,7 +10,7 @@ import styles from './Button.module.scss';
 
 const Button = ({
   view = 'primary',
-  iconPosition = 'left',
+  iconPosition = 'right',
   isHidden = false,
   className,
   type = 'button',
@@ -21,7 +21,7 @@ const Button = ({
     styles.button,
     styles[`view-${view}`],
     {
-      [styles.reverse]: iconPosition === 'right',
+      [styles.reverse]: iconPosition === 'left',
       [styles.hidden]: isHidden,
     },
     className

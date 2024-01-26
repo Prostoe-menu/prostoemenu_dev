@@ -2,13 +2,20 @@ $bg-primary: #ffffff;
 
 $color-primary: #232323;
 $color-secondary: #909090;
+$color-accent: #2c7429;
 
 $input-border-color: #e5e4e4;
 
 $chips-bg-color: #e9f9e2;
 $shadow-color: #ececec;
-$chips-color-hover: #2c7429;
+$chips-color-hover: $color-accent;
 
+$loader-background: linear-gradient(
+    0deg,
+    rgba(44, 116, 41, 0.1) 33%,
+    $color-accent 100%
+  );
+  
 // Переменные кнопок
 $btn-bg-primary: #f1b823;
 $btn-color-primary: #ffffff;

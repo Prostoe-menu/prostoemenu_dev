@@ -9,7 +9,13 @@ const fetchRecipes = createAsyncThunk('recipes/fetchRecipes', async () => {
   try {
     const response = await axios.get(API_ENDPOINT);
     const originalRecipes = response.data.results;
-    return [...Array(3)].map(() => originalRecipes).flat();
+    return [...Array(10)]
+      .map(() => originalRecipes)
+      .flat()
+      .map((item) => ({
+        ...item,
+        cooking_time: Math.round(200 * Math.random()),
+      }));
   } catch (error) {
     throw new Error(FETCH_RECIPES_ERROR_MESSAGE);
   }

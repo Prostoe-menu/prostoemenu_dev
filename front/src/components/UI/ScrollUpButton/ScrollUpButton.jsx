@@ -12,11 +12,7 @@ export const ScrollUpButton = () => {
   }, []);
 
   const scrollHandler = () => {
-    if (window.scrollY > 700) {
-      setIsShow(true);
-    } else {
-      setIsShow(false);
-    }
+    window.scrollY > 700 ? setIsShow(true) : setIsShow(false);
   };
 
   const clickHandler = useCallback((event) => {
@@ -28,12 +24,10 @@ export const ScrollUpButton = () => {
   }, []);
 
   return (
-    <>
-      {isShow && (
-        <Button view="tertiary" className={styles.btn} onClick={clickHandler}>
-          Наверх <SVGArrowUp />
-        </Button>
-      )}
-    </>
+    isShow && (
+      <Button view="tertiary" className={styles.btn} onClick={clickHandler}>
+        Наверх <SVGArrowUp />
+      </Button>
+    )
   );
 };

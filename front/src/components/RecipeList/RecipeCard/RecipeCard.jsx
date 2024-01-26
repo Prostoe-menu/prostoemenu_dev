@@ -16,6 +16,7 @@ const RecipeCard = ({ recipe }) => {
         {imgUrl ? (
           <img src={imgUrl} className={styles.img} alt={name} />
         ) : (
+          // TODO: временная заглушка отсутствующей картинки
           <div className={styles.defaultImg}>No Image</div>
         )}
         <div className={styles.description}>

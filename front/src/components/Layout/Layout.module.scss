@@ -10,9 +10,7 @@
   box-sizing: border-box;
   width: 100%;
   max-width: 1440px;
-  padding-top: 150px;
-  padding-left: 72px;
-  padding-right: 72px;
+  padding: 150px 72px 0 72px;
 
   @media screen and (max-width: 690px) {
     padding-left: 16px;

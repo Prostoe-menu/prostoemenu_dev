@@ -2,7 +2,7 @@ import RecipeCard from './RecipeCard/RecipeCard';
 import styles from './RecipeList.module.scss';
 
 const RecipeList = ({ title, recipes }) => (
-  <>
+  <section>
     {title && <h2 className={styles.title}>{title}</h2>}
 
     {recipes.length && (
@@ -12,7 +12,7 @@ const RecipeList = ({ title, recipes }) => (
         ))}
       </ul>
     )}
-  </>
+  </section>
 );
 
 export default RecipeList;

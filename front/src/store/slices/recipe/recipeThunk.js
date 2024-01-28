@@ -1,23 +1,23 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { FETCH_RECIPES_ERROR_MESSAGE } from 'utils/constants';
+import { RECIPES_LIST_URL } from 'utils/urls';
 
-// Replace 'your_api_endpoint' with the actual API endpoint
-const API_ENDPOINT = `${import.meta.env.VITE_API_URL}/recipes/`;
+const API_ENDPOINT = `${import.meta.env.VITE_API_URL}${RECIPES_LIST_URL}`;
 
 const fetchRecipes = createAsyncThunk('recipes/fetchRecipes', async () => {
   try {
     const response = await axios.get(API_ENDPOINT);
-    const originalRecipes = response.data.results; // Assuming the 'results' array contains the recipes
-    const multipliedRecipes = [];
-
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < 6; i++) {
-      multipliedRecipes.push(...originalRecipes);
-    }
-
-    return multipliedRecipes;
+    const originalRecipes = response.data.results;
+    return [...Array(10)]
+      .map(() => originalRecipes)
+      .flat()
+      .map((item) => ({
+        ...item,
+        cooking_time: Math.round(200 * Math.random()),
+      }));
   } catch (error) {
-    throw new Error('Failed to fetch recipes.');
+    throw new Error(FETCH_RECIPES_ERROR_MESSAGE);
   }
 });
 export default fetchRecipes;

@@ -1,6 +1,7 @@
 import axios from 'axios';
+import RECIPES_LIST_URL from 'utils/urls';
 
-const URL = `${import.meta.env.VITE_API_URL}/recipes/`;
+const URL = `${import.meta.env.VITE_API_URL}${RECIPES_LIST_URL}`;
 
 const getRecipes = async () => {
   const reponse = await axios({

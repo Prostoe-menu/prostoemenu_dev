@@ -1,0 +1,27 @@
+.body {
+    margin: 0 auto 135px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    color: #000;
+    font-family: Mulish;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px;
+    margin: 20px 0px 60px;
+}
+
+.image {
+    width: 275px;
+    height: 200px;
+    margin-bottom: 100px;
+}
+
+.btn {
+    padding: 12px 28px;
+    white-space: nowrap;
+}

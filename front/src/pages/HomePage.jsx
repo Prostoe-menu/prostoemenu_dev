@@ -2,15 +2,14 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import RecipeList from 'components/RecipeList/RecipeList';
 import RecipeSearch from 'components/RecipeSearch/RecipeSearch';
-import Loader from 'components/UI/Loader/Loader';
+import { ErrorMessage, Loader } from 'components/UI';
 import fetchRecipes from 'store/slices/recipe/recipeThunk';
 
 const HomePage = () => {
+  const dispatch = useDispatch();
   const { recipes, isLoading, isError, errorMessage } = useSelector(
     (state) => state.recipe
   );
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchRecipes());
@@ -22,9 +21,9 @@ const HomePage = () => {
 
       {isLoading && <Loader />}
 
-      {isError && <div className="error-message">{errorMessage}</div>}
+      {isError && <ErrorMessage message={errorMessage} />}
 
-      {!isLoading && !isError && recipes && (
+      {!isLoading && !isError && recipes?.length > 0 && (
         <RecipeList title="Каталог рецептов" recipes={recipes} />
       )}
     </>

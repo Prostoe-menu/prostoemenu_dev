@@ -6,10 +6,6 @@ import styles from './NotFound.module.scss';
 const NotFound = () => {
   const navigate = useNavigate();
 
-  // const onClick = () => {
-  //   navigate('/');
-  // };
-
   return (
     <main className={styles.body}>
       <h1 className={styles.title}>

@@ -6,13 +6,13 @@ import styles from './NotFound.module.scss';
 const NotFound = () => {
   const navigate = useNavigate();
 
-  const onClick = () => {
-    navigate('/');
-  };
+  // const onClick = () => {
+  //   navigate('/');
+  // };
 
   return (
     <main className={styles.body}>
-      <h1 className={styles.header}>
+      <h1 className={styles.title}>
         К сожалению, такая страница не найдена...
       </h1>
       <img
@@ -20,7 +20,12 @@ const NotFound = () => {
         src="src/assets/images/404.svg"
         alt="Ошибка 404"
       />
-      <Button className={styles.btn} onClick={onClick}>
+      <Button
+        className={styles.btn}
+        onClick={() => {
+          navigate('/');
+        }}
+      >
         На главную
       </Button>
     </main>

@@ -1,6 +1,6 @@
-@use 'src/styles/variables' as vars;
+@use 'variables' as vars;
 
-.error {
+.error-message {
   text-align: center;
   font-family: vars.$font-body;
   font-size: vars.$font-size-m;

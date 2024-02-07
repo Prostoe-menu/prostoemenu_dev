@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import fetchRecipes, { fetchRecipeByID } from './recipeThunk';
+import fetchRecipes from './recipeThunk';
 
 const initialState = {
   recipes: [],
-  recipe: null,
   isLoading: false,
   isError: false,
   errorMessage: null,
@@ -18,7 +17,6 @@ const recipeSlice = createSlice({
       state.isError = false;
       state.errorMessage = null;
       state.recipes = [];
-      state.recipe = null;
     },
     updateReceiptStore: (state, action) => {
       state.isLoading = action.payload;
@@ -29,44 +27,23 @@ const recipeSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchRecipes.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.errorMessage = null;
+      })
       .addCase(fetchRecipes.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.errorMessage = null;
         state.recipes = action.payload;
       })
-      .addCase(fetchRecipeByID.fulfilled, (state, action) => {
+      .addCase(fetchRecipes.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = false;
-        state.errorMessage = null;
-        state.recipe = action.payload;
-      })
-      .addMatcher(
-        (action) =>
-          typeof action.type === 'string' && action.type.endsWith('/pending'),
-        (state) => ({
-          ...state,
-          isLoading: true,
-          isError: false,
-          errorMessage: null,
-        })
-      )
-      .addMatcher(
-        (action) => {
-          return (
-            typeof action.type === 'string' && action.type.endsWith('/rejected')
-          );
-        },
-        (state, action) => ({
-          ...state,
-          isLoading: false,
-          isError: true,
-          errorMessage: action.payload,
-        })
-      );
+        state.isError = true;
+        state.errorMessage = action.error.message;
+      });
   },
 });
-
 export const { resetRecipesState } = recipeSlice.actions;
-
 export default recipeSlice.reducer;

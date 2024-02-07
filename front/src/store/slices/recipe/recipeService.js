@@ -1,21 +1,18 @@
 import axios from 'axios';
-import { RECIPES_LIST_URL } from 'utils/urls';
+import RECIPES_LIST_URL from 'utils/urls';
+
+const URL = `${import.meta.env.VITE_API_URL}${RECIPES_LIST_URL}`;
 
 const getRecipes = async () => {
-  const response = await axios({
+  const reponse = await axios({
     method: 'GET',
-    url: `${import.meta.env.VITE_API_URL}${RECIPES_LIST_URL}`,
+    url: URL,
     crossDomain: true,
   });
 
-  const { results } = response.data;
+  const { results } = reponse.data;
   return results;
 };
+const recipeService = { getRecipes };
 
-const getRecipeByID = async (id) => {
-  return await axios.get(
-    `${import.meta.env.VITE_API_URL}${RECIPES_LIST_URL}/${id}`
-  );
-};
-
-export const recipeService = { getRecipes, getRecipeByID };
+export default recipeService;

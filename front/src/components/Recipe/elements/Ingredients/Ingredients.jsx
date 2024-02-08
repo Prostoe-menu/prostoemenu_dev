@@ -1,3 +1,4 @@
+import { formatMeasureUnit } from 'helpers/utils';
 import styles from './Ingredients.module.scss';
 
 export const Ingredients = ({ list }) => {
@@ -10,7 +11,7 @@ export const Ingredients = ({ list }) => {
             <span>{item.name}</span>
             <span className={styles.divider}></span>
             <span className={styles.volume}>
-              {item.volume} {item.measure_unit}
+              {item.volume} {formatMeasureUnit(item.measure_unit)}
             </span>
           </li>
         ))}

@@ -28,3 +28,9 @@ const minutsPlurals = (m) => {
 const hourPlurals = (h) => {
   return plurals(h, ['час', 'часа', 'часов']);
 };
+
+export const formatMeasureUnit = (unit) => {
+  return typeof unit === 'string' && unit.endsWith('.')
+    ? unit.slice(0, -1)
+    : unit;
+};

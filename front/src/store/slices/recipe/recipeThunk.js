@@ -1,4 +1,3 @@
-//import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   FETCH_RECIPES_ERROR_MESSAGE,

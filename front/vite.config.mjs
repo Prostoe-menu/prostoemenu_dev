@@ -13,6 +13,11 @@ export default defineConfig({
   build: {
     outDir: 'build',
   },
+  preview: {
+    host: true,
+    open: false,
+    port: 3000,
+  },
   plugins: [react(), svgr(), eslint()],
   resolve: {
     alias: {

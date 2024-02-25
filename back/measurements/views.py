@@ -32,7 +32,7 @@ class MeasurementListApi(APIView):
         summary="Список всех мер измерений.",
         description="Эндпоинт получения списка всех мер измерений.",
         tags=("Measurements",),
-        responses={200: MeasurementSerializer},
+        responses={200: MeasurementSerializer(many=True)},
         operation_id="measurement_list_api",
     )
     def get(self, request):

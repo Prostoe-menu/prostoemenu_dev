@@ -4,5 +4,5 @@ from .models import Ingredient
 
 
 @admin.register(Ingredient)
-class MeasurementAdmin(admin.ModelAdmin):
+class IngredientAdmin(admin.ModelAdmin):
     list_display = ("name", "category", "sort")

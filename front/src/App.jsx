@@ -1,23 +1,19 @@
 import { Route, Routes } from 'react-router-dom';
 import AddRecipeForm from 'components/AddRecipeForm/AddRecipeForm';
-import Footer from 'components/Layout/Footer/Footer';
-import Header from 'components/Layout/Header/Header';
-import Modal from 'components/Modal/Modal';
-import ToastNotifications from 'components/Toast/ToastNotifications';
+import Layout from 'components/Layout/Layout';
+import NotFound from 'components/NotFound/NotFound';
 import HomePage from 'pages/HomePage';
-import styles from './App.module.scss';
+import RecipePage from 'pages/RecipePage';
 
 const App = () => (
-  <div className={styles.app}>
-    <Header />
-    <Routes>
-      <Route path="/" element={<HomePage />} />
+  <Routes>
+    <Route path="/" element={<Layout />}>
+      <Route index element={<HomePage />} />
       <Route path="/new-recipe" element={<AddRecipeForm />} />
-    </Routes>
-    <Modal />
-    <Footer />
-    <ToastNotifications />
-  </div>
+      <Route path="recipe/:id" element={<RecipePage />} />
+      <Route path="/*" element={<NotFound />} />
+    </Route>
+  </Routes>
 );
 
 export default App;

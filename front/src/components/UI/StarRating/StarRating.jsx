@@ -14,10 +14,10 @@ const StarRating = ({ label, rating }) => {
   });
 
   return (
-    <div className={styles.stars}>
+    <span className={styles.stars}>
       <span className={styles.label}>{label}:</span>
       {stars}
-    </div>
+    </span>
   );
 };
 

@@ -1,0 +1,37 @@
+@use 'src/styles/variables' as vars;
+
+.spinner {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+}
+
+.border {
+  width: 95px;
+  height: 95px;
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: vars.$loader-background;
+  animation: spin 0.6s linear 0s infinite;
+}
+
+.core {
+  width: 100%;
+  height: 100%;
+  background-color: vars.$bg-primary;
+  border-radius: 50%;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}

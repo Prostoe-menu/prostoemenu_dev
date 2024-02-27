@@ -102,3 +102,9 @@ export {
 };
 
 export const STARS_TOTAL = 3;
+
+export const FETCH_RECIPES_ERROR_MESSAGE =
+  'Упс! Что-то пошло не так при загрузке рецептов, но мы уже работаем над этим!';
+
+export const FETCH_RECIPE_BY_ID_ERROR_MESSAGE =
+  'Упс! Что-то пошло не так при загрузке рецепта, но мы уже работаем над этим!';

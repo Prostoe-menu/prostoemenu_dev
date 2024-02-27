@@ -1,3 +1,4 @@
+import { ScrollUpButton } from 'components/UI/ScrollUpButton';
 import RecipeCard from './RecipeCard/RecipeCard';
 import styles from './RecipeList.module.scss';
 
@@ -12,6 +13,8 @@ const RecipeList = ({ title, recipes }) => (
         ))}
       </ul>
     )}
+
+    <ScrollUpButton />
   </section>
 );
 

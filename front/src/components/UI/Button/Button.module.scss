@@ -76,14 +76,14 @@
 }
 
 .view-tertiary {
-  font-size: vars.$font-size-xxs;
-  line-height: vars.$line-height-xxs;
+  font-size: vars.$font-size-xs;
+  line-height: vars.$line-height-xs;
   color: vars.$color-primary;
-  background: vars.$bg-primary;
-  border: 1px solid vars.$btn-border-tertiary;
+  background-color: vars.$bg-primary;
+  border: 1px solid vars.$btn-bg-tertiary-active;
   gap: 6px;
-  padding: 8px 0;
-  border-radius: 8px;
+  padding: 12px 25px 12px 28px;
+  border-radius: 12px;
 
   &:hover {
     background: vars.$btn-bg-tertiary-hover;

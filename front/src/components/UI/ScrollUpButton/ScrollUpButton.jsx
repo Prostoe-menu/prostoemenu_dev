@@ -25,8 +25,13 @@ export const ScrollUpButton = () => {
 
   return (
     isShow && (
-      <Button view="tertiary" className={styles.btn} onClick={clickHandler}>
-        Наверх <SVGArrowUp />
+      <Button
+        view="tertiary"
+        className={styles.btn}
+        onClick={clickHandler}
+        aria-label="Наверх"
+      >
+        <SVGArrowUp />
       </Button>
     )
   );

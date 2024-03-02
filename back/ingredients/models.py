@@ -1,14 +1,14 @@
 from django.db import models
 
+from common.models import CustomBaseModel
 
-class Ingredient(models.Model):
+
+class Ingredient(CustomBaseModel):
     name = models.CharField(max_length=100, verbose_name="Название")
     category = models.CharField(
         max_length=100, verbose_name="Категория", default="Без категории"
     )
-    sort = models.SmallIntegerField(null=True, verbose_name="Порядок")
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    sort = models.PositiveSmallIntegerField(null=True, verbose_name="Порядок")
 
     def __str__(self):
         return self.name

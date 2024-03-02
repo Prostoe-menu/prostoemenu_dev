@@ -3,9 +3,11 @@ from drf_spectacular.utils import OpenApiExample, OpenApiParameter, extend_schem
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from recipe.models import Ingredient
+from .models import Ingredient
+from .selectors import ingredient_get, ingredient_list
 
-from .serializers import IngredientQuerySerializer, IngredientSerializer
+from .serializers.output import IngredientOutputSerializer
+from .serializers.input import IngredientQueryInputSerializer
 
 
 class IngredientDetailApi(APIView):
@@ -18,13 +20,12 @@ class IngredientDetailApi(APIView):
                 name="id", type=int, location=OpenApiParameter.PATH, required=True
             )
         ],
-        responses={200: IngredientSerializer},
+        responses={200: IngredientOutputSerializer},
         operation_id="ingredient_detail_api",
     )
-    def get(self, request, id=None):
-        ingredient = get_object_or_404(Ingredient, id=id)
-        serializer = IngredientSerializer(ingredient)
-
+    def get(self, request, id):
+        ingredient = ingredient_get(ingredient_id=id)
+        serializer = IngredientOutputSerializer(ingredient)
         return Response(serializer.data)
 
 
@@ -50,14 +51,13 @@ class IngredientListApi(APIView):
                 ],
             )
         ],
-        responses={200: IngredientSerializer(many=True)},
+        responses={200: IngredientOutputSerializer(many=True)},
         operation_id="ingredient_list_api",
     )
     def get(self, request):
-        query_serializer = IngredientQuerySerializer(data=request.query_params)
+        query_serializer = IngredientQueryInputSerializer(data=request.query_params)
         query_serializer.is_valid(raise_exception=True)
-        validated_query = query_serializer.validated_data
-        query_name = validated_query.get("name")
-        filtered_queryset = Ingredient.objects.filter(name__icontains=query_name)
-        serializer_output = IngredientSerializer(filtered_queryset, many=True)
+
+        ingredients = ingredient_list(query_serializer.validated_data)
+        serializer_output = IngredientOutputSerializer(ingredients, many=True)
         return Response(serializer_output.data)

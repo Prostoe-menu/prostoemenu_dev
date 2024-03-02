@@ -10,14 +10,16 @@ load_dotenv()
 
 def main():
     """Run administrative tasks."""
-    env = os.getenv('ENVIRONMENT', 'DEV')
-    if env == 'PROD':
+    env = os.getenv("ENVIRONMENT", "DEV")
+    if env == "PROD":
         os.environ.setdefault(
-            'DJANGO_SETTINGS_MODULE', 'prostoemenu.settings.production')
+            "DJANGO_SETTINGS_MODULE", "prostoemenu.settings.production"
+        )
     else:
         os.environ.setdefault(
-            'DJANGO_SETTINGS_MODULE', 'prostoemenu.settings.development')
-        
+            "DJANGO_SETTINGS_MODULE", "prostoemenu.settings.development"
+        )
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -29,5 +31,5 @@ def main():
     execute_from_command_line(sys.argv)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

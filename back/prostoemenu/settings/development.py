@@ -1,20 +1,18 @@
-from .base import *
-
+from .base import *  # noqa: F403
 
 INSTALLED_APPS += [
-    'debug_toolbar',
+    "debug_toolbar",
 ]
 
 MIDDLEWARE += [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
-
     # не удалять! Я локально работаю с посгресом.
     # 'default': {
     #     'ENGINE': os.getenv(

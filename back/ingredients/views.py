@@ -1,13 +1,10 @@
-from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import OpenApiExample, OpenApiParameter, extend_schema
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Ingredient
 from .selectors import ingredient_get, ingredient_list
-
-from .serializers.output import IngredientOutputSerializer
 from .serializers.input import IngredientQueryInputSerializer
+from .serializers.output import IngredientOutputSerializer
 
 
 class IngredientDetailApi(APIView):

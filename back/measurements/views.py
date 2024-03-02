@@ -2,8 +2,8 @@ from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 
-from .serializers.output import MeasurementOutputSerializer
 from .selectors import measurement_get, measurement_list
+from .serializers.output import MeasurementOutputSerializer
 
 
 class MeasurementDetailApi(APIView):

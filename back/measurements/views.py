@@ -1,10 +1,9 @@
-from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 
-from .models import Measurement
-from .serializers import MeasurementSerializer
+from .serializers.output import MeasurementOutputSerializer
+from .selectors import measurement_get, measurement_list
 
 
 class MeasurementDetailApi(APIView):
@@ -17,12 +16,12 @@ class MeasurementDetailApi(APIView):
                 name="id", type=int, location=OpenApiParameter.PATH, required=True
             )
         ],
-        responses={200: MeasurementSerializer},
+        responses={200: MeasurementOutputSerializer},
         operation_id="measurement_detail_api",
     )
-    def get(self, request, id=None):
-        measurement = get_object_or_404(Measurement, id=id)
-        serializer = MeasurementSerializer(measurement)
+    def get(self, request, id):
+        measurement = measurement_get(measurement_id=id)
+        serializer = MeasurementOutputSerializer(measurement)
 
         return Response(serializer.data)
 
@@ -32,11 +31,11 @@ class MeasurementListApi(APIView):
         summary="Список всех мер измерений.",
         description="Эндпоинт получения списка всех мер измерений.",
         tags=("Measurements",),
-        responses={200: MeasurementSerializer(many=True)},
+        responses={200: MeasurementOutputSerializer(many=True)},
         operation_id="measurement_list_api",
     )
     def get(self, request):
-        measurements = Measurement.objects.all()
-        serializer = MeasurementSerializer(measurements, many=True)
+        measurements = measurement_list()
+        serializer = MeasurementOutputSerializer(measurements, many=True)
 
         return Response(serializer.data)

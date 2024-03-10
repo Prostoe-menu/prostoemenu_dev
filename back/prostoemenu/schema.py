@@ -1,17 +1,6 @@
-import os
-
-from dotenv import load_dotenv
 from drf_spectacular.extensions import OpenApiSerializerFieldExtension
 from drf_spectacular.plumbing import build_basic_type
 from drf_spectacular.types import OpenApiTypes
-
-load_dotenv()
-
-env = os.getenv("ENVIRONMENT", "DEV")
-if env == "PROD":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "prostoemenu.settings.production")
-else:
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "prostoemenu.settings.development")
 
 
 class Base64FileFieldSchema(OpenApiSerializerFieldExtension):

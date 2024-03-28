@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+
 
 from common.models import CustomBaseModel
 from ingredients.models import Ingredient
@@ -11,12 +13,26 @@ User = get_user_model()
 class Recipe(CustomBaseModel):
     title = models.CharField(max_length=100, verbose_name="Название", unique=True)
     description = models.TextField(null=True, verbose_name="Описание")
-    cooking_time = models.PositiveSmallIntegerField(verbose_name="Время готовки")
-    oven_time = models.PositiveSmallIntegerField(verbose_name="Время готовки у плиты")
-    quantity = models.PositiveSmallIntegerField(
-        default=1, verbose_name="Количество порций"
+    cooking_time = models.PositiveSmallIntegerField(
+        null=False,
+        verbose_name="Общее время готовки",
+        validators=[MinValueValidator(1), MaxValueValidator(5999)]
     )
-    complexity = models.PositiveSmallIntegerField(verbose_name="Сложность готовки")
+    oven_time = models.PositiveSmallIntegerField(
+        null=False,
+        verbose_name="Время активной готовки",
+        validators=[MinValueValidator(1), MaxValueValidator(5999)]
+    )
+    quantity = models.PositiveSmallIntegerField(
+        null=False,
+        verbose_name="Количество порций",
+        validators=[MinValueValidator(1), MaxValueValidator(10)]
+    )
+    complexity = models.PositiveSmallIntegerField(
+        null=False,
+        verbose_name="Сложность готовки",
+        validators=[MinValueValidator(1), MaxValueValidator(3)]
+    )
     author = models.ForeignKey(
         User,
         null=True,
@@ -34,6 +50,7 @@ class Recipe(CustomBaseModel):
         verbose_name = "Рецепт"
         verbose_name_plural = "Рецепты"
         ordering = ["-created_at"]
+
 
 
 class RecipeStep(CustomBaseModel):

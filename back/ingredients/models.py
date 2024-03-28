@@ -12,7 +12,7 @@ class Ingredient(CustomBaseModel):
     sort = models.PositiveSmallIntegerField(
         null=True,
         verbose_name="Порядок",
-        validators=[MinValueValidator(1), MaxValueValidator(3)]
+        validators=[MinValueValidator(10), MaxValueValidator(30)]
     )
 
     def __str__(self):

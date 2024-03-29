@@ -7,7 +7,9 @@ from common.models import CustomBaseModel
 class Ingredient(CustomBaseModel):
     name = models.CharField(max_length=100, verbose_name="Название")
     category = models.CharField(
-        max_length=100, verbose_name="Категория", default="Без категории"
+        max_length=100,
+        verbose_name="Категория",
+        default="Без категории"
     )
     sort = models.PositiveSmallIntegerField(
         null=True,

@@ -62,6 +62,11 @@ class RecipeStep(CustomBaseModel):
     class Meta:
         verbose_name = "Шаг"
         verbose_name_plural = "Шаги"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["recipe", "step_number"], name="unique_step_in_recipe"
+            )
+        ]
 
 
 class RecipeIngredient(CustomBaseModel):
@@ -79,3 +84,9 @@ class RecipeIngredient(CustomBaseModel):
     class Meta:
         verbose_name = "Ингредиент в рецепте"
         verbose_name_plural = "Ингредиенты в рецептах"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["recipe", "ingredient"], name="unique_ingredient_in_recipe"
+            )
+        ]
+

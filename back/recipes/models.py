@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MaxValueValidator, MaxLengthValidator, MinValueValidator, MinLengthValidator
 from django.db import models
 
 
@@ -11,25 +11,24 @@ User = get_user_model()
 
 
 class Recipe(CustomBaseModel):
-    title = models.CharField(max_length=100, verbose_name="Название", unique=True)
-    description = models.TextField(null=True, verbose_name="Описание")
+    title = models.CharField(max_length=100, verbose_name="Название")
+    description = models.TextField(
+        null=True,
+        verbose_name="Описание",
+        validators=[MinLengthValidator(10), MaxLengthValidator(500)])
     cooking_time = models.PositiveSmallIntegerField(
-        null=False,
         verbose_name="Общее время готовки",
         validators=[MinValueValidator(1), MaxValueValidator(5999)]
     )
     oven_time = models.PositiveSmallIntegerField(
-        null=False,
         verbose_name="Время активной готовки",
         validators=[MinValueValidator(1), MaxValueValidator(5999)]
     )
     quantity = models.PositiveSmallIntegerField(
-        null=False,
         verbose_name="Количество порций",
         validators=[MinValueValidator(1), MaxValueValidator(10)]
     )
     complexity = models.PositiveSmallIntegerField(
-        null=False,
         verbose_name="Сложность готовки",
         validators=[MinValueValidator(1), MaxValueValidator(3)]
     )
@@ -50,13 +49,24 @@ class Recipe(CustomBaseModel):
         verbose_name = "Рецепт"
         verbose_name_plural = "Рецепты"
         ordering = ["-created_at"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["title", "description"], name="unique_recipe"
+            )
+        ]
 
 
 
 class RecipeStep(CustomBaseModel):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name="steps")
-    step_number = models.PositiveSmallIntegerField(verbose_name="Номер шага")
-    description = models.TextField(verbose_name="Описание шага")
+    step_number = models.PositiveSmallIntegerField(
+        verbose_name="Номер шага",
+        validators=[MinValueValidator(1), MaxValueValidator(20)]
+    )
+    description = models.TextField(
+        verbose_name="Описание шага",
+        validators=[MinLengthValidator(10), MaxLengthValidator(500)]
+    )
     image = models.ImageField(upload_to="recipes", verbose_name="Изображение")
 
     class Meta:
@@ -76,7 +86,12 @@ class RecipeIngredient(CustomBaseModel):
     ingredient = models.ForeignKey(
         Ingredient, on_delete=models.CASCADE, related_name="recipes"
     )
-    volume = models.PositiveSmallIntegerField(verbose_name="Количество")
+    volume = models.DecimalField(
+        max_digits=4,
+        decimal_places=2,
+        verbose_name="Количество",
+        validators=[MinValueValidator(0.01)]
+    )
     measure = models.ForeignKey(
         Measurement, on_delete=models.CASCADE, verbose_name="Единица измерения"
     )
@@ -89,4 +104,3 @@ class RecipeIngredient(CustomBaseModel):
                 fields=["recipe", "ingredient"], name="unique_ingredient_in_recipe"
             )
         ]
-

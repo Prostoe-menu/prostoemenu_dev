@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MaxLengthValidator, MinValueValidator, MinLengthValidator
 from django.db import models
 
@@ -41,10 +42,6 @@ class Recipe(CustomBaseModel):
         related_name="recipes",
     )
     cover_path = models.ImageField(upload_to="media", verbose_name="Главное фото")
-
-    def __str__(self):
-        return self.title
-
     class Meta:
         verbose_name = "Рецепт"
         verbose_name_plural = "Рецепты"
@@ -54,6 +51,18 @@ class Recipe(CustomBaseModel):
                 fields=["title", "description"], name="unique_recipe"
             )
         ]
+
+    def __str__(self):
+        return self.title
+
+    def clean(self):
+        if self.cooking_time < self.oven_time:
+            raise ValidationError('Общее время готовки не может быть меньше времени активной готовки')
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.full_clean()
+        super(Recipe, self).save(*args, **kwargs)
 
 
 

@@ -1,4 +1,3 @@
-from django.conf import settings as django_settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MaxLengthValidator, MinValueValidator, MinLengthValidator
@@ -70,25 +69,8 @@ class Recipe(CustomBaseModel):
                     setattr(self, field.name, value.strip().capitalize())
                     validate_accepted_symbols(field=field.name, value=value)
 
-
         if self.cooking_time < self.oven_time:
             raise ValidationError('Общее время готовки не может быть меньше времени активной готовки')
-
-
-
-
-
-
-
-        description = self.description.strip().capitalize()
-        for i in description:
-            if i not in django_settings.ACCEPTED_SYMBOLS:
-                raise ValidationError('Название рецепта содержит недопустимые символы')
-        self.description = description
-
-
-
-
 
     def save(self, *args, **kwargs):
         if not self.pk:

@@ -1,3 +1,4 @@
+from django.conf import settings as django_settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MaxLengthValidator, MinValueValidator, MinLengthValidator
@@ -5,6 +6,7 @@ from django.db import models
 
 
 from common.models import CustomBaseModel
+from common.validators import validate_accepted_symbols
 from ingredients.models import Ingredient
 from measurements.models import Measurement
 
@@ -12,11 +14,16 @@ User = get_user_model()
 
 
 class Recipe(CustomBaseModel):
-    title = models.CharField(max_length=100, verbose_name="Название")
+    title = models.CharField(
+        max_length=100,
+        verbose_name="Название",
+        validators=[MinLengthValidator(2)]
+    )
     description = models.TextField(
         null=True,
         verbose_name="Описание",
-        validators=[MinLengthValidator(10), MaxLengthValidator(500)])
+        validators=[MinLengthValidator(10), MaxLengthValidator(500)]
+    )
     cooking_time = models.PositiveSmallIntegerField(
         verbose_name="Общее время готовки",
         validators=[MinValueValidator(1), MaxValueValidator(5999)]
@@ -56,8 +63,32 @@ class Recipe(CustomBaseModel):
         return self.title
 
     def clean(self):
+        for field in self._meta.get_fields():
+            if isinstance(field, (models.CharField, models.TextField)):
+                value = getattr(self, field.name)
+                if value:
+                    setattr(self, field.name, value.strip().capitalize())
+                    validate_accepted_symbols(field=field.name, value=value)
+
+
         if self.cooking_time < self.oven_time:
             raise ValidationError('Общее время готовки не может быть меньше времени активной готовки')
+
+
+
+
+
+
+
+        description = self.description.strip().capitalize()
+        for i in description:
+            if i not in django_settings.ACCEPTED_SYMBOLS:
+                raise ValidationError('Название рецепта содержит недопустимые символы')
+        self.description = description
+
+
+
+
 
     def save(self, *args, **kwargs):
         if not self.pk:

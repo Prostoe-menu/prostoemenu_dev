@@ -1,8 +1,8 @@
-@use 'src/styles/font-variables' as font;
 @use 'src/styles/color-variables' as colors;
 
 .ingredientsWrapper {
   max-width: 39rem;
+  margin-bottom: 6.4rem;
 }
 
 .title {
@@ -20,9 +20,6 @@
   justify-content: space-between;
   align-items: center;
   gap: .9rem;
-  font-family: font.$font-body;
-  font-size: font.$font-size-xs;
-  line-height: font.$line-height-xs;
   margin-bottom: 1.4rem;
 }
 

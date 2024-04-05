@@ -1,6 +1,12 @@
 @use 'font-variables' as vars;
 @use 'color-variables' as colors;
 
+body {
+  font-family: vars.$font-body;
+  font-size: vars.$font-size-xs;
+  line-height: vars.$line-height-xs;
+}
+
 h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   font-family: vars.$font-heading;
   color: colors.$color-primary;

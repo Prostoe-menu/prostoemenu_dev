@@ -2,8 +2,6 @@ import { Step } from './Step/Step';
 import styles from './Steps.module.scss';
 
 export const Steps = ({ list }) => {
-  console.log(list);
-
   return (
     <>
       <h2 className={styles.title}>Способ приготовления</h2>

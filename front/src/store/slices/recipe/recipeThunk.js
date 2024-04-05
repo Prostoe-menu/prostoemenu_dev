@@ -24,7 +24,7 @@ export const fetchRecipeByID = createAsyncThunk(
     try {
       const response = await recipeService.getRecipeByID(id);
 
-      return response.data && response.data[0];
+      return response.data;
     } catch (error) {
       return rejectWithValue(FETCH_RECIPE_BY_ID_ERROR_MESSAGE);
     }

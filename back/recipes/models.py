@@ -5,7 +5,7 @@ from django.db import models
 
 
 from common.models import CustomBaseModel
-from common.validators import validate_accepted_symbols
+from common.utils import normilize_text_fields
 from ingredients.models import Ingredient
 from measurements.models import Measurement
 
@@ -62,13 +62,7 @@ class Recipe(CustomBaseModel):
         return self.title
 
     def clean(self):
-        for field in self._meta.get_fields():
-            if isinstance(field, (models.CharField, models.TextField)):
-                value = getattr(self, field.name)
-                if value:
-                    setattr(self, field.name, value.strip().capitalize())
-                    validate_accepted_symbols(field=field.name, value=value)
-
+        normilize_text_fields(self)
         if self.cooking_time < self.oven_time:
             raise ValidationError('Общее время готовки не может быть меньше времени активной готовки')
 
@@ -76,7 +70,6 @@ class Recipe(CustomBaseModel):
         if not self.pk:
             self.full_clean()
         super(Recipe, self).save(*args, **kwargs)
-
 
 
 class RecipeStep(CustomBaseModel):
@@ -99,6 +92,14 @@ class RecipeStep(CustomBaseModel):
                 fields=["recipe", "step_number"], name="unique_step_in_recipe"
             )
         ]
+
+    def clean(self):
+        normilize_text_fields(self)
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.full_clean()
+        super(RecipeStep, self).save(*args, **kwargs)
 
 
 class RecipeIngredient(CustomBaseModel):

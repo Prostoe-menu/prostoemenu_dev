@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import StarRating from 'components/UI/StarRating';
+import { checkImage } from 'helpers/checkImage';
 import { timeFormat } from 'helpers/utils';
 import styles from './RecipeCard.module.scss';
 
@@ -15,8 +16,8 @@ const RecipeCard = ({ recipe }) => {
   return (
     <li>
       <article className={styles.recipe}>
-        {imgUrl ? (
-          <img src={imgUrl} className={styles.img} alt={name} />
+        {checkImage(imgUrl) ? (
+          <img src={imgUrl} className={styles.img} alt={title} />
         ) : (
           // TODO: временная заглушка отсутствующей картинки
           <div className={styles.defaultImg}>No Image</div>

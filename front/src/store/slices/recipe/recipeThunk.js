@@ -9,15 +9,7 @@ const fetchRecipes = createAsyncThunk(
   'recipes/fetchRecipes',
   async (_, { rejectWithValue }) => {
     try {
-      const originalRecipes = await recipeService.getRecipes();
-
-      return [...Array(10)]
-        .map(() => originalRecipes)
-        .flat()
-        .map((item) => ({
-          ...item,
-          cooking_time: Math.round(200 * Math.random()),
-        }));
+      return await recipeService.getRecipes();
     } catch (error) {
       return rejectWithValue(FETCH_RECIPES_ERROR_MESSAGE);
     }
@@ -32,7 +24,7 @@ export const fetchRecipeByID = createAsyncThunk(
     try {
       const response = await recipeService.getRecipeByID(id);
 
-      return response.data && response.data[0];
+      return response.data;
     } catch (error) {
       return rejectWithValue(FETCH_RECIPE_BY_ID_ERROR_MESSAGE);
     }

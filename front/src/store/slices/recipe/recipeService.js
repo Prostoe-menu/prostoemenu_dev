@@ -8,8 +8,7 @@ const getRecipes = async () => {
     crossDomain: true,
   });
 
-  const { results } = response.data;
-  return results;
+  return response.data;
 };
 
 const getRecipeByID = async (id) => {

@@ -6,6 +6,7 @@ from django.db import models
 
 from common.models import CustomBaseModel
 from common.utils import normilize_text_fields
+from common.validators import validate_accepted_symbols
 from ingredients.models import Ingredient
 from measurements.models import Measurement
 
@@ -16,12 +17,16 @@ class Recipe(CustomBaseModel):
     title = models.CharField(
         max_length=100,
         verbose_name="Название",
-        validators=[MinLengthValidator(2)]
+        validators=[MinLengthValidator(2), validate_accepted_symbols]
     )
     description = models.TextField(
         null=True,
         verbose_name="Описание",
-        validators=[MinLengthValidator(10), MaxLengthValidator(500)]
+        validators=[
+            MinLengthValidator(10),
+            MaxLengthValidator(500),
+            validate_accepted_symbols
+        ]
     )
     cooking_time = models.PositiveSmallIntegerField(
         verbose_name="Общее время готовки",
@@ -80,7 +85,11 @@ class RecipeStep(CustomBaseModel):
     )
     description = models.TextField(
         verbose_name="Описание шага",
-        validators=[MinLengthValidator(10), MaxLengthValidator(500)]
+        validators=[
+            MinLengthValidator(10),
+            MaxLengthValidator(500),
+            validate_accepted_symbols
+        ]
     )
     image = models.ImageField(upload_to="recipes", verbose_name="Изображение")
 

@@ -1,6 +1,4 @@
-from common.validators import validate_accepted_symbols
 from django.db import models
-
 
 
 def normilize_text_fields(model_obj):
@@ -9,4 +7,5 @@ def normilize_text_fields(model_obj):
             value = getattr(model_obj, field.name)
             if value:
                 setattr(model_obj, field.name, value.strip().capitalize())
-                validate_accepted_symbols(model_obj=model_obj, field=field.name, value=value)
+
+    return model_obj

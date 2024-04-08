@@ -153,3 +153,9 @@ SPECTACULAR_SETTINGS = {
 DOMAIN_NAME = "https://test-menu.wowit.ru/"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+ACCEPTED_SYMBOLS = (
+    "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    "0123456789!-№;%:?*()/.,\«» \"'"
+)

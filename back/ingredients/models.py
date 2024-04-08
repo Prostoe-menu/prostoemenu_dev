@@ -1,3 +1,4 @@
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from common.models import CustomBaseModel
@@ -8,7 +9,11 @@ class Ingredient(CustomBaseModel):
     category = models.CharField(
         max_length=100, verbose_name="Категория", default="Без категории"
     )
-    sort = models.PositiveSmallIntegerField(null=True, verbose_name="Порядок")
+    sort = models.PositiveSmallIntegerField(
+        null=True,
+        verbose_name="Порядок",
+        validators=[MinValueValidator(10), MaxValueValidator(30)],
+    )
 
     def __str__(self):
         return self.name

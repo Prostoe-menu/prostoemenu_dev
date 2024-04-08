@@ -79,8 +79,7 @@ class Recipe(CustomBaseModel):
             )
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            self.full_clean()
+        self.full_clean()
         super(Recipe, self).save(*args, **kwargs)
 
 
@@ -115,8 +114,7 @@ class RecipeStep(CustomBaseModel):
         normilize_text_fields(self)
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            self.full_clean()
+        self.full_clean()
         super(RecipeStep, self).save(*args, **kwargs)
 
 

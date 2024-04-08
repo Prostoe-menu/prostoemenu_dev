@@ -154,4 +154,8 @@ DOMAIN_NAME = "https://test-menu.wowit.ru/"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-ACCEPTED_SYMBOLS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!-№;%:?*()/.,\«» \"'"
+ACCEPTED_SYMBOLS = (
+    "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    "0123456789!-№;%:?*()/.,\«» \"'"
+)

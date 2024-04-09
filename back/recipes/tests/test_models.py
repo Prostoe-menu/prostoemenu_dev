@@ -87,3 +87,22 @@ class RecipeStepTest(TestCase):
             )
 
             recipe_step.full_clean()
+
+    def test_step_numbers_cannot_be_duplicated(self):
+        print("test_step_numbers_cannot_be_duplicated")
+        with self.assertRaises(ValidationError):
+            RecipeStep.objects.create(
+                recipe=Recipe.objects.get(pk=1),
+                step_number=1,
+                description="step description",
+                image="data/default_photo.jpg",
+            )
+
+            same_number_step = RecipeStep.objects.create(
+                recipe=Recipe.objects.get(pk=1),
+                step_number=1,
+                description="step description 2",
+                image="data/default_photo.jpg",
+            )
+
+            same_number_step.full_clean()

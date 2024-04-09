@@ -1,8 +1,12 @@
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
-from django.core.validators import MaxValueValidator, MaxLengthValidator, MinValueValidator, MinLengthValidator
+from django.core.validators import (
+    MaxLengthValidator,
+    MaxValueValidator,
+    MinLengthValidator,
+    MinValueValidator,
+)
 from django.db import models
-
 
 from common.models import CustomBaseModel
 from common.utils import normilize_text_fields
@@ -17,7 +21,7 @@ class Recipe(CustomBaseModel):
     title = models.CharField(
         max_length=100,
         verbose_name="Название",
-        validators=[MinLengthValidator(2), validate_accepted_symbols]
+        validators=[MinLengthValidator(2), validate_accepted_symbols],
     )
     description = models.TextField(
         null=True,
@@ -25,24 +29,24 @@ class Recipe(CustomBaseModel):
         validators=[
             MinLengthValidator(10),
             MaxLengthValidator(500),
-            validate_accepted_symbols
-        ]
+            validate_accepted_symbols,
+        ],
     )
     cooking_time = models.PositiveSmallIntegerField(
         verbose_name="Общее время готовки",
-        validators=[MinValueValidator(1), MaxValueValidator(5999)]
+        validators=[MinValueValidator(1), MaxValueValidator(5999)],
     )
     oven_time = models.PositiveSmallIntegerField(
         verbose_name="Время активной готовки",
-        validators=[MinValueValidator(1), MaxValueValidator(5999)]
+        validators=[MinValueValidator(1), MaxValueValidator(5999)],
     )
     quantity = models.PositiveSmallIntegerField(
         verbose_name="Количество порций",
-        validators=[MinValueValidator(1), MaxValueValidator(10)]
+        validators=[MinValueValidator(1), MaxValueValidator(10)],
     )
     complexity = models.PositiveSmallIntegerField(
         verbose_name="Сложность готовки",
-        validators=[MinValueValidator(1), MaxValueValidator(3)]
+        validators=[MinValueValidator(1), MaxValueValidator(3)],
     )
     author = models.ForeignKey(
         User,
@@ -53,6 +57,7 @@ class Recipe(CustomBaseModel):
         related_name="recipes",
     )
     cover_path = models.ImageField(upload_to="media", verbose_name="Главное фото")
+
     class Meta:
         verbose_name = "Рецепт"
         verbose_name_plural = "Рецепты"
@@ -69,7 +74,9 @@ class Recipe(CustomBaseModel):
     def clean(self):
         normilize_text_fields(self)
         if self.cooking_time < self.oven_time:
-            raise ValidationError('Общее время готовки не может быть меньше времени активной готовки')
+            raise ValidationError(
+                "Общее время готовки не может быть меньше времени активной готовки"
+            )
 
     def save(self, *args, **kwargs):
         if not self.pk:
@@ -81,15 +88,15 @@ class RecipeStep(CustomBaseModel):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name="steps")
     step_number = models.PositiveSmallIntegerField(
         verbose_name="Номер шага",
-        validators=[MinValueValidator(1), MaxValueValidator(20)]
+        validators=[MinValueValidator(1), MaxValueValidator(20)],
     )
     description = models.TextField(
         verbose_name="Описание шага",
         validators=[
             MinLengthValidator(10),
             MaxLengthValidator(500),
-            validate_accepted_symbols
-        ]
+            validate_accepted_symbols,
+        ],
     )
     image = models.ImageField(upload_to="recipes", verbose_name="Изображение")
 
@@ -122,7 +129,7 @@ class RecipeIngredient(CustomBaseModel):
         max_digits=4,
         decimal_places=2,
         verbose_name="Количество",
-        validators=[MinValueValidator(0.01)]
+        validators=[MinValueValidator(0.01)],
     )
     measure = models.ForeignKey(
         Measurement, on_delete=models.CASCADE, verbose_name="Единица измерения"

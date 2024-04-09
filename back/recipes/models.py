@@ -79,8 +79,7 @@ class Recipe(CustomBaseModel):
             )
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            self.full_clean()
+        self.full_clean()
         super(Recipe, self).save(*args, **kwargs)
 
 
@@ -98,7 +97,9 @@ class RecipeStep(CustomBaseModel):
             validate_accepted_symbols,
         ],
     )
-    image = models.ImageField(upload_to="recipes", verbose_name="Изображение")
+    image = models.ImageField(
+        null=True, upload_to="recipes", verbose_name="Изображение"
+    )
 
     class Meta:
         verbose_name = "Шаг"
@@ -113,8 +114,7 @@ class RecipeStep(CustomBaseModel):
         normilize_text_fields(self)
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            self.full_clean()
+        self.full_clean()
         super(RecipeStep, self).save(*args, **kwargs)
 
 

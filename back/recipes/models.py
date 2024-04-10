@@ -1,3 +1,4 @@
+from django.conf import settings as django_settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.validators import (
@@ -92,8 +93,8 @@ class RecipeStep(CustomBaseModel):
     description = models.TextField(
         verbose_name="Описание шага",
         validators=[
-            MinLengthValidator(10),
-            MaxLengthValidator(500),
+            MinLengthValidator(django_settings.MIN_DESCR_LENGTH),
+            MaxLengthValidator(django_settings.MAX_DESCR_LENGTH),
             validate_accepted_symbols,
         ],
     )

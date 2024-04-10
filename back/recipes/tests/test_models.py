@@ -104,3 +104,18 @@ class RecipeStepTest(TestCase):
                 description=invalid_descr,
                 image="mediafiles/media/default_photo.jpg",
             )
+
+
+class RecipeTest(TestCase):
+    def test_title_cannot_be_shorter_than_MIN_TITLE_LENGTH(self):
+        with self.assertRaises(ValidationError):
+            Recipe.objects.create(
+                title="A",
+                description="some recipe description",
+                cooking_time=10,
+                oven_time=10,
+                quantity=3,
+                complexity=1,
+                author=None,
+                cover_path="mediafiles/media/default_photo.jpg"
+            )

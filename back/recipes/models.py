@@ -22,7 +22,7 @@ class Recipe(CustomBaseModel):
     title = models.CharField(
         max_length=100,
         verbose_name="Название",
-        validators=[MinLengthValidator(2), validate_accepted_symbols],
+        validators=[MinLengthValidator(django_settings.MIN_TITLE_LENGTH), validate_accepted_symbols],
     )
     description = models.TextField(
         null=True,

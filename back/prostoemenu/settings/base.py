@@ -159,3 +159,7 @@ ACCEPTED_SYMBOLS = (
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     "0123456789!-№;%:?*()/.,\«» \"'"
 )
+
+MIN_DESCR_LENGTH = 10
+
+MAX_DESCR_LENGTH = 500

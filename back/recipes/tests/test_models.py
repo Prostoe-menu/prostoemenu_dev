@@ -276,3 +276,27 @@ class RecipeTest(TestCase):
                 author=None,
                 cover_path="mediafiles/media/default_photo.jpg",
             )
+
+    def test_combination_of_title_and_description_cannot_be_duplicated(self):
+        Recipe.objects.create(
+            title="Омлет по-берлински",
+            description="Описание омлета по-берлински",
+            cooking_time=django_settings.MIN_COOKING_AND_OVEN_TIME,
+            oven_time=django_settings.MIN_COOKING_AND_OVEN_TIME,
+            quantity=django_settings.MIN_PORTION_QUANTITY,
+            complexity=django_settings.MIN_RECIPE_COMPLEXITY,
+            author=None,
+            cover_path="mediafiles/media/default_photo.jpg",
+        )
+
+        with self.assertRaises(ValidationError):
+            Recipe.objects.create(
+                title="Омлет по-берлински",
+                description="Описание омлета по-берлински",
+                cooking_time=django_settings.MAX_COOKING_AND_OVEN_TIME,
+                oven_time=django_settings.MAX_COOKING_AND_OVEN_TIME,
+                quantity=django_settings.MAX_PORTION_QUANTITY,
+                complexity=django_settings.MAX_RECIPE_COMPLEXITY,
+                author=None,
+                cover_path="mediafiles/media/another_default_photo.jpg",
+            )

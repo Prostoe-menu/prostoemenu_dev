@@ -103,7 +103,10 @@ class RecipeStep(CustomBaseModel):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name="steps")
     step_number = models.PositiveSmallIntegerField(
         verbose_name="Номер шага",
-        validators=[MinValueValidator(1), MaxValueValidator(20)],
+        validators=[
+            MinValueValidator(django_settings.MIN_STEP_NUMBER),
+            MaxValueValidator(django_settings.MAX_STEP_NUMBER),
+        ],
     )
     description = models.TextField(
         verbose_name="Описание шага",

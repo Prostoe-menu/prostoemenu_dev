@@ -22,7 +22,10 @@ class Recipe(CustomBaseModel):
     title = models.CharField(
         max_length=100,
         verbose_name="Название",
-        validators=[MinLengthValidator(django_settings.MIN_TITLE_LENGTH), validate_accepted_symbols],
+        validators=[
+            MinLengthValidator(django_settings.MIN_TITLE_LENGTH),
+            validate_accepted_symbols,
+        ],
     )
     description = models.TextField(
         null=True,
@@ -35,15 +38,24 @@ class Recipe(CustomBaseModel):
     )
     cooking_time = models.PositiveSmallIntegerField(
         verbose_name="Общее время готовки",
-        validators=[MinValueValidator(1), MaxValueValidator(5999)],
+        validators=[
+            MinValueValidator(django_settings.MIN_COOKING_AND_OVEN_TIME),
+            MaxValueValidator(django_settings.MAX_COOKING_AND_OVEN_TIME),
+        ],
     )
     oven_time = models.PositiveSmallIntegerField(
         verbose_name="Время активной готовки",
-        validators=[MinValueValidator(1), MaxValueValidator(5999)],
+        validators=[
+            MinValueValidator(django_settings.MIN_COOKING_AND_OVEN_TIME),
+            MaxValueValidator(django_settings.MAX_COOKING_AND_OVEN_TIME),
+        ],
     )
     quantity = models.PositiveSmallIntegerField(
         verbose_name="Количество порций",
-        validators=[MinValueValidator(1), MaxValueValidator(10)],
+        validators=[
+            MinValueValidator(django_settings.MIN_PORTION_QUANTITY),
+            MaxValueValidator(django_settings.MAX_PORTION_QUANTITY),
+        ],
     )
     complexity = models.PositiveSmallIntegerField(
         verbose_name="Сложность готовки",

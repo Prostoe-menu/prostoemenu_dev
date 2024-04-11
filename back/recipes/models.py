@@ -28,8 +28,8 @@ class Recipe(CustomBaseModel):
         null=True,
         verbose_name="Описание",
         validators=[
-            MinLengthValidator(10),
-            MaxLengthValidator(500),
+            MinLengthValidator(django_settings.MIN_DESCR_LENGTH),
+            MaxLengthValidator(django_settings.MAX_DESCR_LENGTH),
             validate_accepted_symbols,
         ],
     )

@@ -107,7 +107,7 @@ class RecipeStepTest(TestCase):
 
 
 class RecipeTest(TestCase):
-    def test_title_cannot_be_shorter_than_MIN_TITLE_LENGTH(self):
+    def test_recipe_title_cannot_be_shorter_than_MIN_TITLE_LENGTH(self):
         with self.assertRaises(ValidationError):
             Recipe.objects.create(
                 title="A",
@@ -119,3 +119,70 @@ class RecipeTest(TestCase):
                 author=None,
                 cover_path="mediafiles/media/default_photo.jpg"
             )
+
+    def test_recipe_title_contains_only_ACCEPTED_SYMBOLS(self):
+        with self.assertRaises(ValidationError):
+            valid_title="Омлет по-берлински"
+            invalid_symbol = "~"
+            invalid_title = valid_title + invalid_symbol
+            Recipe.objects.create(
+                title=invalid_title,
+                description="some recipe description",
+                cooking_time=10,
+                oven_time=10,
+                quantity=3,
+                complexity=1,
+                author=None,
+                cover_path="mediafiles/media/default_photo.jpg"
+            )
+    def test_recipe_description_cannot_be_shorter_than_MIN_DESCR_LENGTH(self):
+        with self.assertRaises(ValidationError):
+            too_short_description = generate_text(django_settings.MIN_DESCR_LENGTH - 1, django_settings.ACCEPTED_SYMBOLS)
+            #print("too short description: ", too_short_description)
+            Recipe.objects.create(
+                title="some valid title",
+                #description="adfasadfasdfasdfas",
+                description=too_short_description,
+                cooking_time=10,
+                oven_time=10,
+                quantity=3,
+                complexity=1,
+                author=None,
+                cover_path="mediafiles/media/default_photo.jpg"
+            )
+
+    def test_recipe_description_cannot_be_longer_than_MAX_DESCR_LENGTH(self):
+        with self.assertRaises(ValidationError):
+            too_long_description = generate_text(django_settings.MAX_DESCR_LENGTH + 1, django_settings.ACCEPTED_SYMBOLS)
+            Recipe.objects.create(
+                title="some valid title",
+                #description="not too long description",
+                description=too_long_description,
+                cooking_time=10,
+                oven_time=10,
+                quantity=3,
+                complexity=1,
+                author=None,
+                cover_path="mediafiles/media/default_photo.jpg"
+            )
+
+
+    #
+    # def test_recipe_description_cannot_be_longer_than_MAX_DESCR_LENGTH(self):
+    #     with self.assertRaises(ValidationError):
+    #         # too_long_description = generate_text(
+    #         #     django_settings.MAX_DESCR_LENGTH + 1,
+    #         #     django_settings.ACCEPTED_SYMBOLS,
+    #         #
+    #
+    #         Recipe.objects.create(
+    #             title="Омлет по-берлински",
+    #             description="not_too_long_description",
+    #             #description=too_long_description,
+    #             cooking_time=10,
+    #             oven_time=10,
+    #             quantity=3,
+    #             complexity=1,
+    #             author=None,
+    #             cover_path="mediafiles/media/default_photo.jpg"
+    #         )

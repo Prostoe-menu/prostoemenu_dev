@@ -248,3 +248,31 @@ class RecipeTest(TestCase):
                 author=None,
                 cover_path="mediafiles/media/default_photo.jpg",
             )
+
+    def test_complexity_cannot_be_less_than_MIN_RECIPE_COMPLEXITY(self):
+        with self.assertRaises(ValidationError):
+            invalid_complexity = django_settings.MIN_RECIPE_COMPLEXITY - 1
+            Recipe.objects.create(
+                title="Омлет по-берлински",
+                description="Описание омлета по-берлински",
+                cooking_time=django_settings.MIN_COOKING_AND_OVEN_TIME,
+                oven_time=django_settings.MIN_COOKING_AND_OVEN_TIME,
+                quantity=django_settings.MIN_PORTION_QUANTITY,
+                complexity=invalid_complexity,
+                author=None,
+                cover_path="mediafiles/media/default_photo.jpg",
+            )
+
+    def test_complexity_cannot_be_more_than_MAX_RECIPE_COMPLEXITY(self):
+        with self.assertRaises(ValidationError):
+            invalid_complexity = django_settings.MAX_RECIPE_COMPLEXITY + 1
+            Recipe.objects.create(
+                title="Омлет по-берлински",
+                description="Описание омлета по-берлински",
+                cooking_time=django_settings.MIN_COOKING_AND_OVEN_TIME,
+                oven_time=django_settings.MIN_COOKING_AND_OVEN_TIME,
+                quantity=django_settings.MIN_PORTION_QUANTITY,
+                complexity=invalid_complexity,
+                author=None,
+                cover_path="mediafiles/media/default_photo.jpg",
+            )

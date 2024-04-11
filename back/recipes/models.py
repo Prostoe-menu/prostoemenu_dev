@@ -59,7 +59,10 @@ class Recipe(CustomBaseModel):
     )
     complexity = models.PositiveSmallIntegerField(
         verbose_name="Сложность готовки",
-        validators=[MinValueValidator(1), MaxValueValidator(3)],
+        validators=[
+            MinValueValidator(django_settings.MIN_RECIPE_COMPLEXITY),
+            MaxValueValidator(django_settings.MAX_RECIPE_COMPLEXITY),
+        ],
     )
     author = models.ForeignKey(
         User,

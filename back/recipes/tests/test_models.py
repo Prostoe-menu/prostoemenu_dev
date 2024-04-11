@@ -186,3 +186,24 @@ class RecipeTest(TestCase):
     #             author=None,
     #             cover_path="mediafiles/media/default_photo.jpg"
     #         )
+
+
+    def test_recipe_dexcription_contains_only_ACCEPTED_SYMBOLS(self):
+        with self.assertRaises(ValidationError):
+            valid_descr = "valid recipe description"
+            invalid_symbol = "~"
+            invalid_descr = valid_descr + invalid_symbol
+
+            Recipe.objects.create(
+                title="Омлет по-берлински",
+                #description="valid description",
+                description=invalid_descr,
+                cooking_time=10,
+                oven_time=10,
+                quantity=3,
+                complexity=1,
+                author=None,
+                cover_path="mediafiles/media/default_photo.jpg"
+
+            )
+

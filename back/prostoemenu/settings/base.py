@@ -1,4 +1,5 @@
 import os
+from decimal import Decimal
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -181,3 +182,5 @@ MAX_RECIPE_COMPLEXITY = 3
 MIN_STEP_NUMBER = 1
 
 MAX_STEP_NUMBER = 20
+
+MIN_INGREDIENT_VOLUME = Decimal("0.1")

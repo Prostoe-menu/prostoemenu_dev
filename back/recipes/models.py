@@ -22,32 +22,47 @@ class Recipe(CustomBaseModel):
     title = models.CharField(
         max_length=100,
         verbose_name="Название",
-        validators=[MinLengthValidator(2), validate_accepted_symbols],
+        validators=[
+            MinLengthValidator(django_settings.MIN_TITLE_LENGTH),
+            validate_accepted_symbols,
+        ],
     )
     description = models.TextField(
         null=True,
         verbose_name="Описание",
         validators=[
-            MinLengthValidator(10),
-            MaxLengthValidator(500),
+            MinLengthValidator(django_settings.MIN_DESCR_LENGTH),
+            MaxLengthValidator(django_settings.MAX_DESCR_LENGTH),
             validate_accepted_symbols,
         ],
     )
     cooking_time = models.PositiveSmallIntegerField(
         verbose_name="Общее время готовки",
-        validators=[MinValueValidator(1), MaxValueValidator(5999)],
+        validators=[
+            MinValueValidator(django_settings.MIN_COOKING_AND_OVEN_TIME),
+            MaxValueValidator(django_settings.MAX_COOKING_AND_OVEN_TIME),
+        ],
     )
     oven_time = models.PositiveSmallIntegerField(
         verbose_name="Время активной готовки",
-        validators=[MinValueValidator(1), MaxValueValidator(5999)],
+        validators=[
+            MinValueValidator(django_settings.MIN_COOKING_AND_OVEN_TIME),
+            MaxValueValidator(django_settings.MAX_COOKING_AND_OVEN_TIME),
+        ],
     )
     quantity = models.PositiveSmallIntegerField(
         verbose_name="Количество порций",
-        validators=[MinValueValidator(1), MaxValueValidator(10)],
+        validators=[
+            MinValueValidator(django_settings.MIN_PORTION_QUANTITY),
+            MaxValueValidator(django_settings.MAX_PORTION_QUANTITY),
+        ],
     )
     complexity = models.PositiveSmallIntegerField(
         verbose_name="Сложность готовки",
-        validators=[MinValueValidator(1), MaxValueValidator(3)],
+        validators=[
+            MinValueValidator(django_settings.MIN_RECIPE_COMPLEXITY),
+            MaxValueValidator(django_settings.MAX_RECIPE_COMPLEXITY),
+        ],
     )
     author = models.ForeignKey(
         User,
@@ -88,7 +103,10 @@ class RecipeStep(CustomBaseModel):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name="steps")
     step_number = models.PositiveSmallIntegerField(
         verbose_name="Номер шага",
-        validators=[MinValueValidator(1), MaxValueValidator(20)],
+        validators=[
+            MinValueValidator(django_settings.MIN_STEP_NUMBER),
+            MaxValueValidator(django_settings.MAX_STEP_NUMBER),
+        ],
     )
     description = models.TextField(
         verbose_name="Описание шага",

@@ -180,3 +180,74 @@ class RecipeTest(TestCase):
                 author=None,
                 cover_path="mediafiles/media/another_default_photo.jpg",
             )
+
+    def test_oven_time_cannot_be_less_than_MIN_COOKING_AND_OVEN_TIME(self):
+        with self.assertRaises(ValidationError):
+            invalid_oven_time = django_settings.MIN_COOKING_AND_OVEN_TIME - 1
+            Recipe.objects.create(
+                title="Омлет по-берлински",
+                description="Описание омлета по-берлински",
+                cooking_time=django_settings.MAX_COOKING_AND_OVEN_TIME,
+                oven_time=invalid_oven_time,
+                quantity=django_settings.MAX_PORTION_QUANTITY,
+                complexity=django_settings.MAX_RECIPE_COMPLEXITY,
+                author=None,
+                cover_path="mediafiles/media/another_default_photo.jpg",
+            )
+
+    # тест генерирует 2 ошибки: oven_time > cooking_time и oven_time > 5999,
+    # поэтому проверяем, что ошибка превышения макс. времени сгенерирована
+    def test_oven_time_cannot_be_more_than_MAX_COOKING_AND_OVEN_TIME(self):
+        invalid_oven_time = django_settings.MAX_COOKING_AND_OVEN_TIME + 1
+        try:
+            Recipe.objects.create(
+                title="Омлет по-берлински",
+                description="Описание омлета по-берлински",
+                cooking_time=django_settings.MAX_COOKING_AND_OVEN_TIME,
+                oven_time=invalid_oven_time,
+                quantity=django_settings.MAX_PORTION_QUANTITY,
+                complexity=django_settings.MAX_RECIPE_COMPLEXITY,
+                author=None,
+                cover_path="mediafiles/media/another_default_photo.jpg",
+            )
+
+        except ValidationError as err:
+            self.assertTrue(
+                "oven_time" in err.error_dict
+                and "Ensure this value is less than or equal to 5999." in err.messages
+            )
+
+    # тест генерирует 2 ошибки: cooking_time < oven_time и cooking_time < 1,
+    # поэтому проверяем, что ошибка недостатка мин. времени сгенерирована
+    def test_cooking_time_cannot_be_less_than_MIN_COOKING_AND_OVEN_TIME(self):
+        invalid_cooking_time = django_settings.MIN_COOKING_AND_OVEN_TIME - 1
+        try:
+            Recipe.objects.create(
+                title="Омлет по-берлински",
+                description="Описание омлета по-берлински",
+                cooking_time=invalid_cooking_time,
+                oven_time=django_settings.MAX_COOKING_AND_OVEN_TIME,
+                quantity=django_settings.MAX_PORTION_QUANTITY,
+                complexity=django_settings.MAX_RECIPE_COMPLEXITY,
+                author=None,
+                cover_path="mediafiles/media/another_default_photo.jpg",
+            )
+        except ValidationError as err:
+            self.assertTrue(
+                "cooking_time" in err.error_dict
+                and "Ensure this value is greater than or equal to 1." in err.messages
+            )
+
+    def test_cooking_time_cannot_be_more_than_MAX_COOKING_AND_OVEN_TIME(self):
+        with self.assertRaises(ValidationError):
+            invalid_cooking_time = django_settings.MAX_COOKING_AND_OVEN_TIME + 1
+            Recipe.objects.create(
+                title="Омлет по-берлински",
+                description="Описание омлета по-берлински",
+                cooking_time=invalid_cooking_time,
+                oven_time=django_settings.MAX_COOKING_AND_OVEN_TIME,
+                quantity=django_settings.MAX_PORTION_QUANTITY,
+                complexity=django_settings.MAX_RECIPE_COMPLEXITY,
+                author=None,
+                cover_path="mediafiles/media/another_default_photo.jpg",
+            )

@@ -7,34 +7,34 @@ from recipes.models import Recipe
 
 
 class RecipeTest(TestCase):
+    def setUp(self):
+        self.recipe_data = {
+            "title": "Омлет по-берлински",
+            "description": "Описание омлета по-берлински",
+            "cooking_time": django_settings.MIN_COOKING_AND_OVEN_TIME,
+            "oven_time": django_settings.MIN_COOKING_AND_OVEN_TIME,
+            "quantity": django_settings.MIN_PORTION_QUANTITY,
+            "complexity": django_settings.MIN_RECIPE_COMPLEXITY,
+            "author": None,
+            "cover_path": "mediafiles/media/default_photo.jpg",
+        }
+
     def test_recipe_title_cannot_be_shorter_than_MIN_TITLE_LENGTH(self):
         with self.assertRaises(ValidationError):
-            Recipe.objects.create(
-                title="A",
-                description="some recipe description",
-                cooking_time=django_settings.MIN_COOKING_AND_OVEN_TIME,
-                oven_time=django_settings.MIN_COOKING_AND_OVEN_TIME,
-                quantity=django_settings.MIN_PORTION_QUANTITY,
-                complexity=django_settings.MIN_RECIPE_COMPLEXITY,
-                author=None,
-                cover_path="mediafiles/media/default_photo.jpg",
+            invalid_title = generate_text(
+                django_settings.MIN_TITLE_LENGTH - 1, django_settings.ACCEPTED_SYMBOLS
             )
+            self.recipe_data["title"] = invalid_title
+            Recipe.objects.create(**self.recipe_data)
 
     def test_recipe_title_contains_only_ACCEPTED_SYMBOLS(self):
+        valid_title = "Омлет по-берлински"
+        invalid_symbol = "~"
+        invalid_title = valid_title + invalid_symbol
+
         with self.assertRaises(ValidationError):
-            valid_title = "Омлет по-берлински"
-            invalid_symbol = "~"
-            invalid_title = valid_title + invalid_symbol
-            Recipe.objects.create(
-                title=invalid_title,
-                description="Описание омлета по-берлински",
-                cooking_time=django_settings.MIN_COOKING_AND_OVEN_TIME,
-                oven_time=django_settings.MIN_COOKING_AND_OVEN_TIME,
-                quantity=django_settings.MIN_PORTION_QUANTITY,
-                complexity=django_settings.MIN_RECIPE_COMPLEXITY,
-                author=None,
-                cover_path="mediafiles/media/default_photo.jpg",
-            )
+            self.recipe_data["title"] = invalid_title
+            Recipe.objects.create(**self.recipe_data)
 
     def test_recipe_description_cannot_be_shorter_than_MIN_DESCR_LENGTH(self):
         with self.assertRaises(ValidationError):

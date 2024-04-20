@@ -9,9 +9,8 @@ import styles from './RecipeSearch.module.scss';
 const RecipeSearch = () => {
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState([]);
-  const [isIngredientDropdownOpen, setIsIngredientDropdownOpen] =
-    useState(false);
-  const { value: ingredientsApiData } = useAsync(
+
+  const { value: ingredientsApiData, loading } = useAsync(
     getIngredients,
     query,
     true,
@@ -19,7 +18,6 @@ const RecipeSearch = () => {
   );
 
   const handleIngredientSelection = (ingredient) => {
-    setIsIngredientDropdownOpen(false);
     setQuery(ingredient.name);
 
     if (!selected.includes(ingredient.name)) {
@@ -30,14 +28,6 @@ const RecipeSearch = () => {
 
   const handleNameInput = (e) => {
     setQuery(e.target.value);
-
-    if (query.length >= 2) {
-      setTimeout(() => {
-        setIsIngredientDropdownOpen(true);
-      }, 1100);
-    } else {
-      setIsIngredientDropdownOpen(false);
-    }
   };
 
   return (
@@ -51,12 +41,12 @@ const RecipeSearch = () => {
         <DropdownSearch
           inputClassName="input_type_home"
           inputPlaceholder="Начните вводить название продукта"
+          notFoundMessage="Такого ингредиента не найдено"
           onChooseItem={handleIngredientSelection}
-          isDropdownOpen={isIngredientDropdownOpen}
           inputValue={query}
           onInputChange={handleNameInput}
-          setIsDropdownOpen={setIsIngredientDropdownOpen}
           requiredData={ingredientsApiData}
+          isLoading={loading}
         />
         <Button className={styles.search_btn} type="button">
           Подобрать рецепт

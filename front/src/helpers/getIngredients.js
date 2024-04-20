@@ -1,8 +1,7 @@
 import axios from 'axios';
+import { INGREDIENTS_URL } from 'utils/urls';
 
-const URL = `${
-  import.meta.env.VITE_API_URL
-}/ingredients/?format=json&ingredient_suffix=`;
+const URL = `${import.meta.env.VITE_API_URL}${INGREDIENTS_URL}/?name=`;
 
 const getIngredients = async (query) => {
   const reponse = await axios({
@@ -11,8 +10,7 @@ const getIngredients = async (query) => {
     crossDomain: true,
   });
 
-  const { results } = reponse.data;
-  return results;
+  return reponse.data;
 };
 
 export default getIngredients;

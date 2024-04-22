@@ -148,7 +148,7 @@ class RecipeIngredient(CustomBaseModel):
         max_digits=4,
         decimal_places=2,
         verbose_name="Количество",
-        validators=[MinValueValidator(0.01)],
+        validators=[MinValueValidator(django_settings.MIN_INGREDIENT_VOLUME)],
     )
     measure = models.ForeignKey(
         Measurement, on_delete=models.CASCADE, verbose_name="Единица измерения"
@@ -162,3 +162,7 @@ class RecipeIngredient(CustomBaseModel):
                 fields=["recipe", "ingredient"], name="unique_ingredient_in_recipe"
             )
         ]
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super(RecipeIngredient, self).save(*args, **kwargs)

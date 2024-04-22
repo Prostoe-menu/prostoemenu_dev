@@ -65,9 +65,10 @@ class RecipeTest(TestCase):
 
     def test_cooking_time_cannot_be_less_than_oven_time(self):
         with self.assertRaises(ValidationError):
-            self.recipe_data["oven_time"] = django_settings.MIN_COOKING_AND_OVEN_TIME + 1
+            self.recipe_data["oven_time"] = (
+                django_settings.MIN_COOKING_AND_OVEN_TIME + 1
+            )
             Recipe.objects.create(**self.recipe_data)
-
 
     def test_quantity_cannot_be_less_than_MIN_PORTION_QUANTITY(self):
         with self.assertRaises(ValidationError):
@@ -81,13 +82,11 @@ class RecipeTest(TestCase):
             self.recipe_data["quantity"] = invalid_quantity
             Recipe.objects.create(**self.recipe_data)
 
-
     def test_complexity_cannot_be_less_than_MIN_RECIPE_COMPLEXITY(self):
         with self.assertRaises(ValidationError):
             invalid_complexity = django_settings.MIN_RECIPE_COMPLEXITY - 1
             self.recipe_data["complexity"] = invalid_complexity
             Recipe.objects.create(**self.recipe_data)
-
 
     def test_complexity_cannot_be_more_than_MAX_RECIPE_COMPLEXITY(self):
         with self.assertRaises(ValidationError):
@@ -102,7 +101,9 @@ class RecipeTest(TestCase):
             self.recipe_data["oven_time"] = django_settings.MAX_COOKING_AND_OVEN_TIME
             self.recipe_data["quantity"] = django_settings.MAX_PORTION_QUANTITY
             self.recipe_data["complexity"] = django_settings.MAX_RECIPE_COMPLEXITY
-            self.recipe_data["cover_path"] = "mediafiles/media/another_default_photo.jpg"
+            self.recipe_data["cover_path"] = (
+                "mediafiles/media/another_default_photo.jpg"
+            )
             Recipe.objects.create(**self.recipe_data)
 
     def test_oven_time_cannot_be_less_than_MIN_COOKING_AND_OVEN_TIME(self):
@@ -111,8 +112,8 @@ class RecipeTest(TestCase):
             self.recipe_data["oven_time"] = invalid_oven_time
             Recipe.objects.create(**self.recipe_data)
 
-# тест генерирует 2 ошибки: oven_time > cooking_time и oven_time > 5999,
-# поэтому проверяем, что ошибка превышения макс. времени сгенерирована
+    # тест генерирует 2 ошибки: oven_time > cooking_time и oven_time > 5999,
+    # поэтому проверяем, что ошибка превышения макс. времени сгенерирована
     def test_oven_time_cannot_be_more_than_MAX_COOKING_AND_OVEN_TIME(self):
         invalid_oven_time = django_settings.MAX_COOKING_AND_OVEN_TIME + 1
         try:
@@ -125,8 +126,8 @@ class RecipeTest(TestCase):
                 and "Ensure this value is less than or equal to 5999." in err.messages
             )
 
-# тест генерирует 2 ошибки: cooking_time < oven_time и cooking_time < 1,
-# поэтому проверяем, что ошибка недостатка мин. времени сгенерирована
+    # тест генерирует 2 ошибки: cooking_time < oven_time и cooking_time < 1,
+    # поэтому проверяем, что ошибка недостатка мин. времени сгенерирована
     def test_cooking_time_cannot_be_less_than_MIN_COOKING_AND_OVEN_TIME(self):
         invalid_cooking_time = django_settings.MIN_COOKING_AND_OVEN_TIME - 1
 

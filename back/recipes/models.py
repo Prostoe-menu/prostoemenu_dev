@@ -18,6 +18,44 @@ from measurements.models import Measurement
 User = get_user_model()
 
 
+class Category(CustomBaseModel):
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+        verbose_name="Категория",
+        default="Без категории",
+        validators=[
+            MinLengthValidator(django_settings.MIN_TITLE_LENGTH),
+            validate_accepted_symbols,
+        ],
+    )
+    description = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name="Описание",
+        validators=[
+            MinLengthValidator(django_settings.MIN_DESCR_LENGTH),
+            MaxLengthValidator(django_settings.MAX_DESCR_LENGTH),
+            validate_accepted_symbols,
+        ],
+    )
+
+    class Meta:
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+    def clean(self):
+        normilize_text_fields(self)
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super(Category, self).save(*args, **kwargs)
+
+
 class Recipe(CustomBaseModel):
     title = models.CharField(
         max_length=100,
@@ -72,6 +110,15 @@ class Recipe(CustomBaseModel):
         verbose_name="Автор",
         related_name="recipes",
     )
+    category = models.ForeignKey(
+        Category,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name="Категория",
+        related_name="recipes",
+    )
+
     cover_path = models.ImageField(upload_to="media", verbose_name="Главное фото")
 
     class Meta:

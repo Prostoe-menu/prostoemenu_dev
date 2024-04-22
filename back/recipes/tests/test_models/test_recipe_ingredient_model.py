@@ -26,7 +26,6 @@ class RecipeIngredientTest(TestCase):
         )
 
         Ingredient.objects.create(name="Молоко", category="Молочные продукты", sort=10)
-
         Measurement.objects.create(name="стакан", abbreviation="ст.")
 
     def test_ingredient_volume_cannot_be_less_than_MIN_INGREDIENT_VOLUME(self):

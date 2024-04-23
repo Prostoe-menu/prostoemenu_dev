@@ -3,7 +3,7 @@ import json
 from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
 
-from ingredients.models import Ingredient
+from ingredients.models import Category, Ingredient
 
 
 class Command(BaseCommand):
@@ -12,6 +12,8 @@ class Command(BaseCommand):
         model_object = model
         for row in reader:
             try:
+                category_obj = Category.objects.get(name=row["category"])
+                row["category"] = category_obj
                 model_object.objects.create(**row)
             except IntegrityError as e:
                 print(f"Ошибка {e} при загрузке {row}")

@@ -16,7 +16,7 @@ class Command(BaseCommand):
                 model.objects.create(**row)
             except IntegrityError as e:
                 error_lst.append({f"{e}": f"{row}"})
-                print(f"Error {e} while loading {row}")
+                print(f"Error while loading {row}. Ingredient already exists.")
             except Category.DoesNotExist as e:
                 error_lst.append({f"{e}": f"{row}"})
                 print(

@@ -3,13 +3,18 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 from common.utils import generate_text
-from recipes.models import Recipe, RecipeStep
+from recipes.models import Category, Recipe, RecipeStep
 
 
 class RecipeStepTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
+        Category.objects.create(
+            name="Основные блюда",
+            description="Описание категории рецептов Основные блюда",
+        )
+
         Recipe.objects.create(
             title="Омлет по-берлински",
             description="Описание омлета по-берлински",
@@ -19,6 +24,7 @@ class RecipeStepTest(TestCase):
             complexity=django_settings.MIN_RECIPE_COMPLEXITY,
             author=None,
             cover_path="mediafiles/media/default_photo.jpg",
+            category=Category.objects.get(pk=1),
         )
 
     def setUp(self):

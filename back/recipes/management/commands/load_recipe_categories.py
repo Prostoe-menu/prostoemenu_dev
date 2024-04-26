@@ -3,12 +3,13 @@ import json
 from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
 
-from ingredients.models import Ingredient
+from recipes.models import Category
 
 
 class Command(BaseCommand):
 
-    def add_objects(self, model, reader):
+    @staticmethod
+    def add_objects(model, reader):
         model_object = model
         for row in reader:
             try:
@@ -18,8 +19,8 @@ class Command(BaseCommand):
         return f"Database Update {model}"
 
     def handle(self, *args, **options):
-        with open("data/ingredients.json", "rb") as ingredients:
-            reader_ingredients = json.load(ingredients)
+        with open("data/recipe_categories.json", "rb") as categories:
+            reader_categories = json.load(categories)
         self.stdout.write(
-            self.style.SUCCESS(self.add_objects(Ingredient, reader_ingredients))
+            self.style.SUCCESS(self.add_objects(Category, reader_categories))
         )

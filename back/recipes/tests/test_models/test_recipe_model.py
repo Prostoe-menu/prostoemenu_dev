@@ -3,10 +3,18 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 from common.utils import generate_text
-from recipes.models import Recipe
+from recipes.models import Category, Recipe
 
 
 class RecipeTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        Category.objects.create(
+            name="Основные блюда",
+            description="Описание категории рецептов Основные блюда",
+        )
+
     def setUp(self):
         self.recipe_data = {
             "title": "Омлет по-берлински",
@@ -17,6 +25,7 @@ class RecipeTest(TestCase):
             "complexity": django_settings.MIN_RECIPE_COMPLEXITY,
             "author": None,
             "cover_path": "mediafiles/media/default_photo.jpg",
+            "category": Category.objects.get(pk=1),
         }
 
     def test_recipe_title_cannot_be_shorter_than_MIN_TITLE_LENGTH(self):

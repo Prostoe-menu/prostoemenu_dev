@@ -9,14 +9,22 @@ from ingredients.models import Category, Ingredient
 class Command(BaseCommand):
 
     def add_objects(self, model, reader):
-        model_object = model
+        error_lst = []
         for row in reader:
             try:
-                category_obj = Category.objects.get(name=row["category"])
-                row["category"] = category_obj
-                model_object.objects.create(**row)
+                row["category"] = Category.objects.get(name=row["category"])
+                model.objects.create(**row)
             except IntegrityError as e:
-                print(f"Ошибка {e} при загрузке {row}")
+                error_lst.append({f"{e}": f"{row}"})
+                print(f"Error {e} while loading {row}")
+            except Category.DoesNotExist as e:
+                error_lst.append({f"{e}": f"{row}"})
+                print(
+                    f"Error while loading {row}. Category {row['category']} does not exist."
+                )
+
+        if error_lst:
+            return f"Database Update {model} finished with errors: {error_lst}"
         return f"Database Update {model}"
 
     def handle(self, *args, **options):

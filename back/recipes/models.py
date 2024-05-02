@@ -136,6 +136,8 @@ class Recipe(CustomBaseModel):
 
     def clean(self):
         normilize_text_fields(self)
+        if len(self.description) > 500:
+            self.description = self.description[:500]
         if self.cooking_time < self.oven_time:
             raise ValidationError(
                 "Общее время готовки не может быть меньше времени активной готовки"
@@ -164,7 +166,7 @@ class RecipeStep(CustomBaseModel):
         ],
     )
     image = models.ImageField(
-        null=True, upload_to="recipes", verbose_name="Изображение"
+        null=True, blank=True, upload_to="recipes", verbose_name="Изображение"
     )
 
     class Meta:
@@ -192,7 +194,9 @@ class RecipeIngredient(CustomBaseModel):
         Ingredient, on_delete=models.CASCADE, related_name="recipes"
     )
     volume = models.DecimalField(
-        max_digits=4,
+        null=True,
+        blank=True,
+        max_digits=6,
         decimal_places=2,
         verbose_name="Количество",
         validators=[MinValueValidator(django_settings.MIN_INGREDIENT_VOLUME)],

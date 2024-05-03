@@ -52,7 +52,7 @@
       "abbreviation": "стакан"
   },
   {
-      "name": "киллограмм",
+      "name": "килограмм",
       "abbreviation": "кг."
   },
   {
@@ -63,8 +63,20 @@
       "name": "по вкусу",
       "abbreviation": "по вкусу"
   },
-    {
+  {
       "name": "побег",
       "abbreviation": "побег"
+  },
+  {
+      "name": "корень",
+      "abbreviation": "корень"
+  },
+  {
+      "name": "луковица",
+      "abbreviation": "луковица"
+  },
+  {
+      "name": "клубень",
+      "abbreviation": "клубень"
   }
 ]

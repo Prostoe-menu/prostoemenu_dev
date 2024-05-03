@@ -136,8 +136,6 @@ class Recipe(CustomBaseModel):
 
     def clean(self):
         normilize_text_fields(self)
-        if len(self.description) > 500:
-            self.description = self.description[:500]
         if self.cooking_time < self.oven_time:
             raise ValidationError(
                 "Общее время готовки не может быть меньше времени активной готовки"

@@ -19,6 +19,7 @@ def add_recipe_ingredient_objects(data, recipe_obj, model=RecipeIngredient):
         }
         try:
             recipe_ingredient_data["ingredient"] = Ingredient.objects.get(name=row["ingr_name"])
+            print(f"Ингредиент: {recipe_ingredient_data['ingredient'].name} pk: {recipe_ingredient_data['ingredient'].pk}")
         except Ingredient.DoesNotExist as err:
             print(f"Ошибка! Рецепт '{recipe_obj.title}' ингредиент {row['ingr_name']} отсутствует в БД. {err}")
             return False
@@ -33,12 +34,12 @@ def add_recipe_ingredient_objects(data, recipe_obj, model=RecipeIngredient):
     recodered_objects = []
     for object in recipe_ingr_objects:
         try:
-            new_recipe_ingredient_obj = model.objects.create(**recipe_ingredient_data)
+            new_recipe_ingredient_obj = model.objects.create(**object)
             recodered_objects.append(new_recipe_ingredient_obj)
         except Exception as err:
             print(f"Ошибка! {recipe_obj} {object} при сохранении объекта recipe_ingredient: {err}")
-            for rec_obj in recodered_objects:
-                rec_obj.delete()
+            for obj in recodered_objects:
+                obj.delete()
             return False
     return recodered_objects
 
@@ -76,7 +77,9 @@ class Command(BaseCommand):
             except Exception as e:
                 print(f"Ошибка {e} при загрузке {row['dish_name']}")
                 continue
+
             add_recipe_ingredient_objects(row["dish_data"]["ingr"], new_recipe_obj)
+
 
 
 

@@ -342,7 +342,7 @@
               },
               {
                   "ingr_name": "Соль",
-                  "ingr_amount": 0,
+                  "ingr_amount": null,
                   "ingr_measure": "по вкусу"
               }
           ],

@@ -25,14 +25,11 @@ class Command(BaseCommand):
         recodered_objects = []
         for obj in rec_step_objects:
             try:
-                step_obj = RecipeStep.objects.create(**obj)
-                recodered_objects.append(step_obj)
+                recodered_objects.append(RecipeStep.objects.create(**obj))
             except Exception as err:
-                print(
-                    f"Ошибка! Рецепт: {recipe_obj}. Данные шага: {obj} при сохранении recipe_step: {err}"
-                )
-                for object in recodered_objects:
-                    object.delete()
+                print(f"Ошибка! Рецепт: {recipe_obj}. Шаг: {obj}. Ошибка: {err}")
+                for r_obj in recodered_objects:
+                    r_obj.delete()
                 return False
         return recodered_objects
 
@@ -45,18 +42,18 @@ class Command(BaseCommand):
                 rec_ingr_data["ingredient"] = Ingredient.objects.get(
                     name=row["ingr_name"]
                 )
-            except Ingredient.DoesNotExist as err:
+            except Exception as err:
                 print(
-                    f"Ошибка! Рецепт '{recipe_obj.title}' ингредиент {row['ingr_name']} отсутствует в БД. {err}"
+                    f"Ошибка! Рецепт: '{recipe_obj.title}'. Ингредиент: {row['ingr_name']}. Ошибка: {err}"
                 )
                 return False
             try:
                 rec_ingr_data["measure"] = Measurement.objects.get(
                     name=row["ingr_measure"].lower()
                 )
-            except Measurement.DoesNotExist as err:
+            except Exception as err:
                 print(
-                    f"Ошибка! Рецепт '{recipe_obj.title}' ед. изм. '{row['ingr_measure']}' отсутствует в БД. {err}"
+                    f"Ошибка! Рецепт: '{recipe_obj.title}'. Ед. изм.: '{row['ingr_measure']}'. Ошибка: {err}"
                 )
                 return False
 
@@ -65,14 +62,11 @@ class Command(BaseCommand):
         recodered_objects = []
         for obj in rec_ingr_objects:
             try:
-                new_recipe_ingredient_obj = RecipeIngredient.objects.create(**obj)
-                recodered_objects.append(new_recipe_ingredient_obj)
+                recodered_objects.append(RecipeIngredient.objects.create(**obj))
             except Exception as err:
-                print(
-                    f"Ошибка! {recipe_obj} {obj} при сохранении recipe_ingredient: {err}"
-                )
-                for object in recodered_objects:
-                    object.delete()
+                print(f"Ошибка! Рецепт: {recipe_obj}. Ингредиент: {obj}. Ошибка: {err}")
+                for r_obj in recodered_objects:
+                    r_obj.delete()
                 return False
         return recodered_objects
 
@@ -106,13 +100,26 @@ class Command(BaseCommand):
                 print(f"Ошибка {e} при загрузке рецепта: {row['dish_name']}")
                 continue
 
-            if not (
-                Command.add_rec_ingr_objects(row["dish_data"]["ingr"], new_recipe_obj)
-                and Command.add_rec_step_objects(
-                    row["dish_data"]["steps"], new_recipe_obj
-                )
+            if not Command.add_rec_ingr_objects(
+                row["dish_data"]["ingr"], new_recipe_obj
             ):
                 new_recipe_obj.delete()
+                continue
+
+            if not Command.add_rec_step_objects(
+                row["dish_data"]["steps"], new_recipe_obj
+            ):
+                new_recipe_obj.delete()
+
+            # Почему это тоже работает корректно??? Ведь если ошибка в шаге, то шаги и рецепт удалятся, а
+            # ингредиенты (RecipeIngredient) должны остаться в бд, но это не так.
+            # if not (
+            #     Command.add_rec_ingr_objects(row["dish_data"]["ingr"], new_recipe_obj)
+            #     and Command.add_rec_step_objects(
+            #         row["dish_data"]["steps"], new_recipe_obj
+            #     )
+            # ):
+            #     new_recipe_obj.delete()
 
         return f"Database Update {model}"
 

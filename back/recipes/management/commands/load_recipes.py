@@ -28,8 +28,10 @@ class Command(BaseCommand):
                 recodered_objects.append(RecipeStep.objects.create(**obj))
             except Exception as err:
                 print(f"Ошибка! Рецепт: {recipe_obj}. Шаг: {obj}. Ошибка: {err}")
-                for r_obj in recodered_objects:
-                    r_obj.delete()
+                # Почему это работает корректно? Из БД автоматически удаляются
+                # внесенные на предыдущих итерациях цикла записи RecipeStep.
+                # for r_obj in recodered_objects:
+                #     r_obj.delete()
                 return False
         return recodered_objects
 
@@ -65,8 +67,10 @@ class Command(BaseCommand):
                 recodered_objects.append(RecipeIngredient.objects.create(**obj))
             except Exception as err:
                 print(f"Ошибка! Рецепт: {recipe_obj}. Ингредиент: {obj}. Ошибка: {err}")
-                for r_obj in recodered_objects:
-                    r_obj.delete()
+                # Почему это работает корректно? Из БД автоматически удаляются
+                # внесенные на предыдущих итерациях цикла записи модели RecipeIngredient.
+                # for r_obj in recodered_objects:
+                #     r_obj.delete()
                 return False
         return recodered_objects
 
@@ -100,6 +104,8 @@ class Command(BaseCommand):
                 print(f"Ошибка {e} при загрузке рецепта: {row['dish_name']}")
                 continue
 
+            # Почему это работает корректно??? Ведь если ошибка в шаге, то шаги и рецепт удалятся,
+            # а ингредиенты (RecipeIngredient) должны остаться в бд, но это не так.
             if not Command.add_rec_ingr_objects(
                 row["dish_data"]["ingr"], new_recipe_obj
             ):
@@ -110,16 +116,6 @@ class Command(BaseCommand):
                 row["dish_data"]["steps"], new_recipe_obj
             ):
                 new_recipe_obj.delete()
-
-            # Почему это тоже работает корректно??? Ведь если ошибка в шаге, то шаги и рецепт удалятся, а
-            # ингредиенты (RecipeIngredient) должны остаться в бд, но это не так.
-            # if not (
-            #     Command.add_rec_ingr_objects(row["dish_data"]["ingr"], new_recipe_obj)
-            #     and Command.add_rec_step_objects(
-            #         row["dish_data"]["steps"], new_recipe_obj
-            #     )
-            # ):
-            #     new_recipe_obj.delete()
 
         return f"Database Update {model}"
 

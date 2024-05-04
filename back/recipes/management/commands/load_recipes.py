@@ -12,32 +12,36 @@ class Command(BaseCommand):
 
     @staticmethod
     def add_rec_step_objects(data, recipe_obj):
-        rec_step_objects = []
+        rec_step_lst = []
         for row in data:
-            rec_step_data = {
-                "recipe": recipe_obj,
-                "step_number": row["step_num"],
-                "description": row["step_text"],
-                "image": row["step_photo"],
-            }
-            rec_step_objects.append(rec_step_data)
+            rec_step_lst.append(
+                {
+                    "recipe": recipe_obj,
+                    "step_number": row["step_num"],
+                    "description": row["step_text"],
+                    "image": row["step_photo"],
+                }
+            )
 
         recodered_objects = []
-        for obj in rec_step_objects:
+
+        for obj in rec_step_lst:
             try:
-                recodered_objects.append(RecipeStep.objects.create(**obj))
+                rec_step_obj = RecipeStep.objects.create(**obj)
+                recodered_objects.append(rec_step_obj)
             except Exception as err:
                 print(f"Ошибка! Рецепт: {recipe_obj}. Шаг: {obj}. Ошибка: {err}")
                 # Почему это работает корректно? Из БД автоматически удаляются
                 # внесенные на предыдущих итерациях цикла записи RecipeStep.
-                # for r_obj in recodered_objects:
-                #     r_obj.delete()
+                # for rec_step_obj in recodered_objects:
+                #     rec_step_obj.delete()
                 return False
+
         return recodered_objects
 
     @staticmethod
     def add_rec_ingr_objects(data, recipe_obj):
-        rec_ingr_objects = []
+        rec_ingr_lst = []
         for row in data:
             rec_ingr_data = {"recipe": recipe_obj, "volume": row["ingr_amount"]}
             try:
@@ -59,12 +63,13 @@ class Command(BaseCommand):
                 )
                 return False
 
-            rec_ingr_objects.append(rec_ingr_data)
+            rec_ingr_lst.append(rec_ingr_data)
 
         recodered_objects = []
-        for obj in rec_ingr_objects:
+        for obj in rec_ingr_lst:
             try:
-                recodered_objects.append(RecipeIngredient.objects.create(**obj))
+                rec_ing_obj = RecipeIngredient.objects.create(**obj)
+                recodered_objects.append(rec_ing_obj)
             except Exception as err:
                 print(f"Ошибка! Рецепт: {recipe_obj}. Ингредиент: {obj}. Ошибка: {err}")
                 # Почему это работает корректно? Из БД автоматически удаляются

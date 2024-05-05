@@ -192,8 +192,6 @@ class RecipeIngredient(CustomBaseModel):
         Ingredient, on_delete=models.CASCADE, related_name="recipes"
     )
     volume = models.DecimalField(
-        null=True,
-        blank=True,
         max_digits=6,
         decimal_places=2,
         verbose_name="Количество",
@@ -211,6 +209,10 @@ class RecipeIngredient(CustomBaseModel):
                 fields=["recipe", "ingredient"], name="unique_ingredient_in_recipe"
             )
         ]
+
+    def clean(self):
+        if self.measure.name == "по вкусу":
+            self.volume = 1
 
     def save(self, *args, **kwargs):
         self.full_clean()

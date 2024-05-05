@@ -93,7 +93,6 @@ class Command(BaseCommand):
                 "complexity": row["dish_data"]["summary_list"][
                     "Сложность приготовления"
                 ],
-                "author": None,
                 "cover_path": row["dish_data"]["main_photo"],
             }
 

@@ -178,6 +178,7 @@ class RecipeStep(CustomBaseModel):
 
     def clean(self):
         normilize_text_fields(self)
+        validate_accepted_symbols(self.description)
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -209,10 +210,6 @@ class RecipeIngredient(CustomBaseModel):
                 fields=["recipe", "ingredient"], name="unique_ingredient_in_recipe"
             )
         ]
-
-    def clean(self):
-        if self.measure.name == "по вкусу":
-            self.volume = 1
 
     def save(self, *args, **kwargs):
         self.full_clean()

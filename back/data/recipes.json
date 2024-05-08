@@ -60,12 +60,12 @@
               },
               {
                   "ingr_name": "Соль",
-                  "ingr_amount": null,
+                  "ingr_amount": 1,
                   "ingr_measure": "по вкусу"
               },
               {
                   "ingr_name": "Приправа Перец черный",
-                  "ingr_amount": null,
+                  "ingr_amount": 1,
                   "ingr_measure": "по вкусу"
               }
           ],
@@ -250,7 +250,7 @@
               },
               {
                   "ingr_name": "Соль",
-                  "ingr_amount": null,
+                  "ingr_amount": 1,
                   "ingr_measure": "по вкусу"
               }
           ],
@@ -342,7 +342,7 @@
               },
               {
                   "ingr_name": "Соль",
-                  "ingr_amount": null,
+                  "ingr_amount": 1,
                   "ingr_measure": "по вкусу"
               }
           ],
@@ -405,7 +405,7 @@
             },
             {
                 "ingr_name": "Приправа Перец черный",
-                "ingr_amount": null,
+                "ingr_amount": 1,
                 "ingr_measure": "по вкусу"
             },
             {
@@ -425,7 +425,7 @@
             },
             {
                 "ingr_name": "Соль",
-                "ingr_amount": null,
+                "ingr_amount": 1,
                 "ingr_measure": "по вкусу"
             },
             {

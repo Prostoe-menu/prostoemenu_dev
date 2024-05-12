@@ -193,6 +193,7 @@ class RecipeIngredient(CustomBaseModel):
         Ingredient, on_delete=models.CASCADE, related_name="recipes"
     )
     volume = models.DecimalField(
+        default=1.00,
         max_digits=6,
         decimal_places=2,
         verbose_name="Количество",

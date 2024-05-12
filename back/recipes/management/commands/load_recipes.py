@@ -13,39 +13,27 @@ class Command(BaseCommand):
 
     @staticmethod
     def add_rec_step_objects(data, recipe_obj):
-        rec_step_lst = []
         for row in data:
-            rec_step_lst.append(
-                {
-                    "recipe": recipe_obj,
-                    "step_number": row["step_num"],
-                    "description": row["step_text"],
-                    "image": row["step_photo"],
-                }
+            RecipeStep.objects.create(
+                recipe=recipe_obj,
+                step_number=row["step_num"],
+                description=row["step_text"],
+                image=row["step_photo"],
             )
-
-        return [
-            RecipeStep.objects.create(**rec_step_dict) for rec_step_dict in rec_step_lst
-        ]
 
     @staticmethod
     def add_rec_ingr_objects(data, recipe_obj):
-        rec_ingr_lst = []
         for row in data:
             rec_ingr_data = {"recipe": recipe_obj, "volume": row["ingr_amount"]}
             rec_ingr_data["ingredient"] = Ingredient.objects.get(name=row["ingr_name"])
             rec_ingr_data["measure"] = Measurement.objects.get(
                 name=row["ingr_measure"].lower()
             )
-            rec_ingr_lst.append(rec_ingr_data)
-
-        return [
-            RecipeIngredient.objects.create(**rec_ingr_dict)
-            for rec_ingr_dict in rec_ingr_lst
-        ]
+            RecipeIngredient.objects.create(**rec_ingr_data)
 
     @staticmethod
     def add_objects(model, reader):
+        default_category = Category.objects.get(name="Без категории")
         for row in reader:
             recipe_data = {
                 "title": row["dish_name"],
@@ -64,7 +52,7 @@ class Command(BaseCommand):
             try:
                 recipe_data["category"] = Category.objects.get(name=row["categ_name"])
             except Category.DoesNotExist:
-                recipe_data["category"] = Category.objects.get(name="Без категории")
+                recipe_data["category"] = default_category
 
             try:
                 with transaction.atomic():

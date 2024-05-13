@@ -164,7 +164,7 @@ class RecipeStep(CustomBaseModel):
         ],
     )
     image = models.ImageField(
-        null=True, upload_to="recipes", verbose_name="Изображение"
+        null=True, blank=True, upload_to="recipes", verbose_name="Изображение"
     )
 
     class Meta:
@@ -178,6 +178,7 @@ class RecipeStep(CustomBaseModel):
 
     def clean(self):
         normilize_text_fields(self)
+        validate_accepted_symbols(self.description)
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -192,7 +193,8 @@ class RecipeIngredient(CustomBaseModel):
         Ingredient, on_delete=models.CASCADE, related_name="recipes"
     )
     volume = models.DecimalField(
-        max_digits=4,
+        default=1.00,
+        max_digits=6,
         decimal_places=2,
         verbose_name="Количество",
         validators=[MinValueValidator(django_settings.MIN_INGREDIENT_VOLUME)],

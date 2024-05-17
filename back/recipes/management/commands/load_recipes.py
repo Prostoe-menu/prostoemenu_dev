@@ -33,7 +33,7 @@ class Command(BaseCommand):
 
     @staticmethod
     def add_objects(model, reader):
-        default_category = Category.objects.get(name="Без категории")
+        default_category = Category.objects.get(name="без категории")
         for row in reader:
             recipe_data = {
                 "title": row["dish_name"],

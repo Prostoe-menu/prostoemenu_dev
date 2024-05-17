@@ -1,6 +1,7 @@
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
+#from rest_framework.parsers import MultiPartParser, FormParser
 
 from .selectors import recipe_get, recipe_list
 from .serializers.input import RecipeInputSerializer
@@ -42,6 +43,7 @@ class RecipeListApi(APIView):
 
 
 class RecipeCreateApi(APIView):
+    #parser_classes = (MultiPartParser, FormParser)
     @extend_schema(
         summary="Создать рецепт.",
         description="""Эндпоинт создания рецепта.\n

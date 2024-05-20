@@ -8,7 +8,7 @@ def normilize_text_fields(model_obj):
         if isinstance(field, (models.CharField, models.TextField)):
             value = getattr(model_obj, field.name)
             if value:
-                setattr(model_obj, field.name, value.strip().capitalize())
+                setattr(model_obj, field.name, value.strip())
 
     return model_obj
 

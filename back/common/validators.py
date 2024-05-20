@@ -5,6 +5,6 @@ from django.core.exceptions import ValidationError
 def validate_accepted_symbols(value):
     for i in value:
         if i not in django_settings.ACCEPTED_SYMBOLS:
-            raise ValidationError("Поле содержит недопустимые символы")
+            raise ValidationError(f"Поле содержит недопустимые символы: {i}")
 
     return value

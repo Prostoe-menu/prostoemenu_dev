@@ -19,8 +19,8 @@ jobs:
         user: ${{secrets.SSH_USER}}
         passS: ${{secrets.SSH_PASSWORD}}
         command: |
-          cd ${{ secrets.PROJECT_FOLDER }};
-          git checkout Prostoe-menu-deploy;
-          git pull;
-          docker compose -f docker-compose.prod.yml down || true;
-          docker compose -f docker-compose.prod.yml up -d;
+          cd ${{ secrets.PROJECT_FOLDER }}
+          git checkout Prostoe-menu-deploy
+          git pull
+          docker compose -f docker-compose.prod.yml down || true
+          docker compose -f docker-compose.prod.yml up -d

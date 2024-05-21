@@ -15,7 +15,7 @@ jobs:
     - name: Run command on remote server
       uses: fifsky/ssh-action@master
       with:
-        host: ${{secrets.SSH_HOST}}
+        hosts: '${{secrets.SSH_HOST}}'
         user: ${{secrets.SSH_USER}}
         passS: ${{secrets.SSH_PASSWORD}}
         command: |

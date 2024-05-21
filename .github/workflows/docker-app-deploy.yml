@@ -8,9 +8,9 @@ permissions:
   contents: read
 
 env:
-  USER: ${{secrets.SSH_USER}}
-  HOST: ${{secrets.SSH_HOST}}
-  PASS: ${{secrets.SSH_PASSWORD}}
+  USER: ${{ secrets.SSH_USER }}
+  HOST: ${{ secrets.SSH_HOST }}
+  PASS: ${{ secrets.SSH_PASSWORD }}
   PROJECT_FOLDER: ${{ secrets.PROJECT_FOLDER }}
   
 

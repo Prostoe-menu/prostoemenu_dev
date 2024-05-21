@@ -1,4 +1,4 @@
-name: Deploy container to Azure Functions App
+name: Deploy prostoemenu to vds
 
 on:
   push:
@@ -13,11 +13,11 @@ jobs:
     environment: prod
     steps:
     - name: Run command on remote server
-      uses: appleboy/ssh-action@v1.0.3
+      uses: fifsky/ssh-action@master
       with:
         host: ${{secrets.SSH_HOST}}
         user: ${{secrets.SSH_USER}}
-        password: ${{secrets.SSH_PASSWORD}}
+        passS: ${{secrets.SSH_PASSWORD}}
         command: |
           cd ${{ secrets.PROJECT_FOLDER }};
           git checkout Prostoe-menu-deploy;

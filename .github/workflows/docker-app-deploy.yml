@@ -7,13 +7,6 @@ on:
 permissions:
   contents: read
 
-env:
-  USER: ${{ secrets.SSH_USER }}
-  HOST: ${{ secrets.SSH_HOST }}
-  PASS: ${{ secrets.SSH_PASSWORD }}
-  PROJECT_FOLDER: ${{ secrets.PROJECT_FOLDER }}
-  
-
 jobs:
   deploy:
     runs-on: [self-hosted, linux, firstvds]
@@ -22,10 +15,10 @@ jobs:
     - name: Run command on remote server
       uses: fifsky/ssh-action@master
       with:
-        host: '$USER@$HOST'
-        pass: $PASS
+        host: ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+        pass: ${{ secrets.SSH_PASSWORD }}
         command: |
-          cd $PROJECT_FOLDER
+          cd ${{ secrets.PROJECT_FOLDER }}
           git checkout Prostoe-menu-deploy
           git pull
           docker compose -f docker-compose.prod.yml down || true

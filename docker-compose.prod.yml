@@ -7,10 +7,10 @@ services:
     volumes:
       - db_value:/var/lib/postgresql/data/
     environment:
-      - ENVIRONMENT=${{ var.ENVIROMENT }}
-      - POSTGRES_DB=${{ var.POSTGRES_DB }}
-      - POSTGRES_PASSWORD=${{ var.POSTGRES_PASSWORD }}
-      - POSTGRES_USER=${{ var.POSTGRES_USER }}
+      - ENVIRONMENT=${{ vars.ENVIROMENT }}
+      - POSTGRES_DB=${{ vars.POSTGRES_DB }}
+      - POSTGRES_PASSWORD=${{ vars.POSTGRES_PASSWORD }}
+      - POSTGRES_USER=${{ vars.POSTGRES_USER }}
     networks:
       - db
 
@@ -26,10 +26,10 @@ services:
     depends_on:
       - db
     environment:
-      - ENVIRONMENT=${{ var.ENVIROMENT }}
-      - POSTGRES_DB=${{ var.POSTGRES_DB }}
-      - POSTGRES_PASSWORD=${{ var.POSTGRES_PASSWORD }}
-      - POSTGRES_USER=${{ var.POSTGRES_USER }}
+      - ENVIRONMENT=${{ vars.ENVIROMENT }}
+      - POSTGRES_DB=${{ vars.POSTGRES_DB }}
+      - POSTGRES_PASSWORD=${{ vars.POSTGRES_PASSWORD }}
+      - POSTGRES_USER=${{ vars.POSTGRES_USER }}
     volumes:
       - static_value:/app/static/
       - media_value:/app/media/

@@ -2,13 +2,21 @@ name: Deploy prostoemenu to vds
 
 on:
   push:
-    branches: ["Prostoe-menu-deploy"]
+    branches: 
+      - "Prostoe-menu-deploy"
+      - master
+      - dev
+    tags: 
+      - 'releases-*'
+    # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  deploy:
+  deploy-to-prod:
+    if: ${{ github.ref == 'Prostoe-menu-deploy' || 'master' }}
     runs-on: [self-hosted, linux, firstvds]
     environment: prod
     steps:

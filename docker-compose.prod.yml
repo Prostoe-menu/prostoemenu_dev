@@ -56,7 +56,7 @@ networks:
     external: true
   postgres:
     name: postgres
-    external: false
+    external: true
 
 volumes:
   db_value:

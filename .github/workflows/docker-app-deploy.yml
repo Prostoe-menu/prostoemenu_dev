@@ -30,8 +30,10 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
       
       - name: Git & Docker
+        env: 
+           PROJECT_FOLDER: ${{ secrets.PROJECT_FOLDER }}
         run: |
-          cd ${{ secrets.PROJECT_FOLDER }}
+          cd $PROJECT_FOLDER
           git checkout Prostoe-menu-deploy
           git pull
           docker compose -f docker-compose.prod.yml down || true

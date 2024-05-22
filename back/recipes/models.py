@@ -58,7 +58,7 @@ class Category(CustomBaseModel):
 
 class Recipe(CustomBaseModel):
     title = models.CharField(
-        max_length=100,
+        max_length=django_settings.MAX_TITLE_LENGTH,
         verbose_name="Название",
         validators=[
             MinLengthValidator(django_settings.MIN_TITLE_LENGTH),

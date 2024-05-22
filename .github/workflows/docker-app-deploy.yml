@@ -31,8 +31,13 @@ jobs:
       
       - name: Git & Docker
         env: 
-           PROJECT_FOLDER: ${{ secrets.PROJECT_FOLDER }}
+          PROJECT_FOLDER: ${{ secrets.PROJECT_FOLDER }}
+          ENV_MENU: ${{ vars.ENVIROMENT }}
+          POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
         run: |
+          echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
           git checkout Prostoe-menu-deploy
           git pull

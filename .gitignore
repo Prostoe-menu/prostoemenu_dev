@@ -1,3 +1,5 @@
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -105,10 +107,11 @@ celerybeat.pid
 .env
 .venv
 env/
-venv/
+back/venv/
 ENV/
 env.bak/
 venv.bak/
+venv
 
 # Spyder project settings
 .spyderproject
@@ -127,3 +130,16 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+account/user_credentials.txt
+/.idea/
+.vscode
+
+static/
+
+#ruff
+.ruff_cache
+
+mediafiles/
+recipes/backlog.txt
+recipes/db_queries

@@ -1,0 +1,122 @@
+[
+  {
+      "name": "грамм",
+      "abbreviation": "г."
+  },
+  {
+      "name": "миллилитр",
+      "abbreviation": "мл."
+  },
+  {
+      "name": "штука",
+      "abbreviation": "шт."
+  },
+  {
+      "name": "столовая ложка",
+      "abbreviation": "ст. л."
+  },
+  {
+      "name": "чайная ложка",
+      "abbreviation": "ч. л."
+  },
+  {
+      "name": "зубчик",
+      "abbreviation": "зубчик"
+  },
+  {
+      "name": "пучок",
+      "abbreviation": "пучок"
+  },
+  {
+      "name": "горсть",
+      "abbreviation": "горсть"
+  },
+  {
+      "name": "щепотка",
+      "abbreviation": "щепотка"
+  },
+  {
+      "name": "ломтик",
+      "abbreviation": "ломтик"
+  },
+  {
+      "name": "кочан",
+      "abbreviation": "кочан"
+  },
+  {
+      "name": "веточка",
+      "abbreviation": "веточка"
+  },
+  {
+      "name": "стакан",
+      "abbreviation": "стакан"
+  },
+  {
+      "name": "килограмм",
+      "abbreviation": "кг."
+  },
+  {
+      "name": "литр",
+      "abbreviation": "л."
+  },
+  {
+      "name": "по вкусу",
+      "abbreviation": "по вкусу"
+  },
+  {
+      "name": "побег",
+      "abbreviation": "побег"
+  },
+  {
+      "name": "корень",
+      "abbreviation": "корень"
+  },
+  {
+      "name": "луковица",
+      "abbreviation": "луковица"
+  },
+  {
+      "name": "клубень",
+      "abbreviation": "клубень"
+  },
+  {
+      "name": "перо",
+      "abbreviation": "перо"
+  },
+  {
+      "name": "лист",
+      "abbreviation": "лист"
+  },
+  {
+      "name": "звездочка",
+      "abbreviation": "звездочка"
+  },
+  {
+      "name": "палочка",
+      "abbreviation": "палочка"
+  },
+  {
+      "name": "упаковка",
+      "abbreviation": "упак."
+  },
+  {
+      "name": "тушка",
+      "abbreviation": "тушка"
+  },
+  {
+      "name": "головка",
+      "abbreviation": "головка"
+  },
+  {
+      "name": "бутон",
+      "abbreviation": "бутон"
+  },
+  {
+      "name": "сантиметр",
+      "abbreviation": "см."
+  },
+  {
+      "name": "по желанию",
+      "abbreviation": "по желанию"
+  }
+]

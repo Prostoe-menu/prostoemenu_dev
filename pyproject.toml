@@ -1,0 +1,11 @@
+[tool.isort]
+profile = "black"
+src_paths = ["back"]
+
+[tool.black]
+line-length = 88
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+"development.py" = ["F405"]
+"production.py" = ["F405"]

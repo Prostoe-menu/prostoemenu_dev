@@ -6,6 +6,10 @@ from .selectors import recipe_get
 
 @transaction.atomic
 def recipe_create(raw_data: dict):
+    steps_data = raw_data.pop("steps")
+    ingredients_data = raw_data.pop("ingredients")
+
+
     recipe = Recipe.objects.create(
         title=raw_data["title"],
         description=raw_data["description"],
@@ -14,25 +18,30 @@ def recipe_create(raw_data: dict):
         cooking_time=raw_data["cooking_time"],
         oven_time=raw_data["oven_time"],
         quantity=raw_data["quantity"],
-        category=raw_data["category"]
+        category=raw_data["category"],
     )
 
-    raw_steps = raw_data["steps"]
-    for item in raw_steps:
-        RecipeStep.objects.create(
-            recipe=recipe,
-            step_number=item["step_number"],
-            description=item["description"],
-            image=item["image"],
-        )
+    # raw_steps = raw_data["steps"]
+    # for item in raw_steps:
+    #     RecipeStep.objects.create(
+    #         recipe=recipe,
+    #         step_number=item["step_number"],
+    #         description=item["description"],
+    #         image=item["image"],
+    #     )
 
-    raw_ingredients = raw_data["ingredients"]
-    for item in raw_ingredients:
-        RecipeIngredient.objects.create(
-            recipe=recipe,
-            ingredient=item["ingredient"],
-            volume=item["volume"],
-            measure=item["measure"],
-        )
+    # raw_ingredients = raw_data["ingredients"]
+    # for item in raw_ingredients:
+    #     RecipeIngredient.objects.create(
+    #         recipe=recipe,
+    #         ingredient=item["ingredient"],
+    #         volume=item["volume"],
+    #         measure=item["measure"],
+    #     )
+    for ingredient in ingredients_data:
+        RecipeIngredient.objects.create(recipe=recipe, **ingredient)
+
+    for step in steps_data:
+        RecipeStep.objects.create(recipe=recipe, **step)
 
     return recipe_get(id=recipe.id)

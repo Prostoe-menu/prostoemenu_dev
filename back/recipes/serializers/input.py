@@ -1,37 +1,74 @@
+import decimal
+
+from django.conf import settings as django_settings
+from django.contrib.auth import get_user_model
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 
+from common.validators import validate_accepted_symbols
 from ingredients.models import Ingredient
-from ingredients.serializers.output import IngredientOutputSerializer
 from measurements.models import Measurement
-from measurements.serializers.output import MeasurementOutputSerializer
-from recipes.models import Recipe, Category, RecipeStep, RecipeIngredient
+from recipes.models import Category
 
-from django.conf import settings as django_settings
-#from common.validators import validate_min_title_lenght
+User = get_user_model()
 
 
 class RecipeInredientInputSerializer(serializers.Serializer):
     ingredient = serializers.PrimaryKeyRelatedField(queryset=Ingredient.objects.all())
     measure = serializers.PrimaryKeyRelatedField(queryset=Measurement.objects.all())
-    volume = serializers.IntegerField(min_value=1)
+    volume = serializers.DecimalField(
+        default=1.00,
+        max_digits=6,
+        decimal_places=2,
+        min_value=django_settings.MIN_INGREDIENT_VOLUME,
+    )
 
 
 class RecipeStepInputSerializer(serializers.Serializer):
-    step_number = serializers.IntegerField(min_value=1)
-    description = serializers.CharField()
-    image = Base64ImageField(allow_null=True)
+    step_number = serializers.IntegerField(
+        min_value=django_settings.MIN_STEP_NUMBER,
+        max_value=django_settings.MAX_STEP_NUMBER,
+    )
+    description = serializers.CharField(
+        min_length=django_settings.MIN_DESCR_LENGTH,
+        max_length=django_settings.MAX_DESCR_LENGTH,
+        validators=[validate_accepted_symbols],
+    )
+    image = Base64ImageField(required=False)
 
 
 class RecipeInputSerializer(serializers.Serializer):
-    title = serializers.CharField(max_length=django_settings.MAX_TITLE_LENGTH)
-    description = serializers.CharField()
+    title = serializers.CharField(
+        min_length=django_settings.MIN_TITLE_LENGTH,
+        max_length=django_settings.MAX_TITLE_LENGTH,
+        validators=[validate_accepted_symbols],
+    )
+    description = serializers.CharField(
+        allow_blank=True,
+        min_length=django_settings.MIN_DESCR_LENGTH,
+        max_length=django_settings.MAX_DESCR_LENGTH,
+        validators=[validate_accepted_symbols],
+    )
+    cooking_time = serializers.IntegerField(
+        min_value=django_settings.MIN_COOKING_AND_OVEN_TIME,
+        max_value=django_settings.MAX_COOKING_AND_OVEN_TIME,
+    )
+    oven_time = serializers.IntegerField(
+        min_value=django_settings.MIN_COOKING_AND_OVEN_TIME,
+        max_value=django_settings.MAX_COOKING_AND_OVEN_TIME,
+    )
+    quantity = serializers.IntegerField(
+        min_value=django_settings.MIN_PORTION_QUANTITY,
+        max_value=django_settings.MAX_PORTION_QUANTITY,
+    )
+    complexity = serializers.IntegerField(
+        min_value=django_settings.MIN_RECIPE_COMPLEXITY,
+        max_value=django_settings.MAX_RECIPE_COMPLEXITY,
+    )
     cover_path = Base64ImageField()
-    complexity = serializers.IntegerField(min_value=1, max_value=3)
-    cooking_time = serializers.IntegerField(min_value=1)
-    oven_time = serializers.IntegerField(min_value=1)
-    quantity = serializers.IntegerField(min_value=1)
+    author = serializers.PrimaryKeyRelatedField(
+        required=False, queryset=User.objects.all()
+    )
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
     ingredients = RecipeInredientInputSerializer(many=True)
     steps = RecipeStepInputSerializer(many=True)
-

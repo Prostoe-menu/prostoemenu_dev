@@ -102,6 +102,7 @@ class Recipe(CustomBaseModel):
             MaxValueValidator(django_settings.MAX_RECIPE_COMPLEXITY),
         ],
     )
+    cover_path = models.ImageField(upload_to="media", verbose_name="Главное фото")
     author = models.ForeignKey(
         User,
         null=True,
@@ -118,8 +119,6 @@ class Recipe(CustomBaseModel):
         verbose_name="Категория",
         related_name="recipes",
     )
-
-    cover_path = models.ImageField(upload_to="media", verbose_name="Главное фото")
 
     class Meta:
         verbose_name = "Рецепт"

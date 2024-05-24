@@ -1,14 +1,15 @@
-import decimal
+from collections import Counter
 
 from django.conf import settings as django_settings
 from django.contrib.auth import get_user_model
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
 
 from common.validators import validate_accepted_symbols
 from ingredients.models import Ingredient
 from measurements.models import Measurement
-from recipes.models import Category
+from recipes.models import Category, Recipe
 
 User = get_user_model()
 
@@ -72,3 +73,39 @@ class RecipeInputSerializer(serializers.Serializer):
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
     ingredients = RecipeInredientInputSerializer(many=True)
     steps = RecipeStepInputSerializer(many=True)
+
+    class Meta:
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Recipe.objects.all(), fields=["title", "description"]
+            ),
+        ]
+
+    def validate(self, request_data):
+        if request_data["cooking_time"] < request_data["oven_time"]:
+            raise serializers.ValidationError(
+                "Общее время готовки не может быть меньше времени активной готовки"
+            )
+
+        ingr_counter = Counter(
+            [item["ingredient"] for item in request_data["ingredients"]]
+        )
+        ingr_duplicated = [key for key, value in ingr_counter.items() if value > 1]
+        if ingr_duplicated:
+            raise serializers.ValidationError(
+                f"Ingredients cannot be duplicated: {', '.join([i.name for i in ingr_duplicated])}"
+            )
+
+        step_num_counter = Counter(
+            [item["step_number"] for item in request_data["steps"]]
+        )
+        step_num_duplicated = [
+            key for key, value in step_num_counter.items() if value > 1
+        ]
+
+        if step_num_duplicated:
+            raise serializers.ValidationError(
+                f"Step numbers cannot be duplicated: {', '.join([str(i) for i in step_num_duplicated])}"
+            )
+
+        return request_data

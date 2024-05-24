@@ -70,7 +70,9 @@ class RecipeCreateApi(APIView):
         operation_id="recipe_create_api",
     )
     def post(self, request):
-        input_serializer = RecipeInputSerializer(data=request.data)
+        input_serializer = RecipeInputSerializer(
+            data=request.data, context=request.data
+        )
         input_serializer.is_valid(raise_exception=True)
         recipe = recipe_create(input_serializer.validated_data)
         output_serializer = RecipeOutputSerializer(recipe)

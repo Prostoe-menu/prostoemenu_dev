@@ -96,12 +96,8 @@ class RecipeInputSerializer(serializers.Serializer):
                 f"Ingredients cannot be duplicated: {', '.join([i.name for i in ingr_duplicated])}"
             )
 
-        step_num_counter = Counter(
-            [item["step_number"] for item in request_data["steps"]]
-        )
-        step_num_duplicated = [
-            key for key, value in step_num_counter.items() if value > 1
-        ]
+        step_counter = Counter([item["step_number"] for item in request_data["steps"]])
+        step_num_duplicated = [key for key, value in step_counter.items() if value > 1]
 
         if step_num_duplicated:
             raise serializers.ValidationError(

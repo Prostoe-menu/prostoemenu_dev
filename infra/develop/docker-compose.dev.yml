@@ -16,7 +16,7 @@ services:
 
   web:
     build:
-      context: ../../back
+      context: ../../infra
       dockerfile: Dockerfile
     container_name: web
     command: >

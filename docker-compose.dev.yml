@@ -17,7 +17,7 @@ services:
 
   web:
     build:
-      context: ./back
+      #context: .
       dockerfile: Dockerfile
     container_name: web-$ENV_STAGE-test1
     command: >

@@ -19,7 +19,7 @@ services:
     build:
       context: ./back
       dockerfile: Dockerfile
-    container_name: web-$ENV_STAGE
+    container_name: web-$ENV_STAGE-$SHORT_GITHUB_SHA
     command: >
       sh -c "python manаge.py migrate &&
              gunicorn prostoemenu.wsgi:application --bind 0.0.0.0:8000"

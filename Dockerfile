@@ -5,4 +5,7 @@ RUN pip install --upgrade pip && \
     pip install -r requirements.txt --no-cache-dir
 COPY ./back /app
 RUN echo $(ls -lah /app) 
-RUN python /app/manage.py collectstatic --noinput
+RUN cd /app
+RUN python manage.py collectstatic --noinput
+ENTRYPOINT [ "python" ] 
+CMD ["gunicorn", "prostoemenu.wsgi:application", "--bind", "0.0.0.0:8000"]

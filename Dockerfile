@@ -7,4 +7,4 @@ COPY ./back /app
 RUN echo $(ls -lah /app) 
 RUN cd /app
 RUN python manage.py collectstatic --noinput
-ENTRYPOINT ["gunicorn", "prostoemenu.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "prostoemenu.wsgi:application", "--bind", "0.0.0.0:8000"]

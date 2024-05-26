@@ -52,7 +52,7 @@ jobs:
           docker compose -f docker-compose.prod.yml up -d
   
   deploy-to-dev:
-    if: ${{ github.ref == 'dev' }}
+    if: ${{ github.ref == 'deploy-to-server' || 'dev' }}
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:

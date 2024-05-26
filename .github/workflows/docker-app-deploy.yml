@@ -5,6 +5,7 @@ on:
     branches: 
       - master
       - dev
+      - new-ci-cd
     tags: 
       - 'releases-*'
   # Allows you to run this workflow manually from the Actions tab
@@ -44,16 +45,17 @@ jobs:
           POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
           POSTGRES_USER: ${{ vars.POSTGRES_USER }}
           ENV_STAGE: ${{ vars.ENV_VAR }}
+          PORT_MGINX: ${{ vars.PORT_MGINX }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
           git checkout master
           git pull
-          docker compose -f docker-compose.$ENV_STAGE.yml down || true
-          docker compose -f docker-compose.$ENV_STAGE.yml up -d
+          docker compose -f ./infra/docker-compose.yml down || true
+          docker compose -f ./infra/docker-compose.yml up -d
   
   deploy-to-dev:
-    if: ${{ github.ref == 'dev' }}
+    if: ${{ github.ref == 'new-ci-cd' || 'dev' }}
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:
@@ -82,10 +84,11 @@ jobs:
           POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
           POSTGRES_USER: ${{ vars.POSTGRES_USER }}
           ENV_STAGE: ${{ vars.ENV_VAR }}
+          PORT_MGINX: ${{ vars.PORT_MGINX }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
           git checkout dev
           git pull
-          docker compose -f docker-compose.$ENV_STAGE.yml down || true
-          docker compose -f docker-compose.$ENV_STAGE.yml up -d        
+          docker compose -f ./infra/docker-compose.yml down || true
+          docker compose -f ./infra/docker-compose.yml up -d        

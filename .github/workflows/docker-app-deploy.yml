@@ -45,7 +45,7 @@ jobs:
           POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
           POSTGRES_USER: ${{ vars.POSTGRES_USER }}
           ENV_STAGE: ${{ vars.ENV_VAR }}
-          PORT_MGINX: ${{ vars.PORT_MGINX }}
+          PORT_NGINX: ${{ vars.PORT_NGINX }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
@@ -84,7 +84,7 @@ jobs:
           POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
           POSTGRES_USER: ${{ vars.POSTGRES_USER }}
           ENV_STAGE: ${{ vars.ENV_VAR }}
-          PORT_MGINX: ${{ vars.PORT_MGINX }}
+          PORT_NGINX: ${{ vars.PORT_NGINX }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER

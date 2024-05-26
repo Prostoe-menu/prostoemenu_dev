@@ -5,6 +5,7 @@ on:
     branches: 
       - master
       - dev
+      - deploy-to-server
     tags: 
       - 'releases-*'
   # Allows you to run this workflow manually from the Actions tab

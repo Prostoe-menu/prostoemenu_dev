@@ -13,4 +13,4 @@ DATABASES = {
     }
 }
 
-CSRF_TRUSTED_ORIGINS = ["https://*.wowit.ru"]
+CSRF_TRUSTED_ORIGINS = ["https://*.prostoemenu.ru"]

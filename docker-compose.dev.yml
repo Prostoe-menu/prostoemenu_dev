@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   db:
-    container_name: db-$ENV_STAGE
+    container_name: db
     image: postgres:15-alpine
     volumes:
       - db_value:/var/lib/postgresql/data/
@@ -11,15 +11,14 @@ services:
       - POSTGRES_DB=$POSTGRES_DB
       - POSTGRES_PASSWORD=$.POSTGRES_PASSWORD
       - POSTGRES_USER=$POSTGRES_USER
-      - ENV_STAGE=$ENV_STAGE
     networks:
-      - postgres-$ENV_STAGE
+      - postgres
 
   web:
     build:
       #context: .
       dockerfile: Dockerfile
-    container_name: web-$ENV_STAGE
+    container_name: web
     restart: always
     depends_on:
       - db
@@ -28,17 +27,16 @@ services:
       - POSTGRES_DB=$POSTGRES_DB
       - POSTGRES_PASSWORD=$.POSTGRES_PASSWORD
       - POSTGRES_USER=$POSTGRES_USER
-      - ENV_STAGE=$ENV_STAGE
     volumes:
       - static_value:/app/static/
       - media_value:/app/media/
     networks:
-      - postgres-$ENV_STAGE
-      - prostoemenu-$ENV_STAGE
+      - postgres
+      - prostoemenu
 
   nginx:
     image: nginx:latest
-    container_name: nginx-$ENV_STAGE
+    container_name: nginx
     ports:
       - "$PORT_NGINX:80"
     volumes:
@@ -49,14 +47,14 @@ services:
     depends_on:
       - web
     networks:
-      - prostoemenu-$ENV_STAGE
+      - prostoemenu
 
 networks:
-  prostoemenu-dev:
-    name: prostoemenu-$ENV_STAGE
+  prostoemenu:
+    name: prostoemenu
     external: true
-  postgres-dev:
-    name: postgres-$ENV_STAGE
+  postgres:
+    name: postgres
     external: true
 
 volumes:

@@ -59,11 +59,6 @@ jobs:
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:
-      - name: Set short git commit SHA
-        id: vars
-        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-      - name: Check outputs vars short sha
-        run: echo ${{ steps.vars.outputs.sha_short }}
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh/
@@ -90,7 +85,6 @@ jobs:
           POSTGRES_USER: ${{ vars.POSTGRES_USER }}
           ENV_STAGE: ${{ vars.ENV_VAR }}
           PORT_NGINX: ${{ vars.PORT_NGINX }}
-          SHORT_GITHUB_SHA: ${{ steps.vars.outputs.short_sha }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER

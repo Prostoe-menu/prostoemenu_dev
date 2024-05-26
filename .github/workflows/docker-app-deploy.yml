@@ -85,7 +85,7 @@ jobs:
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
-          git checkout dev
+          git checkout deploy-to-server
           git pull
           docker compose -f docker-compose.$ENV_STAGE.yml down || true
           docker compose -f docker-compose.$ENV_STAGE.yml up -d        

@@ -25,7 +25,7 @@ services:
              gunicorn prostoemenu.wsgi:application --bind 0.0.0.0:8000"
     restart: always
     depends_on:
-      - db-$ENV_STAGE
+      - db
     environment:
       - ENVIRONMENT=$ENV_MENU
       - POSTGRES_DB=$POSTGRES_DB
@@ -49,7 +49,7 @@ services:
     environment:
       - PORT_NGINX=$PORT_NGINX
     depends_on:
-      - web-$ENV_STAGE
+      - web
     networks:
       - prostoemenu-$ENV_STAGE
 

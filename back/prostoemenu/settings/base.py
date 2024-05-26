@@ -15,7 +15,7 @@ SECRET_KEY = os.getenv(
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "109.172.82.25", "147.45.182.25", "*.prostoemenu.ru"]
+ALLOWED_HOSTS = ["127.0.0.1", "109.172.82.25", "147.45.182.25", "test.prostoemenu.ru", "prostoemenu.ru"]
 
 INTERNAL_IPS = [
     "127.0.0.1",

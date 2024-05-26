@@ -151,7 +151,7 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
 }
 
-DOMAIN_NAME = "https://test-menu.wowit.ru/"
+DOMAIN_NAME = "https://test.prostoemenu.ru/"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 

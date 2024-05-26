@@ -16,7 +16,7 @@ services:
 
   web:
     build:
-      context: ../
+      context: ../../
       dockerfile: Dockerfile
     container_name: web
     command: >

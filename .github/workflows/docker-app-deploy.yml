@@ -1,0 +1,91 @@
+name: Deploy prostoemenu to vds
+
+on:
+  push:
+    branches: 
+      - master
+      - dev
+    tags: 
+      - 'releases-*'
+  # Allows you to run this workflow manually from the Actions tab
+  # workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-to-prod:
+    if: ${{ github.ref == 'master' }}
+    runs-on: [self-hosted, linux, firstvds]
+    environment: prod
+    steps:
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host staging
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_PRIV_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+      
+      - name: Git & Docker
+        env: 
+          PROJECT_FOLDER: ${{ secrets.PROJECT_FOLDER }}
+          ENV_MENU: ${{ vars.ENV_VAR }}
+          POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          ENV_STAGE: ${{ vars.ENV_VAR }}
+        run: |
+          echo $PROJECT_FOLDER
+          cd $PROJECT_FOLDER
+          git checkout master
+          git pull
+          docker compose -f docker-compose.$ENV_STAGE.yml down || true
+          docker compose -f docker-compose.$ENV_STAGE.yml up -d
+  
+  deploy-to-dev:
+    if: ${{ github.ref == 'dev' }}
+    runs-on: [self-hosted, linux, timeweb]
+    environment: dev
+    steps:
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host staging
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_PRIV_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+      
+      - name: Git & Docker
+        env: 
+          PROJECT_FOLDER: ${{ secrets.PROJECT_FOLDER }}
+          ENV_MENU: ${{ vars.ENV_VAR }}
+          POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          ENV_STAGE: ${{ vars.ENV_VAR }}
+        run: |
+          echo $PROJECT_FOLDER
+          cd $PROJECT_FOLDER
+          git checkout dev
+          git pull
+          docker compose -f docker-compose.$ENV_STAGE.yml down || true
+          docker compose -f docker-compose.$ENV_STAGE.yml up -d        

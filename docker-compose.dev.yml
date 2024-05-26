@@ -21,8 +21,9 @@ services:
       dockerfile: Dockerfile
     container_name: web-$ENV_STAGE-test1
     command: >
-      sh -c "python /app/manаge.py migrate &&
-             gunicorn prostoemenu.wsgi:application --bind 0.0.0.0:8000"
+      sh -c "cd /app/ && 
+            python manаge.py migrate &&
+            gunicorn prostoemenu.wsgi:application --bind 0.0.0.0:8000"
     restart: always
     depends_on:
       - db

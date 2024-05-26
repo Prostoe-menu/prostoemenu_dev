@@ -17,8 +17,8 @@ services:
 
   web-dev:
     build:
-      context: ../back
-      dockerfile: Dockerfile
+      #context: ../back
+      dockerfile: ../back/Dockerfile
     container_name: web-$ENV_STAGE
     command: >
       sh -c "python manаge.py migrate &&

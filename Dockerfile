@@ -5,4 +5,4 @@ RUN pip install --upgrade pip && \
     pip install -r requirements.txt --no-cache-dir
 COPY ./back/ /app/
 RUN echo $(ls -lah /app) 
-RUN python manage.py collectstatic --noinput
+RUN python /app/manage.py collectstatic --noinput

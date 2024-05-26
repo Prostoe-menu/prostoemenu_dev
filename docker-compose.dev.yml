@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  db-dev:
+  db:
     container_name: db-$ENV_STAGE
     image: postgres:15-alpine
     volumes:
@@ -15,7 +15,7 @@ services:
     networks:
       - postgres-$ENV_STAGE
 
-  web-dev:
+  web:
     build:
       context: ./back
       dockerfile: Dockerfile
@@ -39,7 +39,7 @@ services:
       - postgres-$ENV_STAGE
       - prostoemenu-$ENV_STAGE
 
-  nginx-dev:
+  nginx:
     image: nginx:latest
     ports:
       - "$PORT_NGINX:80"

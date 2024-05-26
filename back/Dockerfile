@@ -3,7 +3,6 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt --no-cache-dir
-RUN echo $(ls -lah)
 COPY . .
-RUN echo $(ls -lah)
+RUN echo $(ls -lah /app)
 RUN python manage.py collectstatic --noinput

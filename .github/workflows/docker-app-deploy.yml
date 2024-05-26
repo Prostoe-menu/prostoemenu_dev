@@ -90,5 +90,5 @@ jobs:
           cd $PROJECT_FOLDER
           git checkout new-ci-cd
           git pull
-          docker compose -f docker-compose.dev.yml down || true
-          docker compose -f docker-compose.dev.yml up -d        
+          docker compose -f ./infra/develop/docker-compose.dev.yml down || true
+          docker compose -f ./infra/develop/docker-compose.dev.yml up -d        

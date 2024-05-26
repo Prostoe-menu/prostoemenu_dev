@@ -73,6 +73,7 @@ jobs:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_KEY: ${{ secrets.SSH_PRIV_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
+          ENV_STAGE: ${{ ENV_VAR }}
       
       - name: Git & Docker
         env: 
@@ -86,5 +87,5 @@ jobs:
           cd $PROJECT_FOLDER
           git checkout dev
           git pull
-          docker compose -f docker-compose.prod.yml down || true
-          docker compose -f docker-compose.prod.yml up -d        
+          docker compose -f docker-compose.$ENV_STAGE.yml down || true
+          docker compose -f docker-compose.$ENV_STAGE.yml up -d        

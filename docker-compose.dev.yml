@@ -21,9 +21,7 @@ services:
       dockerfile: Dockerfile
     container_name: web-$ENV_STAGE-test1
     command: >
-      sh -c "cd /app/ && 
-            python manаge.py migrate &&
-            gunicorn prostoemenu.wsgi:application --bind 0.0.0.0:8000"
+      sh -c "python manаge.py migrate"
     restart: always
     depends_on:
       - db
@@ -42,6 +40,7 @@ services:
 
   nginx:
     image: nginx:latest
+    container_name: nginx-$ENV_STAGE
     ports:
       - "$PORT_NGINX:80"
     volumes:

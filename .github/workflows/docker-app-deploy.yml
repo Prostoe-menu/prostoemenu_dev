@@ -51,8 +51,8 @@ jobs:
           cd $PROJECT_FOLDER
           git checkout master
           git pull
-          docker compose -f infra/docker-compose.prod.yml down || true
-          docker compose -f infra/docker-compose.prod.yml up -d
+          docker compose -f docker-compose.prod.yml down || true
+          docker compose -f docker-compose.prod.yml up -d
   
   deploy-to-dev:
     if: ${{ github.ref == 'new-ci-cd' || 'dev' }}
@@ -90,5 +90,5 @@ jobs:
           cd $PROJECT_FOLDER
           git checkout new-ci-cd
           git pull
-          docker compose -f infra/docker-compose.dev.yml down || true
-          docker compose -f infra/docker-compose.dev.yml up -d        
+          docker compose -f docker-compose.dev.yml down || true
+          docker compose -f docker-compose.dev.yml up -d        

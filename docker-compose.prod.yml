@@ -17,7 +17,7 @@ services:
 
   web-prod:
     build:
-      context: ../back
+      context: ./back
       dockerfile: Dockerfile
     container_name: web-$ENV_STAGE
     command: >

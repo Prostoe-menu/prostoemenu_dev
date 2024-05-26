@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  db-prod:
+  db:
     container_name: db
     image: postgres:15-alpine
     volumes:
@@ -14,14 +14,14 @@ services:
     networks:
       - postgres
 
-  web-prod:
+  web:
     build:
-      #context: ./back
+      context: ../../back
       dockerfile: Dockerfile
     container_name: web
-    #command: >
-    #  sh -c "python /app/manage.py migrate &&
-    #         gunicorn prostoemenu.wsgi:application --bind 0.0.0.0:8000"
+    command: >
+      sh -c "python /app/manage.py migrate &&
+             gunicorn prostoemenu.wsgi:application --bind 0.0.0.0:8000"
     restart: always
     depends_on:
       - db
@@ -37,12 +37,13 @@ services:
       - postgres
       - prostoemenu
 
-  nginx-prod:
+  nginx:
     image: nginx:latest
+    container_name: nginx
     ports:
       - "$PORT_NGINX:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./infra/nginx.conf:/etc/nginx/conf.d/default.conf
       - static_value:/usr/share/nginx/html/static/
       - media_value:/usr/share/nginx/html/media/
     environment:

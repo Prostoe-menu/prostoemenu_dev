@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  db:
+  db-prod:
     container_name: db
     image: postgres:15-alpine
     volumes:
@@ -14,9 +14,9 @@ services:
     networks:
       - postgres
 
-  web:
+  web-prod:
     build:
-      #context: .
+      #context: ./back
       dockerfile: Dockerfile
     container_name: web
     command: >
@@ -37,9 +37,8 @@ services:
       - postgres
       - prostoemenu
 
-  nginx:
+  nginx-prod:
     image: nginx:latest
-    container_name: nginx
     ports:
       - "$PORT_NGINX:80"
     volumes:

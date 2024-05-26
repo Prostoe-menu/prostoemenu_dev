@@ -19,9 +19,7 @@ services:
     build:
       #context: .
       dockerfile: Dockerfile
-    container_name: web-$ENV_STAGE-test1
-    command: >
-      sh -c "python manage.py migrate"
+    container_name: web-$ENV_STAGE
     restart: always
     depends_on:
       - db

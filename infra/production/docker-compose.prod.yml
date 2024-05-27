@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  db-prod:
+  db:
     container_name: db
     image: postgres:15-alpine
     volumes:
@@ -14,10 +14,10 @@ services:
     networks:
       - postgres
 
-  web-prod:
+  web:
     build:
       context: ../../
-      dockerfile: Dockerfile
+      dockerfile: ./infra/Dockerfile
     container_name: web
     command: >
       sh -c "python /app/manage.py migrate &&

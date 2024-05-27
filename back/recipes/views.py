@@ -7,8 +7,6 @@ from .serializers.input import RecipeInputSerializer
 from .serializers.output import RecipeOutputSerializer
 from .services import recipe_create
 
-# from rest_framework.parsers import MultiPartParser, FormParser
-
 
 class RecipeDetailApi(APIView):
     @extend_schema(

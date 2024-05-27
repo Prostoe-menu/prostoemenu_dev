@@ -89,6 +89,7 @@ jobs:
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
+          git pull
           git checkout dev
           git pull
           docker compose -f ./infra/develop/docker-compose.dev.yml down || true

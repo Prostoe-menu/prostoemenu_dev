@@ -16,9 +16,10 @@ services:
 
   web:
     build:
-      context: ./infra
+      context: .
       additional_contexts:
-        - back_source=../back
+        - docker_source=./infra/
+        - back_source=./back/
       dockerfile: Dockerfile
     container_name: web
     command: >

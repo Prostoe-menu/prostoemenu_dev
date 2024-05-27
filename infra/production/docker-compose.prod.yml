@@ -39,6 +39,7 @@ services:
 
   nginx:
     image: nginx:latest
+    container_name: nginx
     ports:
       - "$PORT_NGINX:80"
     volumes:

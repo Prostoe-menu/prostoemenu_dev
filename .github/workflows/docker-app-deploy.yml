@@ -49,6 +49,7 @@ jobs:
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
+          git pull
           git checkout new-ci-cd
           git pull
           docker compose -f ./infra/production/docker-compose.prod.yml down || true

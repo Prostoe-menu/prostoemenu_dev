@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   deploy-to-prod:
-    if: ${{ github.ref == 'master' }}
+    if: ${{ github.ref == 'new-ci-cd' || 'master' }}
     runs-on: [self-hosted, linux, firstvds]
     environment: prod
     steps:
@@ -49,10 +49,11 @@ jobs:
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
-          git checkout master
+          git checkout new-ci-cd
           git pull
-          docker compose -f docker-compose.prod.yml down || true
-          docker compose -f docker-compose.prod.yml up -d
+          docker compose -f ./infra/production/docker-compose.prod.yml down || true
+          docker rmi production-web:latest || true
+          docker compose -f ./infra/production/docker-compose.prod.yml up -d
   
   deploy-to-dev:
     if: ${{ github.ref == 'new-ci-cd' || 'dev' }}

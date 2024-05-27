@@ -37,7 +37,7 @@ services:
       - postgres
       - prostoemenu
 
-  nginx-prod:
+  nginx:
     image: nginx:latest
     ports:
       - "$PORT_NGINX:80"

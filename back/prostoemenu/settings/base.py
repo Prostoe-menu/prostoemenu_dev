@@ -15,7 +15,7 @@ SECRET_KEY = os.getenv(
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "109.172.82.25", "test-menu.wowit.ru"]
+ALLOWED_HOSTS = ["127.0.0.1", "109.172.82.25", "147.45.182.25", "test.prostoemenu.ru", "prostoemenu.ru"]
 
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -151,7 +151,7 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
 }
 
-DOMAIN_NAME = "https://test-menu.wowit.ru/"
+DOMAIN_NAME = "https://test.prostoemenu.ru/"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 

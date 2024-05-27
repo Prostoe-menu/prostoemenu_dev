@@ -5,7 +5,6 @@ on:
     branches: 
       - master
       - dev
-      - new-ci-cd
     tags: 
       - 'releases-*'
   # Allows you to run this workflow manually from the Actions tab
@@ -16,7 +15,7 @@ permissions:
 
 jobs:
   deploy-to-prod:
-    if: ${{ github.ref == 'new-ci-cd' || 'master' }}
+    if: ${{ github.ref == 'master' }}
     runs-on: [self-hosted, linux, firstvds]
     environment: prod
     steps:
@@ -50,14 +49,14 @@ jobs:
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
           git pull
-          git checkout new-ci-cd
+          git checkout master
           git pull
           docker compose -f ./infra/production/docker-compose.prod.yml down || true
           docker rmi production-web:latest || true
           docker compose -f ./infra/production/docker-compose.prod.yml up -d
   
   deploy-to-dev:
-    if: ${{ github.ref == 'new-ci-cd' || 'dev' }}
+    if: ${{ github.ref == 'dev' }}
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:
@@ -90,7 +89,7 @@ jobs:
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
-          git checkout new-ci-cd
+          git checkout dev
           git pull
           docker compose -f ./infra/develop/docker-compose.dev.yml down || true
           docker rmi develop-web:latest || true

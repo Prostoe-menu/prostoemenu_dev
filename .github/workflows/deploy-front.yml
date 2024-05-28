@@ -39,6 +39,7 @@ jobs:
           PROJECT_FOLDER: ${{ secrets.PROJECT_FOLDER }}
           ENV_MENU: ${{ vars.ENV_VAR }}
           VITE_API_URL: ${{ vars.VITE_API_URL }}
+          PORT_NGINX: ${{ vars.PORT_NGINX }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER

@@ -1,0 +1,50 @@
+name: node build CI
+
+on:
+  push:
+    branches:
+      - frontend
+      - edit-ci-cd
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches:
+      - frontend
+      - edit-ci-cd
+
+jobs:
+  deploy-front-to-dev:
+    if: ${{ github.ref == 'edit-ci-cd' || 'frontend' }}
+    runs-on: [self-hosted, linux, timeweb]
+    environment: dev
+    steps:
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host staging
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_PRIV_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+      
+      - name: Git & Docker
+        env:
+          PROJECT_FOLDER: ${{ secrets.PROJECT_FOLDER }}
+          ENV_MENU: ${{ vars.ENV_VAR }}
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+        run: |
+          echo $PROJECT_FOLDER
+          cd $PROJECT_FOLDER
+          git pull
+          git checkout edit-ci-cd
+          git pull
+          docker compose -f ./infra/docker-compose.front.yml down || true
+          docker rmi develop-front:latest || true
+          docker compose -f ./infra/docker-compose.front.yml up -d 

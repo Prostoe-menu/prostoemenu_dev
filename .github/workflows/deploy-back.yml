@@ -1,4 +1,4 @@
-name: Deploy prostoemenu to vds
+name: Deploy backend
 
 on:
   push:

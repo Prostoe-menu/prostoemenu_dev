@@ -4,7 +4,7 @@ services:
   front:
     build:
       context: ../
-      dockerfile: ./infra/Dockerfile.frontend
+      dockerfile: ./infra/Dockerfile.front
     container_name: front
     ports:
       - "$PORT_NGINX:80"

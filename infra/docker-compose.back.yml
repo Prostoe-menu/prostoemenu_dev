@@ -17,7 +17,7 @@ services:
   web:
     build:
       context: ../
-      dockerfile: ./infra/Dockerfile.backend
+      dockerfile: ./infra/Dockerfile.back
     container_name: web
     command: >
       sh -c "python /app/manage.py migrate &&

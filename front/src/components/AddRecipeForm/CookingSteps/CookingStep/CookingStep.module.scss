@@ -1,0 +1,133 @@
+@use 'src/styles/variables' as vars;
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 auto;
+  width: 576px;
+
+  &__title {
+    margin: 0;
+    font-family: vars.$font-body;
+    font-size: vars.$font-size-xxs;
+    line-height: vars.$line-height-xxs;
+    font-weight: 500;
+    color: vars.$color-primary;
+  }
+
+  &__fieldset {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    width: 100%;
+    border: none;
+  }
+
+  &__photo {
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+    margin-right: 12px;
+    width: 160px;
+    height: 160px;
+  }
+
+  &__description {
+    position: relative;
+    margin-right: 17px;
+    padding: 12px 16px;
+    width: 372px;
+    height: 160px;
+    display: flex;
+    align-items: stretch;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+  }
+
+  &__input {
+    position: relative;
+    width: 100%;
+    font-family: vars.$font-body;
+    font-size: 12px;
+    line-height: 1.6;
+    font-weight: 300;
+    color: #818181;
+    border: none;
+    resize: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: border-color color 0.6s 0.6s;
+
+    &:hover {
+      border-color: #818181;
+      transition: border-color 0.6s;
+    }
+
+    &:focus,
+    &:active {
+      color: vars.$color-primary;
+      outline: none;
+    }
+
+    &_error {
+      border-color: #d14941;
+
+      & + .step__letters-counter {
+        color: #d14941;
+      }
+    }
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #f7f7f7;
+      border-radius: 4px;
+      transition: all 0.6s;
+
+      &:hover {
+        background-color: #dbdbdb;
+      }
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #dbdbdb;
+      border-radius: 4px;
+      transition: all 0.6s;
+
+      &:hover {
+        background-color: #818181;
+      }
+    }
+  }
+
+  &__letters-counter {
+    position: absolute;
+    bottom: 12px;
+    right: 32px;
+    font-family: vars.$font-body;
+    font-size: 12px;
+    line-height: 1.6;
+    font-weight: 300;
+    color: #818181;
+    background-color: #fff;
+  }
+
+  &__remove-btn {
+    width: 20px;
+    height: 20px;
+    align-self: center;
+    background-color: transparent;
+    border: none;
+    background-image: url('assets/images/close-btn/close_btn.svg');
+    cursor: pointer;
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

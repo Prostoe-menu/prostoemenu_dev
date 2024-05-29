@@ -11,8 +11,6 @@ from ingredients.models import Ingredient
 from measurements.models import Measurement
 from recipes.models import Category, Recipe
 
-User = get_user_model()
-
 
 class RecipeInredientInputSerializer(serializers.Serializer):
     ingredient = serializers.PrimaryKeyRelatedField(queryset=Ingredient.objects.all())
@@ -67,11 +65,8 @@ class RecipeInputSerializer(serializers.Serializer):
         max_value=django_settings.MAX_RECIPE_COMPLEXITY,
     )
     cover_path = Base64ImageField()
-    author = serializers.PrimaryKeyRelatedField(
-        required=False, queryset=User.objects.all()
-    )
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
-    ingredients = RecipeInredientInputSerializer(many=True)
+    ingredients = RecipeInredientInputSerializer(many=True, validators=[])
     steps = RecipeStepInputSerializer(many=True)
 
     class Meta:
@@ -81,27 +76,26 @@ class RecipeInputSerializer(serializers.Serializer):
             ),
         ]
 
-    def validate(self, request_data):
-        if request_data["cooking_time"] < request_data["oven_time"]:
-            raise serializers.ValidationError(
-                "Общее время готовки не может быть меньше времени активной готовки"
-            )
-
-        ingr_counter = Counter(
-            [item["ingredient"] for item in request_data["ingredients"]]
-        )
-        ingr_duplicated = [key for key, value in ingr_counter.items() if value > 1]
+    def validate_ingredients(self, request_data):
+        counter = Counter([item["ingredient"] for item in request_data])
+        ingr_duplicated = [key for key, value in counter.items() if value > 1]
         if ingr_duplicated:
             raise serializers.ValidationError(
                 f"Ingredients cannot be duplicated: {', '.join([i.name for i in ingr_duplicated])}"
             )
 
-        step_counter = Counter([item["step_number"] for item in request_data["steps"]])
-        step_num_duplicated = [key for key, value in step_counter.items() if value > 1]
-
+    def validate_steps(self, request_data):
+        counter = Counter([item["step_number"] for item in request_data])
+        step_num_duplicated = [key for key, value in counter.items() if value > 1]
         if step_num_duplicated:
             raise serializers.ValidationError(
                 f"Step numbers cannot be duplicated: {', '.join([str(i) for i in step_num_duplicated])}"
+            )
+
+    def validate(self, request_data):
+        if request_data["cooking_time"] < request_data["oven_time"]:
+            raise serializers.ValidationError(
+                "Общее время готовки не может быть меньше времени активной готовки"
             )
 
         return request_data

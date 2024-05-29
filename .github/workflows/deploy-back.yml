@@ -98,5 +98,5 @@ jobs:
           git checkout edit-ci-cd
           git pull
           docker compose -f ./infra/docker-compose.back.yml down || true
-          docker rmi develop-web:latest || true
+          docker rmi infra-web:latest || true
           docker compose -f ./infra/docker-compose.back.yml up -d        

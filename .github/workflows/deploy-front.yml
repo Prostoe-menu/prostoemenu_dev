@@ -32,10 +32,9 @@ jobs:
           overwrite: true
           retention-days: 5
       - name: Download All Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: build-statics
-      - run: ls -R
+        run: |
+          link_artefact=$(curl -s https://api.github.com/repos/Prostoe-menu/prostoemenu_dev/actions/artifacts | jq -r '.artifacts[].url')
+          echo $link_artefact
   
   #deploy-front-to-dev:
   #  if: ${{ github.ref == 'edit-ci-cd' || 'frontend' }}

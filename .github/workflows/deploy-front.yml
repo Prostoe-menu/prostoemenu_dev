@@ -24,12 +24,11 @@ jobs:
           cd front/
           npm install
           npm run build
-          mkdir artifacts
       - name: Archive production artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: build-artifact
-          path: artifacts
+          name: npm-statics
+          path: build/*
   
   #deploy-front-to-dev:
   #  if: ${{ github.ref == 'edit-ci-cd' || 'frontend' }}

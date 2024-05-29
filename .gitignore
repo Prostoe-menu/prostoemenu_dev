@@ -134,8 +134,6 @@ account/user_credentials.txt
 /.idea/
 .vscode
 
-static/
-
 #ruff
 .ruff_cache
 

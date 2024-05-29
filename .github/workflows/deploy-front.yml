@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: npmstatics
-          path: build/
+          path: .
   
   #deploy-front-to-dev:
   #  if: ${{ github.ref == 'edit-ci-cd' || 'frontend' }}

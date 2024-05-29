@@ -19,10 +19,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Create folder for artifacts
-        run: |
-          mkdir npmstatics
-          ls -lah 
       - name: npm install and build
         run: |
           cd front/
@@ -32,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: npmstatics
-          path: npmstatics
+          path: .artifacts/npmstatics/
   
   #deploy-front-to-dev:
   #  if: ${{ github.ref == 'edit-ci-cd' || 'frontend' }}

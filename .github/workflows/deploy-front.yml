@@ -20,7 +20,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Create folder for artifacts
-        run: mkdir ./build
+        run: |
+          mkdir build
+          ls -lah 
       - name: npm install and build
         run: |
           mkdir npmstatics

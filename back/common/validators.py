@@ -3,8 +3,8 @@ from django.core.exceptions import ValidationError
 
 
 def validate_accepted_symbols(value):
-    for i in value:
-        if i not in django_settings.ACCEPTED_SYMBOLS:
-            raise ValidationError(f"Поле содержит недопустимые символы: {i}")
-
-    return value
+    invalid_symbols = set(value) - django_settings.ACCEPTED_SYMBOLS
+    if invalid_symbols:
+        raise ValidationError(
+            f"Поле содержит недопустимые символы: {''.join(invalid_symbols)}"
+        )

@@ -24,7 +24,7 @@ class RecipeTest(TestCase):
             "quantity": django_settings.MIN_PORTION_QUANTITY,
             "complexity": django_settings.MIN_RECIPE_COMPLEXITY,
             "author": None,
-            "cover_path": "mediafiles/media/default_photo.jpg",
+            "cover_path": "mediafiles/media/tiny_image.png",
             "category": Category.objects.get(pk=1),
         }
 

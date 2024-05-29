@@ -155,7 +155,7 @@ DOMAIN_NAME = "https://test.prostoemenu.ru/"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-ACCEPTED_SYMBOLS = (
+ACCEPTED_SYMBOLS = set(
     "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     "0123456789!№;%:?*()/.,\«»—–- \"'°+¼½"
@@ -166,6 +166,8 @@ MIN_DESCR_LENGTH = 10
 MAX_DESCR_LENGTH = 500
 
 MIN_TITLE_LENGTH = 2
+
+MAX_TITLE_LENGTH = 100
 
 MIN_COOKING_AND_OVEN_TIME = 1
 

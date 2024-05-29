@@ -23,15 +23,15 @@ jobs:
         run: mkdir ./build
       - name: npm install and build
         run: |
-          mkdir build
+          mkdir npmstatics
           cd front/
           npm install
           npm run build
       - name: Archive production artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: npm-statics
-          path: build/*
+          name: npmstatics
+          path: npmstatics
   
   #deploy-front-to-dev:
   #  if: ${{ github.ref == 'edit-ci-cd' || 'frontend' }}

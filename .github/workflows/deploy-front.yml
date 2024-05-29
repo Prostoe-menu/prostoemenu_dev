@@ -23,6 +23,7 @@ jobs:
         run: mkdir ./build
       - name: npm install and build
         run: |
+          mkdir build
           cd front/
           npm install
           npm run build

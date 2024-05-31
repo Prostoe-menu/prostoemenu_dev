@@ -1,12 +1,16 @@
-FROM node:20-alpine as node-menu
-RUN mkdir /data
-WORKDIR /data
-COPY front/package.json .
-RUN npm install
-COPY ./front/ /data
-ARG VITE_API_URL
-ENV VITE_API_URL="https://test.prostoemenu.ru/api/"
-RUN npm run build
+#FROM node:20-alpine as node-menu
+#RUN mkdir /data
+#WORKDIR /data
+#COPY front/package.json .
+#RUN npm install
+#COPY ./front/ /data
+#ARG VITE_API_URL
+#ENV VITE_API_URL="https://test.prostoemenu.ru/api/"
+#RUN npm run build
 
 FROM nginx:latest
-COPY --from=node-menu --chown=nginx:nginx ["/data/build/","/usr/share/nginx/html/"] 
+#COPY --from=node-menu --chown=nginx:nginx ["/data/build/","/usr/share/nginx/html/"] 
+RUN mkdir /data
+#ARG LINK_ATEFACT
+#ENV LINK_ATEFACT=$LINK_ATEFACT
+#RUN curl -O /data/ $LINK_ATEFACT

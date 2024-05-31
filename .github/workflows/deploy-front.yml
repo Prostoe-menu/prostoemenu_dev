@@ -27,7 +27,7 @@ jobs:
 
       - name: Configure SSH
         env:
-          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_USER: ${{ secrets.SSH_USERNAME }}
           SSH_KEY: ${{ secrets.SSH_PRIV_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
         run: |

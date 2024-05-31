@@ -41,7 +41,7 @@ jobs:
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:   
-      - name: Git & Docker
+      - name: Build docker images & Run docker-compose
         env:
           PROJECT_FOLDER: ${{ secrets.PROJECT_FOLDER }}
           ENV_MENU: ${{ vars.ENV_VAR }}
@@ -56,5 +56,5 @@ jobs:
           #unzip -q /tmp/build-statics.zip -d $PROJECT_FOLDER/front/build
           cp -r /tmp/build $PROJECT_FOLDER/front/
           docker compose -f ./infra/docker-compose.front.yml down || true
-          docker rmi develop-front:latest || true
+          docker rmi infra-front:latest || true
           docker compose -f ./infra/docker-compose.front.yml up -d

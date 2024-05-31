@@ -24,20 +24,41 @@ jobs:
           cd front/
           npm install
           npm run build
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-statics
-          path: ./front/build/
-          overwrite: true
-          retention-days: 5
-      - name: Download All Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-statics
-          path: ../build-statics
-      - name: Display structure of downloaded files
-        run: ls -R ./front/
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host staging
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_PRIV_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+
+      - name: Deploy with rsync
+        run: rsync -rav build $SSH_USER@$SSH_HOST:/tmp/
+
+      #- name: Archive production artifacts
+      #  uses: actions/upload-artifact@v4
+      #  with:
+      #    name: build-statics
+      #    path: ./front/build/
+      #    overwrite: true
+      #    retention-days: 5
+      #- name: Download All Artifacts
+      #  uses: actions/download-artifact@v4
+      #  with:
+      #    name: build-statics
+      #    path: ../build-statics
+      #- name: Display structure of downloaded files
+      #  run: ls -R ./front/
 
         #run: |
         #  artifact_id=$(curl -s https://api.github.com/repos/Prostoe-menu/prostoemenu_dev/actions/artifacts | jq -r '.artifacts[0].id')
@@ -80,6 +101,7 @@ jobs:
           git pull
           git checkout edit-ci-cd
           git pull
+          cp -r /tmp/build $PROJECT_FOLDER/
           docker compose -f ./infra/docker-compose.front.yml down || true
           docker rmi develop-front:latest || true
           docker compose -f ./infra/docker-compose.front.yml up -d 

@@ -37,7 +37,7 @@ jobs:
           name: build-statics
           path: ./front/
       - name: Display structure of downloaded files
-        run: ls -R your/destination/dir
+        run: ls -R ./front/
 
         #run: |
         #  artifact_id=$(curl -s https://api.github.com/repos/Prostoe-menu/prostoemenu_dev/actions/artifacts | jq -r '.artifacts[0].id')

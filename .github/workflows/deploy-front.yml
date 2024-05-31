@@ -35,7 +35,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-statics
-          path: ./front/
+          path: ../build-statics
       - name: Display structure of downloaded files
         run: ls -R ./front/
 

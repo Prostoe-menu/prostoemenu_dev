@@ -14,11 +14,11 @@ services:
     networks:
       - postgres
 
-  web:
+  app:
     build:
       context: ../
       dockerfile: ./infra/Dockerfile.back
-    container_name: web
+    container_name: app
     command: >
       sh -c "python /app/manage.py migrate &&
              gunicorn prostoemenu.wsgi:application --bind 0.0.0.0:8000"

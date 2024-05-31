@@ -20,6 +20,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: npm install and build
+        env:
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
         run: |
           cd front/
           npm install

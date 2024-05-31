@@ -58,5 +58,3 @@ jobs:
           docker compose -f ./infra/docker-compose.front.yml down || true
           docker rmi develop-front:latest || true
           docker compose -f ./infra/docker-compose.front.yml up -d
-          rm -rf $PROJECT_FOLDER/front/build
-          rm -rf /tmp/build

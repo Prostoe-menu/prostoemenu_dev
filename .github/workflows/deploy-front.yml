@@ -26,8 +26,13 @@ jobs:
           npm run build
 
       - name: Configure SSH
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_PRIV_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
         run: |
           mkdir -p ~/.ssh/
+
           echo "$SSH_KEY" > ~/.ssh/staging.key
           chmod 600 ~/.ssh/staging.key
           cat >>~/.ssh/config <<END
@@ -37,13 +42,11 @@ jobs:
             IdentityFile ~/.ssh/staging.key
             StrictHostKeyChecking no
           END
-        env:
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_KEY: ${{ secrets.SSH_PRIV_KEY }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
 
       - name: Deploy with rsync
-        run: rsync -rave "ssh ./ssh/staging.key" build $SSH_USER@$SSH_HOST:/tmp/
+        run: |
+          cat ~/.ssh/config
+          rsync -rave "ssh ./ssh/staging.key" build $SSH_USER@$SSH_HOST:/tmp/
 
       #- name: Archive production artifacts
       #  uses: actions/upload-artifact@v4

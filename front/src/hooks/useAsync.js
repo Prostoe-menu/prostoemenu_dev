@@ -5,16 +5,20 @@ const useAsync = (callback, query, debounce, delay) => {
   const [error, setError] = useState(false);
   const [value, setValue] = useState([]);
 
-  const callbackMemoized = useCallback(() => {
+  const callbackMemoized = useCallback(async () => {
     setLoading(true);
     setError(false);
     setValue([]);
-    callback(query)
-      .then(setValue)
-      .catch(setError)
-      .finally(() => setLoading(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
+
+    const result = await callback(query);
+
+    if (result && result.length > 0) {
+      setValue(result);
+    } else {
+      setError(true);
+    }
+    setLoading(false);
+  }, [callback, query]);
 
   useEffect(() => {
     if (query.length >= 2) {

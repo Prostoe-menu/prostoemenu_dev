@@ -48,6 +48,7 @@ jobs:
         run: |
           cat ~/.ssh/config
           pwd
+          ls -lah 
           rsync -rave ./front/build $SSH_USER@$SSH_HOST:/tmp/
 
       #- name: Archive production artifacts

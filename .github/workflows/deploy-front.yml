@@ -36,6 +36,7 @@ jobs:
           SERVER_DESTINATION: /tmp/
   
   deploy-front-to-dev:
+    needs: buid-static
     if: ${{ github.ref == 'edit-ci-cd' || 'frontend' }}
     runs-on: [self-hosted, linux, timeweb]
     environment: dev

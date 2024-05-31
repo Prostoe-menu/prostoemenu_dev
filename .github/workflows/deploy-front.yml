@@ -27,9 +27,9 @@ jobs:
 
       - name: Configure SSH
         env:
-          SSH_USER: ${{ secrets.SSH_USERNAME }}
+          SSH_USER: ${{ vars.SSH_USERNAME }}
           SSH_KEY: ${{ secrets.SSH_PRIV_KEY }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_HOST: ${{ vars.SSH_HOST }}
         run: |
           mkdir -p ~/.ssh/
           echo $SSH_USER

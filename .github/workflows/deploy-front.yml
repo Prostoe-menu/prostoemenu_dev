@@ -34,13 +34,13 @@ jobs:
           mkdir -p ~/.ssh/
           echo $SSH_USER
           echo $SSH_HOST
-          echo "$SSH_KEY" > ~/.ssh/staging.key
-          chmod 600 ~/.ssh/staging.key
+          echo "$SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
           cat >>~/.ssh/config <<END
-          Host staging
+          Host $SSH_HOST
             HostName $SSH_HOST
             User $SSH_USER
-            IdentityFile ~/.ssh/staging.key
+            IdentityFile ~/.ssh/id_rsa
             StrictHostKeyChecking no
           END
 
@@ -49,7 +49,11 @@ jobs:
           cat ~/.ssh/config
           pwd
           ls -lah front 
-          rsync -rav .front/build $SSH_USER@$SSH_HOST:/tmp/
+          echo "!=========================================================!"
+          ls -lah .
+          echo "!=========================================================!"
+          echo "!=======================RSYNC=============================!"
+          rsync -rav ./front/build $SSH_USER@$SSH_HOST:/tmp/
 
       #- name: Archive production artifacts
       #  uses: actions/upload-artifact@v4

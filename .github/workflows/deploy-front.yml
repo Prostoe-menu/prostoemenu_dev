@@ -35,10 +35,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-statics
-          path: your/destination/dir
+          path: ./front/
       - name: Display structure of downloaded files
         run: ls -R your/destination/dir
-        
+
         #run: |
         #  artifact_id=$(curl -s https://api.github.com/repos/Prostoe-menu/prostoemenu_dev/actions/artifacts | jq -r '.artifacts[0].id')
         #  workflow_id=$(curl -s https://api.github.com/repos/Prostoe-menu/prostoemenu_dev/actions/artifacts | jq -r '.artifacts[0].workflow_run.id')

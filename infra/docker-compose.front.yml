@@ -14,7 +14,6 @@ services:
     environment:
       - PORT_NGINX=$PORT_NGINX
       - VITE_API_URL=$VITE_API_URL
-      #- LINK_ATEFACT=$LINK_ATEFACT
     networks:
       - prostoemenu
 

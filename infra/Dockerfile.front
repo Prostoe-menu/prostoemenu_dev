@@ -10,8 +10,7 @@
 
 FROM nginx:latest
 #COPY --from=node-menu --chown=nginx:nginx ["/data/build/","/usr/share/nginx/html/"] 
-RUN mkdir /data
-COPY ./build/ /usr/share/nginx/html/
+COPY ./front/build/ /usr/share/nginx/html/
 #ARG LINK_ATEFACT
 #ENV LINK_ATEFACT=$LINK_ATEFACT
 #RUN curl -O /data/ $LINK_ATEFACT

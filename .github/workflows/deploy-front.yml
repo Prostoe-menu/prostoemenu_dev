@@ -24,94 +24,36 @@ jobs:
           cd front/
           npm install
           npm run build
-
-      - name: Configure SSH
-        env:
-          SSH_USER: ${{ vars.SSH_USERNAME }}
-          SSH_KEY: ${{ secrets.SSH_PRIV_KEY }}
-          SSH_HOST: ${{ vars.SSH_HOST }}
-        run: |
-          mkdir -p ~/.ssh/
-          echo $SSH_USER
-          echo $SSH_HOST
-          echo "$SSH_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          cat >>~/.ssh/config <<END
-          Host $SSH_HOST
-            HostName $SSH_HOST
-            User $SSH_USER
-            IdentityFile ~/.ssh/id_rsa
-            StrictHostKeyChecking no
-          END
-
       - name: Deploy with rsync
-        run: |
-          cat ~/.ssh/config
-          pwd
-          ls -lah front 
-          echo "!=========================================================!"
-          ls -lah .
-          echo "!=========================================================!"
-          echo "!=======================RSYNC=============================!"
-          rsync -rav ./front/build $SSH_USER@$SSH_HOST:/tmp/
-
-      #- name: Archive production artifacts
-      #  uses: actions/upload-artifact@v4
-      #  with:
-      #    name: build-statics
-      #    path: ./front/build/
-      #    overwrite: true
-      #    retention-days: 5
-      #- name: Download All Artifacts
-      #  uses: actions/download-artifact@v4
-      #  with:
-      #    name: build-statics
-      #    path: ../build-statics
-      #- name: Display structure of downloaded files
-      #  run: ls -R ./front/
-
-        #run: |
-        #  artifact_id=$(curl -s https://api.github.com/repos/Prostoe-menu/prostoemenu_dev/actions/artifacts | jq -r '.artifacts[0].id')
-        #  workflow_id=$(curl -s https://api.github.com/repos/Prostoe-menu/prostoemenu_dev/actions/artifacts | jq -r '.artifacts[0].workflow_run.id')
-        #  link_artefact="https://github.com/Prostoe-menu/prostoemenu_dev/actions/runs/${workflow_id}/artifacts/${artifact_id}"
-        #  echo $link_artefact
+        uses: AEnterprise/rsync-deploy@v1.0.2
+        env:
+          DEPLOY_KEY: ${{ secrets.SSH_PRIV_KEY }}
+          ARGS: "-e -c -r -I"
+          SERVER_PORT: 22
+          FOLDER: "./front/build"
+          SERVER_IP: ${{ secrets.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USERNAME }}
+          SERVER_DESTINATION: /tmp/
   
   deploy-front-to-dev:
     if: ${{ github.ref == 'edit-ci-cd' || 'frontend' }}
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
-    steps:
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/staging.key
-          chmod 600 ~/.ssh/staging.key
-          cat >>~/.ssh/config <<END
-          Host staging
-            HostName $SSH_HOST
-            User $SSH_USER
-            IdentityFile ~/.ssh/staging.key
-            StrictHostKeyChecking no
-          END
-        env:
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_KEY: ${{ secrets.SSH_PRIV_KEY }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-      
+    steps:   
       - name: Git & Docker
         env:
           PROJECT_FOLDER: ${{ secrets.PROJECT_FOLDER }}
           ENV_MENU: ${{ vars.ENV_VAR }}
           VITE_API_URL: ${{ vars.VITE_API_URL }}
           PORT_NGINX: ${{ vars.PORT_NGINX }}
-          #LINK_ARTEFACT: $link_artefact
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
           git pull
           git checkout edit-ci-cd
           git pull
-          cp -r /tmp/build $PROJECT_FOLDER/
+          unzip -q /tmp/build-statics.zip -d $PROJECT_FOLDER/front/build
           docker compose -f ./infra/docker-compose.front.yml down || true
           docker rmi develop-front:latest || true
-          docker compose -f ./infra/docker-compose.front.yml up -d 
+          docker compose -f ./infra/docker-compose.front.yml up -d
+          rm -rf $PROJECT_FOLDER/front/build

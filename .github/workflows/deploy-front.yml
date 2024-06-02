@@ -1,19 +1,26 @@
 name: Deploy frontend
 
 on:
+  push:
+    tags:
+      - "deploy-to-*"
+    branches:
+      - master
+      - dev
+      - edit-ci-cd
   #push:
   #  branches:
   #    - master
   #    - dev
   #    - edit-ci-cd
   
-  pull_request_review:
-    types:
-      - submitted
+  #pull_request_review:
+  #  types:
+  #    - submitted
 
 jobs:
   buid-static-prod:
-    if: ${{ github.ref == 'master' }}
+    if: ${{ github.ref == 'master' || 'edit-ci-cd' }}
     runs-on: ubuntu-latest
     environment: prod
     steps:
@@ -38,7 +45,7 @@ jobs:
           SERVER_DESTINATION: /tmp/
 
   deploy-front-to-prod:
-    if: ${{ github.ref == 'master' }}
+    if: ${{ github.ref == 'master'  || 'edit-ci-cd' }}
     runs-on: [self-hosted, linux, firstvds]
     environment: prod
     steps:

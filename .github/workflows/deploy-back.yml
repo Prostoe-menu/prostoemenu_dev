@@ -20,7 +20,7 @@ permissions:
 
 jobs:
   deploy-back-to-prod:
-    if: ${{ github.ref == 'master' }}
+    if: ${{ github.ref == 'master' || 'edit-ci-cd' }}
     runs-on: [self-hosted, linux, firstvds]
     environment: prod
     steps:

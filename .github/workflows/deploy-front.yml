@@ -38,7 +38,7 @@ jobs:
           USERNAME: ${{ secrets.SSH_USERNAME }}
           SERVER_DESTINATION: /tmp/
 
-  deploy-back-to-prod:
+  deploy-front-to-prod:
     if: ${{ github.ref == 'master' }}
     runs-on: [self-hosted, linux, firstvds]
     environment: prod

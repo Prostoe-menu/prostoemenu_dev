@@ -1,11 +1,12 @@
 name: Deploy frontend
 
 on:
-  push:
-    branches:
-      - master
-      - dev
-      - edit-ci-cd
+  #push:
+  #  branches:
+  #    - master
+  #    - dev
+  #    - edit-ci-cd
+  
   pull_request_review:
     types:
       - submitted
@@ -87,7 +88,7 @@ jobs:
   
   deploy-front-to-dev:
     needs: buid-static-dev
-    if: ${{ github.ref == 'edit-ci-cd' || 'frontend' || 'dev' }}
+    if: ${{ github.ref == 'edit-ci-cd' || 'dev' }}
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:   

@@ -1,13 +1,13 @@
 name: Deploy backend
 
 on:
-  push:
-    branches: 
-      - master
-      - dev
-      - edit-ci-cd
-    tags: 
-      - 'releases-*'
+  #push:
+    #branches: 
+      #- master
+      #- dev
+      #- edit-ci-cd
+    #tags: 
+    #  - 'releases-*'
 
   pull_request_review:
     types:

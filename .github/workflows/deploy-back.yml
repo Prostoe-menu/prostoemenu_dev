@@ -1,6 +1,13 @@
 name: Deploy backend
 
 on:
+  push:
+    tags:
+      - "deploy-to-*"
+    branches:
+      - master
+      - dev
+      - edit-ci-cd
   #push:
     #branches: 
       #- master

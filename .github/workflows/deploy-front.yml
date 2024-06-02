@@ -40,7 +40,7 @@ jobs:
           ARGS: "-e -c -r -I"
           SERVER_PORT: 22
           FOLDER: "./front/build"
-          SERVER_IP: ${{ secrets.SSH_HOST }}
+          SERVER_IP: ${{ vars.SSH_HOST }}
           USERNAME: ${{ secrets.SSH_USERNAME }}
           SERVER_DESTINATION: /tmp/
 
@@ -89,7 +89,7 @@ jobs:
           ARGS: "-e -c -r -I"
           SERVER_PORT: 22
           FOLDER: "./front/build"
-          SERVER_IP: ${{ secrets.SSH_HOST }}
+          SERVER_IP: ${{ vars.SSH_HOST }}
           USERNAME: ${{ secrets.SSH_USERNAME }}
           SERVER_DESTINATION: /tmp/
   

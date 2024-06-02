@@ -45,6 +45,7 @@ jobs:
           SERVER_DESTINATION: /tmp/
 
   deploy-front-to-prod:
+    needs: buid-static-prod
     if: ${{ github.ref == 'master'  || 'edit-ci-cd' }}
     runs-on: [self-hosted, linux, firstvds]
     environment: prod

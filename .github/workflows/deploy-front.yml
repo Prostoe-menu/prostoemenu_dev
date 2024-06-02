@@ -4,15 +4,11 @@ on:
   push:
     branches:
       - master
-      - frontend
-      - backend
       - dev
       - edit-ci-cd
   pull_request:
     branches:
       - master
-      - frontend
-      - backend
       - dev
       - edit-ci-cd
 
@@ -67,7 +63,7 @@ jobs:
 
 
   buid-static-dev:
-    if: ${{ github.ref == 'edit-ci-cd' || 'frontend' || 'dev' }}
+    if: ${{ github.ref == 'edit-ci-cd' || 'dev' }}
     runs-on: ubuntu-latest
     environment: dev
     steps:

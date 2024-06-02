@@ -5,7 +5,7 @@ services:
     container_name: db
     image: postgres:15-alpine
     volumes:
-      - db_value:/var/lib/postgresql/data/
+      - db_data:/var/lib/postgresql/data/
     environment:
       - ENVIRONMENT=$ENV_MENU
       - POSTGRES_DB=$POSTGRES_DB

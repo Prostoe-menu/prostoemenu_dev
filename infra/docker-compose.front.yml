@@ -9,8 +9,8 @@ services:
     ports:
       - "$PORT_NGINX:80"
     volumes:
-      - static_volume:/usr/share/nginx/html/static/
-      - media_valume:/usr/share/nginx/html/media/
+      - static_data:/usr/share/nginx/html/static/
+      - media_data:/usr/share/nginx/html/media/
     environment:
       - PORT_NGINX=$PORT_NGINX
       - VITE_API_URL=$VITE_API_URL
@@ -23,5 +23,5 @@ networks:
     external: true
 
 volumes:
-  static_value:
-  media_value:
+  static_data:
+  media_data:

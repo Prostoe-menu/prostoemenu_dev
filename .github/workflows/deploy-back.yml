@@ -8,10 +8,10 @@ on:
       - edit-ci-cd
     tags: 
       - 'releases-*'
-  pull_request:
-    branches: 
-      - master
-      - dev
+
+  pull_request_review:
+    types:
+      - submitted
   # Allows you to run this workflow manually from the Actions tab
   # workflow_dispatch:
 

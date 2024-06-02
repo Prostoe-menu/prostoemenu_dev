@@ -6,11 +6,9 @@ on:
       - master
       - dev
       - edit-ci-cd
-  pull_request:
-    branches:
-      - master
-      - dev
-      - edit-ci-cd
+  pull_request_review:
+    types:
+      - submitted
 
 jobs:
   buid-static-prod:

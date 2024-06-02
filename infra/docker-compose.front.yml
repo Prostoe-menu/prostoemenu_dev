@@ -9,6 +9,7 @@ services:
     ports:
       - "$PORT_NGINX:80"
     volumes:
+      - static_volume:/usr/share/nginx/html/static/
       - media_value:/usr/share/nginx/html/media/
     environment:
       - PORT_NGINX=$PORT_NGINX

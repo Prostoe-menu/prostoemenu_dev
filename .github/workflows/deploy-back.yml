@@ -61,11 +61,11 @@ jobs:
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
           git pull
-          git checkout master
+          git checkout edit-ci-cd
           git pull
-          docker compose -f ./infra/production/docker-compose.back.yml down || true
+          docker compose -f ./infra/docker-compose.back.yml down || true
           docker rmi production-web:latest || true
-          docker compose -f ./infra/production/docker-compose.back.yml up -d
+          docker compose -f ./infra/docker-compose.back.yml up -d
   
   deploy-back-to-dev:
     if: ${{ github.ref == 'edit-ci-cd' || 'dev' }}

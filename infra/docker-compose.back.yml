@@ -10,8 +10,6 @@ services:
       sh -c "python /app/manage.py migrate &&
              gunicorn prostoemenu.wsgi:application --bind 0.0.0.0:8000 --workers=4"
     restart: always
-    depends_on:
-      - db
     environment:
       - ENVIRONMENT=$ENV_MENU
       - POSTGRES_DB=$POSTGRES_DB

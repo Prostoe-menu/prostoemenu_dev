@@ -62,7 +62,7 @@ jobs:
           git pull
           git checkout edit-ci-cd
           git pull
-          cp -r /tmp/build /opt/static_front_data/
+          cp -r /tmp/build/* /opt/static_front_data/
           docker compose -f ./infra/docker-compose.front.yml down || true
           docker rmi infra-front:latest || true
           docker compose -f ./infra/docker-compose.front.yml up -d

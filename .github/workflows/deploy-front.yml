@@ -52,7 +52,7 @@ jobs:
     steps:
       - name: Build docker images & Run docker-compose
         env:
-          PROJECT_FOLDER: ${{ secrets.PROJECT_FOLDER }}
+          PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
           ENV_MENU: ${{ vars.ENV_VAR }}
           VITE_API_URL: ${{ vars.VITE_API_URL }}
           PORT_NGINX: ${{ vars.PORT_NGINX }}
@@ -101,7 +101,7 @@ jobs:
     steps:   
       - name: Build docker images & Run docker-compose
         env:
-          PROJECT_FOLDER: ${{ secrets.PROJECT_FOLDER }}
+          PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
           ENV_MENU: ${{ vars.ENV_VAR }}
           VITE_API_URL: ${{ vars.VITE_API_URL }}
           PORT_NGINX: ${{ vars.PORT_NGINX }}

@@ -31,7 +31,7 @@ jobs:
         docker compose -f ./infra/docker-compose.db.yml down || true
         docker compose -f ./infra/docker-compose.db.yml up -d
   deploy-db-to-dev:
-    runs-on: [self-hosted, linux, firstvds]
+    runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:
     - name: Deploy db to dev

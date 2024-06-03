@@ -24,7 +24,7 @@ jobs:
         PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
       run: |
         echo $PROJECT_FOLDER
-        cd $PROJECT_FOLDER
+        cd /home/prostouser/prostoemenu_dev
         git pull
         git checkout edit-ci-cd
         git pull
@@ -43,7 +43,7 @@ jobs:
         PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
       run: |
         echo $PROJECT_FOLDER
-        cd $PROJECT_FOLDER
+        cd /home/prostouser/prostoemenu_dev
         git pull
         git checkout edit-ci-cd
         git pull

@@ -62,8 +62,7 @@ jobs:
           git pull
           git checkout edit-ci-cd
           git pull
-          #unzip -q /tmp/build-statics.zip -d $PROJECT_FOLDER/front/build
-          cp -r /tmp/build $PROJECT_FOLDER/front/
+          cp -r /tmp/build /opt/static_front_data/
           docker compose -f ./infra/docker-compose.front.yml down || true
           docker rmi infra-front:latest || true
           docker compose -f ./infra/docker-compose.front.yml up -d
@@ -112,8 +111,7 @@ jobs:
           git pull
           git checkout edit-ci-cd
           git pull
-          #unzip -q /tmp/build-statics.zip -d $PROJECT_FOLDER/front/build
-          cp -r /tmp/build /opt/static
+          cp -r /tmp/build /opt/static_front_data/
           docker compose -f ./infra/docker-compose.front.yml down || true
           docker rmi infra-front:latest || true
           docker compose -f ./infra/docker-compose.front.yml up -d

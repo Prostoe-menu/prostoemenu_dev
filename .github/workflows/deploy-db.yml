@@ -1,0 +1,46 @@
+name: Deploy postgresql
+
+on:
+  pull_request_review:
+    types:
+      - submitted
+  # Allows you to run this workflow manually from the Actions tab
+  # workflow_dispatch:
+
+jobs:
+  deploy-db-to-prod:
+    runs-on: [self-hosted, linux, firstvds]
+    environment: prod
+    steps:
+    - name: Deploy db to prod
+      env: 
+        POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+        POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+        POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+        ENV_MENU: ${{ vars.ENV_VAR }}
+      run: |
+        echo $PROJECT_FOLDER
+        cd $PROJECT_FOLDER
+        git pull
+        git checkout edit-ci-cd
+        git pull
+        docker compose -f ./infra/docker-compose.db.yml down || true
+        docker compose -f ./infra/docker-compose.db.yml up -d
+  deploy-db-to-dev:
+    runs-on: [self-hosted, linux, firstvds]
+    environment: dev
+    steps:
+    - name: Deploy db to dev
+      env: 
+        POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+        POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+        POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+        ENV_MENU: ${{ vars.ENV_VAR }}
+      run: |
+        echo $PROJECT_FOLDER
+        cd $PROJECT_FOLDER
+        git pull
+        git checkout edit-ci-cd
+        git pull
+        docker compose -f ./infra/docker-compose.db.yml down || true
+        docker compose -f ./infra/docker-compose.db.yml up -d

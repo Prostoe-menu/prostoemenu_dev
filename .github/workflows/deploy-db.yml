@@ -1,11 +1,11 @@
 name: Deploy postgresql
 
 on:
-  push:
-    branches:
-      - master
-      - dev
-      - edit-ci-cd
+  #push:
+  #  branches:
+  #    - master
+  #    - dev
+  #    - edit-ci-cd
   workflow_dispatch:
   # Allows you to run this workflow manually from the Actions tab
   # workflow_dispatch:
@@ -21,6 +21,7 @@ jobs:
         POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
         POSTGRES_USER: ${{ vars.POSTGRES_USER }}
         ENV_MENU: ${{ vars.ENV_VAR }}
+        PROJECT_FOLDER: ${{ secrets.PROJECT_FOLDER }}
       run: |
         echo $PROJECT_FOLDER
         cd $PROJECT_FOLDER
@@ -39,6 +40,7 @@ jobs:
         POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
         POSTGRES_USER: ${{ vars.POSTGRES_USER }}
         ENV_MENU: ${{ vars.ENV_VAR }}
+        PROJECT_FOLDER: ${{ secrets.PROJECT_FOLDER }}
       run: |
         echo $PROJECT_FOLDER
         cd $PROJECT_FOLDER

@@ -1,0 +1,36 @@
+@use 'src/styles/variables' as vars;
+
+.section {
+  margin-bottom: 53px;
+  width: 100%;
+  max-width: 1301px;
+}
+
+.title {
+  font-weight: 400;
+  line-height: vars.$line-height-xxl;
+  font-size: vars.$font-size-xxl;
+  font-family: vars.$font-heading;
+  margin: 0 0 15px 0;
+}
+
+.text {
+  font-weight: 300;
+  line-height: 28px;
+  font-size: vars.$font-size-xs;
+  font-family: vars.$font-body;
+  margin: 0;
+}
+
+.search_container {
+  margin: 45px 0 0 0;
+  display: flex;
+  gap: 35px;
+  align-items: center;
+  width: 100%;
+}
+
+.search_btn {
+  padding: 12px 32.5px;
+  white-space: nowrap;
+}

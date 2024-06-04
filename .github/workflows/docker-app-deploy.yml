@@ -43,13 +43,17 @@ jobs:
           POSTGRES_DB: ${{ vars.POSTGRES_DB }}
           POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
           POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          ENV_STAGE: ${{ vars.ENV_VAR }}
+          PORT_NGINX: ${{ vars.PORT_NGINX }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
+          git pull
           git checkout master
           git pull
-          docker compose -f docker-compose.prod.yml down || true
-          docker compose -f docker-compose.prod.yml up -d
+          docker compose -f ./infra/production/docker-compose.prod.yml down || true
+          docker rmi production-web:latest || true
+          docker compose -f ./infra/production/docker-compose.prod.yml up -d
   
   deploy-to-dev:
     if: ${{ github.ref == 'dev' }}
@@ -80,10 +84,14 @@ jobs:
           POSTGRES_DB: ${{ vars.POSTGRES_DB }}
           POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
           POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          ENV_STAGE: ${{ vars.ENV_VAR }}
+          PORT_NGINX: ${{ vars.PORT_NGINX }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
+          git pull
           git checkout dev
           git pull
-          docker compose -f docker-compose.prod.yml down || true
-          docker compose -f docker-compose.prod.yml up -d        
+          docker compose -f ./infra/develop/docker-compose.dev.yml down || true
+          docker rmi develop-web:latest || true
+          docker compose -f ./infra/develop/docker-compose.dev.yml up -d        

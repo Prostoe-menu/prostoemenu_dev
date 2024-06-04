@@ -1,0 +1,27 @@
+.steps {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+  margin: 0 auto;
+  max-width: 576px;
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  width: 147px;
+
+  &_tertiary {
+    width: 179px;
+  }
+}

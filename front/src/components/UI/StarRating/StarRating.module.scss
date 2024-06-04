@@ -1,0 +1,20 @@
+@use 'src/styles/variables' as vars;
+
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.active {
+  fill: vars.$btn-bg-primary;
+}
+
+.label {
+  font-family: vars.$font-body;
+  font-size: vars.$font-size-xs;
+  font-style: normal;
+  font-weight: 700;
+  line-height: vars.$line-height-xs;
+  color: vars.$color-secondary;
+}

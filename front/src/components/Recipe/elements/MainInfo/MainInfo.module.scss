@@ -1,0 +1,101 @@
+@use 'src/styles/variables' as vars;
+
+.mainInfo {  
+  @media only screen and (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.19rem;
+    margin-bottom: 6rem;
+  }
+
+  @media only screen and (max-width: 767px) {
+    display: flex;
+    flex-direction: column;    
+  }
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 25px;  
+
+  @media only screen and (max-width: 768px) {
+    margin-bottom: 3rem;
+  }
+}
+
+.defaultImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: vars.$color-secondary;
+  border-radius: 16px;
+  aspect-ratio: 2/1.5;
+
+  font-family: vars.$font-heading;
+  font-style: normal;
+  font-weight: 400;
+  font-size: vars.$font-size-l;
+  line-height: vars.$line-height-l;
+}
+
+.params {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 32px;
+  align-items: center;
+  gap: 1rem 3rem;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.title {
+  margin: 0 0 20px 0;
+  padding: 0;
+  font-family: vars.$font-heading;
+  font-size: vars.$font-size-xxl;
+  font-weight: 400;
+  line-height: vars.$line-height-xxl;
+  color: vars.$color-primary;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.complexity,
+.cookingTime {
+  font-family: vars.$font-body;
+  font-size: vars.$font-size-xs;
+  font-style: normal;
+  font-weight: 700;
+  line-height: vars.$line-height-xs;
+  color: vars.$color-secondary;
+}
+
+.complexity {
+  display: flex;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 14px;
+}
+
+.star {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-left: 8px;
+  margin-right: 4px;
+  background-image: url('assets/images/star-filled.svg');
+  background-position: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+

@@ -23,7 +23,7 @@ class RecipeStepTest(TestCase):
             quantity=django_settings.MIN_PORTION_QUANTITY,
             complexity=django_settings.MIN_RECIPE_COMPLEXITY,
             author=None,
-            cover_path="mediafiles/media/default_photo.jpg",
+            cover_path="mediafiles/media/tiny_image.png",
             category=Category.objects.get(pk=1),
         )
 
@@ -32,7 +32,7 @@ class RecipeStepTest(TestCase):
             "recipe": Recipe.objects.get(pk=1),
             "step_number": django_settings.MIN_STEP_NUMBER,
             "description": "Valid step description",
-            "image": "mediafiles/media/default_photo.jpg",
+            "image": "mediafiles/media/tiny_image.png",
         }
 
     def test_step_number_cannot_be_less_than_MIN_STEP_NUMBER(self):

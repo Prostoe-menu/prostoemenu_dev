@@ -14,6 +14,7 @@ def recipe_create(raw_data: dict):
         cooking_time=raw_data["cooking_time"],
         oven_time=raw_data["oven_time"],
         quantity=raw_data["quantity"],
+        category=raw_data["category"],
     )
 
     raw_steps = raw_data["steps"]

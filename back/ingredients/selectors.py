@@ -10,7 +10,7 @@ def ingredient_list(query_params: dict):
     if query_name := query_params.get("name"):
         ingredients = ingredients.filter(
             Q(name__istartswith=query_name) | Q(name__icontains=f" {query_name}")
-        )
+        ).order_by("sort")[:5]
 
     return ingredients
 

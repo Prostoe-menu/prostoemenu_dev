@@ -1,7 +1,6 @@
 from collections import Counter
 
 from django.conf import settings as django_settings
-from django.contrib.auth import get_user_model
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator

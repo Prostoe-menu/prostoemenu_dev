@@ -2,21 +2,14 @@ name: Deploy frontend
 
 on:
   push:
-    tags:
-      - "deploy-to-*"
     branches:
-      - master
-      - dev
+      - fix-ci
       - edit-ci-cd
-  #push:
-  #  branches:
-  #    - master
-  #    - dev
-  #    - edit-ci-cd
-  
-  #pull_request_review:
-  #  types:
-  #    - submitted
+  pull_request:
+    types:
+      - closed
+    paths:
+      - front/*
 
 jobs:
   buid-static-prod:

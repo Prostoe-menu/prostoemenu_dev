@@ -2,12 +2,15 @@ name: Deploy backend
 
 on:
   push:
-    tags:
-      - "deploy-to-*"
     branches:
-      - master
-      - dev
+      - fix-ci
       - edit-ci-cd
+  pull_request:
+    types:
+      - closed
+    paths:
+      - back/*
+
   #push:
     #branches: 
       #- master

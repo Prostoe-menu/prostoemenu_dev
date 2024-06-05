@@ -3,8 +3,6 @@ name: Deploy postgresql
 on:
   push:
     branches:
-      - master
-      - dev
       - fix-ci
   workflow_dispatch:
   # Allows you to run this workflow manually from the Actions tab

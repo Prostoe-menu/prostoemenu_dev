@@ -26,7 +26,7 @@ jobs:
         echo $PROJECT_FOLDER
         cd /home/prostouser/prostoemenu_dev
         git pull
-        git checkout edit-ci-cd
+        git checkout fix-ci
         git pull
         docker compose -f ./infra/docker-compose.db.yml down || true
         docker compose -f ./infra/docker-compose.db.yml up -d
@@ -45,7 +45,7 @@ jobs:
         echo $PROJECT_FOLDER
         cd /home/prostouser/prostoemenu_dev
         git pull
-        git checkout edit-ci-cd
+        git checkout fix-ci
         git pull
         docker compose -f ./infra/docker-compose.db.yml down || true
         docker compose -f ./infra/docker-compose.db.yml up -d

@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import classnames from 'classnames';
+import cn from 'classnames';
+import { Loader } from 'components/UI';
 import DropdownItem from 'components/UI/Dropdown/DropdownItem/DropdownItem';
 import Input from 'components/UI/Input/Input';
 import { handleKeyboardNavigation } from 'helpers/useKeyboardNavigation';
@@ -14,8 +15,6 @@ import styles from './DropdownSearch.module.scss';
 const DropdownSearch = (props) => {
   const {
     dropdownClassName,
-    isDropdownOpen,
-    setIsDropdownOpen,
     selectItemRef,
     inputClassName,
     isInputError,
@@ -32,17 +31,14 @@ const DropdownSearch = (props) => {
     requiredData,
     notFoundMessage,
     ariaLabelText,
+    isLoading,
   } = props;
 
   const [cursor, setCursor] = useState(-1);
-  const optionsClasses = classnames(styles.options, {
-    [styles.visible]: isDropdownOpen,
-  });
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <div
-      className={classnames(styles.dropdownSearch, styles[dropdownClassName])}
-    >
+    <div className={cn(styles.dropdownSearch, styles[dropdownClassName])}>
       <Input
         inputClassName={inputClassName}
         isError={isInputError}
@@ -52,7 +48,17 @@ const DropdownSearch = (props) => {
         requiredMessage={inputRequiredMessage}
         patternValue={inputPatternValue}
         patternMessage={inputPatternMessage}
-        onChange={onInputChange}
+        onChange={(event) => {
+          onInputChange(event);
+
+          if (inputValue.length >= 2) {
+            setTimeout(() => {
+              setIsDropdownOpen(true);
+            }, 1100);
+          } else {
+            setIsDropdownOpen(false);
+          }
+        }}
         onKeyDown={(e) =>
           handleKeyboardNavigation(
             e,
@@ -68,22 +74,24 @@ const DropdownSearch = (props) => {
         placeholderText={inputPlaceholder}
         inputValue={inputValue}
       />
-      <ul className={optionsClasses} ref={selectItemRef}>
-        {(() => {
-          if (requiredData.length === 0) {
-            return (
-              <li className={classnames(styles.option, styles.option_notfound)}>
-                <div
-                  style={{
-                    width: '100%',
-                  }}
-                >
-                  {notFoundMessage}
-                </div>
-              </li>
-            );
-          }
-          return requiredData?.map((item, idx) => (
+
+      <ul
+        className={cn(styles.options, {
+          [styles.visible]: isDropdownOpen,
+        })}
+        ref={selectItemRef}
+      >
+        {isLoading && <Loader size="small" />}
+
+        {(!requiredData || !requiredData.length) && !isLoading && (
+          <li className={cn(styles.option, styles.option_notfound)}>
+            {notFoundMessage}
+          </li>
+        )}
+
+        {!isLoading &&
+          requiredData?.length > 0 &&
+          requiredData?.map((item, idx) => (
             <DropdownItem
               item={item}
               itemIndex={idx}
@@ -93,12 +101,14 @@ const DropdownSearch = (props) => {
                   setIsDropdownOpen(false);
                 }
               }}
-              onClick={() => onChooseItem(item)}
+              onClick={() => {
+                setIsDropdownOpen(false);
+                onChooseItem(item);
+              }}
               selectItemAriaLabelText={ariaLabelText}
               key={item.id}
             />
-          ));
-        })()}
+          ))}
       </ul>
     </div>
   );

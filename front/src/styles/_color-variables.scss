@@ -16,11 +16,21 @@ $loader-background: linear-gradient(
     $color-accent 100%
   );
 
+$small-loader-background: linear-gradient(
+    0deg,
+    rgba(244, 147, 0, 0.1) 33%,
+    #f49300 100%
+  );
 $step-number-color: #ffffff;
 $step-bg:#f1b823;
 
 $shadow-color: rgba(1, 7, 62, 0.078);
-  
+
+$scrollbar-thumb:#f1b823;
+$scrollbar-thumb-hover:#f4a100;
+$scrollbar-thumb-active: #f49300;
+$scrollbar-track:#fdf1d4;
+
 // Переменные кнопок
 $btn-bg-primary: #f1b823;
 $btn-color-primary: #ffffff;

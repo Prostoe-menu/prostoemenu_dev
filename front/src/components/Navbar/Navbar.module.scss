@@ -1,0 +1,25 @@
+@use 'src/styles/variables' as vars;
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 72px;
+}
+
+.item {
+  font-family: vars.$font-body;
+  font-style: normal;
+  font-weight: 300;
+  font-size: vars.$font-size-xxs;
+  line-height: vars.$line-height-xxs;
+}
+
+.link {
+  color: vars.$color-primary;
+  text-decoration: none;
+  border-bottom: none;
+}

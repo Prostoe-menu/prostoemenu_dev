@@ -1,0 +1,63 @@
+@use 'src/styles/variables' as vars;
+
+.footer {
+  max-width: 1440px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: auto;
+  padding: 20px 72px 16px 72px;
+  background: vars.$bg-primary;
+}
+
+.logo {
+  display: block;
+  height: 38px;
+  margin-bottom: 68px;
+}
+
+.links {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copyright,
+.agreement {
+  margin: 0;
+  font-family: vars.$font-body;
+  font-style: normal;
+  font-weight: 300;
+  font-size: vars.$font-size-footnotes;
+  line-height: vars.$line-height-footnotes;
+}
+
+.agreement {
+  color: vars.$color-primary;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.copyright {
+  color: vars.$color-secondary;
+}
+
+@media screen and (max-width: 690px) {
+  .footer {
+    max-width: 576px;
+    padding: 16px 16px 20px 16px;
+  }
+
+  .links {
+    flex-direction: column;
+    align-items: start;
+    gap: 12px;
+  }
+
+  .logo {
+    margin-bottom: 30px;
+  }
+}

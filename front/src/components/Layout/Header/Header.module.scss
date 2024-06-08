@@ -1,0 +1,19 @@
+@use 'src/styles/variables' as vars;
+
+header {
+  max-width: 1440px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 44px 72px;
+  display: flex;
+  align-items: center;
+  background: vars.$bg-primary;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
+
+.logo_link {
+  height: 38px;
+  margin-right: 202px;
+}

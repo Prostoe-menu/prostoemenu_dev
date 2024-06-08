@@ -1,0 +1,90 @@
+@use 'src/styles/variables' as vars;
+@use 'src/styles/color-variables' as colors;
+
+.dropdownSearch {
+  position: relative;
+  width: 100%;
+  max-width: 1033px;
+
+  &_type_ingredient {
+    grid-area: name;
+  }
+}
+
+.options {
+  display: none;
+  overflow-y: auto;
+  position: absolute;
+  z-index: 5;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 8px 0;
+  background: vars.$bg-primary;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px 5px colors.$shadow-color;
+  max-height: 216px;
+  margin: 0;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: colors.$scrollbar-track;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: colors.$scrollbar-thumb;
+    border-radius: 100px;
+
+    &:hover {
+      background-color: colors.$scrollbar-thumb-hover;
+    }
+  
+    &:active {
+      background-color: colors.$scrollbar-thumb-active;
+    }
+  }
+}
+
+.visible {
+  display: block;
+}
+
+.listItem {
+  padding: 0;
+  display: flex;
+}
+
+.option {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 8px;
+  background: vars.$bg-primary;
+  font-family: vars.$font-body;
+  font-style: normal;
+  font-weight: 300;
+  font-size: vars.$font-size-xxs;
+  line-height: vars.$line-height-xxs;
+  color: vars.$color-primary;
+
+  &:hover,
+  &:focus,
+  &_active {
+    outline: none;
+    background: vars.$btn-bg-secondary-hover;
+    border-radius: 0;
+  }
+
+  &_notfound {
+    cursor: default;
+
+    &:hover {
+      background: vars.$bg-primary;
+    }
+  }
+}

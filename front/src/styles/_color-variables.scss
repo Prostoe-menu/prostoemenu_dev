@@ -1,0 +1,51 @@
+$bg-primary: #ffffff;
+
+$color-primary: #232323;
+$color-secondary: #909090;
+$color-accent: #2c7429;
+
+$input-border-color: #e5e4e4;
+
+$chips-bg-color: #e9f9e2;
+$shadow-color: #ececec;
+$chips-color-hover: $color-accent;
+
+$loader-background: linear-gradient(
+    0deg,
+    rgba(44, 116, 41, 0.1) 33%,
+    $color-accent 100%
+  );
+
+$small-loader-background: linear-gradient(
+    0deg,
+    rgba(244, 147, 0, 0.1) 33%,
+    #f49300 100%
+  );
+$step-number-color: #ffffff;
+$step-bg:#f1b823;
+
+$shadow-color: rgba(1, 7, 62, 0.078);
+
+$scrollbar-thumb:#f1b823;
+$scrollbar-thumb-hover:#f4a100;
+$scrollbar-thumb-active: #f49300;
+$scrollbar-track:#fdf1d4;
+
+// Переменные кнопок
+$btn-bg-primary: #f1b823;
+$btn-color-primary: #ffffff;
+$btn-bg-primary-hover: #f4a100;
+$btn-bg-primary-active: #f49300;
+$btn-bg-primary-disabled: #e5e4e4;
+
+$btn-border-secondary: #f1b823;
+$btn-bg-secondary-hover: #fffaf0;
+$btn-bg-secondary-active: #fdf1d4;
+$btn-bg-secondary-disabled: #f6f6f6;
+$btn-border-secondary-disabled: #e5e4e4;
+
+$btn-border-tertiary: #909090;
+$btn-bg-tertiary-hover: #f6f6f6;
+$btn-bg-tertiary-active: #e5e4e4;
+$btn-bg-tertiary-disabled: #f6f6f6;
+$btn-border-tertiary-disabled: #e5e4e4;

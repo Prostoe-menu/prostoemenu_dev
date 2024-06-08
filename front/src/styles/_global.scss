@@ -1,0 +1,34 @@
+@use 'font-variables' as vars;
+@use 'color-variables' as colors;
+
+body {
+  font-family: vars.$font-body;
+  font-size: vars.$font-size-xs;
+  line-height: vars.$line-height-xs;
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
+  font-family: vars.$font-heading;
+  color: colors.$color-primary;
+  font-weight: 400;
+}
+
+h1, .h1 { 
+  font-size: vars.$font-size-xxl;
+  line-height: vars.$line-height-xxl;  
+}
+
+h2, .h2 {
+  font-size: vars.$font-size-xl;
+  line-height: vars.$line-height-xl;
+}
+
+h3, .h3 {
+  font-size: vars.$font-size-l;
+  line-height: vars.$line-height-l;
+}
+
+h4, .h4 {
+  font-size: vars.$font-size-s;
+  line-height: vars.$line-height-s;
+}

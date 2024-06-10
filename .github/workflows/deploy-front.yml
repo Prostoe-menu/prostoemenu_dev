@@ -56,11 +56,12 @@ jobs:
           ENV_MENU: ${{ vars.ENV_VAR }}
           VITE_API_URL: ${{ vars.VITE_API_URL }}
           PORT_NGINX: ${{ vars.PORT_NGINX }}
+          GIT_BRANCH: ${{ github.ref }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
           git pull
-          git checkout edit-ci-cd
+          git checkout $GIT_BRANCH
           git pull
           cp -r /tmp/build/* /opt/static_front_data/
           docker compose -f ./infra/docker-compose.front.yml down || true
@@ -105,11 +106,12 @@ jobs:
           ENV_MENU: ${{ vars.ENV_VAR }}
           VITE_API_URL: ${{ vars.VITE_API_URL }}
           PORT_NGINX: ${{ vars.PORT_NGINX }}
+          GIT_BRANCH: ${{ github.ref }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
           git pull
-          git checkout edit-ci-cd
+          git checkout $GIT_BRANCH
           git pull
           cp -r /tmp/build /opt/static_front_data/
           docker compose -f ./infra/docker-compose.front.yml down || true

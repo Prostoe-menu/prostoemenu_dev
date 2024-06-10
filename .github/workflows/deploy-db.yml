@@ -22,11 +22,12 @@ jobs:
         POSTGRES_USER: ${{ vars.POSTGRES_USER }}
         ENV_MENU: ${{ vars.ENV_VAR }}
         PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
+        GIT_BRANCH: ${{ github.ref }}
       run: |
         echo $PROJECT_FOLDER
         cd /home/prostouser/prostoemenu_dev
         git pull
-        git checkout edit-ci-cd
+        git checkout $GIT_BRANCH
         git pull
         docker compose -f ./infra/docker-compose.db.yml down || true
         docker compose -f ./infra/docker-compose.db.yml up -d
@@ -41,11 +42,12 @@ jobs:
         POSTGRES_USER: ${{ vars.POSTGRES_USER }}
         ENV_MENU: ${{ vars.ENV_VAR }}
         PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
+        GIT_BRANCH: ${{ github.ref }}
       run: |
         echo $PROJECT_FOLDER
         cd /home/prostouser/prostoemenu_dev
         git pull
-        git checkout edit-ci-cd
+        git checkout $GIT_BRANCH
         git pull
         docker compose -f ./infra/docker-compose.db.yml down || true
         docker compose -f ./infra/docker-compose.db.yml up -d

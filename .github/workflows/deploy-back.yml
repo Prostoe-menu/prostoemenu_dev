@@ -1,6 +1,7 @@
 name: Deploy backend
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master

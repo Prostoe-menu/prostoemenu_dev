@@ -7,7 +7,6 @@ on:
     branches:
       - master
       - dev
-      - edit-ci-cd
   #push:
     #branches: 
       #- master
@@ -27,7 +26,7 @@ permissions:
 
 jobs:
   deploy-back-to-prod:
-    if: ${{ github.ref == 'master' || 'edit-ci-cd' }}
+    if: ${{ github.ref == 'master' }}
     runs-on: [self-hosted, linux, firstvds]
     environment: prod
     steps:
@@ -69,7 +68,7 @@ jobs:
           docker compose -f ./infra/docker-compose.back.yml up -d
   
   deploy-back-to-dev:
-    if: ${{ github.ref == 'edit-ci-cd' || 'dev' }}
+    if: ${{ github.ref == 'dev' }}
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:

@@ -2,11 +2,10 @@ name: Deploy frontend
 
 on:
   push:
-    tags:
-      - "deploy-to-*"
     branches:
       - master
       - dev
+      - ci_v3
   #push:
   #  branches:
   #    - master

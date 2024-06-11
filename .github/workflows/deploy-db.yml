@@ -19,6 +19,7 @@ jobs:
       env:
         POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
         POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+        POSTGRES_DB: ${{ vars.POSTGRES_DB }}
         ENV_MENU: ${{ vars.ENV_VAR }}
         PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
         GIT_BRANCH_FULL: ${{ github.ref }}
@@ -39,6 +40,7 @@ jobs:
       env: 
         POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
         POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+        POSTGRES_DB: ${{ vars.POSTGRES_DB }}
         ENV_MENU: ${{ vars.ENV_VAR }}
         PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
         GIT_BRANCH_FULL: ${{ github.ref }}

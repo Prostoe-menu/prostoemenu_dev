@@ -67,7 +67,7 @@ jobs:
           docker compose -f ./infra/docker-compose.back.yml up -d
   
   deploy-back-to-dev:
-    if: ${{ github.ref == 'dev' }}
+    if: ${{ github.ref == 'dev' || 'ci_v3' }}
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:

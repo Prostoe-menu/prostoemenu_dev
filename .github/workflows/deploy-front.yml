@@ -12,9 +12,9 @@ on:
   #    - dev
   #    - edit-ci-cd
   
-  #pull_request_review:
-  #  types:
-  #    - submitted
+  pull_request_review:
+    types:
+      - submitted
 
 jobs:
   buid-static-prod:
@@ -54,11 +54,12 @@ jobs:
           ENV_MENU: ${{ vars.ENV_VAR }}
           VITE_API_URL: ${{ vars.VITE_API_URL }}
           PORT_NGINX: ${{ vars.PORT_NGINX }}
-          GIT_BRANCH: ${{ github.ref }}
+          GIT_BRANCH_FULL: ${{ github.ref }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
           git pull
+          GIT_BRANCH=$(echo $GIT_BRANCH_FULL | sed -r 's/^refs\/heads\///g')
           git checkout $GIT_BRANCH
           git pull
           cp -r /tmp/build/* /opt/static_front_data/
@@ -104,11 +105,12 @@ jobs:
           ENV_MENU: ${{ vars.ENV_VAR }}
           VITE_API_URL: ${{ vars.VITE_API_URL }}
           PORT_NGINX: ${{ vars.PORT_NGINX }}
-          GIT_BRANCH: ${{ github.ref }}
+          GIT_BRANCH_FULL: ${{ github.ref }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
           git pull
+          GIT_BRANCH=$(echo $GIT_BRANCH_FULL | sed -r 's/^refs\/heads\///g')
           git checkout $GIT_BRANCH
           git pull
           cp -r /tmp/build /opt/static_front_data/

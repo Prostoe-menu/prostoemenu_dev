@@ -16,7 +16,8 @@ jobs:
     environment: prod
     steps:
     - name: Deploy db to prod
-      env: 
+      env:
+        POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
         ENV_MENU: ${{ vars.ENV_VAR }}
         PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
         GIT_BRANCH_FULL: ${{ github.ref }}
@@ -35,9 +36,7 @@ jobs:
     steps:
     - name: Deploy db to dev
       env: 
-        POSTGRES_DB: ${{ vars.POSTGRES_DB }}
         POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
-        POSTGRES_USER: ${{ vars.POSTGRES_USER }}
         ENV_MENU: ${{ vars.ENV_VAR }}
         PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
         GIT_BRANCH_FULL: ${{ github.ref }}

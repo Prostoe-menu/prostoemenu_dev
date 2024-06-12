@@ -194,3 +194,9 @@ MAX_STEP_NUMBER = 20
 MIN_INGREDIENT_VOLUME = Decimal("0.1")
 
 MIN_TEXT_FIELD_SEARCH_LENGTH = 3
+
+DEFAULT_DISH_IMAGE = os.path.join(
+    os.path.dirname(BASE_DIR), "back", "data", "default_dish_image.jpg"
+)
+
+IMAGE_SOURCE_FOLDER = "back/data"

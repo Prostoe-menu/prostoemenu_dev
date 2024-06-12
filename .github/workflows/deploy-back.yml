@@ -1,13 +1,11 @@
 name: Deploy backend
 
 on:
+  workflow_dispatch:
   push:
-    tags:
-      - "deploy-to-*"
     branches:
       - master
       - dev
-      - edit-ci-cd
   #push:
     #branches: 
       #- master
@@ -16,9 +14,9 @@ on:
     #tags: 
     #  - 'releases-*'
 
-  #pull_request_review:
-  #  types:
-  #    - submitted
+  pull_request_review:
+    types:
+      - submitted
   # Allows you to run this workflow manually from the Actions tab
   # workflow_dispatch:
 
@@ -27,7 +25,7 @@ permissions:
 
 jobs:
   deploy-back-to-prod:
-    if: ${{ github.ref == 'master' || 'edit-ci-cd' }}
+    if: ${{ github.ref == 'master' }}
     runs-on: [self-hosted, linux, firstvds]
     environment: prod
     steps:
@@ -57,18 +55,20 @@ jobs:
           POSTGRES_USER: ${{ vars.POSTGRES_USER }}
           ENV_STAGE: ${{ vars.ENV_VAR }}
           PORT_NGINX: ${{ vars.PORT_NGINX }}
+          GIT_BRANCH_FULL: ${{ github.ref }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
           git pull
-          git checkout edit-ci-cd
+          GIT_BRANCH=$(echo $GIT_BRANCH_FULL | sed -r 's/^refs\/heads\///g')
+          git checkout $GIT_BRANCH
           git pull
           docker compose -f ./infra/docker-compose.back.yml down || true
           docker rmi production-web:latest || true
           docker compose -f ./infra/docker-compose.back.yml up -d
   
   deploy-back-to-dev:
-    if: ${{ github.ref == 'edit-ci-cd' || 'dev' }}
+    if: ${{ github.ref == 'dev' }}
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:
@@ -81,11 +81,13 @@ jobs:
           POSTGRES_USER: ${{ vars.POSTGRES_USER }}
           ENV_STAGE: ${{ vars.ENV_VAR }}
           PORT_NGINX: ${{ vars.PORT_NGINX }}
+          GIT_BRANCH_FULL: ${{ github.ref }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
           git pull
-          git checkout edit-ci-cd
+          GIT_BRANCH=$(echo $GIT_BRANCH_FULL | sed -r 's/^refs\/heads\///g')
+          git checkout $GIT_BRANCH
           git pull
           docker compose -f ./infra/docker-compose.back.yml down || true
           #docker rmi infra-web:latest || true

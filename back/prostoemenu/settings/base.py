@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "djoser",
     "drf_spectacular",
+    "drf_spectacular_sidecar",
     "corsheaders",
     # Project Applications
     "common",
@@ -155,6 +156,9 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "Документация к API сервиса ProstoeMenu",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
+    "SWAGGER_UI_DIST": "SIDECAR",
+    "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
+    "REDOC_DIST": "SIDECAR",
 }
 
 DOMAIN_NAME = "https://test.prostoemenu.ru/"

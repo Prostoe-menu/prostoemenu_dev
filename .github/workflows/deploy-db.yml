@@ -1,11 +1,10 @@
 name: Deploy postgresql
 
 on:
-  #push:
-  #  branches:
-  #    - master
-  #    - dev
-  #    - edit-ci-cd
+  push:
+    branches:
+      - master
+      - dev
   workflow_dispatch:
   # Allows you to run this workflow manually from the Actions tab
   # workflow_dispatch:
@@ -16,17 +15,19 @@ jobs:
     environment: prod
     steps:
     - name: Deploy db to prod
-      env: 
-        POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+      env:
         POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
         POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+        POSTGRES_DB: ${{ vars.POSTGRES_DB }}
         ENV_MENU: ${{ vars.ENV_VAR }}
         PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
+        GIT_BRANCH_FULL: ${{ github.ref }}
       run: |
         echo $PROJECT_FOLDER
         cd /home/prostouser/prostoemenu_dev
         git pull
-        git checkout edit-ci-cd
+        GIT_BRANCH=$(echo $GIT_BRANCH_FULL | sed -r 's/^refs\/heads\///g')
+        git checkout $GIT_BRANCH
         git pull
         docker compose -f ./infra/docker-compose.db.yml down || true
         docker compose -f ./infra/docker-compose.db.yml up -d
@@ -36,16 +37,18 @@ jobs:
     steps:
     - name: Deploy db to dev
       env: 
-        POSTGRES_DB: ${{ vars.POSTGRES_DB }}
         POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
         POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+        POSTGRES_DB: ${{ vars.POSTGRES_DB }}
         ENV_MENU: ${{ vars.ENV_VAR }}
         PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
+        GIT_BRANCH_FULL: ${{ github.ref }}
       run: |
         echo $PROJECT_FOLDER
         cd /home/prostouser/prostoemenu_dev
         git pull
-        git checkout edit-ci-cd
+        GIT_BRANCH=$(echo $GIT_BRANCH_FULL | sed -r 's/^refs\/heads\///g')
+        git checkout $GIT_BRANCH
         git pull
         docker compose -f ./infra/docker-compose.db.yml down || true
         docker compose -f ./infra/docker-compose.db.yml up -d

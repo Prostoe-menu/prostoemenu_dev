@@ -39,7 +39,9 @@ class Command(BaseCommand):
             return None
         try:
             return ImageFile(
-                open(f"{django_settings.IMAGE_SOURCE_FOLDER}/{link.split('/')[-1]}", "rb")
+                open(
+                    f"{django_settings.IMAGE_SOURCE_FOLDER}/{link.split('/')[-1]}", "rb"
+                )
             )
         except FileNotFoundError:
             return None

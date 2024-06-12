@@ -1,6 +1,8 @@
 import json
+import os
 
 from django.conf import settings as django_settings
+from django.core.files.images import ImageFile
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
@@ -12,13 +14,44 @@ from recipes.models import Category, Recipe, RecipeIngredient, RecipeStep
 class Command(BaseCommand):
 
     @staticmethod
+    def get_upload_folder(filename):
+        filename = filename.split("/")[-1]
+        return os.path.join("recipes", filename.split(".")[0])
+
+    @staticmethod
+    def rearrange_image_storage(recipe_obj):
+        old_dir = os.path.join(
+            django_settings.MEDIA_ROOT,
+            Command.get_upload_folder(recipe_obj.cover_path.path),
+        )
+        new_dir = os.path.join(
+            django_settings.MEDIA_ROOT, "recipes", str(recipe_obj.pk)
+        )
+        os.rename(old_dir, new_dir)
+        recipe_obj.cover_path.name = os.path.join(
+            "recipes", str(recipe_obj.pk), recipe_obj.cover_path.name.split("/")[-1]
+        )
+        recipe_obj.save()
+
+    @staticmethod
+    def get_image(link):
+        if not link:
+            return None
+        try:
+            return ImageFile(
+                open(f"{django_settings.IMAGE_SOURCE_FOLDER}/{link.split('/')[-1]}", "rb")
+            )
+        except FileNotFoundError:
+            return None
+
+    @staticmethod
     def add_rec_step_objects(data, recipe_obj):
         for row in data:
             RecipeStep.objects.create(
                 recipe=recipe_obj,
                 step_number=row["step_num"],
                 description=row["step_text"],
-                image=row["step_photo"],
+                image=Command.get_image(row["step_photo"]),
             )
 
     @staticmethod
@@ -34,7 +67,15 @@ class Command(BaseCommand):
     @staticmethod
     def add_objects(model, reader):
         default_category = Category.objects.get(name="без категории")
+
         for row in reader:
+            img = Command.get_image(row["dish_data"]["main_photo"])
+            image_file = (
+                img
+                if img
+                else ImageFile(open(django_settings.DEFAULT_DISH_IMAGE, "rb"))
+            )
+
             recipe_data = {
                 "title": row["dish_name"],
                 "description": row["dish_data"]["descr"][
@@ -46,7 +87,7 @@ class Command(BaseCommand):
                 "complexity": row["dish_data"]["summary_list"][
                     "Сложность приготовления"
                 ],
-                "cover_path": row["dish_data"]["main_photo"],
+                "cover_path": image_file,
             }
 
             try:
@@ -57,6 +98,7 @@ class Command(BaseCommand):
             try:
                 with transaction.atomic():
                     new_recipe_obj = model.objects.create(**recipe_data)
+                    Command.rearrange_image_storage(new_recipe_obj)
                     Command.add_rec_ingr_objects(
                         row["dish_data"]["ingr"], new_recipe_obj
                     )
@@ -72,6 +114,6 @@ class Command(BaseCommand):
         return f"Database Update {model}"
 
     def handle(self, *args, **options):
-        with open("data/recipes.json", "rb") as recipes:
+        with open("back/data/recipes.json", "rb") as recipes:
             reader_recipes = json.load(recipes)
         self.stdout.write(self.style.SUCCESS(self.add_objects(Recipe, reader_recipes)))

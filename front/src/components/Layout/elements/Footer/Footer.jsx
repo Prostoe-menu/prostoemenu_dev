@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Logo from 'components/Layout/Logo/Logo';
+import Logo from 'ui/Logo';
 import { AGREEMENT_URL } from 'utils/constants';
 import styles from './Footer.module.scss';
 

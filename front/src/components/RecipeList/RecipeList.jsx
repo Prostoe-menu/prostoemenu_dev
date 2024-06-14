@@ -1,4 +1,4 @@
-import { ScrollUpButton } from 'ui/ScrollUpButton';
+import ScrollUpButton from 'ui/ScrollUpButton';
 import RecipeCard from './RecipeCard/RecipeCard';
 import styles from './RecipeList.module.scss';
 

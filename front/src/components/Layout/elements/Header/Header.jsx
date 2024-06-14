@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import Logo from 'components/Layout/Logo/Logo';
-import Navbar from 'components/Navbar/Navbar';
+import Navbar from 'components/Navbar';
+import Logo from 'ui/Logo';
 import navigation from 'utils/navigation';
 import styles from './Header.module.scss';
 

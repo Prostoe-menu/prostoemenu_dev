@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
 import CookingStep from 'components/AddRecipeForm/CookingSteps/CookingStep/CookingStep';
-import Button from 'components/UI/Button/Button';
 import { changeCurrentStage } from 'store/slices/form/formSlice';
+import Button from 'ui/Button/Button';
 import addIcon from 'assets/images/add.svg';
 import styles from './CookingSteps.module.scss';
 

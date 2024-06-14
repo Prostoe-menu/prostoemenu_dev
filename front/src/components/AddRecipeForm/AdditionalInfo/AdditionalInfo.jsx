@@ -1,13 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import getErrorTypes from '../../../helpers/getErrorTypes';
 import {
   changeCurrentStage,
   saveAdditionalInfo,
-} from '../../../store/slices/form/formSlice';
-import postRecipe from '../../../store/slices/form/formThunk';
-import { addNotification } from '../../../store/slices/toast/toastSlice';
-import Button from '../../UI/Button/Button';
+} from 'store/slices/form/formSlice';
+import postRecipe from 'store/slices/form/formThunk';
+import { addNotification } from 'store/slices/toast/toastSlice';
+import Button from 'ui/Button';
+import getErrorTypes from 'helpers/getErrorTypes';
 import Legal from './Legal/Legal';
 import styles from './AdditionalInfo.module.scss';
 

@@ -1,4 +1,4 @@
-import Button from 'components/UI/Button/Button';
+import Button from 'ui/Button/Button';
 import styles from './ConfirmModal.module.scss';
 
 // Компонент будет дорабатываться, когда будет имплементирован в логику кода

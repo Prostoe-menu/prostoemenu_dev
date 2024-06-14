@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import classnames from 'classnames';
 import ReactPortal from 'components/ReactPortal/ReactPortal';
-import Button from 'components/UI/Button/Button';
+import Button from 'ui/Button/Button';
 // import ConfirmModal from './ConfirmModal/ConfirmModal';
 import styles from './Modal.module.scss';
 

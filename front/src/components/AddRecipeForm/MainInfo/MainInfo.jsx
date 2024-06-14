@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Rating } from '@mui/material';
 import Tooltip from 'components/Tooltip/Tooltip';
 import TooltipDifficultyContent from 'components/Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
-import Button from 'components/UI/Button/Button';
-import PhotoButton from 'components/UI/PhotoButton/PhotoButton';
 import {
   changeCurrentStage,
   saveGeneralRecipeInfo,
   saveRecipeComplexity,
   saveServings,
 } from 'store/slices/form/formSlice';
+import Button from 'ui/Button/Button';
+import PhotoButton from 'ui/PhotoButton/PhotoButton';
 import styles from './MainInfo.module.scss';
 
 const MainInfo = () => {

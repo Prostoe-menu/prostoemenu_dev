@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SelectedIngredients from 'components/SelectedIngredients/SelectedIngredients';
-import Button from 'components/UI/Button/Button';
-import DropdownSearch from 'components/UI/Dropdown/DropdownSearch/DropdownSearch';
+import Button from 'ui/Button/Button';
+import DropdownSearch from 'ui/Dropdown/DropdownSearch/DropdownSearch';
 import getIngredients from 'helpers/getIngredients';
 import useAsync from 'hooks/useAsync';
 import styles from './RecipeSearch.module.scss';

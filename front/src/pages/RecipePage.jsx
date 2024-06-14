@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Recipe } from 'components/Recipe/Recipe';
-import { ErrorMessage, Loader } from 'components/UI';
 import { fetchRecipeByID } from 'store/slices/recipe/recipeThunk';
+import { ErrorMessage, Loader } from 'ui';
 
 const RecipePage = () => {
   const { id } = useParams();

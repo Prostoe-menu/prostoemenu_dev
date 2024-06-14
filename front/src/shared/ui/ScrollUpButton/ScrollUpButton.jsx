@@ -3,7 +3,7 @@ import Button from 'ui/Button';
 import SVGArrowUp from 'assets/images/arrow-up.svg?react';
 import styles from './ScrollUpButton.module.scss';
 
-export const ScrollUpButton = () => {
+const ScrollUpButton = () => {
   const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {
@@ -36,3 +36,5 @@ export const ScrollUpButton = () => {
     )
   );
 };
+
+export default ScrollUpButton;

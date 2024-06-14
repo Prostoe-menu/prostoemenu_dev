@@ -10,7 +10,7 @@ import {
 } from 'store/slices/form/formSlice';
 import { addNotification } from 'store/slices/toast/toastSlice';
 // import RecipeTitle from 'components/AddRecipeForm/RecipeTitle/RecipeTitle';
-import Button from 'ui/Button/Button';
+import Button from 'ui/Button';
 import getMeasurements from 'helpers/getMeasurements';
 import { defaultMeasureUnits } from 'utils/constants';
 import addIcon from 'assets/images/add.svg';

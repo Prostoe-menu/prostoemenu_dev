@@ -6,9 +6,8 @@ import {
   changeIngredientVolume,
   saveIngredient,
 } from 'store/slices/form/formSlice';
-import DropdownMenu from 'ui/Dropdown/DropdownMenu/DropdownMenu';
-import DropdownSearch from 'ui/Dropdown/DropdownSearch/DropdownSearch';
-import Input from 'ui/Input/Input';
+import { DropdownMenu, DropdownSearch } from 'ui/Dropdown';
+import Input from 'ui/Input';
 import getIngredients from 'helpers/getIngredients';
 import useClickOutside from 'helpers/useClickOutside';
 import useAsync from 'hooks/useAsync';

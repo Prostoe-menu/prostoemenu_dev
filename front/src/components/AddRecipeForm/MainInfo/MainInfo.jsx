@@ -11,8 +11,8 @@ import {
   saveRecipeComplexity,
   saveServings,
 } from 'store/slices/form/formSlice';
-import Button from 'ui/Button/Button';
-import PhotoButton from 'ui/PhotoButton/PhotoButton';
+import Button from 'ui/Button';
+import PhotoButton from 'ui/PhotoButton';
 import styles from './MainInfo.module.scss';
 
 const MainInfo = () => {

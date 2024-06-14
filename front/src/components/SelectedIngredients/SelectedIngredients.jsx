@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { v4 as uuidV4 } from 'uuid';
-import Button from 'ui/Button/Button';
+import Button from 'ui/Button';
 import styles from './SelectedIngredients.module.scss';
 
 const SelectedIngredients = ({ selected, setSelected }) => {

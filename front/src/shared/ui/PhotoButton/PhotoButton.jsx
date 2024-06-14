@@ -9,7 +9,7 @@ import {
   resetLoadPhoto,
   saveCroppedPhoto,
 } from 'store/slices/form/formSlice';
-import Button from 'ui/Button/Button';
+import Button from 'ui/Button';
 import 'cropperjs/dist/cropper.css';
 import styles from './PhotoButton.module.scss';
 

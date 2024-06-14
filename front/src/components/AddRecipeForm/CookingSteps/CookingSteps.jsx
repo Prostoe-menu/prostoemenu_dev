@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
 import CookingStep from 'components/AddRecipeForm/CookingSteps/CookingStep/CookingStep';
 import { changeCurrentStage } from 'store/slices/form/formSlice';
-import Button from 'ui/Button/Button';
+import Button from 'ui/Button';
 import addIcon from 'assets/images/add.svg';
 import styles from './CookingSteps.module.scss';
 

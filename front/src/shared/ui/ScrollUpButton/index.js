@@ -1,1 +1,1 @@
-export { ScrollUpButton } from './ScrollUpButton';
+export { default } from './ScrollUpButton';

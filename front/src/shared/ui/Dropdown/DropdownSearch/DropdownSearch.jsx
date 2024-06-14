@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import cn from 'classnames';
-import { Loader } from 'ui';
-import DropdownItem from 'ui/Dropdown/DropdownItem/DropdownItem';
-import Input from 'ui/Input/Input';
+import { DropdownItem, Input, Loader } from 'ui';
 import { handleKeyboardNavigation } from 'helpers/useKeyboardNavigation';
 import styles from './DropdownSearch.module.scss';
 

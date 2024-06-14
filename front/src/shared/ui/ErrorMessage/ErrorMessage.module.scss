@@ -1,0 +1,9 @@
+@use 'styles/variables' as vars;
+
+.error {
+  text-align: center;
+  font-family: vars.$font-body;
+  font-size: vars.$font-size-m;
+  max-width: 500px;
+  margin: 20px auto;
+}

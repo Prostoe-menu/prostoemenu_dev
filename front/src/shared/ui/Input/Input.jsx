@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import classnames from 'classnames';
+import cn from 'classnames';
 import styles from './Input.module.scss';
 
 /**
@@ -27,7 +27,7 @@ const Input = (props) => {
     inputStep,
   } = props;
 
-  const inputClasses = classnames(styles.input, styles[inputClassName], {
+  const inputClasses = cn(styles.input, styles[inputClassName], {
     [styles.error]: isError,
   });
 

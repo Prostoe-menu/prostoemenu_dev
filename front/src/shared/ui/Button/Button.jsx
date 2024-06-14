@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+import cn from 'classnames';
 import styles from './Button.module.scss';
 
 /**
@@ -17,7 +17,7 @@ const Button = ({
   children,
   ...props
 }) => {
-  const btnClasses = classnames(
+  const btnClasses = cn(
     styles.button,
     styles[`view-${view}`],
     {

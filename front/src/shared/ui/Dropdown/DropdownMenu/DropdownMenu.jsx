@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import classnames from 'classnames';
+import cn from 'classnames';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { DropdownItem } from 'ui/Dropdown';
 import { handleKeyboardNavigation } from 'helpers/useKeyboardNavigation';
@@ -22,7 +22,7 @@ const DropdownMenu = ({
   chooseItemAriaLabelText,
 }) => {
   const [cursor, setCursor] = useState(-1);
-  const optionsClasses = classnames(styles.options, {
+  const optionsClasses = cn(styles.options, {
     [styles.visible]: isDropdownOpen,
   });
 
@@ -40,7 +40,7 @@ const DropdownMenu = ({
     );
 
   return (
-    <div className={classnames(styles.dropdownMenu, styles[dropdownClassName])}>
+    <div className={cn(styles.dropdownMenu, styles[dropdownClassName])}>
       <div
         className={styles.input}
         onClick={toggleDropdown}

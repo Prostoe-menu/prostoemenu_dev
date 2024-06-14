@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+import cn from 'classnames';
 import styles from './DropdownItem.module.scss';
 
 /**
@@ -14,7 +14,7 @@ const DropdownItem = ({
   onKeyDown,
   selectItemAriaLabelText,
 }) => {
-  const dropdownItemClass = classnames(styles.dropdownItem, {
+  const dropdownItemClass = cn(styles.dropdownItem, {
     [styles.dropdownItem_active]: itemIndex === cursor,
   });
 

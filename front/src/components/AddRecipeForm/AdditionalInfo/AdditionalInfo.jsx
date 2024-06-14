@@ -8,8 +8,8 @@ import {
 import postRecipe from '../../../store/slices/form/formThunk';
 import { addNotification } from '../../../store/slices/toast/toastSlice';
 import Button from '../../UI/Button/Button';
-import styles from './AdditionalInfo.module.scss';
 import Legal from './Legal/Legal';
+import styles from './AdditionalInfo.module.scss';
 
 // Компонент будет доработан после утверждения окончательного дизайна
 

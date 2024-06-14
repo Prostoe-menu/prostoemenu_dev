@@ -1,6 +1,6 @@
-import StarSVG from 'assets/images/star.svg?react';
 import classnames from 'classnames';
 import { STARS_TOTAL } from 'utils/constants';
+import StarSVG from 'assets/images/star.svg?react';
 import styles from './StarRating.module.scss';
 
 const StarRating = ({ label, rating }) => {

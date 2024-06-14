@@ -1,7 +1,7 @@
-import { render } from '@testing-library/react';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { render } from '@testing-library/react';
 import { getStoreWithState } from '../store/store';
 
 const renderWithContext = (element, state) => {

@@ -1,6 +1,6 @@
-import SVGArrowUp from 'assets/images/arrow-up.svg?react';
 import { useCallback, useEffect, useState } from 'react';
 import { Button } from 'components/UI/Button';
+import SVGArrowUp from 'assets/images/arrow-up.svg?react';
 import styles from './ScrollUpButton.module.scss';
 
 export const ScrollUpButton = () => {

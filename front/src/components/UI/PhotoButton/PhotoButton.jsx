@@ -4,13 +4,13 @@ import { useDropzone } from 'react-dropzone';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'components/Modal/Modal';
 import Button from 'components/UI/Button/Button';
-import 'cropperjs/dist/cropper.css';
 import {
   loadPhoto,
   resetCroppedPhoto,
   resetLoadPhoto,
   saveCroppedPhoto,
 } from 'store/slices/form/formSlice';
+import 'cropperjs/dist/cropper.css';
 import styles from './PhotoButton.module.scss';
 
 const PhotoButton = () => {

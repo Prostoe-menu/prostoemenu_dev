@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import RecipeList from 'components/RecipeList/RecipeList';
-import RecipeSearch from 'components/RecipeSearch/RecipeSearch';
+import RecipeList from 'components/RecipeList';
+import RecipeSearch from 'components/RecipeSearch';
 import fetchRecipes from 'store/slices/recipe/recipeThunk';
 import { ErrorMessage, Loader } from 'ui';
 

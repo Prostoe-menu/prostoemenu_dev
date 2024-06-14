@@ -22,14 +22,16 @@ export default defineConfig({
   resolve: {
     alias: {
       '*': path.resolve(__dirname, './src'),
-      assets: path.resolve(__dirname, './src/assets'),
-      components: path.resolve(__dirname, './src/components'),
-      helpers: path.resolve(__dirname, './src/helpers'),
-      hooks: path.resolve(__dirname, './src/hooks'),
       pages: path.resolve(__dirname, './src/pages'),
+      components: path.resolve(__dirname, './src/components'),
       store: path.resolve(__dirname, './src/store'),
-      test_utils: path.resolve(__dirname, './src/test-utils'),
-      utils: path.resolve(__dirname, './src/utils'),
+      assets: path.resolve(__dirname, './src/shared/assets'),
+      helpers: path.resolve(__dirname, './src/shared/helpers'),
+      hooks: path.resolve(__dirname, './src/shared/hooks'),
+      test_utils: path.resolve(__dirname, './src/shared/test-utils'),
+      utils: path.resolve(__dirname, './src/shared/utils'),
+      styles: path.resolve(__dirname, './src/shared/styles'),
+      ui: path.resolve(__dirname, './src/shared/ui'),
     },
   },
 });

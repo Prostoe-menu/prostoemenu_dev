@@ -1,7 +1,7 @@
 /* eslint-disable   */
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import React from 'react';
-import testUtils from 'src/test-utils/test-with-store';
+import testUtils from 'test-utils/test-with-store';
 import Logo from '../Logo';
 
 describe('Логотип', () => {

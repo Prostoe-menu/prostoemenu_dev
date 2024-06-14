@@ -13,3 +13,5 @@ export { default as Input } from './Input/Input';
 export { default as PhotoButton } from './PhotoButton/PhotoButton';
 
 export { DropdownItem, DropdownMenu, DropdownSearch } from './Dropdown';
+
+export { default as Logo } from './Logo/Logo';

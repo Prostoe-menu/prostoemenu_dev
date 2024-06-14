@@ -1,8 +1,9 @@
 @use 'src/styles/color-variables' as colors;
 @use 'src/styles/font-variables' as fonts;
 
-.step, .stepWithImage {
-  padding-bottom: 2.5rem;  
+.step,
+.stepWithImage {
+  padding-bottom: 2.5rem;
 }
 
 .stepWithImage {
@@ -23,15 +24,15 @@
 }
 
 .number {
- border-radius: 10px;
- background-color: colors.$step-bg;
- padding: .5rem .88rem;
- font-weight: 600;
- font-size: fonts.$font-size-s;
- line-height: fonts.$line-height-s;
- color: colors.$step-number-color;
+  border-radius: 10px;
+  background-color: colors.$step-bg;
+  padding: 0.5rem 0.88rem;
+  font-weight: 600;
+  font-size: fonts.$font-size-s;
+  line-height: fonts.$line-height-s;
+  color: colors.$step-number-color;
 }
 
 .description {
- font-weight: 300;
+  font-weight: 300;
 }

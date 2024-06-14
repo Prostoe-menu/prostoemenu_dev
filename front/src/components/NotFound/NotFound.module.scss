@@ -1,29 +1,29 @@
 @use '/src/styles/variables' as vars;
 
 .body {
-    margin: 0 auto 135px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  margin: 0 auto 135px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
-    color: vars.$color-primary;
-    font-family: vars.$font-body;
-    font-size: vars.$font-size-s;
-    font-style: normal;
-    font-weight: 500;
-    line-height: vars.$line-height-s;
-    margin: 20px 0px 60px;
+  color: vars.$color-primary;
+  font-family: vars.$font-body;
+  font-size: vars.$font-size-s;
+  font-style: normal;
+  font-weight: 500;
+  line-height: vars.$line-height-s;
+  margin: 20px 0px 60px;
 }
 
 .image {
-    width: 275px;
-    height: 200px;
-    margin-bottom: 100px;
+  width: 275px;
+  height: 200px;
+  margin-bottom: 100px;
 }
 
 .btn {
-    padding: 12px 28px;
-    white-space: nowrap;
+  padding: 12px 28px;
+  white-space: nowrap;
 }

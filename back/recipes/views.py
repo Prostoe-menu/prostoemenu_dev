@@ -43,6 +43,7 @@ class RecipeListApi(APIView):
         paginator = self.pagination_class()
         result_page = paginator.paginate_queryset(recipes, request)
         serializer = RecipeOutputSerializer(result_page, many=True)
+
         return paginator.get_paginated_response(serializer.data)
 
 

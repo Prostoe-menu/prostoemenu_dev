@@ -1,3 +1,4 @@
+from common.pagination import StandardResultsSetPagination
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
@@ -28,6 +29,8 @@ class RecipeDetailApi(APIView):
 
 
 class RecipeListApi(APIView):
+    pagination_class = StandardResultsSetPagination
+
     @extend_schema(
         summary="Получить список рецептов.",
         description="Эндпоинт для получения списка рецептов.",
@@ -37,8 +40,10 @@ class RecipeListApi(APIView):
     )
     def get(self, request):
         recipes = recipe_list()
-        serializer = RecipeOutputSerializer(recipes, many=True)
-        return Response(serializer.data)
+        paginator = self.pagination_class()
+        result_page = paginator.paginate_queryset(recipes, request)
+        serializer = RecipeOutputSerializer(result_page, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
 
 class RecipeCreateApi(APIView):

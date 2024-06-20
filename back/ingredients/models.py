@@ -1,3 +1,6 @@
+from common.models import CustomBaseModel
+from common.utils import normilize_text_fields
+from common.validators import AcceptedSymbolsValidator
 from django.conf import settings as django_settings
 from django.core.validators import (
     MaxLengthValidator,
@@ -6,10 +9,6 @@ from django.core.validators import (
     MinValueValidator,
 )
 from django.db import models
-
-from common.models import CustomBaseModel
-from common.utils import normilize_text_fields
-from common.validators import validate_accepted_symbols
 
 
 class Category(CustomBaseModel):
@@ -20,7 +19,7 @@ class Category(CustomBaseModel):
         default="Без категории",
         validators=[
             MinLengthValidator(django_settings.MIN_TITLE_LENGTH),
-            validate_accepted_symbols,
+            AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS),
         ],
     )
     description = models.TextField(
@@ -30,7 +29,7 @@ class Category(CustomBaseModel):
         validators=[
             MinLengthValidator(django_settings.MIN_DESCR_LENGTH),
             MaxLengthValidator(django_settings.MAX_DESCR_LENGTH),
-            validate_accepted_symbols,
+            AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS),
         ],
     )
 

@@ -69,13 +69,14 @@ class Command(BaseCommand):
     @staticmethod
     def add_objects(model, reader):
         default_category = Category.objects.get(name="без категории")
+        default_image = ImageFile(open(django_settings.DEFAULT_DISH_IMAGE, "rb"))
 
         for row in reader:
-            img = Command.get_image(row["dish_data"]["main_photo"])
+            image = Command.get_image(row["dish_data"]["main_photo"])
             image_file = (
-                img
-                if img
-                else ImageFile(open(django_settings.DEFAULT_DISH_IMAGE, "rb"))
+                image
+                if image
+                else default_image
             )
 
             recipe_data = {

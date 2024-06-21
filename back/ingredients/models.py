@@ -50,7 +50,14 @@ class Category(CustomBaseModel):
 
 
 class Ingredient(CustomBaseModel):
-    name = models.CharField(max_length=100, verbose_name="Название")
+    name = models.CharField(
+        max_length=django_settings.MAX_TITLE_LENGTH,
+        verbose_name="Название",
+        validators=[
+            MinLengthValidator(django_settings.MIN_TITLE_LENGTH),
+            AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS)
+        ],
+    )
     category = models.ForeignKey(
         Category,
         null=True,

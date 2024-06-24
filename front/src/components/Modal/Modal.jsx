@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import classnames from 'classnames';
+import cn from 'classnames';
 import ReactPortal from 'components/ReactPortal/ReactPortal';
-import Button from 'components/UI/Button/Button';
+import Button from 'ui/Button';
 // import ConfirmModal from './ConfirmModal/ConfirmModal';
 import styles from './Modal.module.scss';
 
@@ -11,7 +11,7 @@ const Modal = ({ children, closeModal, isModalOpen }) => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
   // const closeModal = () => setIsModalOpen(false);
 
-  const modalClass = classnames(styles.modal, {
+  const modalClass = cn(styles.modal, {
     [styles.visible]: isModalOpen,
   });
 

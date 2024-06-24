@@ -1,17 +1,16 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import DropdownMenu from 'components/UI/Dropdown/DropdownMenu/DropdownMenu';
-import DropdownSearch from 'components/UI/Dropdown/DropdownSearch/DropdownSearch';
-import Input from 'components/UI/Input/Input';
-import getIngredients from 'helpers/getIngredients';
-import useClickOutside from 'helpers/useClickOutside';
-import useAsync from 'hooks/useAsync';
 import {
   changeIngredientMeasureUnits,
   changeIngredientVolume,
   saveIngredient,
 } from 'store/slices/form/formSlice';
+import { DropdownMenu, DropdownSearch } from 'ui/Dropdown';
+import Input from 'ui/Input';
+import getIngredients from 'helpers/getIngredients';
+import useClickOutside from 'helpers/useClickOutside';
+import useAsync from 'hooks/useAsync';
 import { TEXT_INPUT_ERROR_MESSAGE, TEXT_INPUT_PATTERN } from 'utils/constants';
 import styles from './InputsContainer.module.scss';
 

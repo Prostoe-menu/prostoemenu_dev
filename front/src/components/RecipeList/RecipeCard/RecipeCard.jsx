@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import StarRating from 'components/UI/StarRating';
+import StarRating from 'ui/StarRating';
 import { checkImage } from 'helpers/checkImage';
 import { timeFormat } from 'helpers/utils';
 import styles from './RecipeCard.module.scss';

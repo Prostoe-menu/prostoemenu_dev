@@ -1,5 +1,5 @@
-import { CookingTime, OvenTime } from 'components/UI';
-import StarRating from 'components/UI/StarRating';
+import { CookingTime, OvenTime } from 'ui';
+import StarRating from 'ui/StarRating';
 import { checkImage } from 'helpers/checkImage';
 import styles from './MainInfo.module.scss';
 

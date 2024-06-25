@@ -1,0 +1,54 @@
+@use 'styles/variables' as vars;
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+
+  &.large {
+    height: 300px;
+  }
+
+  &.small {
+    height: 70px;
+  }
+}
+
+.border {
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+
+  animation: spin 0.6s linear 0s infinite;
+
+  &.large {
+    width: 95px;
+    height: 95px;
+    background: vars.$loader-background;
+  }
+
+  &.small {
+    width: 50px;
+    height: 50px;
+    background: vars.$small-loader-background;
+  }
+}
+
+.core {
+  width: 100%;
+  height: 100%;
+  background-color: vars.$bg-primary;
+  border-radius: 50%;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}

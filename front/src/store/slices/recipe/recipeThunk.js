@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  FETCH_RECIPES_ERROR_MESSAGE,
   FETCH_RECIPE_BY_ID_ERROR_MESSAGE,
+  FETCH_RECIPES_ERROR_MESSAGE,
 } from 'utils/constants';
 import { recipeService } from './recipeService';
 

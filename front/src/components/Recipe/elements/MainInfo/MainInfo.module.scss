@@ -1,6 +1,6 @@
-@use 'src/styles/variables' as vars;
+@use 'styles/variables' as vars;
 
-.mainInfo {  
+.mainInfo {
   @media only screen and (min-width: 768px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -10,7 +10,7 @@
 
   @media only screen and (max-width: 767px) {
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
   }
 }
 
@@ -18,7 +18,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 25px;  
+  border-radius: 25px;
 
   @media only screen and (max-width: 768px) {
     margin-bottom: 3rem;
@@ -97,5 +97,3 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
-
-

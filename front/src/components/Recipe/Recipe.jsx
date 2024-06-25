@@ -1,6 +1,6 @@
 import { Ingredients, MainInfo, Steps } from './elements';
 
-export const Recipe = ({ item }) => {
+const Recipe = ({ item }) => {
   const { ingredients, steps } = item;
 
   return (
@@ -11,3 +11,5 @@ export const Recipe = ({ item }) => {
     </article>
   );
 };
+
+export default Recipe;

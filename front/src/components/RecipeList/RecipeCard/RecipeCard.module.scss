@@ -1,4 +1,4 @@
-@use 'src/styles/variables' as vars;
+@use 'styles/variables' as vars;
 
 .recipe {
   border: 1px solid vars.$shadow-color;
@@ -21,7 +21,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 16px;  
+  border-radius: 16px;
 }
 
 .defaultImg {

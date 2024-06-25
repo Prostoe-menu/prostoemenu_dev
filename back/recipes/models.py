@@ -13,6 +13,7 @@ from django.core.validators import (
 from django.db import models
 from ingredients.models import Ingredient
 from measurements.models import Measurement
+from recipes.utils import get_recipe_image_upload_path, get_step_image_upload_path
 
 User = get_user_model()
 
@@ -101,7 +102,9 @@ class Recipe(CustomBaseModel):
             MaxValueValidator(django_settings.MAX_RECIPE_COMPLEXITY),
         ],
     )
-    cover_path = models.ImageField(upload_to="media", verbose_name="Главное фото")
+    cover_path = models.ImageField(
+        upload_to=get_recipe_image_upload_path, verbose_name="Главное фото"
+    )
     author = models.ForeignKey(
         User,
         null=True,
@@ -162,7 +165,10 @@ class RecipeStep(CustomBaseModel):
         ],
     )
     image = models.ImageField(
-        null=True, blank=True, upload_to="recipes", verbose_name="Изображение"
+        null=True,
+        blank=True,
+        upload_to=get_step_image_upload_path,
+        verbose_name="Изображение",
     )
 
     class Meta:

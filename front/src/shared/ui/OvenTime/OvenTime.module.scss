@@ -1,0 +1,13 @@
+@use 'styles/color-variables.scss' as colors;
+
+.ovenTime {
+  background-image: url('assets/images/oven.svg');
+  background-position: left center;
+  background-repeat: no-repeat;
+
+  padding-left: 27px;
+  line-height: 24px;
+
+  color: colors.$color-secondary;
+  white-space: nowrap;
+}

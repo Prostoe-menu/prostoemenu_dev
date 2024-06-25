@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
-import useTimeout from 'hooks/useTimeout';
 import { deleteNotification } from 'store/slices/toast/toastSlice';
+import useTimeout from 'hooks/useTimeout';
 import styles from './Toast.module.scss';
 
 const Toast = ({ children, id }) => {

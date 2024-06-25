@@ -1,0 +1,118 @@
+@use 'styles/variables' as vars;
+
+.button {
+  box-sizing: border-box;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: vars.$font-body;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background-color vars.$trans-300;
+  padding: 0;
+}
+
+.reverse {
+  flex-direction: row-reverse;
+}
+
+.hidden {
+  display: none;
+}
+
+.view-primary {
+  font-weight: 700;
+  font-size: vars.$font-size-xs;
+  line-height: vars.$line-height-xs;
+  color: vars.$btn-color-primary;
+  background: vars.$btn-bg-primary;
+  gap: 8px;
+  padding: 13px 0;
+  border-radius: 12px;
+
+  &:hover {
+    background: vars.$btn-bg-primary-hover;
+  }
+
+  &:active {
+    background: vars.$btn-bg-primary-active;
+  }
+
+  &:disabled,
+  &[disabled] {
+    color: vars.$color-secondary;
+    background: vars.$btn-bg-primary-disabled;
+    cursor: default;
+  }
+}
+
+.view-secondary {
+  font-size: vars.$font-size-xs;
+  line-height: vars.$line-height-xs;
+  color: vars.$color-primary;
+  background: vars.$bg-primary;
+  border: 1px solid vars.$btn-border-secondary;
+  gap: 8px;
+  padding: 12px 0;
+  border-radius: 12px;
+
+  &:hover {
+    background: vars.$btn-bg-secondary-hover;
+  }
+
+  &:active {
+    background: vars.$btn-bg-secondary-active;
+  }
+
+  &:disabled,
+  &[disabled] {
+    color: vars.$color-secondary;
+    background: vars.$btn-bg-secondary-disabled;
+    border-color: vars.$btn-border-secondary-disabled;
+    cursor: default;
+  }
+}
+
+.view-tertiary {
+  font-size: vars.$font-size-xs;
+  line-height: vars.$line-height-xs;
+  color: vars.$color-primary;
+  background-color: vars.$bg-primary;
+  border: 1px solid vars.$btn-bg-tertiary-active;
+  gap: 6px;
+  padding: 12px 25px 12px 28px;
+  border-radius: 12px;
+
+  &:hover {
+    background: vars.$btn-bg-tertiary-hover;
+  }
+
+  &:active {
+    background: vars.$btn-bg-tertiary-active;
+  }
+
+  &:disabled,
+  &[disabled] {
+    color: vars.$color-secondary;
+    background: vars.$btn-bg-tertiary-disabled;
+    border-color: vars.$btn-border-tertiary-disabled;
+    cursor: default;
+  }
+}
+
+.view-cross {
+  background: url('assets/images/close-btn/close_btn.svg');
+  opacity: 0.6;
+  transition: all vars.$trans-300;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+img {
+  width: 20px;
+  height: 20px;
+}

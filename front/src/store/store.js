@@ -1,15 +1,15 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import {
   FLUSH,
   PAUSE,
   PERSIST,
+  persistReducer,
+  persistStore,
   PURGE,
   REGISTER,
   REHYDRATE,
-  persistReducer,
-  persistStore,
 } from 'redux-persist';
 import storageSession from 'redux-persist/lib/storage/session';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import formReducer from './slices/form/formSlice';
 import recipeSlice from './slices/recipe/recipeSlice';
 import toastReducer from './slices/toast/toastSlice';

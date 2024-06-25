@@ -55,7 +55,7 @@ class Ingredient(CustomBaseModel):
         verbose_name="Название",
         validators=[
             MinLengthValidator(django_settings.MIN_TITLE_LENGTH),
-            AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS)
+            AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS),
         ],
     )
     category = models.ForeignKey(

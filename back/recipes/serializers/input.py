@@ -1,14 +1,13 @@
 from collections import Counter
 
+from common.validators import AcceptedSymbolsValidator
 from django.conf import settings as django_settings
 from drf_extra_fields.fields import Base64ImageField
-from rest_framework import serializers
-from rest_framework.validators import UniqueTogetherValidator
-
-from common.validators import validate_accepted_symbols
 from ingredients.models import Ingredient
 from measurements.models import Measurement
 from recipes.models import Category, Recipe
+from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
 
 
 class RecipeInredientInputSerializer(serializers.Serializer):
@@ -30,7 +29,7 @@ class RecipeStepInputSerializer(serializers.Serializer):
     description = serializers.CharField(
         min_length=django_settings.MIN_DESCR_LENGTH,
         max_length=django_settings.MAX_DESCR_LENGTH,
-        validators=[validate_accepted_symbols],
+        validators=[AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS)],
     )
     image = Base64ImageField(required=False)
 
@@ -39,13 +38,13 @@ class RecipeInputSerializer(serializers.Serializer):
     title = serializers.CharField(
         min_length=django_settings.MIN_TITLE_LENGTH,
         max_length=django_settings.MAX_TITLE_LENGTH,
-        validators=[validate_accepted_symbols],
+        validators=[AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS)],
     )
     description = serializers.CharField(
         allow_blank=True,
         min_length=django_settings.MIN_DESCR_LENGTH,
         max_length=django_settings.MAX_DESCR_LENGTH,
-        validators=[validate_accepted_symbols],
+        validators=[AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS)],
     )
     cooking_time = serializers.IntegerField(
         min_value=django_settings.MIN_COOKING_AND_OVEN_TIME,

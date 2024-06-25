@@ -1,3 +1,4 @@
+from common.pagination import LargeResultsSetPagination
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
@@ -27,6 +28,8 @@ class MeasurementDetailApi(APIView):
 
 
 class MeasurementListApi(APIView):
+    pagination_class = LargeResultsSetPagination
+
     @extend_schema(
         summary="Список всех мер измерений.",
         description="Эндпоинт получения списка всех мер измерений.",
@@ -36,6 +39,8 @@ class MeasurementListApi(APIView):
     )
     def get(self, request):
         measurements = measurement_list()
-        serializer = MeasurementOutputSerializer(measurements, many=True)
+        paginator = self.pagination_class()
+        result_page = paginator.paginate_queryset(measurements, request)
+        serializer = MeasurementOutputSerializer(result_page, many=True)
 
-        return Response(serializer.data)
+        return paginator.get_paginated_response(serializer.data)

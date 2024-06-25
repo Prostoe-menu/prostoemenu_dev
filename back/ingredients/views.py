@@ -1,3 +1,4 @@
+from common.pagination import LargeResultsSetPagination
 from drf_spectacular.utils import OpenApiExample, OpenApiParameter, extend_schema
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -27,6 +28,8 @@ class IngredientDetailApi(APIView):
 
 
 class IngredientListApi(APIView):
+    pagination_class = LargeResultsSetPagination
+
     @extend_schema(
         summary="Получить список ингредиентов.",
         description="Эндпоинт получения списка ингредиентов. Доступен поиск \
@@ -56,5 +59,8 @@ class IngredientListApi(APIView):
         query_serializer.is_valid(raise_exception=True)
 
         ingredients = ingredient_list(query_serializer.validated_data)
-        serializer_output = IngredientOutputSerializer(ingredients, many=True)
-        return Response(serializer_output.data)
+        paginator = self.pagination_class()
+        result_page = paginator.paginate_queryset(ingredients, request)
+        serializer_output = IngredientOutputSerializer(result_page, many=True)
+
+        return paginator.get_paginated_response(serializer_output.data)

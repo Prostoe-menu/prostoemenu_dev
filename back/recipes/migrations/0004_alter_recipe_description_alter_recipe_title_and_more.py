@@ -2,7 +2,6 @@
 
 import common.validators
 import django.core.validators
-from django.conf import settings as django_settings
 from django.db import migrations, models
 
 
@@ -21,9 +20,7 @@ class Migration(migrations.Migration):
                 validators=[
                     django.core.validators.MinLengthValidator(10),
                     django.core.validators.MaxLengthValidator(500),
-                    common.validators.AcceptedSymbolsValidator(
-                        django_settings.ACCEPTED_SYMBOLS
-                    ),
+                    common.validators.validate_accepted_symbols,
                 ],
                 verbose_name="Описание",
             ),
@@ -35,9 +32,7 @@ class Migration(migrations.Migration):
                 max_length=100,
                 validators=[
                     django.core.validators.MinLengthValidator(2),
-                    common.validators.AcceptedSymbolsValidator(
-                        django_settings.ACCEPTED_SYMBOLS
-                    ),
+                    common.validators.validate_accepted_symbols,
                 ],
                 verbose_name="Название",
             ),
@@ -49,9 +44,7 @@ class Migration(migrations.Migration):
                 validators=[
                     django.core.validators.MinLengthValidator(10),
                     django.core.validators.MaxLengthValidator(500),
-                    common.validators.AcceptedSymbolsValidator(
-                        django_settings.ACCEPTED_SYMBOLS
-                    ),
+                    common.validators.validate_accepted_symbols,
                 ],
                 verbose_name="Описание шага",
             ),

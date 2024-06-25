@@ -165,11 +165,12 @@ DOMAIN_NAME = "https://test.prostoemenu.ru/"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-ACCEPTED_SYMBOLS = set(
+ACCEPTED_SYMBOLS = (
     "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     "0123456789!№;%:?*()/.,\«»—–- \"'°+¼½"
 )
+
 
 MIN_DESCR_LENGTH = 10
 

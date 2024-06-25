@@ -2,7 +2,6 @@ import json
 
 from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
-
 from measurements.models import Measurement
 
 
@@ -19,7 +18,7 @@ class Command(BaseCommand):
         return f"Database Update {model}"
 
     def handle(self, *args, **options):
-        with open("data/measurements.json", "rb") as measurements:
+        with open("back/data/measurements.json", "rb") as measurements:
             reader_measurements = json.load(measurements)
         self.stdout.write(
             self.style.SUCCESS(self.add_objects(Measurement, reader_measurements))

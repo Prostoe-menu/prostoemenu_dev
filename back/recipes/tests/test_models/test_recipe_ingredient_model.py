@@ -1,11 +1,10 @@
 from decimal import Decimal
 
+import ingredients.models
+import recipes.models
 from django.conf import settings as django_settings
 from django.core.exceptions import ValidationError
 from django.test import TestCase
-
-import ingredients.models
-import recipes.models
 from ingredients.models import Ingredient
 from measurements.models import Measurement
 from recipes.models import Recipe, RecipeIngredient

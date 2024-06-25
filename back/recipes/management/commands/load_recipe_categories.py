@@ -2,7 +2,6 @@ import json
 
 from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
-
 from recipes.models import Category
 
 
@@ -19,7 +18,7 @@ class Command(BaseCommand):
         return f"Database Update {model}"
 
     def handle(self, *args, **options):
-        with open("data/recipe_categories.json", "rb") as categories:
+        with open("back/data/recipe_categories.json", "rb") as categories:
             reader_categories = json.load(categories)
         self.stdout.write(
             self.style.SUCCESS(self.add_objects(Category, reader_categories))

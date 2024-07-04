@@ -38,15 +38,15 @@ class IngredientListApi(APIView):
         parameters=[
             OpenApiParameter(
                 name="name",
-                description="Поиск ингредиента по вхождению.",
+                description="Поиск подстроки осуществляется в начале каждого слова наименования ингредиента",
                 type=str,
                 location=OpenApiParameter.QUERY,
                 required=False,
                 examples=[
                     OpenApiExample(
                         name="Пример 1.",
-                        description="Поиск любых ингредиентов по вхождению в названии.",
-                        value="мол",
+                        description="Поиск ингредиента по вхождению в названии.",
+                        value="?name=мол",
                     )
                 ],
             )

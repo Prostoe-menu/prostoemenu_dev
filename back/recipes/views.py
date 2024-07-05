@@ -33,7 +33,8 @@ class RecipeListApi(APIView):
 
     @extend_schema(
         summary="Получить список рецептов.",
-        description="Эндпоинт для получения списка рецептов.",
+        description="Эндпоинт для получения списка рецептов. "
+                    "Доступен поиск рецепта по ингредиентам",
         tags=("Recipes",),
         responses={200: RecipeOutputSerializer(many=True)},
         operation_id="recipe_list_api",
@@ -52,21 +53,21 @@ class RecipeCreateApi(APIView):
     @extend_schema(
         summary="Создать рецепт.",
         description="""Эндпоинт создания рецепта.\n
-            title - Название рецепта.
-            description - Описание рецепта.
-            cover_path - Главное изображение рецепта.
-            complexity - Сложность рецепта.
-            cooking_time - Общее время приготовления.
-            oven_time - Время "у плиты".
-            quantity - Количество порций.
-            ingredients - Ингредиенты в рецепте.
-                ingredient - Идентификатор ингредиента.
-                measure - Идентификатор меры измерения.
-                volume - Количество ингредиента в выбранной мере измерения.
-            steps - Шаги пригтовления.
-                step_number - порядковый номер шага.
-                description - Описание действий в текущем шаге.
-                image - Изображение для текущего шага.
+            title - название рецепта
+            description - описание рецепта
+            cover_path - главное изображение рецепта
+            complexity - сложность рецепта [1; 3]
+            cooking_time - общее время приготовления в минутах [1; 5999]
+            oven_time - время активной готовки в минутах [1; 5999]
+            quantity - количество порций [1; 10]
+            ingredients - ингредиенты в рецепте:
+                ingredient - идентификатор ингредиента
+                measure - идентификатор единицы измерения
+                volume - количество ингредиента в выбранной мере измерения
+            steps - шаги приготовления:
+                step_number - номер шага [1; 20]
+                description - описание действий в текущем шаге
+                image - изображение для текущего шага.
         """,
         tags=("Recipes",),
         request=RecipeInputSerializer,

@@ -10,6 +10,8 @@ from .services import recipe_create
 
 
 class RecipeDetailApi(APIView):
+
+    # region  api_documentation
     @extend_schema(
         summary="Получить рецепт по ID.",
         description="Эндпоинт получения рецепта по ID.",
@@ -22,6 +24,7 @@ class RecipeDetailApi(APIView):
         responses={200: RecipeOutputSerializer},
         operation_id="recipe_detail_api",
     )
+    # endregion
     def get(self, request, id):
         recipe = recipe_get(id=id)
         serializer = RecipeOutputSerializer(recipe)
@@ -31,14 +34,16 @@ class RecipeDetailApi(APIView):
 class RecipeListApi(APIView):
     pagination_class = StandardResultsSetPagination
 
+    # region  api_documentation
     @extend_schema(
         summary="Получить список рецептов.",
         description="Эндпоинт для получения списка рецептов. "
-                    "Доступен поиск рецепта по ингредиентам",
+        "Доступен поиск рецепта по ингредиентам",
         tags=("Recipes",),
         responses={200: RecipeOutputSerializer(many=True)},
         operation_id="recipe_list_api",
     )
+    # endregion
     def get(self, request):
         recipes = recipe_list()
         paginator = self.pagination_class()
@@ -50,6 +55,7 @@ class RecipeListApi(APIView):
 
 class RecipeCreateApi(APIView):
 
+    # region  api_documentation
     @extend_schema(
         summary="Создать рецепт.",
         description="""Эндпоинт создания рецепта.\n
@@ -74,6 +80,7 @@ class RecipeCreateApi(APIView):
         responses={200: RecipeOutputSerializer},
         operation_id="recipe_create_api",
     )
+    # endregion
     def post(self, request):
         input_serializer = RecipeInputSerializer(
             data=request.data, context=request.data

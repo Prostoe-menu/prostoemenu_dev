@@ -5,7 +5,7 @@ from django.utils.deconstruct import deconstructible
 @deconstructible
 class AcceptedSymbolsValidator:
     def __init__(self, accepted_symbols):
-        self.accepted_symbols = set(accepted_symbols)
+        self.accepted_symbols = accepted_symbols
 
     def __call__(self, value):
         invalid_symbols = set(value) - self.accepted_symbols

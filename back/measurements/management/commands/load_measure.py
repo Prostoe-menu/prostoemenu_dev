@@ -18,7 +18,7 @@ class Command(BaseCommand):
         return f"Database Update {model}"
 
     def handle(self, *args, **options):
-        with open("back/data/measurements.json", "rb") as measurements:
+        with open("data/measurements.json", "rb") as measurements:
             reader_measurements = json.load(measurements)
         self.stdout.write(
             self.style.SUCCESS(self.add_objects(Measurement, reader_measurements))

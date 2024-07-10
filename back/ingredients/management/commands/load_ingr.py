@@ -27,7 +27,7 @@ class Command(BaseCommand):
         return f"Database Update {model}"
 
     def handle(self, *args, **options):
-        with open("back/data/ingredients.json", "rb") as ingredients:
+        with open("data/ingredients.json", "rb") as ingredients:
             reader_ingredients = json.load(ingredients)
         self.stdout.write(
             self.style.SUCCESS(self.add_objects(Ingredient, reader_ingredients))

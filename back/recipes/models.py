@@ -1,6 +1,3 @@
-from common.models import CustomBaseModel
-from common.utils import normilize_text_fields
-from common.validators import AcceptedSymbolsValidator
 from django.conf import settings as django_settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
@@ -11,6 +8,10 @@ from django.core.validators import (
     MinValueValidator,
 )
 from django.db import models
+
+from common.models import CustomBaseModel
+from common.utils import normilize_text_fields
+from common.validators import AcceptedSymbolsValidator
 from ingredients.models import Ingredient
 from measurements.models import Measurement
 from recipes.utils import get_recipe_image_upload_path, get_step_image_upload_path

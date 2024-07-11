@@ -1,6 +1,3 @@
-from common.models import CustomBaseModel
-from common.utils import normilize_text_fields
-from common.validators import AcceptedSymbolsValidator
 from django.conf import settings as django_settings
 from django.core.validators import (
     MaxLengthValidator,
@@ -9,6 +6,10 @@ from django.core.validators import (
     MinValueValidator,
 )
 from django.db import models
+
+from common.models import CustomBaseModel
+from common.utils import normilize_text_fields
+from common.validators import AcceptedSymbolsValidator
 
 
 class Category(CustomBaseModel):

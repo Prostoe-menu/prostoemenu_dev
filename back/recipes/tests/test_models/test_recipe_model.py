@@ -1,7 +1,8 @@
-from common.utils import generate_text
 from django.conf import settings as django_settings
 from django.core.exceptions import ValidationError
 from django.test import TestCase
+
+from common.utils import generate_text
 from recipes.models import Category, Recipe
 
 

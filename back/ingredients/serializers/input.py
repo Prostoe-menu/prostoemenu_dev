@@ -1,6 +1,7 @@
-from common.validators import AcceptedSymbolsValidator
 from django.conf import settings as django_settings
 from rest_framework import serializers
+
+from common.validators import AcceptedSymbolsValidator
 
 
 class IngredientQueryInputSerializer(serializers.Serializer):

@@ -1,7 +1,8 @@
-from common.pagination import LargeResultsSetPagination
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
+
+from common.pagination import LargeResultsSetPagination
 
 from .selectors import measurement_get, measurement_list
 from .serializers.output import MeasurementOutputSerializer

@@ -1,3 +1,18 @@
 .text {
   margin-left: 9px;
 }
+
+.recipeDifficultyList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recipeDifficulty {
+  display: flex;
+  align-items: center;
+
+  &:not(:last-child) {
+    margin-bottom: .4rem;
+  }  
+}

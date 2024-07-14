@@ -1,6 +1,7 @@
 @use 'styles/variables' as vars;
 
 .tooltip {
+  min-width: 150px;
   visibility: hidden;
   opacity: 0;
   box-sizing: border-box;
@@ -13,29 +14,15 @@
   position: absolute;
   top: 0;
   left: 20px;
-}
 
-.tooltip_width_173px {
-  width: 173px;
-}
-
-.tooltip_width_129px {
-  width: 129px;
-}
-
-.tooltipText {
-  font-family: vars.$font-body;
-  font-style: normal;
   font-weight: 300;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.67;
-  color: vars.$color-primary;
 }
 
 .container {
   position: relative;
-  width: 16px;
-  height: 16px;
+  padding-top: 2px;
 }
 
 .icon path {

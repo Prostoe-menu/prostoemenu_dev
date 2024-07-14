@@ -1,11 +1,8 @@
-import cn from 'classnames';
 import styles from './Tooltip.module.scss';
 
-const Tooltip = ({ toolTipContent, width }) => (
+const Tooltip = ({ toolTipContent }) => (
   <div className={styles.container}>
-    <div className={cn(styles.tooltip, styles[`tooltip_width_${width}`])}>
-      <span className={styles.tooltipText}>{toolTipContent}</span>
-    </div>
+    <div className={styles.tooltip}>{toolTipContent}</div>
     <svg
       alt="Иконка дополнительной информации"
       width="16"

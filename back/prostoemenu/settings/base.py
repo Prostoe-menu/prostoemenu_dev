@@ -171,6 +171,7 @@ ACCEPTED_SYMBOLS = set(
     "0123456789!№;%:?*()/.,\«»—–- \"'°+¼½"
 )
 
+
 MIN_DESCR_LENGTH = 10
 
 MAX_DESCR_LENGTH = 500

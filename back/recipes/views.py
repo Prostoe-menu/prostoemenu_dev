@@ -1,7 +1,8 @@
-from common.pagination import StandardResultsSetPagination
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
+
+from common.pagination import StandardResultsSetPagination
 
 from .selectors import recipe_get, recipe_list
 from .serializers.input import RecipeInputSerializer

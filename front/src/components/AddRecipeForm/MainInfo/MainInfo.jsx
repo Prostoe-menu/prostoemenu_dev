@@ -1,7 +1,7 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import cn from 'classnames';
 import { Rating } from '@mui/material';
 import Tooltip from 'components/Tooltip/Tooltip';
 import TooltipDifficultyContent from 'components/Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
@@ -13,27 +13,33 @@ import {
 } from 'store/slices/form/formSlice';
 import Button from 'ui/Button';
 import PhotoButton from 'ui/PhotoButton';
+import { LetterCounter } from './elements/LetterCounter/LetterCounter';
+import { CookTime, Description, ErrorMessage } from './elements';
 import styles from './MainInfo.module.scss';
+
+const defaultValues = {
+  recipeName: '',
+  recipeComplexity: null,
+  portions: 0,
+  allhours: null,
+  allminutes: null,
+  cookhours: null,
+  cookminutes: null,
+  recipedesc: '',
+};
 
 const MainInfo = () => {
   const [nameCounter, setNameCounter] = useState(0);
-  const [descCounter, setDescCounter] = useState(0);
   const [portion, setPortion] = useState(0);
 
   const dispatch = useDispatch();
-  const { recipeName } = useSelector((state) => state.form);
+  // const { recipeName } = useSelector((state) => state.form);
 
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState: { errors },
-    clearErrors,
-    getValues,
-  } = useForm({
-    defaultValues: { recipeName },
-    mode: 'onBlur',
+  const methods = useForm({
+    defaultValues,
+    mode: 'onTouched',
   });
+
   // eslint-disable-next-line
   const onSubmit = (data) => {
     dispatch(saveGeneralRecipeInfo(data));
@@ -45,362 +51,246 @@ const MainInfo = () => {
   };
 
   function nameChange(event) {
-    setNameCounter(event.target.value.length);
-  }
+    const { value } = event.target;
+    const firstLetter = value.slice(0, 1);
 
-  function descChange(event) {
-    setDescCounter(event.target.value.length);
+    setNameCounter((prev) => {
+      if (prev === 0) {
+        methods.setValue(
+          'recipeName',
+          firstLetter.toUpperCase() + value.slice(1)
+        );
+      }
+      return value.length;
+    });
   }
 
   function incrementPortion() {
     setPortion(portion + 1);
     dispatch(saveServings(portion + 1));
-    clearErrors('portions');
+    methods.clearErrors('portions');
   }
 
   function decrementPortion() {
     setPortion(portion - 1);
     dispatch(saveServings(portion - 1));
-    clearErrors('portions');
+    methods.clearErrors('portions');
   }
 
-  const allmins = () => {
-    if (getValues('allminutes') === undefined || '') {
-      return true;
-    }
-    return false;
-  };
-  const cookmins = () => {
-    if (getValues('cookminutes') === undefined || '') {
-      return true;
-    }
-    return false;
-  };
+  // const allmins = () => {
+  //   console.log(getValues('allminutes'));
+  //   const { allminutes } = getValues();
+  //   console.log(!!allminutes);
+  //   return !!allminutes;
+  // };
+
+  // const cookmins = () => {
+  //   if (methods.getValues('cookminutes') === undefined || '') {
+  //     return true;
+  //   }
+  //   return false;
+  // };
 
   return (
-    <form className={styles.mainInfo} onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <h3 className={styles.title}>Название рецепта</h3>
-        <div
-          className={`${styles.wrap} ${
-            errors.recipeName ? `${styles.wrap_error}` : ''
-          }`}
-        >
-          <textarea
-            {...register('recipeName', {
-              required: true,
-              minLength: 2,
-              maxLength: 100,
-              pattern: {
-                value:
-                  /^[a-zA-Zа-яА-ЯёЁ0-9\s!@#$%^&№()_+\-=[\]{};':"\\|,.<>/?]+$/i,
-              },
+    <FormProvider {...methods}>
+      <form
+        className={styles.mainInfo}
+        onSubmit={methods.handleSubmit(onSubmit)}
+      >
+        <div>
+          <h4 className={styles.title}>Название рецепта*</h4>
+          <div
+            className={cn(styles.wrap, {
+              [styles.wrapError]: methods.formState.errors?.recipeName,
             })}
-            className={`${styles.name__input} ${
-              errors.recipeName ? `${styles.name__input_error}` : ''
-            }`}
-            onChange={nameChange}
-            onClick={() => clearErrors('recipeName')}
-            type="text"
-            maxLength={100}
-            rows={nameCounter > 58 ? 2 : 1}
-            wrap="soft"
-            placeholder="Название вашего блюда"
-          />
-
-          <p
-            className={`${styles.counter} ${
-              errors.recipeName ? `${styles.counter_error}` : ''
-            }`}
           >
-            {nameCounter} / 100
-          </p>
-        </div>
-        {errors?.recipeName?.type === 'required' && (
-          <p className={styles.error}>Это поле обязательно к заполнению</p>
-        )}
-        {errors?.recipeName?.type === 'minLength' && (
-          <p className={styles.error}>Введите не менее двух символов</p>
-        )}
-        {errors?.recipeName?.type === 'maxLength' && (
-          <p className={styles.error}>Максимальная длина 100 символов</p>
-        )}
-        {errors?.recipeName?.type === 'pattern' && (
-          <p className={styles.error}>
-            Используйте буквы, цифры и символы !-&rdquo;№;%:?*()&rsquo;/.,\\«»
-          </p>
-        )}
-      </div>
-      <div className={styles.wrap_complexity}>
-        <div className={styles.complexity}>
-          <div className={styles.tooltipContainer}>
-            <p className={styles.title}>Сложность</p>
-            <Tooltip
-              toolTipContent={<TooltipDifficultyContent />}
-              width="129px"
+            <textarea
+              {...methods.register('recipeName', {
+                required: 'Это поле обязательно к заполнению',
+                minLength: {
+                  value: 2,
+                  message: 'Введите не менее двух символов',
+                },
+                maxLength: {
+                  value: 100,
+                  message: 'Максимальная длина 100 символов',
+                },
+                pattern: {
+                  value: /^[a-zA-Zа-яА-ЯёЁ0-9\s!\-"№;%:?*()'/.,\\«»]+$/i,
+                  message:
+                    'Используйте буквы, цифры и символы !-"№;%:?*()\'/.,\\«»',
+                },
+              })}
+              className={cn(styles.recipeName, {
+                [styles.recipeNameError]: methods.formState.errors?.recipeName,
+              })}
+              aria-invalid={
+                methods.formState.errors?.recipeName ? 'true' : 'false'
+              }
+              type="text"
+              maxLength={100}
+              rows={nameCounter > 58 ? 2 : 1}
+              wrap="soft"
+              placeholder="Название вашего блюда"
+              onChange={nameChange}
+            />
+
+            <LetterCounter
+              count={nameCounter}
+              total={100}
+              isError={!!methods.formState.errors?.recipeName}
             />
           </div>
-          <ul className={styles.stars}>
-            <Controller
-              name="rating"
-              control={control}
-              defaultValue={0}
-              rules={{ required: true }}
-              // eslint-disable-next-line no-unused-vars
-              render={(props) => (
-                <Rating
-                  name="recipeComplexity"
-                  defaultValue={0}
-                  max={3}
-                  size="large"
-                  onClick={() => clearErrors('rating')}
-                  onChange={(event, newValue) => {
-                    dispatch(saveRecipeComplexity(newValue));
-                  }}
-                />
-              )}
+
+          {methods.formState.errors?.recipeName && (
+            <ErrorMessage
+              message={methods.formState.errors?.recipeName.message}
             />
-          </ul>
-          {errors?.rating?.type === 'required' && (
-            <p className={styles.error}>Это поле обязательно к заполнению</p>
           )}
         </div>
-        <div>
-          <label htmlFor="portions" className={styles.title}>
-            Количество порций
-            <div
-              className={`${styles.wrap_counter} ${
-                errors.portions ? `${styles.wrap_counter_error}` : ''
-              }`}
-            >
-              <button
-                type="button"
-                className={`${styles.button} ${styles.buttonMinus}`}
-                onClick={decrementPortion}
-                disabled={portion === 0 && true}
-                aria-label="Минус"
-              >
-                {' '}
-              </button>
 
+        <section className={styles.complexityWrap}>
+          <div className={styles.complexity}>
+            <div className={styles.tooltipContainer}>
+              <h4 className={styles.title}>Сложность*</h4>
+              <Tooltip
+                toolTipContent={<TooltipDifficultyContent />}
+                width="129px"
+              />
+            </div>
+            <ul className={styles.stars}>
               <Controller
-                name="portions"
-                control={control}
+                name="rating"
+                control={methods.control}
+                defaultValue={0}
                 rules={{ required: true }}
-                render={({ field }) => (
-                  <input
-                    {...register('portions')}
-                    aria-invalid={errors.portions ? 'true' : 'false'}
-                    type="text"
-                    id="portions"
-                    placeholder="0"
-                    value={portion}
-                    onClick={() => clearErrors('portions')}
-                    onChange={(e) => field.onChange(e)}
-                    className={
-                      portion === 0
-                        ? `${styles.portion} ${
-                            errors?.portions ? `${styles.portion_error}` : ''
-                          }`
-                        : `${styles.portion} ${styles.portion_active}`
-                    }
+                // eslint-disable-next-line no-unused-vars
+                render={(props) => (
+                  <Rating
+                    name="recipeComplexity"
+                    defaultValue={0}
+                    max={3}
+                    size="large"
+                    onClick={() => methods.clearErrors('rating')}
+                    onChange={(event, newValue) => {
+                      dispatch(saveRecipeComplexity(newValue));
+                    }}
                   />
                 )}
               />
-
-              <button
-                type="button"
-                className={`${styles.button} ${styles.buttonPlus}`}
-                onClick={incrementPortion}
-                disabled={portion === 10 && true}
-                aria-label="Плюс"
+            </ul>
+            {methods.formState.errors?.rating?.type === 'required' && (
+              <p className={styles.error}>Это поле обязательно к заполнению</p>
+            )}
+          </div>
+          <div>
+            <h4 className={styles.title}>Количество порций*</h4>
+            <label htmlFor="portions" className={styles.title}>
+              <div
+                className={cn(styles.wrap_counter, {
+                  [styles.wrap_counter_error]:
+                    methods.formState.errors?.portions,
+                })}
               >
-                {' '}
-              </button>
-            </div>
-          </label>
-          {errors?.portions?.type === 'required' && (
-            <p className={styles.error}>Это поле обязательно к заполнению</p>
-          )}
-        </div>
-      </div>
-      <div>
-        <p className={styles.title}>Время приготовления</p>
-        <div className={styles.wrap_count}>
-          <div className={styles.wrap_totalTime}>
-            <h4 className={styles.totalTime}>Всего</h4>
-            <label htmlFor="allhours" className={styles.label}>
-              <input
-                {...register('allhours', {
-                  required: allmins,
-                  pattern: /[0-99]/,
-                })}
-                type="text"
-                id="allhours"
-                placeholder="0"
-                defaultValue=""
-                className={`${styles.time} ${
-                  errors.allhours
-                    ? `${styles.name__input_error} ${styles.time_error}`
-                    : ''
-                }`}
-                onClick={() => clearErrors('allhours')}
-              />
-              &nbsp;час(ов)
-            </label>
-            {errors?.allhours?.type === 'required' && (
-              <p className={styles.error}>Это поле обязательно к заполнению</p>
-            )}
-            <label htmlFor="allminutes" className={styles.label}>
-              <input
-                {...register('allminutes', {
-                  required: true,
-                  pattern: /[0-59]/,
-                })}
-                type="text"
-                id="allminutes"
-                placeholder="0"
-                defaultValue=""
-                className={`${styles.time} ${
-                  errors.allminutes
-                    ? `${styles.name__input_error} ${styles.time_error}`
-                    : ''
-                }`}
-                onClick={() => clearErrors(['allhours', 'allminutes'])}
-              />
-              &nbsp;минут
-            </label>
-          </div>
-          <div className={styles.wrap_cookTime}>
-            <div className={styles.tooltipContainer}>
-              <p className={styles.cookTime}>Время &quot;У плиты&quot;</p>
-              <Tooltip
-                toolTipContent="Время активной готовки блюда без учёта того, сколько оно варится, жарится, запекается и т.д."
-                width="173px"
-              />
-            </div>
-            <label htmlFor="cookhours" className={styles.label}>
-              <input
-                {...register('cookhours', {
-                  required: cookmins,
-                  pattern: /[0-99]/,
-                })}
-                type="text"
-                id="cookhours"
-                placeholder="0"
-                maxLength={2}
-                onClick={() => clearErrors('cookhours')}
-                className={`${styles.time} ${
-                  errors.cookhours
-                    ? `${styles.name__input_error} ${styles.time_error}`
-                    : ''
-                }`}
-              />
-              &nbsp;час(ов)
-            </label>
-            {errors?.cookhours?.type === 'required' && (
-              <p className={styles.error}>Это поле обязательно к заполнению</p>
-            )}
-            <label htmlFor="cookminutes" className={styles.label}>
-              <input
-                {...register('cookminutes', {
-                  required: true,
-                  pattern: /[0-59]/,
-                })}
-                type="text"
-                id="cookminutes"
-                placeholder="0"
-                onClick={() => clearErrors(['cookhours', 'cookminutes'])}
-                className={`${styles.time} ${
-                  errors.cookminutes
-                    ? `${styles.name__input_error} ${styles.time_error}`
-                    : ''
-                }`}
-              />
-              &nbsp;минут
-            </label>
-          </div>
-        </div>
-      </div>
-      <div>
-        <p className={styles.title}>Описание</p>
-        <div className={styles.wrap_description}>
-          <p className={styles.description}>
-            Кратко расскажите о вашем рецепте.
-          </p>
-          <p className={styles.description}>
-            Например, какой у него вкус, особенности, или как вы о нём узнали.
-          </p>
-        </div>
-        <div
-          className={`${styles.descinput__wrap} ${
-            errors.recipedesc ? `${styles.descinput__wrap_error}` : ''
-          }`}
-        >
-          <textarea
-            {...register('recipedesc', {
-              required: false,
-              minLength: 2,
-              maxLength: 500,
-              pattern: {
-                value:
-                  /^[a-zA-Zа-яА-ЯёЁ0-9\s!@#$%^&№()_+\-=[\]{};':"\\|,.<>/?]+$/i,
-              },
-            })}
-            className={`${styles.desc__input} ${
-              errors.recipedesc ? `${styles.desc__input_error}` : ''
-            }`}
-            onChange={descChange}
-            onClick={() => clearErrors('recipedesc')}
-            maxLength={500}
-            name="recipedesc"
-            id="recipedesc"
-            placeholder="Описание рецепта"
-          />
+                <button
+                  type="button"
+                  className={`${styles.button} ${styles.buttonMinus}`}
+                  onClick={decrementPortion}
+                  disabled={portion === 0 && true}
+                  aria-label="Минус"
+                >
+                  {' '}
+                </button>
 
-          <p
-            className={`${styles.counter} ${styles.desc__counter} ${
-              errors.recipedesc ? `${styles.desc__counter_error}` : ''
-            }`}
-          >
-            {descCounter} / 500
-          </p>
+                <Controller
+                  name="portions"
+                  control={methods.control}
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <input
+                      {...methods.register('portions')}
+                      aria-invalid={
+                        methods.formState.errors?.portions ? 'true' : 'false'
+                      }
+                      type="text"
+                      id="portions"
+                      placeholder="0"
+                      value={portion}
+                      onClick={() => methods.clearErrors('portions')}
+                      onChange={(e) => field.onChange(e)}
+                      className={cn(
+                        styles.portion,
+                        { [styles.portion_active]: portion > 0 },
+                        {
+                          [styles.portion_error]:
+                            portion === 0 && methods.formState.errors?.portions,
+                        }
+                      )}
+                    />
+                  )}
+                />
+
+                <button
+                  type="button"
+                  className={`${styles.button} ${styles.buttonPlus}`}
+                  onClick={incrementPortion}
+                  disabled={portion === 10 && true}
+                  aria-label="Плюс"
+                >
+                  {' '}
+                </button>
+              </div>
+            </label>
+            {methods.formState.errors?.portions?.type === 'required' && (
+              <p className={styles.error}>Это поле обязательно к заполнению</p>
+            )}
+          </div>
+        </section>
+
+        <section>
+          <h4 className={styles.title}>Время приготовления*</h4>
+
+          <div className={styles.cookTimeWrap}>
+            <CookTime
+              title="Всего"
+              hoursName="allhours"
+              minutesName="allminutes"
+            />
+            <CookTime
+              title="Время «У плиты»"
+              hoursName="cookhours"
+              minutesName="cookminutes"
+              tooltip="Время активной готовки блюда без учёта того, сколько оно варится, жарится, запекается и т.д."
+            />
+          </div>
+        </section>
+
+        <section>
+          <h4 className={styles.title}>Описание</h4>
+          <Description />
+        </section>
+
+        <div>
+          <p className={styles.title}>Фото готового блюда</p>
+          <PhotoButton />
+          <p className={styles.fotoReqs}>Требования к фото:</p>
+          <ul className={styles.reqlist}>
+            <li className={styles.reqlist_item}>
+              Форматы JPEG, JPG, PNG или WEBP
+            </li>
+            <li className={styles.reqlist_item}>
+              Размер файла не больше&nbsp;
+              <span className={styles.reqlist_accent}>5 мб</span>
+            </li>
+          </ul>
         </div>
-        {errors?.recipedesc?.type === 'required' && (
-          <p className={styles.error}>Это поле обязательно к заполнению</p>
-        )}
-        {errors?.recipedesc?.type === 'minLength' && (
-          <p className={styles.error}>Введите не менее двух символов</p>
-        )}
-        {errors?.recipedesc?.type === 'maxLength' && (
-          <p className={styles.error}>Максимальная длина 500 символов</p>
-        )}
-        {errors?.recipedesc?.type === 'pattern' && (
-          <p className={styles.error}>
-            Используйте буквы, цифры и символы !-&rdquo;№;%:?*()&rsquo;/.,\\«»
-          </p>
-        )}
-      </div>
-      <div>
-        <p className={styles.title}>Фото готового блюда</p>
-        <PhotoButton />
-        <p className={styles.fotoReqs}>Требования к фото:</p>
-        <ul className={styles.reqlist}>
-          <li className={styles.reqlist_item}>
-            Форматы JPEG, JPG, PNG или WEBP
-          </li>
-          <li className={styles.reqlist_item}>
-            Размер файла не больше&nbsp;
-            <span className={styles.reqlist_accent}>5 мб</span>
-          </li>
-        </ul>
-      </div>
-      <div className={styles.controls}>
-        <Button className={styles.button_primary} type="submit">
-          Далее
-        </Button>
-      </div>
-    </form>
+        <div className={styles.controls}>
+          <Button className={styles.button_primary} type="submit">
+            Далее
+          </Button>
+        </div>
+      </form>
+    </FormProvider>
   );
 };
 export default MainInfo;

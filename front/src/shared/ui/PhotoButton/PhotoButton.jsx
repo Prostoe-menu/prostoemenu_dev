@@ -94,8 +94,8 @@ const PhotoButton = () => {
   };
 
   // Превьюшка
-  const thumbs = sourcePhoto?.map((file) => (
-    <div className={styles.preview__container} key={file.name}>
+  const thumbs = sourcePhoto?.map((file, idx) => (
+    <div className={styles.preview__container} key={file.name + '_' + idx}>
       {croppedPhoto && (
         <img
           className={styles.preview__img}

@@ -1,4 +1,5 @@
 @use 'styles/variables' as vars;
+@use 'styles/color-variables' as color;
 
 .title {
   font-family: vars.$font-heading;
@@ -11,7 +12,13 @@
   padding: 0;
 }
 
-@media screen and (max-width: 576px) {
+.subTitle {
+  color: color.$color-secondary;
+  font-size: 1rem;
+  margin: .2rem 0 2.7rem;
+}
+
+@media screen and (max-width: 36rem) {
   .title {
     font-size: vars.$font-size-s;
     line-height: vars.$line-height-s;

@@ -6,12 +6,9 @@
   font-weight: 400;
   font-size: vars.$font-size-xxl;
   line-height: vars.$line-height-xxl;
-  color: vars.$color-primary;
-  width: 459px;
-  margin: 0;
-  padding: 0;
-  margin-top: 40px;
-  margin-left: 72px;
+  color: vars.$color-primary;  
+  margin: 0 0 3.8rem;
+  padding: 0;  
 }
 
 @media screen and (max-width: 576px) {

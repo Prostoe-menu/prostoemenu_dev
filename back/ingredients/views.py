@@ -1,7 +1,8 @@
-from common.pagination import LargeResultsSetPagination
 from drf_spectacular.utils import OpenApiExample, OpenApiParameter, extend_schema
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from common.pagination import LargeResultsSetPagination
 
 from .selectors import ingredient_get, ingredient_list
 from .serializers.input import IngredientQueryInputSerializer

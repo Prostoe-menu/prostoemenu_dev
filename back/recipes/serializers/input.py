@@ -98,3 +98,14 @@ class RecipeInputSerializer(serializers.Serializer):
             )
 
         return request_data
+
+
+class RecipeQueryListInputSerializer(serializers.Serializer):
+    """Сериализатор параметров запроса."""
+
+    ingr = serializers.ListField(
+        child=serializers.CharField(
+            min_length=django_settings.MIN_TEXT_FIELD_SEARCH_LENGTH,
+            validators=[AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS)],
+        )
+    )

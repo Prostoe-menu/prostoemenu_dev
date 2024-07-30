@@ -44,7 +44,7 @@ class IngredientListApi(APIView):
             OpenApiParameter(
                 name="name",
                 description="Поиск подстроки осуществляется в начале каждого слова наименования "
-                            "ингредиента",
+                "ингредиента",
                 type=str,
                 location=OpenApiParameter.QUERY,
                 required=False,
@@ -52,8 +52,8 @@ class IngredientListApi(APIView):
                     OpenApiExample(
                         name="Пример 1. Поиск по префиксу 'мол' в названии ингредиента",
                         description="Выдача: 'мед с маточным молочком', 'молоко', "
-                                    "'молоко сгущенное цельное с сахаром', "
-                                    "'кофе со сгущенным молоком и сахаром'",
+                        "'молоко сгущенное цельное с сахаром', "
+                        "'кофе со сгущенным молоком и сахаром'",
                         value="?name=мол",
                     )
                 ],

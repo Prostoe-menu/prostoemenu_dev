@@ -92,3 +92,4 @@ GitGub сохраняет все ваши коммиты, в любой моме
 * python manage.py load_ingr - загрузка всех ингредиентов;
 * python manage.py load_recipe_categories - загрузка категорий рецептов;
 * python manage.py load_recipes - загрузка рецептов.
+

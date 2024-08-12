@@ -1,6 +1,7 @@
 from collections import Counter
 
 from django.conf import settings as django_settings
+from django.core.validators import MinLengthValidator
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
@@ -98,3 +99,17 @@ class RecipeInputSerializer(serializers.Serializer):
             )
 
         return request_data
+
+
+class RecipeQueryListInputSerializer(serializers.Serializer):
+    """Сериализатор параметров запроса."""
+
+    ingr = serializers.ListField(
+        child=serializers.CharField(
+            max_length=django_settings.MAX_TITLE_LENGTH,
+            validators=[
+                MinLengthValidator(django_settings.MIN_TITLE_LENGTH),
+                AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS),
+            ],
+        )
+    )

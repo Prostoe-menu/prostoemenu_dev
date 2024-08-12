@@ -4,8 +4,8 @@ from rest_framework.response import Response
 
 from common.pagination import StandardResultsSetPagination
 
-from .selectors import recipe_get, recipe_list
-from .serializers.input import RecipeInputSerializer
+from .selectors import recipe_get, recipe_list, recipe_search_by_ingr
+from .serializers.input import RecipeInputSerializer, RecipeQueryListInputSerializer
 from .serializers.output import RecipeOutputSerializer
 from .services import recipe_create
 
@@ -46,7 +46,13 @@ class RecipeListApi(APIView):
     )
     # endregion
     def get(self, request):
-        recipes = recipe_list()
+        if request.query_params.getlist("ingr"):
+            query_serializer = RecipeQueryListInputSerializer(data=request.query_params)
+            query_serializer.is_valid(raise_exception=True)
+            recipes = recipe_search_by_ingr(query_serializer.validated_data)
+        else:
+            recipes = recipe_list()
+
         paginator = self.pagination_class()
         result_page = paginator.paginate_queryset(recipes, request)
         serializer = RecipeOutputSerializer(result_page, many=True)

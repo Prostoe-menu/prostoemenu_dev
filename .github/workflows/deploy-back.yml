@@ -1,11 +1,11 @@
 name: Deploy backend
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - master
       - dev
+  workflow_dispatch:
   #push:
     #branches: 
       #- master
@@ -19,12 +19,12 @@ on:
   #    - submitted
 
 
-permissions:
-  contents: read 
+# permissions:
+#   contents: read 
 
 jobs:
   deploy-back-to-prod:
-    if: ${{ github.ref == 'master' }}
+    #if: ${{ github.ref == 'master' }}
     runs-on: [self-hosted, linux, firstvds]
     environment: prod
     steps:
@@ -67,7 +67,7 @@ jobs:
           docker compose -f ./infra/docker-compose.back.yml up -d
   
   deploy-back-to-dev:
-    if: ${{ github.ref == 'dev' }}
+    #if: ${{ github.ref == 'dev' }}
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:

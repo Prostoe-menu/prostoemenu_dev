@@ -24,7 +24,7 @@ on:
 
 jobs:
   deploy-back-to-prod:
-    if: ${{ github.head_ref == 'master' }}
+    if: ${{ github.ref_name == 'master' }}
     runs-on: [self-hosted, linux, firstvds]
     environment: prod
     steps:
@@ -67,7 +67,7 @@ jobs:
           docker compose -f ./infra/docker-compose.back.yml up -d
   
   deploy-back-to-dev:
-    if: ${{ github.head_ref == 'dev' }}
+    if: ${{ github.ref_name == 'dev' }}
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:

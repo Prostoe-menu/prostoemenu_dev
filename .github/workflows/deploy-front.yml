@@ -69,7 +69,7 @@ jobs:
 
 
   buid-static-dev:
-    if: ${{ github.ref == 'dev' }}
+    #if: ${{ github.ref == 'dev' }}
     runs-on: ubuntu-latest
     environment: dev
     steps:
@@ -95,7 +95,7 @@ jobs:
   
   deploy-front-to-dev:
     needs: buid-static-dev
-    if: ${{ github.ref == 'dev' }}
+    #if: ${{ github.ref == 'dev' }}
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:   

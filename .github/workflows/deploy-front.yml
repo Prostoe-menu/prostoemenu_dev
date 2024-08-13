@@ -18,7 +18,7 @@ on:
 
 jobs:
   buid-static-prod:
-    if: ${{ github.ref == 'master' }}
+    #if: ${{ github.ref == 'master' }}
     runs-on: ubuntu-latest
     environment: prod
     steps:
@@ -44,7 +44,7 @@ jobs:
 
   deploy-front-to-prod:
     needs: buid-static-prod
-    if: ${{ github.ref == 'master' }}
+    #if: ${{ github.ref == 'master' }}
     runs-on: [self-hosted, linux, firstvds]
     environment: prod
     steps:

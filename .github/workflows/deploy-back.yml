@@ -14,9 +14,9 @@ on:
     #tags: 
     #  - 'releases-*'
 
-  #pull_request_review:
-  #  types:
-  #    - submitted
+  pull_request_review:
+   types:
+     - submitted
 
 
 # permissions:

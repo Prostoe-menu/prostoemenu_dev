@@ -18,7 +18,7 @@ on:
 
 jobs:
   buid-static-prod:
-    #if: ${{ github.ref == 'master' }}
+    #if: ${{ GITHUB_HEAD_REF == 'master' }}
     runs-on: ubuntu-latest
     environment: prod
     steps:
@@ -44,7 +44,7 @@ jobs:
 
   deploy-front-to-prod:
     needs: buid-static-prod
-    #if: ${{ github.ref == 'master' }}
+    #if: ${{ GITHUB_HEAD_REF == 'master' }}
     runs-on: [self-hosted, linux, firstvds]
     environment: prod
     steps:
@@ -69,7 +69,7 @@ jobs:
 
 
   buid-static-dev:
-    #if: ${{ github.ref == 'dev' }}
+    #if: ${{ GITHUB_HEAD_REF == 'dev' }}
     runs-on: ubuntu-latest
     environment: dev
     steps:
@@ -95,7 +95,7 @@ jobs:
   
   deploy-front-to-dev:
     needs: buid-static-dev
-    #if: ${{ github.ref == 'dev' }}
+    #if: ${{ GITHUB_HEAD_REF == 'dev' }}
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:   

@@ -26,8 +26,8 @@ const RecipeSearch = () => {
     setQuery('');
   };
 
-  const handleNameInput = (e) => {
-    setQuery(e.target.value);
+  const handleNameInput = (value) => {
+    setQuery(value);
   };
 
   return (

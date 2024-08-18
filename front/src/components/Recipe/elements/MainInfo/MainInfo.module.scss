@@ -4,6 +4,7 @@
   @media only screen and (min-width: 768px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    align-items: start;
     gap: 2.19rem;
     margin-bottom: 6rem;
   }
@@ -50,9 +51,7 @@
 }
 
 .description {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  margin: 0;  
 }
 
 .title {

@@ -2,19 +2,19 @@ import { useState } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import cn from 'classnames';
-import { Rating } from '@mui/material';
-import Tooltip from 'components/Tooltip/Tooltip';
-import TooltipDifficultyContent from 'components/Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
 import {
   changeCurrentStage,
   saveGeneralRecipeInfo,
-  saveRecipeComplexity,
   saveServings,
 } from 'store/slices/form/formSlice';
 import Button from 'ui/Button';
 import PhotoButton from 'ui/PhotoButton';
-import { LetterCounter } from './elements/LetterCounter/LetterCounter';
-import { CookTime, Description, ErrorMessage } from './elements';
+import {
+  CookTime,
+  Description,
+  RecipeComplexity,
+  RecipeName,
+} from './elements';
 import styles from './MainInfo.module.scss';
 
 const defaultValues = {
@@ -29,11 +29,9 @@ const defaultValues = {
 };
 
 const MainInfo = () => {
-  const [nameCounter, setNameCounter] = useState(0);
   const [portion, setPortion] = useState(0);
 
   const dispatch = useDispatch();
-  // const { recipeName } = useSelector((state) => state.form);
 
   const methods = useForm({
     defaultValues,
@@ -49,21 +47,6 @@ const MainInfo = () => {
       behavior: 'smooth',
     });
   };
-
-  function nameChange(event) {
-    const { value } = event.target;
-    const firstLetter = value.slice(0, 1);
-
-    setNameCounter((prev) => {
-      if (prev === 0) {
-        methods.setValue(
-          'recipeName',
-          firstLetter.toUpperCase() + value.slice(1)
-        );
-      }
-      return value.length;
-    });
-  }
 
   function incrementPortion() {
     setPortion(portion + 1);
@@ -97,92 +80,11 @@ const MainInfo = () => {
         className={styles.mainInfo}
         onSubmit={methods.handleSubmit(onSubmit)}
       >
-        <div>
-          <h4 className={styles.title}>Название рецепта*</h4>
-          <div
-            className={cn(styles.wrap, {
-              [styles.wrapError]: methods.formState.errors?.recipeName,
-            })}
-          >
-            <textarea
-              {...methods.register('recipeName', {
-                required: 'Это поле обязательно к заполнению',
-                minLength: {
-                  value: 2,
-                  message: 'Введите не менее двух символов',
-                },
-                maxLength: {
-                  value: 100,
-                  message: 'Максимальная длина 100 символов',
-                },
-                pattern: {
-                  value: /^[a-zA-Zа-яА-ЯёЁ0-9\s!\-"№;%:?*()'/.,\\«»]+$/i,
-                  message:
-                    'Используйте буквы, цифры и символы !-"№;%:?*()\'/.,\\«»',
-                },
-              })}
-              className={cn(styles.recipeName, {
-                [styles.recipeNameError]: methods.formState.errors?.recipeName,
-              })}
-              aria-invalid={
-                methods.formState.errors?.recipeName ? 'true' : 'false'
-              }
-              type="text"
-              maxLength={100}
-              rows={nameCounter > 58 ? 2 : 1}
-              wrap="soft"
-              placeholder="Название вашего блюда"
-              onChange={nameChange}
-            />
-
-            <LetterCounter
-              count={nameCounter}
-              total={100}
-              isError={!!methods.formState.errors?.recipeName}
-            />
-          </div>
-
-          {methods.formState.errors?.recipeName && (
-            <ErrorMessage
-              message={methods.formState.errors?.recipeName.message}
-            />
-          )}
-        </div>
+        <RecipeName />
 
         <section className={styles.complexityWrap}>
-          <div className={styles.complexity}>
-            <div className={styles.tooltipContainer}>
-              <h4 className={styles.title}>Сложность*</h4>
-              <Tooltip
-                toolTipContent={<TooltipDifficultyContent />}
-                width="129px"
-              />
-            </div>
-            <ul className={styles.stars}>
-              <Controller
-                name="rating"
-                control={methods.control}
-                defaultValue={0}
-                rules={{ required: true }}
-                // eslint-disable-next-line no-unused-vars
-                render={(props) => (
-                  <Rating
-                    name="recipeComplexity"
-                    defaultValue={0}
-                    max={3}
-                    size="large"
-                    onClick={() => methods.clearErrors('rating')}
-                    onChange={(event, newValue) => {
-                      dispatch(saveRecipeComplexity(newValue));
-                    }}
-                  />
-                )}
-              />
-            </ul>
-            {methods.formState.errors?.rating?.type === 'required' && (
-              <p className={styles.error}>Это поле обязательно к заполнению</p>
-            )}
-          </div>
+          <RecipeComplexity />
+
           <div>
             <h4 className={styles.title}>Количество порций*</h4>
             <label htmlFor="portions" className={styles.title}>

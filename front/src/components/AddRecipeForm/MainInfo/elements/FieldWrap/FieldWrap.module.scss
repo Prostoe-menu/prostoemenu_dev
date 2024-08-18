@@ -6,7 +6,7 @@
   padding: 12px 16px;
   background: #ffffff;
   border: 1px solid #E5E4E4;
-  border-radius: 8px;
+  border-radius: 8px; 
   position: relative;
 
   &:hover {
@@ -15,9 +15,10 @@
 
   &:focus {
     border: 1px solid #909090;
-  }
+  }  
 }
 
 .error {
   border: 1px solid vars.$color-error;
+  color: vars.$color-error;
 }

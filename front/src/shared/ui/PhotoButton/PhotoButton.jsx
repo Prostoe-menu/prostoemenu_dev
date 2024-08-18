@@ -179,10 +179,10 @@ const PhotoButton = () => {
             ОБРЭЗАТ
           </button> */}
           <Button
-            btnClassName="button_bg_yellow"
+            //btnClassName="button_bg_yellow"
             isSubmit={false}
             isDisabled={false}
-            ariaLabelText="Обрезать фото"
+            aria-label="Обрезать фото"
             onClickBtn={getCropData}
           >
             Обрезать фото

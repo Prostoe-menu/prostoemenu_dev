@@ -116,3 +116,20 @@ img {
   width: 20px;
   height: 20px;
 }
+
+
+.view-icon {
+  color: vars.$color-primary;
+  opacity: 0.6;
+  transition: all vars.$trans-300;
+
+  &:not(:disabled):hover {
+    opacity: 1;
+  }
+
+  &:disabled {
+    cursor:default;
+    color:vars.$btn-icon-disabled;
+    opacity: 1;
+  }
+}

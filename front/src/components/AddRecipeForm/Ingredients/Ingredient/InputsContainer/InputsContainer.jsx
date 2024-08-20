@@ -9,8 +9,8 @@ import {
 import { DropdownMenu, DropdownSearch } from 'ui/Dropdown';
 import Input from 'ui/Input';
 import getIngredients from 'helpers/getIngredients';
-import useClickOutside from 'helpers/useClickOutside';
 import useAsync from 'hooks/useAsync';
+import useClickOutside from 'hooks/useClickOutside';
 import { TEXT_INPUT_ERROR_MESSAGE, TEXT_INPUT_PATTERN } from 'utils/constants';
 import styles from './InputsContainer.module.scss';
 
@@ -25,8 +25,6 @@ const InputsContainer = ({
   const { ingredients } = useSelector((state) => state.form);
 
   const [query, setQuery] = useState(ingredientData.name || '');
-  const [isIngredientDropdownOpen, setIsIngredientDropdownOpen] =
-    useState(false);
   const [isUnitDropdownOpen, setIsUnitDropdownOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -38,32 +36,19 @@ const InputsContainer = ({
     800
   );
 
-  const selectIngredientRef = useClickOutside(() =>
-    setIsIngredientDropdownOpen(false)
-  );
   const selectMeasureInputRef = useClickOutside(() =>
     setIsUnitDropdownOpen(false)
   );
 
   const handleIngredientSelection = (ingredient) => {
-    setIsIngredientDropdownOpen(false);
     setQuery(ingredient.name);
     dispatch(
       saveIngredient({ id: ingredientData.elementID, name: ingredient.name })
     );
   };
 
-  const handleNameInput = (e) => {
-    setQuery(e.target.value);
-
-    // eslint-disable-next-line no-unused-expressions
-    if (query.length >= 2) {
-      setTimeout(() => {
-        setIsIngredientDropdownOpen(true);
-      }, 1100);
-    } else {
-      setIsIngredientDropdownOpen(false);
-    }
+  const handleNameInput = (value) => {
+    setQuery(value);
   };
 
   const handleVolumeInput = (e) => {
@@ -91,9 +76,6 @@ const InputsContainer = ({
     <div className={styles.container}>
       <DropdownSearch
         dropdownClassName="dropdownSearch_type_ingredient"
-        isDropdownOpen={isIngredientDropdownOpen}
-        setIsDropdownOpen={setIsIngredientDropdownOpen}
-        selectItemRef={selectIngredientRef}
         inputClassName="input_type_name"
         isInputError={error === 'name'}
         inputRegister={register}

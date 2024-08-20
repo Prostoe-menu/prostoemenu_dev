@@ -6,7 +6,6 @@ const useAsync = (callback, query, debounce, delay) => {
   const [value, setValue] = useState([]);
 
   const callbackMemoized = useCallback(async () => {
-    setLoading(true);
     setError(false);
     setValue([]);
 
@@ -22,6 +21,8 @@ const useAsync = (callback, query, debounce, delay) => {
 
   useEffect(() => {
     if (query.length >= 2) {
+      setLoading(true);
+
       if (!debounce) {
         callbackMemoized();
         return;

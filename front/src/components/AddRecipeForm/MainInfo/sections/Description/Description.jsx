@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import cn from 'classnames';
-import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
-import { FieldWrap } from '../FieldWrap/FieldWrap';
-import { LetterCounter } from '../LetterCounter/LetterCounter';
+import { ErrorMessage } from '../../elements/ErrorMessage/ErrorMessage';
+import { FieldWrap } from '../../elements/FieldWrap/FieldWrap';
+import { LetterCounter } from '../../elements/LetterCounter/LetterCounter';
 import styles from './Description.module.scss';
 
 export const Description = () => {

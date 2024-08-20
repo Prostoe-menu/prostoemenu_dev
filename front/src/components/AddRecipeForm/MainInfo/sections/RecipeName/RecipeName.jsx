@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import cn from 'classnames';
-import { ErrorMessage, FieldWrap, LetterCounter, Title } from '../';
+import { ErrorMessage, FieldWrap, LetterCounter, Title } from '../../elements';
 import styles from './RecipeName.module.scss';
 
 export const RecipeName = () => {
@@ -20,6 +20,8 @@ export const RecipeName = () => {
       return value.length;
     });
   };
+
+  console.log('RecipeName render');
 
   return (
     <section>

@@ -1,25 +1,23 @@
-import { useState } from 'react';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import cn from 'classnames';
 import {
   changeCurrentStage,
   saveGeneralRecipeInfo,
-  saveServings,
 } from 'store/slices/form/formSlice';
 import Button from 'ui/Button';
 import PhotoButton from 'ui/PhotoButton';
+import { CookTime } from './elements';
 import {
-  CookTime,
   Description,
   RecipeComplexity,
   RecipeName,
-} from './elements';
+  RecipePortions,
+} from './sections';
 import styles from './MainInfo.module.scss';
 
 const defaultValues = {
   recipeName: '',
-  recipeComplexity: null,
+  recipeComplexity: 0,
   portions: 0,
   allhours: null,
   allminutes: null,
@@ -29,8 +27,6 @@ const defaultValues = {
 };
 
 const MainInfo = () => {
-  const [portion, setPortion] = useState(0);
-
   const dispatch = useDispatch();
 
   const methods = useForm({
@@ -40,6 +36,7 @@ const MainInfo = () => {
 
   // eslint-disable-next-line
   const onSubmit = (data) => {
+    console.log('step1 data: ', data);
     dispatch(saveGeneralRecipeInfo(data));
     dispatch(changeCurrentStage(2));
     window.scrollTo({
@@ -47,18 +44,6 @@ const MainInfo = () => {
       behavior: 'smooth',
     });
   };
-
-  function incrementPortion() {
-    setPortion(portion + 1);
-    dispatch(saveServings(portion + 1));
-    methods.clearErrors('portions');
-  }
-
-  function decrementPortion() {
-    setPortion(portion - 1);
-    dispatch(saveServings(portion - 1));
-    methods.clearErrors('portions');
-  }
 
   // const allmins = () => {
   //   console.log(getValues('allminutes'));
@@ -74,6 +59,8 @@ const MainInfo = () => {
   //   return false;
   // };
 
+  console.log('MainInfo render');
+
   return (
     <FormProvider {...methods}>
       <form
@@ -84,69 +71,7 @@ const MainInfo = () => {
 
         <section className={styles.complexityWrap}>
           <RecipeComplexity />
-
-          <div>
-            <h4 className={styles.title}>Количество порций*</h4>
-            <label htmlFor="portions" className={styles.title}>
-              <div
-                className={cn(styles.wrap_counter, {
-                  [styles.wrap_counter_error]:
-                    methods.formState.errors?.portions,
-                })}
-              >
-                <button
-                  type="button"
-                  className={`${styles.button} ${styles.buttonMinus}`}
-                  onClick={decrementPortion}
-                  disabled={portion === 0 && true}
-                  aria-label="Минус"
-                >
-                  {' '}
-                </button>
-
-                <Controller
-                  name="portions"
-                  control={methods.control}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <input
-                      {...methods.register('portions')}
-                      aria-invalid={
-                        methods.formState.errors?.portions ? 'true' : 'false'
-                      }
-                      type="text"
-                      id="portions"
-                      placeholder="0"
-                      value={portion}
-                      onClick={() => methods.clearErrors('portions')}
-                      onChange={(e) => field.onChange(e)}
-                      className={cn(
-                        styles.portion,
-                        { [styles.portion_active]: portion > 0 },
-                        {
-                          [styles.portion_error]:
-                            portion === 0 && methods.formState.errors?.portions,
-                        }
-                      )}
-                    />
-                  )}
-                />
-
-                <button
-                  type="button"
-                  className={`${styles.button} ${styles.buttonPlus}`}
-                  onClick={incrementPortion}
-                  disabled={portion === 10 && true}
-                  aria-label="Плюс"
-                >
-                  {' '}
-                </button>
-              </div>
-            </label>
-            {methods.formState.errors?.portions?.type === 'required' && (
-              <p className={styles.error}>Это поле обязательно к заполнению</p>
-            )}
-          </div>
+          <RecipePortions />
         </section>
 
         <section>

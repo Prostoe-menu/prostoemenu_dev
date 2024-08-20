@@ -109,86 +109,8 @@
   }
 }
 
-.button {
-  background-color: transparent;
-  border: none;
-  width: 16px;
-  height: 16px;
-  margin: 0;
-  padding: 0 16px;
 
-  &:hover {
-    cursor: pointer;
-  }
 
-  &_primary {
-    width: 148px;
-  }
-}
-
-.buttonPlus {
-  background-image: url('assets/images/plusButton.svg');
-  background-position: 50%;
-  background-size: contain;
-  background-repeat: no-repeat;
-
-  &:hover {
-    background-image: url('assets/images/plusButton-active.svg');
-  }
-
-  &:disabled,
-  &:disabled:hover {
-    background-image: url('assets/images/minusButton-disabled.png');
-    cursor: auto;
-  }
-}
-
-.buttonMinus {
-  background-image: url('assets/images/minusButton.png');
-  background-position: 50%;
-  background-size: contain;
-  background-repeat: no-repeat;
-
-  &:hover {
-    background-image: url('assets/images/minusButton-active.svg');
-  }
-
-  &:disabled,
-  &:disabled:hover {
-    background-image: url('assets/images/minusButton-disabled.png');
-    cursor: auto;
-  }
-}
-
-.portion {
-  @extend %mulish-16-500;
-  text-align: center;
-  color: #818181;
-  margin: 0 20px;
-  border: none;
-  width: 25px;
-
-  &:focus {
-    border: none;
-  }
-
-  &:focus-visible {
-    outline: 0;
-  }
-
-  &:focus::placeholder {
-    color: transparent;
-  }
-
-  &_error {
-    color: red;
-    opacity: 0.6;
-  }
-}
-
-.portion_active {
-  color: vars.$color-primary;
-}
 
 .wrap_count {
   display: flex;

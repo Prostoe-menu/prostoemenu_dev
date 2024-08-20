@@ -1,6 +1,6 @@
-import styles from './RecipeTitle.module.scss';
+import styles from './StepTitle.module.scss';
 
-const RecipeTitle = ({ children }) => {
+const StepTitle = ({ children }) => {
   return (
     <>
       <h2 className={styles.title}>{children}</h2>
@@ -11,4 +11,4 @@ const RecipeTitle = ({ children }) => {
   );
 };
 
-export default RecipeTitle;
+export default StepTitle;

@@ -4,7 +4,7 @@ import { Rating } from '@mui/material';
 import Tooltip from 'components/Tooltip/Tooltip';
 import TooltipDifficultyContent from 'components/Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
 import { saveRecipeComplexity } from 'store/slices/form/formSlice';
-import { ErrorMessage, Title } from '../';
+import { ErrorMessage, Title } from '../../elements';
 import styles from './RecipeComplexity.module.scss';
 
 export const RecipeComplexity = () => {

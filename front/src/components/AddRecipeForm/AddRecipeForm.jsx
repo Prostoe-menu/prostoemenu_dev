@@ -1,27 +1,42 @@
 import { useSelector } from 'react-redux';
+import Ingredients from 'components/AddRecipeForm/Ingredients/Ingredients';
 import ProgressBar from 'components/AddRecipeForm/ProgressBar/ProgressBar';
-import StageFour from 'components/AddRecipeForm/Stages/StageFour';
-import StageOne from 'components/AddRecipeForm/Stages/StageOne';
-import StageThree from 'components/AddRecipeForm/Stages/StageThree';
-import StageTwo from 'components/AddRecipeForm/Stages/StageTwo';
-import PageTitle from 'components/PageTitle/PageTitle';
+import AdditionalInfo from './AdditionalInfo/AdditionalInfo';
+import CookingSteps from './CookingSteps/CookingSteps';
+import MainInfo from './MainInfo/MainInfo';
+import StepContainer from './StepContainer';
 import styles from './AddRecipeForm.module.scss';
 
+const STEPS = [
+  {
+    title: 'Основная информация',
+    component: <MainInfo />,
+  },
+  {
+    title: 'Ингредиенты',
+    component: <Ingredients />,
+  },
+  {
+    title: 'Этапы готовки',
+    component: <CookingSteps />,
+  },
+  {
+    title: 'Дополнительная информация',
+    component: <AdditionalInfo />,
+  },
+];
+
 const AddRecipeForm = () => {
-  const currentStage = useSelector((state) => state.form.currentFormStage);
+  const currentStepIndex = useSelector((state) => state.form.currentFormStage);
+
+  const step = STEPS[currentStepIndex - 1];
 
   return (
-    <>
-      <PageTitle>Добавить новый рецепт</PageTitle>
+    <section className={styles.container}>
+      <ProgressBar activeStep={currentStepIndex} />
 
-      <section className={styles.container}>
-        <ProgressBar activeStep={currentStage} />
-        {currentStage === 1 && <StageOne />}
-        {currentStage === 2 && <StageTwo />}
-        {currentStage === 3 && <StageThree />}
-        {currentStage === 4 && <StageFour />}
-      </section>
-    </>
+      <StepContainer title={step.title}>{step.component}</StepContainer>
+    </section>
   );
 };
 

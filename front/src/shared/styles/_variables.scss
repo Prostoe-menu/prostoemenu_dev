@@ -3,3 +3,12 @@
 
 // Переменные, не относящиеся к шрифтам или цветам
 $trans-300: 0.3s ease;
+
+@mixin error-text-color {
+  color: $color-error;
+}
+
+@mixin error-border-color {
+  border-color: $color-error;
+}
+

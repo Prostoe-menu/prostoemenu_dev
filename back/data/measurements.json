@@ -16,7 +16,7 @@
       "abbreviation": "ст. л."
   },
   {
-      "name": "чайная ложка",
+      "name": "чайная ложка",
       "abbreviation": "ч. л."
   },
   {
@@ -52,7 +52,7 @@
       "abbreviation": "стакан"
   },
   {
-      "name": "киллограмм",
+      "name": "килограмм",
       "abbreviation": "кг."
   },
   {
@@ -62,5 +62,61 @@
   {
       "name": "по вкусу",
       "abbreviation": "по вкусу"
+  },
+  {
+      "name": "побег",
+      "abbreviation": "побег"
+  },
+  {
+      "name": "корень",
+      "abbreviation": "корень"
+  },
+  {
+      "name": "луковица",
+      "abbreviation": "луковица"
+  },
+  {
+      "name": "клубень",
+      "abbreviation": "клубень"
+  },
+  {
+      "name": "перо",
+      "abbreviation": "перо"
+  },
+  {
+      "name": "лист",
+      "abbreviation": "лист"
+  },
+  {
+      "name": "звездочка",
+      "abbreviation": "звездочка"
+  },
+  {
+      "name": "палочка",
+      "abbreviation": "палочка"
+  },
+  {
+      "name": "упаковка",
+      "abbreviation": "упак."
+  },
+  {
+      "name": "тушка",
+      "abbreviation": "тушка"
+  },
+  {
+      "name": "головка",
+      "abbreviation": "головка"
+  },
+  {
+      "name": "бутон",
+      "abbreviation": "бутон"
+  },
+  {
+      "name": "сантиметр",
+      "abbreviation": "см."
+  },
+  {
+      "name": "по желанию",
+      "abbreviation": "по желанию"
   }
 ]

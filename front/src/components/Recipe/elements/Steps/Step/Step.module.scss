@@ -1,0 +1,38 @@
+@use 'styles/color-variables' as colors;
+@use 'styles/font-variables' as fonts;
+
+.step,
+.stepWithImage {
+  padding-bottom: 2.5rem;
+}
+
+.stepWithImage {
+  display: grid;
+  grid-template-columns: 334px auto;
+  gap: 2.19rem;
+}
+
+.descriptionWrapper {
+  padding: 1.63rem 0;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.number {
+  border-radius: 10px;
+  background-color: colors.$step-bg;
+  padding: 0.5rem 0.88rem;
+  font-weight: 600;
+  font-size: fonts.$font-size-s;
+  line-height: fonts.$line-height-s;
+  color: colors.$step-number-color;
+}
+
+.description {
+  font-weight: 300;
+}

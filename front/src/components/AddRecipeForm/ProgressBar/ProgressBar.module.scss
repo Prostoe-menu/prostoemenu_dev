@@ -1,0 +1,86 @@
+@use 'styles/variables' as vars;
+
+.progress {
+  margin: 38px 0 0 72px;
+  max-width: 312px;
+  cursor: pointer;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+
+  &:last-of-type {
+    .round {
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  &_active {
+    .round {
+      background: vars.$btn-bg-primary;
+    }
+
+    .text {
+      color: vars.$color-primary;
+      background-color: #fff2da;
+    }
+  }
+
+  &_error {
+    .text {
+      color: #d14941;
+    }
+  }
+
+  &_active_with_error {
+    .text {
+      background-color: #ffd6d3;
+    }
+  }
+}
+
+.round {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid vars.$btn-bg-primary;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -21px;
+    left: 11px;
+    width: 2px;
+    height: 21px;
+    background: vars.$btn-bg-primary;
+  }
+}
+
+.text {
+  padding: 6px 16px;
+  font-family: vars.$font-body;
+  color: #818181;
+  font-size: vars.$font-size-xxs;
+  line-height: vars.$line-height-xxs;
+  text-decoration: none;
+  border-radius: 8px;
+
+  &:hover {
+    color: vars.$color-primary;
+  }
+}

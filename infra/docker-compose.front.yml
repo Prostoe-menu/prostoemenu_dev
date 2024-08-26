@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  front:
+    build:
+      context: ../
+      dockerfile: ./infra/Dockerfile.front
+    container_name: front
+    ports:
+      - "$PORT_NGINX:80"
+    volumes:
+      - /opt/static_front_data:/usr/share/nginx/html/front/
+      - /opt/static_admin_data:/usr/share/nginx/html/static/
+      - /opt/media_data:/usr/share/nginx/html/media/
+    environment:
+      - PORT_NGINX=$PORT_NGINX
+      - VITE_API_URL=$VITE_API_URL
+    networks:
+      - prostoemenu
+
+networks:
+  prostoemenu:
+    name: prostoemenu
+    external: true

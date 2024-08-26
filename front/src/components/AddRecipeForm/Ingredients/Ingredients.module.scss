@@ -1,0 +1,64 @@
+@use 'styles/variables' as vars;
+
+.ingredients {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mobileTitle {
+  display: none;
+}
+
+.textContainer {
+  margin-top: 20px;
+}
+
+.text {
+  font-family: vars.$font-body;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 20px;
+  margin: 0;
+}
+
+.list {
+  box-sizing: border-box;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 28px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}
+
+.button {
+  width: 147px; 
+}
+
+@media screen and (max-width: 576px) {
+  .ingredients {
+    margin: 0 auto;
+    max-width: 328px;
+  }
+
+  .mobileTitle {
+    display: inline;
+  }
+
+  .textContainer {
+    margin-top: 12px;
+  }
+
+  .list {
+    margin-bottom: 24px;
+  }
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+}

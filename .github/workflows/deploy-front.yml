@@ -1,0 +1,119 @@
+name: Deploy frontend
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - dev
+  #push:
+  #  branches:
+  #    - master
+  #    - dev
+  #    - edit-ci-cd
+  
+  pull_request_review:
+    types:
+      - submitted
+
+jobs:
+  buid-static-prod:
+    if: ${{ github.ref_name == 'master' }}
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: npm install and build
+        env:
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+        run: |
+          cd front/
+          npm install
+          npm run build
+      - name: Deploy with rsync
+        uses: AEnterprise/rsync-deploy@v1.0.2
+        env:
+          DEPLOY_KEY: ${{ secrets.SSH_PRIV_KEY }}
+          ARGS: "-e -c -r -I"
+          SERVER_PORT: 22
+          FOLDER: "./front/build"
+          SERVER_IP: ${{ vars.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USERNAME }}
+          SERVER_DESTINATION: /tmp/
+
+  deploy-front-to-prod:
+    needs: buid-static-prod
+    if: ${{ github.ref_name == 'master' }}
+    runs-on: [self-hosted, linux, firstvds]
+    environment: prod
+    steps:
+      - name: Build docker images & Run docker-compose
+        env:
+          PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
+          ENV_MENU: ${{ vars.ENV_VAR }}
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+          PORT_NGINX: ${{ vars.PORT_NGINX }}
+          GIT_BRANCH_FULL: ${{ github.ref }}
+        run: |
+          echo $PROJECT_FOLDER
+          cd $PROJECT_FOLDER
+          git pull
+          GIT_BRANCH=$(echo $GIT_BRANCH_FULL | sed -r 's/^refs\/heads\///g')
+          git checkout $GIT_BRANCH
+          git pull
+          cp -r /tmp/build/* /opt/static_front_data/
+          docker compose -f ./infra/docker-compose.front.yml down || true
+          docker rmi infra-front:latest || true
+          docker compose -f ./infra/docker-compose.front.yml up -d
+
+
+  buid-static-dev:
+    if: ${{ github.ref_name == 'dev' }}
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: npm install and build
+        env:
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+        run: |
+          cd front/
+          npm install
+          npm run build
+      - name: Deploy with rsync
+        uses: AEnterprise/rsync-deploy@v1.0.2
+        env:
+          DEPLOY_KEY: ${{ secrets.SSH_PRIV_KEY }}
+          ARGS: "-e -c -r -I"
+          SERVER_PORT: 22
+          FOLDER: "./front/build"
+          SERVER_IP: ${{ vars.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USERNAME }}
+          SERVER_DESTINATION: /tmp/
+  
+  deploy-front-to-dev:
+    needs: buid-static-dev
+    if: ${{ github.ref_name == 'dev' }}
+    runs-on: [self-hosted, linux, timeweb]
+    environment: dev
+    steps:   
+      - name: Build docker images & Run docker-compose
+        env:
+          PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
+          ENV_MENU: ${{ vars.ENV_VAR }}
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+          PORT_NGINX: ${{ vars.PORT_NGINX }}
+          GIT_BRANCH_FULL: ${{ github.ref }}
+        run: |
+          echo $PROJECT_FOLDER
+          cd $PROJECT_FOLDER
+          git pull
+          GIT_BRANCH=$(echo $GIT_BRANCH_FULL | sed -r 's/^refs\/heads\///g')
+          git checkout $GIT_BRANCH
+          git pull
+          cp -r /tmp/build /opt/static_front_data/
+          docker compose -f ./infra/docker-compose.front.yml down || true
+          docker rmi infra-front:latest || true
+          docker compose -f ./infra/docker-compose.front.yml up -d

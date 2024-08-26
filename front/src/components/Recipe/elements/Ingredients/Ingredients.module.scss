@@ -1,0 +1,35 @@
+@use 'styles/color-variables' as colors;
+
+.ingredientsWrapper {
+  max-width: 39rem;
+  margin-bottom: 6.4rem;
+}
+
+.title {
+  margin-bottom: 2.6rem;
+}
+
+.ingredients {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ingredient {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.4rem;
+}
+
+.divider {
+  flex-grow: 1;
+  align-self: end;
+  border-bottom: solid 1px colors.$input-border-color;
+  margin-bottom: 0.31rem;
+}
+
+.volume {
+  white-space: nowrap;
+}

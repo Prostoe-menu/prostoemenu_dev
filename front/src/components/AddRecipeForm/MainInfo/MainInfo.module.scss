@@ -1,0 +1,441 @@
+@use 'styles/variables' as vars;
+
+// Переписать стили этого компонента с использованием общих переменных
+
+%mulish-16-500 {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: vars.$color-primary;
+  margin: 0;
+  padding: 0;
+}
+
+%mulish-16-300 {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+%mulish-12-300 {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+%mulish-12-500 {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.mainInfo {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.wrap {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 8px 16px;
+  width: 576px;
+  min-height: 40px;
+  background: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  margin-top: 12px;
+
+  &:hover {
+    border: 1px solid #818181;
+  }
+
+  &:focus {
+    border: 1px solid #818181;
+  }
+
+  &_error {
+    border: 1px solid red;
+    color: red;
+  }
+}
+
+.title {
+  @extend %mulish-16-500;
+}
+
+.error {
+  @extend %mulish-12-300;
+  color: red;
+  position: absolute;
+  margin: 5px 0;
+}
+
+.name__input {
+  @extend %mulish-16-300;
+  border: none;
+  width: 483px;
+  min-height: 24px;
+  color: #818181;
+  resize: none;
+  overflow: hidden;
+  word-wrap: normal;
+
+  &:focus {
+    border: none;
+  }
+
+  &:focus-visible {
+    outline: 0;
+  }
+
+  &:focus::placeholder {
+    color: transparent;
+  }
+
+  &_error::placeholder {
+    color: red;
+    opacity: 0.6;
+  }
+}
+
+.counter {
+  @extend %mulish-12-300;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  color: #818181;
+
+  &_error {
+    color: red;
+  }
+}
+
+.wrap_complexity {
+  display: flex;
+}
+
+.complexity {
+  margin-right: 100px;
+}
+
+.stars {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 12px;
+}
+
+.star {
+  background-image: url('assets/images/star.svg');
+  background-position: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  margin-right: 16px;
+}
+
+.wrap_counter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-radius: 12px;
+  height: 38px;
+  width: 130px;
+  margin-top: 12px;
+
+  &_error {
+    border: 1px solid red;
+    color: red;
+  }
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  padding: 0 16px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &_primary {
+    width: 148px;
+  }
+}
+
+.buttonPlus {
+  background-image: url('assets/images/plusButton.svg');
+  background-position: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &:hover {
+    background-image: url('assets/images/plusButton-active.svg');
+  }
+
+  &:disabled,
+  &:disabled:hover {
+    background-image: url('assets/images/minusButton-disabled.png');
+    cursor: auto;
+  }
+}
+
+.buttonMinus {
+  background-image: url('assets/images/minusButton.png');
+  background-position: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &:hover {
+    background-image: url('assets/images/minusButton-active.svg');
+  }
+
+  &:disabled,
+  &:disabled:hover {
+    background-image: url('assets/images/minusButton-disabled.png');
+    cursor: auto;
+  }
+}
+
+.portion {
+  @extend %mulish-16-500;
+  text-align: center;
+  color: #818181;
+  margin: 0 20px;
+  border: none;
+  width: 25px;
+
+  &:focus {
+    border: none;
+  }
+
+  &:focus-visible {
+    outline: 0;
+  }
+
+  &:focus::placeholder {
+    color: transparent;
+  }
+
+  &_error {
+    color: red;
+    opacity: 0.6;
+  }
+}
+
+.portion_active {
+  color: vars.$color-primary;
+}
+
+.wrap_count {
+  display: flex;
+}
+
+.wrap_totalTime {
+  margin-right: 30px;
+}
+
+.wrap_cookTime {
+  margin-left: 5px;
+}
+
+.totalTime,
+.cookTime {
+  @extend %mulish-16-500;
+  color: vars.$color-primary;
+  margin-top: 16px;
+  margin-bottom: 12px;
+}
+
+.label {
+  @extend %mulish-16-300;
+  color: vars.$color-primary;
+  margin-right: 20px;
+}
+
+.time {
+  padding: 8px 16px;
+  width: 52px;
+  height: 40px;
+  background: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-right: 3px;
+  text-align: center;
+
+  &:hover {
+    border: 1px solid #818181;
+  }
+
+  &:focus {
+    border: 1px solid #818181;
+  }
+
+  &:focus-visible {
+    outline: 0;
+  }
+
+  &_error {
+    border: 1px solid red;
+  }
+}
+
+.wrap_description {
+  @extend %mulish-12-300;
+  color: vars.$color-primary;
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+
+.description {
+  margin: 0;
+  padding: 0;
+}
+
+.descinput__wrap {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 12px 16px;
+  width: 576px;
+  height: 160px;
+  background: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  position: relative;
+
+  &:hover {
+    border: 1px solid #818181;
+  }
+
+  &:focus {
+    border: 1px solid #818181;
+  }
+
+  &_error {
+    border: 1px solid red;
+    color: red;
+  }
+}
+
+.desc__input {
+  @extend %mulish-12-300;
+  width: 544px;
+  height: 112px;
+  color: #818181;
+  border: none;
+  position: relative;
+  resize: none;
+
+  &:focus {
+    border: none;
+  }
+
+  &:focus-visible {
+    outline: 0;
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    background: #dbdbdb;
+    border-radius: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    width: 4px;
+    background: #dbdbdb;
+    border-radius: 2px;
+  }
+
+  &::-webkit-scrollbar-track {
+    width: 4px;
+    background: #f7f7f7;
+    border-radius: 2px;
+  }
+
+  &_error::placeholder {
+    color: red;
+  }
+
+  &_error:focus::placeholder {
+    color: transparent;
+  }
+}
+
+.desc__counter {
+  position: relative;
+  right: 0px;
+  top: 0px;
+
+  &_error {
+    color: red;
+  }
+}
+
+.fotoReqs {
+  @extend %mulish-12-500;
+  color: vars.$color-primary;
+}
+
+.reqlist {
+  margin: 0;
+  padding: 0;
+  margin-left: 10px;
+  list-style-image: url('assets/images/list-marker.svg');
+}
+
+.reqlist_item {
+  @extend %mulish-12-300;
+  color: vars.$color-primary;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 5px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.reqlist_accent {
+  font-weight: bold;
+}
+
+.tooltipContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+}

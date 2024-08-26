@@ -1,4 +1,5 @@
 import os
+from decimal import Decimal
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -14,7 +15,13 @@ SECRET_KEY = os.getenv(
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "109.172.82.25", "test-menu.wowit.ru"]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "109.172.82.25",
+    "147.45.182.25",
+    "test.prostoemenu.ru",
+    "prostoemenu.ru",
+]
 
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -35,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "djoser",
     "drf_spectacular",
+    "drf_spectacular_sidecar",
     "corsheaders",
     # Project Applications
     "common",
@@ -148,8 +156,59 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "Документация к API сервиса ProstoeMenu",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
+    "SWAGGER_UI_DIST": "SIDECAR",
+    "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
+    "REDOC_DIST": "SIDECAR",
 }
 
-DOMAIN_NAME = "https://test-menu.wowit.ru/"
+DOMAIN_NAME = "https://test.prostoemenu.ru/"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+ACCEPTED_SYMBOLS = set(
+    "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    "0123456789!№;%:?*()/.,\«»—–- \"'°+¼½"
+)
+
+
+MIN_DESCR_LENGTH = 10
+
+MAX_DESCR_LENGTH = 500
+
+MIN_TITLE_LENGTH = 2
+
+MAX_TITLE_LENGTH = 100
+
+MIN_COOKING_AND_OVEN_TIME = 1
+
+MAX_COOKING_AND_OVEN_TIME = 5999
+
+MIN_PORTION_QUANTITY = 1
+
+MAX_PORTION_QUANTITY = 10
+
+MIN_RECIPE_COMPLEXITY = 1
+
+MAX_RECIPE_COMPLEXITY = 3
+
+MIN_STEP_NUMBER = 1
+
+MAX_STEP_NUMBER = 20
+
+MIN_INGREDIENT_VOLUME = Decimal("0.1")
+
+MIN_TEXT_FIELD_SEARCH_LENGTH = 3
+
+DEFAULT_DISH_IMAGE = os.path.join(
+    os.path.dirname(BASE_DIR),
+    "back",
+    "data",
+    "images",
+    "recipe_images",
+    "default_dish_image.jpg",
+)
+
+IMAGE_SOURCE_FOLDER = os.path.join(
+    os.path.dirname(BASE_DIR), "back", "data", "images", "recipe_images"
+)

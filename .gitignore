@@ -141,3 +141,5 @@ static/
 .ruff_cache
 
 mediafiles/
+recipes/backlog.txt
+recipes/db_queries

@@ -1,0 +1,77 @@
+@use 'styles/variables' as vars;
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: all vars.$trans-300;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.content {
+  box-sizing: border-box;
+  position: relative;
+  background: vars.$bg-primary;
+  border-radius: 20px;
+  padding: 36px;
+}
+
+.closeButtonContainer {
+  position: absolute;
+  top: 36px;
+  right: 36px;
+}
+
+.button {
+  width: 20px;
+  height: 20px;
+}
+
+@media screen and (max-width: 280px) {
+  .content {
+    padding: 24px 32px;
+    min-width: 280px;
+    height: 730px;
+    border-radius: 0;
+  }
+
+  .closeButtonContainer {
+    top: 24px;
+    right: 32px;
+  }
+}
+
+@media screen and (min-width: 281px) and (max-width: 576px) {
+  .content {
+    padding: 24px 32px;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .closeButtonContainer {
+    top: 24px;
+    right: 32px;
+  }
+}

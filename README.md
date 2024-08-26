@@ -85,7 +85,10 @@ GitGub сохраняет все ваши коммиты, в любой моме
 	- запустить контейнеры `sudo docker compose up -d --build`
  
 
- #### Для добавления существующих данных из файлов в БД выполните команды:
+ #### Для добавления существующих данных из файлов в БД выполните команды в следующем порядке:
 
-* python manage.py load_ingr - загрузка всех ингредиентов в БД
-* python manage.py load_measure - загрузка всех мер измерния в БД
+* python manage.py load_measure - загрузка всех мер измерния в БД;
+* python manage.py load_ingr_cats - загрузка категорий ингредиентов;
+* python manage.py load_ingr - загрузка всех ингредиентов;
+* python manage.py load_recipe_categories - загрузка категорий рецептов;
+* python manage.py load_recipes - загрузка рецептов.

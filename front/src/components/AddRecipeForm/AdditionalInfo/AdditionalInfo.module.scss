@@ -1,0 +1,173 @@
+@use 'styles/variables' as vars;
+
+.additionalInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 32px;
+  gap: 28px;
+  max-width: 574px;
+  min-height: 450px;
+  color: vars.$color-primary;
+
+  &__header {
+    margin: 0;
+    font-family: vars.$font-heading;
+    font-style: normal;
+    font-weight: 400;
+    font-size: vars.$font-size-l;
+    line-height: vars.$line-height-l;
+  }
+
+  &__comment {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 568px;
+  }
+
+  &__textArea {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 12px 16px;
+    max-width: 536px;
+    height: 136px;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+  }
+  &__textArea_error {
+    border: 1px solid red;
+    color: red;
+  }
+  &__textAreaText {
+    max-width: 536px;
+    height: 112px;
+    resize: none;
+    border: none;
+    font-family: vars.$font-body;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 20px;
+    width: 100%;
+  }
+  &__textAreaText:focus {
+    outline: none;
+  }
+
+  &__textAreaText:focus::placeholder {
+    color: transparent;
+  }
+  &__textAreaCounter {
+    width: 53px;
+    height: 24px;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.67;
+    color: #818181;
+    text-align: right;
+  }
+  &__textAreaCounter_error {
+    color: red;
+  }
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 12px;
+  font-family: vars.$font-body;
+  font-style: normal;
+  max-width: 560px;
+  width: 100%;
+
+  &__subtitle {
+    margin: 0;
+    font-weight: 500;
+    font-size: vars.$font-size-xxs;
+    line-height: vars.$line-height-xxs;
+  }
+
+  &__text {
+    margin: 0;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.67;
+  }
+
+  &__input {
+    height: 40px;
+    padding: 8px 16px;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-weight: 300;
+    font-size: vars.$font-size-xxs;
+    line-height: vars.$line-height-xxs;
+    width: 100%;
+  }
+  &__input_error {
+    color: red;
+    border: 1px solid red;
+  }
+  &__input:focus {
+    outline: none;
+  }
+
+  &__input:focus::placeholder {
+    color: transparent;
+  }
+  &__error {
+    width: 100%;
+    margin: 0;
+    color: red;
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .additionalInfo {
+    gap: 24px;
+    border: none;
+
+    &__header {
+      font-weight: 400;
+      font-size: vars.$font-size-s;
+      line-height: vars.$line-height-s;
+    }
+
+    &__comment {
+      gap: 12px;
+    }
+  }
+
+  .description {
+    gap: 8px;
+
+    &__subtitle {
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 1.67;
+    }
+  }
+}
+
+.error {
+  font-family: vars.$font-body;
+  width: 100%;
+  margin: 0;
+  color: red;
+  font-size: 10px;
+}
+
+.button {
+  width: 147px;
+
+  &_main {
+    width: 213px;
+  }
+}

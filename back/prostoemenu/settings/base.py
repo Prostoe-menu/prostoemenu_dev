@@ -202,7 +202,7 @@ MIN_TEXT_FIELD_SEARCH_LENGTH = 3
 
 DEFAULT_DISH_IMAGE = os.path.join(
     os.path.dirname(BASE_DIR),
-    "back",
+    "app",
     "data",
     "images",
     "recipe_images",
@@ -210,5 +210,5 @@ DEFAULT_DISH_IMAGE = os.path.join(
 )
 
 IMAGE_SOURCE_FOLDER = os.path.join(
-    os.path.dirname(BASE_DIR), "back", "data", "images", "recipe_images"
+    os.path.dirname(BASE_DIR), "app", "data", "images", "recipe_images"
 )

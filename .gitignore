@@ -135,7 +135,6 @@ account/user_credentials.txt
 /.idea/
 .vscode
 
-static/
 
 #ruff
 .ruff_cache
@@ -143,3 +142,4 @@ static/
 mediafiles/
 recipes/backlog.txt
 recipes/db_queries
+back/media/recipes

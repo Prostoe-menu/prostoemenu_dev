@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 
 from django.conf import settings as django_settings
 from django.core.files.images import ImageFile
@@ -21,11 +22,9 @@ class Command(BaseCommand):
     def add_objects(model, reader):
         default_category = Category.objects.get(name="без категории")
         default_image = ImageFile(open(django_settings.DEFAULT_DISH_IMAGE, "rb"))
-
         for row in reader:
             image = Command.get_image(row["dish_data"]["main_photo"])
             image_file = image if image else default_image
-
             recipe_data = {
                 "title": row["dish_name"],
                 "description": row["dish_data"]["descr"][
@@ -78,13 +77,8 @@ class Command(BaseCommand):
 
     @staticmethod
     def rearrange_image_storage(recipe_obj):
-        old_dir = os.path.join(
-            django_settings.MEDIA_ROOT,
-            Command.get_upload_folder(recipe_obj.cover_path.path),
-        )
-        new_dir = os.path.join(
-            django_settings.MEDIA_ROOT, "recipes", str(recipe_obj.pk)
-        )
+        old_dir = django_settings.MEDIA_ROOT.joinpath(Command.get_upload_folder(recipe_obj.cover_path.path))
+        new_dir = django_settings.MEDIA_ROOT.joinpath("recipes", str(recipe_obj.pk))
         os.rename(old_dir, new_dir)
         recipe_obj.cover_path.name = os.path.join(
             "recipes", str(recipe_obj.pk), recipe_obj.cover_path.name.split("/")[-1]

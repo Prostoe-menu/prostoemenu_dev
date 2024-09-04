@@ -6,6 +6,7 @@ services:
       context: ../
       dockerfile: ./infra/Dockerfile.back
     container_name: app
+    hostname: app
     command: >
       sh -c "python /app/manage.py migrate &&
              gunicorn prostoemenu.wsgi:application --bind 0.0.0.0:8000 --workers=4"

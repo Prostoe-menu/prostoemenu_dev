@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parents[2]
 
 SECRET_KEY = os.getenv(
     "SECRET_KEY",
@@ -125,11 +125,12 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = BASE_DIR.joinpath("staticfiles")
+STATICFILES_DIRS = (BASE_DIR.joinpath("static"),)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "mediafiles")
+MEDIA_ROOT = BASE_DIR.joinpath("mediafiles")
 MEDIA_URL = "/media/"
 
 DJOSER = {
@@ -200,14 +201,6 @@ MIN_INGREDIENT_VOLUME = Decimal("0.1")
 
 MIN_TEXT_FIELD_SEARCH_LENGTH = 3
 
-DEFAULT_DISH_IMAGE = os.path.join(
-    os.path.dirname(BASE_DIR),
-    "data",
-    "images",
-    "recipe_images",
-    "default_dish_image.jpg",
-)
+IMAGE_SOURCE_FOLDER = BASE_DIR.joinpath("data", "images", "recipe_images")
 
-IMAGE_SOURCE_FOLDER = os.path.join(
-    os.path.dirname(BASE_DIR), "data", "images", "recipe_images"
-)
+DEFAULT_DISH_IMAGE = IMAGE_SOURCE_FOLDER.joinpath("default_dish_image.jpg")

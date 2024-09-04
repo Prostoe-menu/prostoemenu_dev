@@ -142,4 +142,4 @@ account/user_credentials.txt
 mediafiles/
 recipes/backlog.txt
 recipes/db_queries
-back/media/recipes
+back/mediafiles/recipes

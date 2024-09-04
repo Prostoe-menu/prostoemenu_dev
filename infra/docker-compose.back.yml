@@ -17,7 +17,7 @@ services:
       - POSTGRES_USER=$POSTGRES_USER
     volumes:
       - /opt/static_admin_data:/app/static/
-      - /opt/media_data:/app/media/
+      - /opt/media_data:/app/mediafiles/
     networks:
       - postgres
       - prostoemenu

@@ -47,6 +47,7 @@ class Command(BaseCommand):
 
             try:
                 with transaction.atomic():
+                    Command.rearrange_image_storage(new_recipe_obj)
                     new_recipe_obj = model.objects.create(**recipe_data)
                     Command.rearrange_image_storage(new_recipe_obj)
                     Command.add_rec_ingr_objects(
@@ -57,7 +58,7 @@ class Command(BaseCommand):
                     )
 
             except Exception as e:
-                # Здесь будет логгирование
+                # Здесь будет логирование
                 print(f"Ошибка {e} при загрузке рецепта: {row['dish_name']}")
                 continue
 
@@ -86,6 +87,7 @@ class Command(BaseCommand):
         recipe_obj.cover_path.name = os.path.join(
             "recipes", str(recipe_obj.pk), recipe_obj.cover_path.name.split("/")[-1]
         )
+        print(new_dir)
         recipe_obj.save()
 
     @staticmethod

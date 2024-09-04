@@ -20,5 +20,5 @@ DATABASES = {
         "PASSWORD": os.getenv("POSTGRES_PASSWORD_DEV", default="postgres"),
         "HOST": os.getenv("DB_HOST_DEV", default="db"),
         "PORT": os.getenv("DB_PORT", default="5432"),
-    }
+    },
 }

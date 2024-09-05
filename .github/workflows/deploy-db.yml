@@ -51,4 +51,4 @@ jobs:
         git checkout $GIT_BRANCH
         git pull
         docker compose -f ./infra/docker-compose.db.yml down || true
-        docker compose -f ./infra/docker-compose.db.yml up -d
+        docker compose -f ./infra/docker-compose.db.yml up -d 

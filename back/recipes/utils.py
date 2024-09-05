@@ -1,4 +1,5 @@
 import os
+from django.conf import settings as django_settings
 
 
 def get_recipe_image_upload_path(instance, filename):

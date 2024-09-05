@@ -45,6 +45,7 @@ class Command(BaseCommand):
 
             try:
                 with transaction.atomic():
+                    # delete this row
                     new_recipe_obj = model.objects.create(**recipe_data)
                     Command.rearrange_image_storage(new_recipe_obj)
                     Command.add_rec_ingr_objects(

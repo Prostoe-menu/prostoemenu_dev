@@ -13,7 +13,6 @@ from recipes.models import Category, Recipe, RecipeIngredient, RecipeStep
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        print("base dir:", django_settings.BASE_DIR)
         with open("data/recipes.json", "rb") as recipes:
             reader_recipes = json.load(recipes)
         self.stdout.write(self.style.SUCCESS(self.add_objects(Recipe, reader_recipes)))
@@ -21,7 +20,6 @@ class Command(BaseCommand):
     @staticmethod
     def add_objects(model, reader):
         default_category = Category.objects.get(name="без категории")
-        print("default image:", django_settings.DEFAULT_DISH_IMAGE)
         default_image = ImageFile(open(django_settings.DEFAULT_DISH_IMAGE, "rb"))
         for row in reader:
             image = Command.get_image(row["dish_data"]["main_photo"])
@@ -57,7 +55,7 @@ class Command(BaseCommand):
                     )
 
             except Exception as e:
-                # Здесь будет логгирование
+                # Здесь будет логирование
                 print(f"Ошибка {e} при загрузке рецепта: {row['dish_name']}")
                 continue
 

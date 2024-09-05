@@ -89,5 +89,5 @@ jobs:
           git checkout $GIT_BRANCH
           git pull
           docker compose -f ./infra/docker-compose.back.yml down || true
-          #docker rmi infra-web:latest || true
+          docker rmi infra-app:latest || true
           docker compose -f ./infra/docker-compose.back.yml up -d

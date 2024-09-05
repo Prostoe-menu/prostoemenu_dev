@@ -13,6 +13,7 @@ from recipes.models import Category, Recipe, RecipeIngredient, RecipeStep
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
+        print("base dir:", django_settings.BASE_DIR)
         with open("data/recipes.json", "rb") as recipes:
             reader_recipes = json.load(recipes)
         self.stdout.write(self.style.SUCCESS(self.add_objects(Recipe, reader_recipes)))
@@ -20,6 +21,7 @@ class Command(BaseCommand):
     @staticmethod
     def add_objects(model, reader):
         default_category = Category.objects.get(name="без категории")
+        print("default image:", django_settings.DEFAULT_DISH_IMAGE)
         default_image = ImageFile(open(django_settings.DEFAULT_DISH_IMAGE, "rb"))
         for row in reader:
             image = Command.get_image(row["dish_data"]["main_photo"])
@@ -45,6 +47,7 @@ class Command(BaseCommand):
 
             try:
                 with transaction.atomic():
+                    Command.rearrange_image_storage(new_recipe_obj)
                     new_recipe_obj = model.objects.create(**recipe_data)
                     Command.rearrange_image_storage(new_recipe_obj)
                     Command.add_rec_ingr_objects(
@@ -84,6 +87,7 @@ class Command(BaseCommand):
         recipe_obj.cover_path.name = os.path.join(
             "recipes", str(recipe_obj.pk), recipe_obj.cover_path.name.split("/")[-1]
         )
+        print(new_dir)
         recipe_obj.save()
 
     @staticmethod

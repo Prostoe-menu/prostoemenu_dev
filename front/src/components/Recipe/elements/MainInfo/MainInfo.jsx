@@ -1,6 +1,5 @@
 import { CookingTime, OvenTime } from 'ui';
 import StarRating from 'ui/StarRating';
-import { checkImage } from 'helpers/checkImage';
 import styles from './MainInfo.module.scss';
 
 export const MainInfo = ({ recipe }) => {
@@ -13,12 +12,13 @@ export const MainInfo = ({ recipe }) => {
     oven_time: ovenTime,
   } = recipe;
 
+  const apiImageUrl = import.meta.env.VITE_IMAGE_URL;
+
   return (
     <section className={styles.mainInfo}>
-      {checkImage(imgUrl) ? (
-        <img src={imgUrl} className={styles.img} alt={title} />
+      {imgUrl ? (
+        <img src={apiImageUrl + imgUrl} className={styles.img} alt={title} />
       ) : (
-        // TODO: временная заглушка отсутствующей картинки
         <div className={styles.defaultImg}>No Image</div>
       )}
       <div className={styles.description}>

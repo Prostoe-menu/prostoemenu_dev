@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import fetchRecipes, { fetchRecipeByID } from './recipeThunk';
+import { fetchRecipeByID, fetchRecipes } from './recipeThunk';
 
 const initialState = {
   recipes: [],
@@ -8,6 +8,16 @@ const initialState = {
   isError: false,
   errorMessage: null,
 };
+
+const isPendingAction = (action) =>
+  typeof action.type === 'string' &&
+  action.type.startsWith('recipes') &&
+  action.type.endsWith('/pending');
+
+const isRejectedAction = (action) =>
+  typeof action.type === 'string' &&
+  action.type.startsWith('recipes') &&
+  action.type.endsWith('/rejected');
 
 const recipeSlice = createSlice({
   name: 'recipe',
@@ -41,29 +51,20 @@ const recipeSlice = createSlice({
         state.errorMessage = null;
         state.recipe = action.payload;
       })
-      .addMatcher(
-        (action) =>
-          typeof action.type === 'string' && action.type.endsWith('/pending'),
-        (state) => ({
+      .addMatcher(isPendingAction, (state) => {
+        return {
           ...state,
           isLoading: true,
           isError: false,
           errorMessage: null,
-        })
-      )
-      .addMatcher(
-        (action) => {
-          return (
-            typeof action.type === 'string' && action.type.endsWith('/rejected')
-          );
-        },
-        (state, action) => ({
-          ...state,
-          isLoading: false,
-          isError: true,
-          errorMessage: action.payload,
-        })
-      );
+        };
+      })
+      .addMatcher(isRejectedAction, (state, action) => ({
+        ...state,
+        isLoading: false,
+        isError: true,
+        errorMessage: action.payload,
+      }));
   },
 });
 

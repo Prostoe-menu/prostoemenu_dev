@@ -17,4 +17,7 @@ const getRecipeByID = async (id) => {
   );
 };
 
-export const recipeService = { getRecipes, getRecipeByID };
+export const recipeService = {
+  getRecipes,
+  getRecipeByID,
+};

@@ -4,6 +4,8 @@ import { INGREDIENTS_URL } from 'utils/urls';
 const URL = `${import.meta.env.VITE_API_URL}${INGREDIENTS_URL}/?name=`;
 
 const getIngredients = async (query) => {
+  if (query.length <= 2) return null;
+
   const reponse = await axios({
     method: 'GET',
     url: URL + query,

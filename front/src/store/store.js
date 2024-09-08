@@ -11,19 +11,21 @@ import {
 import storageSession from 'redux-persist/lib/storage/session';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import formReducer from './slices/form/formSlice';
-import recipeSlice from './slices/recipe/recipeSlice';
+import recipeReducer from './slices/recipe/recipeSlice';
+import searchReducer from './slices/search/searchSlice';
 import toastReducer from './slices/toast/toastSlice';
 
 const rootReducer = combineReducers({
   form: formReducer,
   toast: toastReducer,
-  recipe: recipeSlice,
+  recipe: recipeReducer,
+  search: searchReducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage: storageSession,
-  blacklist: ['toast'],
+  blacklist: ['toast', 'search'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

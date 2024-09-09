@@ -43,7 +43,7 @@ const DropdownSearch = (props) => {
 
     onInputChange(value);
 
-    if (value.length >= 2) {
+    if (value.length > 2) {
       setIsDropdownOpen(true);
       return;
     }

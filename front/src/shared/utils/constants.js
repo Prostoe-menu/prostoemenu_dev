@@ -108,3 +108,6 @@ export const FETCH_RECIPES_ERROR_MESSAGE =
 
 export const FETCH_RECIPE_BY_ID_ERROR_MESSAGE =
   'Упс! Что-то пошло не так при загрузке рецепта, но мы уже работаем над этим!';
+
+export const FETCH_RECIPES_BY_INGREDIENT_ERROR_MESSAGE =
+  'Упс! Что-то пошло не так при поиске рецептов, но мы уже работаем над этим!';

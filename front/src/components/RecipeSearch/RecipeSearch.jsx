@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import SelectedIngredients from 'components/SelectedIngredients/SelectedIngredients';
+import { fetchRecipesByIngredients } from 'store/slices/search/searchThunk';
 import Button from 'ui/Button';
 import { DropdownSearch } from 'ui/Dropdown';
 import getIngredients from 'helpers/getIngredients';
@@ -10,6 +12,8 @@ const RecipeSearch = () => {
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState([]);
 
+  const dispatch = useDispatch();
+
   const { value: ingredientsApiData, loading } = useAsync(
     getIngredients,
     query,
@@ -18,8 +22,6 @@ const RecipeSearch = () => {
   );
 
   const handleIngredientSelection = (ingredient) => {
-    setQuery(ingredient.name);
-
     if (!selected.includes(ingredient.name)) {
       setSelected((prevSelected) => [...prevSelected, ingredient.name]);
     }
@@ -28,6 +30,12 @@ const RecipeSearch = () => {
 
   const handleNameInput = (value) => {
     setQuery(value);
+  };
+
+  const searchHandler = (event) => {
+    event.preventDefault();
+
+    dispatch(fetchRecipesByIngredients(selected));
   };
 
   return (
@@ -45,10 +53,14 @@ const RecipeSearch = () => {
           onChooseItem={handleIngredientSelection}
           inputValue={query}
           onInputChange={handleNameInput}
-          requiredData={ingredientsApiData}
+          requiredData={ingredientsApiData.results}
           isLoading={loading}
         />
-        <Button className={styles.search_btn} type="button">
+        <Button
+          type="button"
+          className={styles.search_btn}
+          onClick={searchHandler}
+        >
           Подобрать рецепт
         </Button>
       </div>

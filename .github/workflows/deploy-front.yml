@@ -104,6 +104,7 @@ jobs:
           PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
           ENV_MENU: ${{ vars.ENV_VAR }}
           VITE_API_URL: ${{ vars.VITE_API_URL }}
+          VITE_IMAGE_URL: ${{ vars.VITE_IMAGE_URL }}
           PORT_NGINX: ${{ vars.PORT_NGINX }}
           GIT_BRANCH_FULL: ${{ github.ref }}
         run: |

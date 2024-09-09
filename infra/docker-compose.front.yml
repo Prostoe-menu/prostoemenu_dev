@@ -15,6 +15,7 @@ services:
     environment:
       - PORT_NGINX=$PORT_NGINX
       - VITE_API_URL=$VITE_API_URL
+      - VITE_IMAGE_URL=$VITE_IMAGE_URL
     networks:
       - prostoemenu
 

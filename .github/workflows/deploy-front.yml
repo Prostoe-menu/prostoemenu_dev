@@ -98,7 +98,12 @@ jobs:
     if: ${{ github.ref_name == 'dev' }}
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
-    steps:   
+    steps:
+      - name: Get branch name (pull request)
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: echo "SHORT_SHA=$(echo ${GITHUB_SHA::7})" >> $GITHUB_ENV
+
       - name: Build docker images & Run docker-compose
         env:
           PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
@@ -107,7 +112,7 @@ jobs:
           VITE_IMAGE_URL: ${{ vars.VITE_IMAGE_URL }}
           PORT_NGINX: ${{ vars.PORT_NGINX }}
           GIT_BRANCH_FULL: ${{ github.ref }}
-          SHORT_SHA: ${GITHUB_SHA::7}
+          SHORT_SHA: ${{ env.SHORT_SHA }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER

@@ -101,7 +101,7 @@ jobs:
     steps:
       - name: Get short_sha
         shell: bash
-        run: echo "SHORT_SHA=$(echo ${GITHUB_SHA::7})" >> $GITHUB_ENV
+        run: echo "SHORT_SHA=$(echo dev_${GITHUB_SHA::7})" >> $GITHUB_ENV
 
       - name: Build docker images & Run docker-compose
         env:

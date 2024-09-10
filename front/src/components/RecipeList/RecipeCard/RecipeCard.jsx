@@ -12,7 +12,7 @@ const RecipeCard = ({ recipe }) => {
     complexity,
   } = recipe;
 
-  const apiImageUrl = import.meta.env.VITE_IMAGE_URL;
+//  const apiImageUrl = import.meta.env.VITE_IMAGE_URL;
 
   return (
     <li>

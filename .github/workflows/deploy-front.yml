@@ -99,14 +99,6 @@ jobs:
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:   
-      - name: Set outputs
-        id: vars
-        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
-      - name: Check outputs
-        run: |
-          echo ${{ steps.vars.outputs.short_sha }}
-          echo ${SHORT_SHA}
-          echo ${GITHUB_SHA::7}
       - name: Build docker images & Run docker-compose
         env:
           PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
@@ -115,7 +107,7 @@ jobs:
           VITE_IMAGE_URL: ${{ vars.VITE_IMAGE_URL }}
           PORT_NGINX: ${{ vars.PORT_NGINX }}
           GIT_BRANCH_FULL: ${{ github.ref }}
-          GIT_SHORT_SHA: ${GITHUB_SHA::7}
+          SHORT_SHA: ${GITHUB_SHA::7}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER

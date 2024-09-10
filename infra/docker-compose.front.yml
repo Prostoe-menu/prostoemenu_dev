@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   front:
-    image: infra-front:$GIT_SHORT_SHA
+    image: infra-front:$SHORT_SHA
     build:
       context: ../
       dockerfile: ./infra/Dockerfile.front

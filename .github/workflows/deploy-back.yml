@@ -71,6 +71,10 @@ jobs:
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:
+      - name: Get short_sha
+        shell: bash
+        run: echo "SHORT_SHA=$(echo dev_${GITHUB_SHA::7})" >> $GITHUB_ENV
+
       - name: Build docker images & Run docker-compose
         env: 
           PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
@@ -81,6 +85,7 @@ jobs:
           ENV_STAGE: ${{ vars.ENV_VAR }}
           PORT_NGINX: ${{ vars.PORT_NGINX }}
           GIT_BRANCH_FULL: ${{ github.ref }}
+          SHORT_SHA: ${{ env.SHORT_SHA }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER

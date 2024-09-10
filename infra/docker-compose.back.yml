@@ -2,6 +2,7 @@ version: '3.9'
 
 services:
   app:
+    image: infra-app:$SHORT_SHA
     build:
       context: ../
       dockerfile: ./infra/Dockerfile.back

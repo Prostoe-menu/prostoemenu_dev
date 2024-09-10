@@ -99,8 +99,7 @@ jobs:
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:
-      - name: Get branch name (pull request)
-        if: github.event_name == 'pull_request'
+      - name: Get short_sha
         shell: bash
         run: echo "SHORT_SHA=$(echo ${GITHUB_SHA::7})" >> $GITHUB_ENV
 

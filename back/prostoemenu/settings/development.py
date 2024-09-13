@@ -10,10 +10,6 @@ MIDDLEWARE += [
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    },
-    "postgres": {
         "ENGINE": os.getenv("DB_ENGINE", default="django.db.backends.postgresql"),
         "NAME": os.getenv("POSTGRES_DB_DEV", default="prostoemenu"),
         "USER": os.getenv("POSTGRES_USER_DEV", default="postgres"),

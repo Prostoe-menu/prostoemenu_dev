@@ -23,7 +23,7 @@ const NewRecipes = () => {
       {isError && <ErrorMessage message={errorMessage} />}
 
       {!isLoading && !isError && recipes && (
-        <RecipeList title="Каталог рецептов" recipes={recipes} />
+        <RecipeList title="Вам может понравиться" recipes={recipes} />
       )}
 
       <MoreRecipesButton moreUrl={next} />

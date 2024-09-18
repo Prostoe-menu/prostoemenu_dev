@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { RECIPES_LIST_URL } from 'utils/urls';
 
-const getRecipes = async () => {
+const getRecipes = async (url) => {
   const response = await axios({
     method: 'GET',
-    url: `${import.meta.env.VITE_API_URL}${RECIPES_LIST_URL}`,
+    url: url ?? `${import.meta.env.VITE_API_URL}${RECIPES_LIST_URL}`,
     crossDomain: true,
   });
 

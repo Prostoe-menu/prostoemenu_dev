@@ -1,8 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchRecipeByID, fetchRecipes } from './recipeThunk';
+import { fetchMoreRecipes, fetchRecipeByID, fetchRecipes } from './recipeThunk';
 
 const initialState = {
   recipes: [],
+  total: 0,
+  next: null,
+  prev: null,
   recipe: null,
   isLoading: false,
   isError: false,
@@ -12,6 +15,7 @@ const initialState = {
 const isPendingAction = (action) =>
   typeof action.type === 'string' &&
   action.type.startsWith('recipes') &&
+  !action.type.startsWith('recipes/fetchMoreRecipes') &&
   action.type.endsWith('/pending');
 
 const isRejectedAction = (action) =>
@@ -23,13 +27,7 @@ const recipeSlice = createSlice({
   name: 'recipe',
   initialState,
   reducers: {
-    resetReceiptState: (state) => {
-      state.isLoading = false;
-      state.isError = false;
-      state.errorMessage = null;
-      state.recipes = [];
-      state.recipe = null;
-    },
+    resetReceiptState: () => initialState,
     updateReceiptStore: (state, action) => {
       state.isLoading = action.payload;
       state.isError = false;
@@ -40,10 +38,26 @@ const recipeSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchRecipes.fulfilled, (state, action) => {
+        const { count, results, next, previous } = action.payload;
+
         state.isLoading = false;
         state.isError = false;
         state.errorMessage = null;
-        state.recipes = action.payload;
+        state.recipes = results;
+        state.total = count;
+        state.next = next;
+        state.prev = previous;
+      })
+      .addCase(fetchMoreRecipes.fulfilled, (state, action) => {
+        const { count, results, next, previous } = action.payload;
+
+        state.isLoading = false;
+        state.isError = false;
+        state.errorMessage = null;
+        state.recipes.push(...results);
+        state.total = count;
+        state.next = next;
+        state.prev = previous;
       })
       .addCase(fetchRecipeByID.fulfilled, (state, action) => {
         state.isLoading = false;

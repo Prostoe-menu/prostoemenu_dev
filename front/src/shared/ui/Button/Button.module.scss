@@ -98,9 +98,11 @@
 }
 
 .view-cross {
-  background: url('assets/images/close-btn/close_btn.svg');
+  background-image: url('assets/images/close-btn/close_btn.svg');
+  background-repeat: no-repeat;
   opacity: 0.6;
   transition: all vars.$trans-300;
+  padding: 0;
 
   &:hover {
     opacity: 1;

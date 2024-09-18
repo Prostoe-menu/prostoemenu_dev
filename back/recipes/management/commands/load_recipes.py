@@ -5,6 +5,7 @@ from django.conf import settings as django_settings
 from django.core.files.images import ImageFile
 from django.core.management.base import BaseCommand
 from django.db import transaction
+
 from ingredients.models import Ingredient
 from measurements.models import Measurement
 from recipes.models import Category, Recipe, RecipeIngredient, RecipeStep
@@ -12,7 +13,7 @@ from recipes.models import Category, Recipe, RecipeIngredient, RecipeStep
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        with open("back/data/recipes.json", "rb") as recipes:
+        with open("data/recipes.json", "rb") as recipes:
             reader_recipes = json.load(recipes)
         self.stdout.write(self.style.SUCCESS(self.add_objects(Recipe, reader_recipes)))
 
@@ -20,11 +21,9 @@ class Command(BaseCommand):
     def add_objects(model, reader):
         default_category = Category.objects.get(name="без категории")
         default_image = ImageFile(open(django_settings.DEFAULT_DISH_IMAGE, "rb"))
-
         for row in reader:
             image = Command.get_image(row["dish_data"]["main_photo"])
             image_file = image if image else default_image
-
             recipe_data = {
                 "title": row["dish_name"],
                 "description": row["dish_data"]["descr"][
@@ -46,6 +45,7 @@ class Command(BaseCommand):
 
             try:
                 with transaction.atomic():
+                    # delete this row now
                     new_recipe_obj = model.objects.create(**recipe_data)
                     Command.rearrange_image_storage(new_recipe_obj)
                     Command.add_rec_ingr_objects(
@@ -56,7 +56,7 @@ class Command(BaseCommand):
                     )
 
             except Exception as e:
-                # Здесь будет логгирование
+                # Здесь будет логирование
                 print(f"Ошибка {e} при загрузке рецепта: {row['dish_name']}")
                 continue
 
@@ -77,13 +77,10 @@ class Command(BaseCommand):
 
     @staticmethod
     def rearrange_image_storage(recipe_obj):
-        old_dir = os.path.join(
-            django_settings.MEDIA_ROOT,
-            Command.get_upload_folder(recipe_obj.cover_path.path),
+        old_dir = django_settings.MEDIA_ROOT.joinpath(
+            Command.get_upload_folder(recipe_obj.cover_path.path)
         )
-        new_dir = os.path.join(
-            django_settings.MEDIA_ROOT, "recipes", str(recipe_obj.pk)
-        )
+        new_dir = django_settings.MEDIA_ROOT.joinpath("recipes", str(recipe_obj.pk))
         os.rename(old_dir, new_dir)
         recipe_obj.cover_path.name = os.path.join(
             "recipes", str(recipe_obj.pk), recipe_obj.cover_path.name.split("/")[-1]

@@ -5,7 +5,7 @@ import Recipe from 'components/Recipe';
 import { fetchRecipeByID } from 'store/slices/recipe/recipeThunk';
 import { ErrorMessage, Loader } from 'ui';
 
-const RecipePage = () => {
+export const RecipePage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { recipe, isLoading, isError, errorMessage } = useSelector(
@@ -26,5 +26,3 @@ const RecipePage = () => {
     </>
   );
 };
-
-export default RecipePage;

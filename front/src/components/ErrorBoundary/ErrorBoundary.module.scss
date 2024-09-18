@@ -1,0 +1,16 @@
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  min-width: 500px;
+  height: 100vh;
+  margin: 0 auto;
+  justify-content: center;
+  text-align: center;
+}
+
+pre {
+  white-space: pre-wrap;
+}

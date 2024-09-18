@@ -1,21 +1,22 @@
-import ScrollUpButton from 'ui/ScrollUpButton';
 import RecipeCard from './RecipeCard/RecipeCard';
 import styles from './RecipeList.module.scss';
 
-const RecipeList = ({ title, recipes }) => (
-  <section>
-    {title && <h2 className={styles.title}>{title}</h2>}
+const RecipeList = ({ title, recipes }) => {
+  if (!recipes) return;
 
-    {recipes.length && (
-      <ul className={styles.recipeList}>
-        {recipes.map((recipe, idx) => (
-          <RecipeCard recipe={recipe} key={`${recipe.id}-${idx}`} />
-        ))}
-      </ul>
-    )}
+  return (
+    <section>
+      {title && <h2 className={styles.title}>{title}</h2>}
 
-    <ScrollUpButton />
-  </section>
-);
+      {recipes.length && (
+        <ul className={styles.recipeList}>
+          {recipes.map((recipe) => (
+            <RecipeCard recipe={recipe} key={`${recipe.id}-[${title}]`} />
+          ))}
+        </ul>
+      )}
+    </section>
+  );
+};
 
 export default RecipeList;

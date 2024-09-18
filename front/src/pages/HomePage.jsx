@@ -1,31 +1,27 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import RecipeList from 'components/RecipeList';
+import { useDispatch } from 'react-redux';
+import NewRecipes from 'components/NewRecipes/NewRecipes';
 import RecipeSearch from 'components/RecipeSearch';
-import fetchRecipes from 'store/slices/recipe/recipeThunk';
-import { ErrorMessage, Loader } from 'ui';
+import SearchResults from 'components/SearchResults';
+import { reset } from 'store/slices/search/searchSlice';
+import ScrollUpButton from 'ui/ScrollUpButton';
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const { recipes, isLoading, isError, errorMessage } = useSelector(
-    (state) => state.recipe
-  );
 
   useEffect(() => {
-    dispatch(fetchRecipes());
+    dispatch(reset());
   }, [dispatch]);
 
   return (
     <>
       <RecipeSearch />
 
-      {isLoading && <Loader />}
+      <SearchResults />
 
-      {isError && <ErrorMessage message={errorMessage} />}
+      <NewRecipes />
 
-      {!isLoading && !isError && recipes?.length > 0 && (
-        <RecipeList title="Каталог рецептов" recipes={recipes} />
-      )}
+      <ScrollUpButton />
     </>
   );
 };

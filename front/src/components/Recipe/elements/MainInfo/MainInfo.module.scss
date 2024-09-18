@@ -1,16 +1,18 @@
 @use 'styles/variables' as vars;
 
 .mainInfo {
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 901px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    align-items: start;
     gap: 2.19rem;
     margin-bottom: 6rem;
   }
 
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 900px) {
     display: flex;
     flex-direction: column;
+    gap: 2rem;
   }
 }
 
@@ -50,9 +52,7 @@
 }
 
 .description {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  margin: 0;  
 }
 
 .title {

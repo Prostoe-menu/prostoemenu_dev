@@ -2,6 +2,7 @@ import { useState } from 'react';
 import cn from 'classnames';
 import { DropdownItem, Input, Loader } from 'ui';
 import { handleKeyboardNavigation } from 'helpers/useKeyboardNavigation';
+import useClickOutside from 'hooks/useClickOutside';
 import styles from './DropdownSearch.module.scss';
 
 /**
@@ -35,8 +36,26 @@ const DropdownSearch = (props) => {
   const [cursor, setCursor] = useState(-1);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const inputRef = useClickOutside(() => setIsDropdownOpen(false));
+
+  const changeHandler = (event) => {
+    const { value } = event.target;
+
+    onInputChange(value);
+
+    if (value.length > 2) {
+      setIsDropdownOpen(true);
+      return;
+    }
+
+    setIsDropdownOpen(false);
+  };
+
   return (
-    <div className={cn(styles.dropdownSearch, styles[dropdownClassName])}>
+    <div
+      ref={inputRef}
+      className={cn(styles.dropdownSearch, styles[dropdownClassName])}
+    >
       <Input
         inputClassName={inputClassName}
         isError={isInputError}
@@ -46,17 +65,7 @@ const DropdownSearch = (props) => {
         requiredMessage={inputRequiredMessage}
         patternValue={inputPatternValue}
         patternMessage={inputPatternMessage}
-        onChange={(event) => {
-          onInputChange(event);
-
-          if (inputValue.length >= 2) {
-            setTimeout(() => {
-              setIsDropdownOpen(true);
-            }, 1100);
-          } else {
-            setIsDropdownOpen(false);
-          }
-        }}
+        onChange={changeHandler}
         onKeyDown={(e) =>
           handleKeyboardNavigation(
             e,

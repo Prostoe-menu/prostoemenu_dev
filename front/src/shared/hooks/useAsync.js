@@ -6,34 +6,40 @@ const useAsync = (callback, query, debounce, delay) => {
   const [value, setValue] = useState([]);
 
   const callbackMemoized = useCallback(async () => {
-    setLoading(true);
-    setError(false);
-    setValue([]);
+    try {
+      const result = await callback(query);
 
-    const result = await callback(query);
+      if (result) {
+        setValue(result);
+        setError(false);
+      } else {
+        setValue([]);
+        setError(true);
+      }
+    } catch (error) {
+      console.log('ERROR: ', error);
 
-    if (result && result.length > 0) {
-      setValue(result);
-    } else {
+      setValue([]);
       setError(true);
     }
+
     setLoading(false);
   }, [callback, query]);
 
   useEffect(() => {
-    if (query.length >= 2) {
-      if (!debounce) {
-        callbackMemoized();
-        return;
-      }
+    setLoading(true);
 
-      const timer = setTimeout(() => {
-        callbackMemoized();
-      }, delay);
-
-      // eslint-disable-next-line consistent-return
-      return () => clearTimeout(timer);
+    if (!debounce) {
+      callbackMemoized();
+      return;
     }
+
+    const timer = setTimeout(() => {
+      callbackMemoized();
+    }, delay);
+
+    // eslint-disable-next-line consistent-return
+    return () => clearTimeout(timer);
   }, [callbackMemoized, query, debounce, delay]);
 
   return { loading, error, value };

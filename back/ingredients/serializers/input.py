@@ -1,7 +1,7 @@
 from django.conf import settings as django_settings
 from rest_framework import serializers
 
-from common.validators import validate_accepted_symbols
+from common.validators import AcceptedSymbolsValidator
 
 
 class IngredientQueryInputSerializer(serializers.Serializer):
@@ -10,5 +10,5 @@ class IngredientQueryInputSerializer(serializers.Serializer):
     name = serializers.CharField(
         required=False,
         min_length=django_settings.MIN_TEXT_FIELD_SEARCH_LENGTH,
-        validators=[validate_accepted_symbols],
+        validators=[AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS)],
     )

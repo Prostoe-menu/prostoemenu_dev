@@ -5,7 +5,7 @@ import {
 } from 'utils/constants';
 import { recipeService } from './recipeService';
 
-const fetchRecipes = createAsyncThunk(
+export const fetchRecipes = createAsyncThunk(
   'recipes/fetchRecipes',
   async (_, { rejectWithValue }) => {
     try {
@@ -16,14 +16,11 @@ const fetchRecipes = createAsyncThunk(
   }
 );
 
-export default fetchRecipes;
-
 export const fetchRecipeByID = createAsyncThunk(
   'recipes/fetchRecipeByID',
   async (id, { rejectWithValue }) => {
     try {
       const response = await recipeService.getRecipeByID(id);
-
       return response.data;
     } catch (error) {
       return rejectWithValue(FETCH_RECIPE_BY_ID_ERROR_MESSAGE);

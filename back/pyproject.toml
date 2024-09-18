@@ -1,6 +1,5 @@
 [tool.isort]
 profile = "black"
-src_paths = ["back"]
 
 [tool.black]
 line-length = 88

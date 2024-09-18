@@ -11,7 +11,7 @@ from django.db import models
 
 from common.models import CustomBaseModel
 from common.utils import normilize_text_fields
-from common.validators import validate_accepted_symbols
+from common.validators import AcceptedSymbolsValidator
 from ingredients.models import Ingredient
 from measurements.models import Measurement
 from recipes.utils import get_recipe_image_upload_path, get_step_image_upload_path
@@ -27,7 +27,7 @@ class Category(CustomBaseModel):
         default="Без категории",
         validators=[
             MinLengthValidator(django_settings.MIN_TITLE_LENGTH),
-            validate_accepted_symbols,
+            AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS),
         ],
     )
     description = models.TextField(
@@ -37,7 +37,7 @@ class Category(CustomBaseModel):
         validators=[
             MinLengthValidator(django_settings.MIN_DESCR_LENGTH),
             MaxLengthValidator(django_settings.MAX_DESCR_LENGTH),
-            validate_accepted_symbols,
+            AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS),
         ],
     )
 
@@ -63,7 +63,7 @@ class Recipe(CustomBaseModel):
         verbose_name="Название",
         validators=[
             MinLengthValidator(django_settings.MIN_TITLE_LENGTH),
-            validate_accepted_symbols,
+            AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS),
         ],
     )
     description = models.TextField(
@@ -72,7 +72,7 @@ class Recipe(CustomBaseModel):
         validators=[
             MinLengthValidator(django_settings.MIN_DESCR_LENGTH),
             MaxLengthValidator(django_settings.MAX_DESCR_LENGTH),
-            validate_accepted_symbols,
+            AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS),
         ],
     )
     cooking_time = models.PositiveSmallIntegerField(
@@ -162,7 +162,7 @@ class RecipeStep(CustomBaseModel):
         validators=[
             MinLengthValidator(django_settings.MIN_DESCR_LENGTH),
             MaxLengthValidator(django_settings.MAX_DESCR_LENGTH),
-            validate_accepted_symbols,
+            AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS),
         ],
     )
     image = models.ImageField(
@@ -183,7 +183,6 @@ class RecipeStep(CustomBaseModel):
 
     def clean(self):
         normilize_text_fields(self)
-        validate_accepted_symbols(self.description)
 
     def save(self, *args, **kwargs):
         self.full_clean()

@@ -1,11 +1,11 @@
 name: Deploy backend
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - master
       - dev
+  workflow_dispatch:
   #push:
     #branches: 
       #- master
@@ -15,17 +15,16 @@ on:
     #  - 'releases-*'
 
   pull_request_review:
-    types:
-      - submitted
-  # Allows you to run this workflow manually from the Actions tab
-  # workflow_dispatch:
+   types:
+     - submitted
 
-permissions:
-  contents: read
+
+# permissions:
+#   contents: read 
 
 jobs:
   deploy-back-to-prod:
-    if: ${{ github.ref == 'master' }}
+    if: ${{ github.ref_name == 'master' }}
     runs-on: [self-hosted, linux, firstvds]
     environment: prod
     steps:
@@ -68,10 +67,14 @@ jobs:
           docker compose -f ./infra/docker-compose.back.yml up -d
   
   deploy-back-to-dev:
-    if: ${{ github.ref == 'dev' }}
+    if: ${{ github.ref_name == 'dev' }}
     runs-on: [self-hosted, linux, timeweb]
     environment: dev
     steps:
+      - name: Get short_sha
+        shell: bash
+        run: echo "SHORT_SHA=$(echo dev_${GITHUB_SHA::7})" >> $GITHUB_ENV
+
       - name: Build docker images & Run docker-compose
         env: 
           PROJECT_FOLDER: ${{ vars.PROJECT_FOLDER }}
@@ -82,6 +85,7 @@ jobs:
           ENV_STAGE: ${{ vars.ENV_VAR }}
           PORT_NGINX: ${{ vars.PORT_NGINX }}
           GIT_BRANCH_FULL: ${{ github.ref }}
+          SHORT_SHA: ${{ env.SHORT_SHA }}
         run: |
           echo $PROJECT_FOLDER
           cd $PROJECT_FOLDER
@@ -90,5 +94,4 @@ jobs:
           git checkout $GIT_BRANCH
           git pull
           docker compose -f ./infra/docker-compose.back.yml down || true
-          #docker rmi infra-web:latest || true
           docker compose -f ./infra/docker-compose.back.yml up -d

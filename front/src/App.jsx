@@ -1,19 +1,44 @@
-import { Route, Routes } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundary';
 import Layout from 'components/Layout';
 import NotFound from 'components/NotFound';
-import AddRecipePage from 'pages/AddRecipePage';
 import HomePage from 'pages/HomePage';
-import RecipePage from 'pages/RecipePage';
+import Loader from 'ui/Loader';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    errorElement: <ErrorBoundary />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: '/new-recipe',
+        async lazy() {
+          const { AddRecipePage } = await import('pages/AddRecipePage');
+          return { Component: AddRecipePage };
+        },
+      },
+      {
+        path: '/recipe/:id',
+        async lazy() {
+          const { RecipePage } = await import('pages/RecipePage');
+          return { Component: RecipePage };
+        },
+      },
+      {
+        path: '/*',
+        element: <NotFound />,
+      },
+    ],
+  },
+]);
 
 const App = () => (
-  <Routes>
-    <Route path="/" element={<Layout />}>
-      <Route index element={<HomePage />} />
-      <Route path="/new-recipe" element={<AddRecipePage />} />
-      <Route path="recipe/:id" element={<RecipePage />} />
-      <Route path="/*" element={<NotFound />} />
-    </Route>
-  </Routes>
+  <RouterProvider router={router} fallbackElement={<Loader />} />
 );
 
 export default App;

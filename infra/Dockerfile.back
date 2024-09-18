@@ -8,5 +8,4 @@ RUN echo $(ls -lah /app)
 RUN ln -s /app /back
 RUN cd /app
 RUN python manage.py collectstatic --noinput
-#CMD ["gunicorn", "prostoemenu.wsgi:application", "--bind", "0.0.0.0:8000"]
-CMD gunicorn prostoemenu.wsgi:application --forwarded-allow-ips="147.45.182.25" --bind 0.0.0.0:8000
+CMD ["gunicorn", "prostoemenu.wsgi:application", "--bind", "0.0.0.0:8000"]

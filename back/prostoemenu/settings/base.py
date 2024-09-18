@@ -13,6 +13,8 @@ SECRET_KEY = os.getenv(
     default="django-insecure-*rojrw1fe1v4h)bkz^6amo-p1824p5@yw7z9+hps)rb*ptq_th",
 )
 
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 DEBUG = True
 
 ALLOWED_HOSTS = [

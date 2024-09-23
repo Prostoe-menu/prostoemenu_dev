@@ -13,7 +13,7 @@ export const MoreRecipesButton = ({ moreUrl }) => {
     event.preventDefault();
 
     setLoading(true);
-    dispatch(fetchMoreRecipes(moreUrl.replace('http', 'https')));
+    dispatch(fetchMoreRecipes(moreUrl));
 
     setTimeout(() => {
       setLoading(false);

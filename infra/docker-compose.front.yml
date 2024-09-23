@@ -8,6 +8,7 @@ services:
       dockerfile: ./infra/Dockerfile.front
       no_cache: true
     container_name: front
+    hostname: front
     ports:
       - "$PORT_NGINX:80"
     volumes:

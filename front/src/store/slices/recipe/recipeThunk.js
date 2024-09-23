@@ -16,6 +16,17 @@ export const fetchRecipes = createAsyncThunk(
   }
 );
 
+export const fetchMoreRecipes = createAsyncThunk(
+  'recipes/fetchMoreRecipes',
+  async (url, { rejectWithValue }) => {
+    try {
+      return await recipeService.getRecipes(url);
+    } catch (error) {
+      return rejectWithValue(FETCH_RECIPES_ERROR_MESSAGE);
+    }
+  }
+);
+
 export const fetchRecipeByID = createAsyncThunk(
   'recipes/fetchRecipeByID',
   async (id, { rejectWithValue }) => {

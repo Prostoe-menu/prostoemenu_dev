@@ -11,7 +11,8 @@
   border: none;
   cursor: pointer;
   transition: background-color vars.$trans-300;
-  padding: 0;
+  padding: 12px 25px;
+  border-radius: 12px;
 }
 
 .reverse {
@@ -29,8 +30,6 @@
   color: vars.$btn-color-primary;
   background: vars.$btn-bg-primary;
   gap: 8px;
-  padding: 13px 0;
-  border-radius: 12px;
 
   &:hover {
     background: vars.$btn-bg-primary-hover;
@@ -55,8 +54,6 @@
   background: vars.$bg-primary;
   border: 1px solid vars.$btn-border-secondary;
   gap: 8px;
-  padding: 12px 0;
-  border-radius: 12px;
 
   &:hover {
     background: vars.$btn-bg-secondary-hover;
@@ -81,9 +78,7 @@
   color: vars.$color-primary;
   background-color: vars.$bg-primary;
   border: 1px solid vars.$btn-bg-tertiary-active;
-  gap: 6px;
-  padding: 12px 25px 12px 28px;
-  border-radius: 12px;
+  gap: 6px;  
 
   &:hover {
     background: vars.$btn-bg-tertiary-hover;
@@ -103,9 +98,11 @@
 }
 
 .view-cross {
-  background: url('assets/images/close-btn/close_btn.svg');
+  background-image: url('assets/images/close-btn/close_btn.svg');
+  background-repeat: no-repeat;
   opacity: 0.6;
   transition: all vars.$trans-300;
+  padding: 0;
 
   &:hover {
     opacity: 1;

@@ -12,7 +12,7 @@ export const MainInfo = ({ recipe }) => {
     oven_time: ovenTime,
   } = recipe;
 
-  const apiImageUrl = import.meta.env.VITE_IMAGE_URL;
+  const apiImageUrl = import.meta.env.VITE_IMAGE_URL ?? '';
 
   return (
     <section className={styles.mainInfo}>

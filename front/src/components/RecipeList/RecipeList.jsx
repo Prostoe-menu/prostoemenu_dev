@@ -8,7 +8,7 @@ const RecipeList = ({ title, recipes }) => {
     <section>
       {title && <h2 className={styles.title}>{title}</h2>}
 
-      {recipes.length && (
+      {recipes.length > 0 && (
         <ul className={styles.recipeList}>
           {recipes.map((recipe) => (
             <RecipeCard recipe={recipe} key={`${recipe.id}-[${title}]`} />

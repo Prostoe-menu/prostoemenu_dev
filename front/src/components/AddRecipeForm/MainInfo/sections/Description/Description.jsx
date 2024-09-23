@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import cn from 'classnames';
-import { ErrorMessage } from '../../elements/ErrorMessage/ErrorMessage';
-import { FieldWrap } from '../../elements/FieldWrap/FieldWrap';
-import { LetterCounter } from '../../elements/LetterCounter/LetterCounter';
+import {
+  ErrorMessage,
+  FieldWrap,
+  LetterCounter,
+  Title,
+} from 'components/AddRecipeForm/MainInfo/elements';
 import styles from './Description.module.scss';
 
 export const Description = () => {
@@ -20,7 +23,9 @@ export const Description = () => {
   }
 
   return (
-    <>
+    <section>
+      <Title>Описание</Title>
+
       <p className={styles.subtitle}>
         Кратко расскажите о вашем рецепте.
         <br />
@@ -67,6 +72,6 @@ export const Description = () => {
       {errors?.recipedesc && (
         <ErrorMessage message={errors?.recipedesc.message} />
       )}
-    </>
+    </section>
   );
 };

@@ -1,7 +1,7 @@
 import AddRecipeForm from 'components/AddRecipeForm';
 import PageTitle from 'components/PageTitle';
 
-const AddRecipePage = () => {
+export const AddRecipePage = () => {
   return (
     <>
       <PageTitle>Добавить новый рецепт</PageTitle>
@@ -9,5 +9,3 @@ const AddRecipePage = () => {
     </>
   );
 };
-
-export default AddRecipePage;

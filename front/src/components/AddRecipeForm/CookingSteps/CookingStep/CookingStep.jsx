@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import PhotoButton from 'ui/PhotoButton';
+import { PhotoButton } from 'ui';
 import styles from './CookingStep.module.scss';
 
 const CookingStep = ({ stepNumber }) => {

@@ -5,8 +5,8 @@ import {
   saveGeneralRecipeInfo,
 } from 'store/slices/form/formSlice';
 import Button from 'ui/Button';
-import PhotoButton from 'ui/PhotoButton';
-import { CookTime } from './elements';
+import { RecipePhoto } from './sections/RecipePhoto/RecipePhoto';
+import { CookTime, Title } from './elements';
 import {
   Description,
   RecipeComplexity,
@@ -34,8 +34,8 @@ const MainInfo = () => {
     mode: 'onTouched',
   });
 
-  // eslint-disable-next-line
   const onSubmit = (data) => {
+    // eslint-disable-next-line
     console.log('step1 data: ', data);
     dispatch(saveGeneralRecipeInfo(data));
     dispatch(changeCurrentStage(2));
@@ -44,22 +44,6 @@ const MainInfo = () => {
       behavior: 'smooth',
     });
   };
-
-  // const allmins = () => {
-  //   console.log(getValues('allminutes'));
-  //   const { allminutes } = getValues();
-  //   console.log(!!allminutes);
-  //   return !!allminutes;
-  // };
-
-  // const cookmins = () => {
-  //   if (methods.getValues('cookminutes') === undefined || '') {
-  //     return true;
-  //   }
-  //   return false;
-  // };
-
-  console.log('MainInfo render');
 
   return (
     <FormProvider {...methods}>
@@ -75,7 +59,7 @@ const MainInfo = () => {
         </section>
 
         <section>
-          <h4 className={styles.title}>Время приготовления*</h4>
+          <Title>Время приготовления*</Title>
 
           <div className={styles.cookTimeWrap}>
             <CookTime
@@ -92,25 +76,10 @@ const MainInfo = () => {
           </div>
         </section>
 
-        <section>
-          <h4 className={styles.title}>Описание</h4>
-          <Description />
-        </section>
+        <Description />
 
-        <div>
-          <p className={styles.title}>Фото готового блюда</p>
-          <PhotoButton />
-          <p className={styles.fotoReqs}>Требования к фото:</p>
-          <ul className={styles.reqlist}>
-            <li className={styles.reqlist_item}>
-              Форматы JPEG, JPG, PNG или WEBP
-            </li>
-            <li className={styles.reqlist_item}>
-              Размер файла не больше&nbsp;
-              <span className={styles.reqlist_accent}>5 мб</span>
-            </li>
-          </ul>
-        </div>
+        <RecipePhoto />
+
         <div className={styles.controls}>
           <Button className={styles.button_primary} type="submit">
             Далее

@@ -161,36 +161,6 @@
   }
 }
 
-.fotoReqs {
-  @extend %mulish-12-500;
-  color: vars.$color-primary;
-}
-
-.reqlist {
-  margin: 0;
-  padding: 0;
-  margin-left: 10px;
-  list-style-image: url('assets/images/list-marker.svg');
-}
-
-.reqlist_item {
-  @extend %mulish-12-300;
-  color: vars.$color-primary;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  margin-left: 5px;
-
-  &:last-of-type {
-    margin-bottom: 0;
-  }
-}
-
-.reqlist_accent {
-  font-weight: bold;
-}
-
-
-
 .controls {
   display: flex;
   justify-content: flex-end;

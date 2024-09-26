@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import RecipeList from 'components/RecipeList';
 import { fetchRecipes } from 'store/slices/recipe/recipeThunk';
 import { ErrorMessage, Loader } from 'ui';
+import MoreRecipesButton from './MoreRecipesButton';
 
 const NewRecipes = () => {
   const dispatch = useDispatch();
 
-  const { recipes, isLoading, isError, errorMessage } = useSelector(
+  const { recipes, next, isLoading, isError, errorMessage } = useSelector(
     (state) => state.recipe
   );
 
@@ -23,8 +23,10 @@ const NewRecipes = () => {
       {isError && <ErrorMessage message={errorMessage} />}
 
       {!isLoading && !isError && recipes && (
-        <RecipeList title="Каталог рецептов" recipes={recipes.results} />
+        <RecipeList title="Вам может понравиться" recipes={recipes} />
       )}
+
+      <MoreRecipesButton moreUrl={next} />
     </>
   );
 };

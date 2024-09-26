@@ -12,11 +12,13 @@ const RecipeCard = ({ recipe }) => {
     complexity,
   } = recipe;
 
+  const apiImageUrl = import.meta.env.VITE_IMAGE_URL ?? '';
+
   return (
     <li>
       <article className={styles.recipe}>
         {imgUrl ? (
-          <img src={imgUrl} className={styles.img} alt={title} />
+          <img src={apiImageUrl + imgUrl} className={styles.img} alt={title} />
         ) : (
           <div className={styles.defaultImg}>No Image</div>
         )}

@@ -13,15 +13,12 @@ export const RecipeName = () => {
     const { value } = event.target;
     const firstLetter = value.slice(0, 1);
 
-    setNameCounter((prev) => {
-      if (prev === 0) {
-        setValue('recipeName', firstLetter.toUpperCase() + value.slice(1));
-      }
-      return value.length;
+    setNameCounter(value.lengt);
+
+    setValue('recipeName', firstLetter.toUpperCase() + value.slice(1), {
+      shouldValidate: true,
     });
   };
-
-  console.log('RecipeName render');
 
   return (
     <section>

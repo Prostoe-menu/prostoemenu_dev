@@ -25,7 +25,7 @@ class RecipeTest(TestCase):
             "complexity": django_settings.MIN_RECIPE_COMPLEXITY,
             "author": None,
             "cover_path": "mediafiles/media/tiny_image.png",
-            "category": Category.objects.get(pk=1),
+            "category": Category.objects.get(name="Основные блюда"),
         }
 
     def test_recipe_title_cannot_be_shorter_than_MIN_TITLE_LENGTH(self):

@@ -24,12 +24,12 @@ class RecipeStepTest(TestCase):
             complexity=django_settings.MIN_RECIPE_COMPLEXITY,
             author=None,
             cover_path="mediafiles/media/tiny_image.png",
-            category=Category.objects.get(pk=1),
+            category=Category.objects.get(name="Основные блюда"),
         )
 
     def setUp(self):
         self.recipe_step_data = {
-            "recipe": Recipe.objects.get(pk=1),
+            "recipe": Recipe.objects.get(title="Омлет по-берлински"),
             "step_number": django_settings.MIN_STEP_NUMBER,
             "description": "Valid step description",
             "image": "mediafiles/media/tiny_image.png",

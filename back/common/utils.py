@@ -14,4 +14,4 @@ def normilize_text_fields(model_obj):
 
 
 def generate_text(length, symbols):
-    return "".join([random.choice(symbols) for i in range(length)])
+    return "".join([random.choice(list(symbols)) for i in range(length)])

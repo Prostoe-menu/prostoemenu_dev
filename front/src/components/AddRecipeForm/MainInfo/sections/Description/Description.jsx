@@ -9,6 +9,8 @@ import {
 } from 'components/AddRecipeForm/MainInfo/elements';
 import styles from './Description.module.scss';
 
+const inputName = 'description';
+
 export const Description = () => {
   const [descCounter, setDescCounter] = useState(0);
 
@@ -32,9 +34,9 @@ export const Description = () => {
         Например, какой у него вкус, особенности, или как вы о нём узнали.
       </p>
 
-      <FieldWrap className={styles.wrap} isError={!!errors?.recipedesc}>
+      <FieldWrap className={styles.wrap} isError={!!errors[inputName]}>
         <textarea
-          {...register('recipedesc', {
+          {...register(inputName, {
             minLength: {
               value: 2,
               message: 'Введите не менее двух символов',
@@ -51,26 +53,26 @@ export const Description = () => {
             },
           })}
           className={cn(styles.description, {
-            [styles.desc__input_error]: errors?.recipedesc,
+            [styles.desc__input_error]: !!errors[inputName],
           })}
           onChange={descChange}
-          onClick={() => clearErrors('recipedesc')}
+          onClick={() => clearErrors(inputName)}
           maxLength={500}
-          name="recipedesc"
-          id="recipedesc"
+          name={inputName}
+          id={inputName}
           placeholder="Описание рецепта"
         />
 
         <LetterCounter
           count={descCounter}
           total={500}
-          isError={errors?.recipedesc}
+          isError={errors[inputName]}
           className={styles.counter}
         />
       </FieldWrap>
 
-      {errors?.recipedesc && (
-        <ErrorMessage message={errors?.recipedesc.message} />
+      {errors[inputName] && (
+        <ErrorMessage message={errors[inputName].message} />
       )}
     </section>
   );

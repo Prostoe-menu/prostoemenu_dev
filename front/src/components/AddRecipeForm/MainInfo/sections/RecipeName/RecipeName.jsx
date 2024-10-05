@@ -1,35 +1,43 @@
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import cn from 'classnames';
+import { useDebounce } from 'hooks/useDebounce';
 import { ErrorMessage, FieldWrap, LetterCounter, Title } from '../../elements';
 import styles from './RecipeName.module.scss';
+
+const inputName = 'title';
 
 export const RecipeName = () => {
   const { register, formState, setValue } = useFormContext();
 
-  const [nameCounter, setNameCounter] = useState(0);
+  const [nameCounter, setNameCounter] = useState(
+    formState.defaultValues[inputName]?.length || 0
+  );
+
+  const inputError = formState.errors[inputName];
+
+  const debounceSetValue = useDebounce((val) => {
+    setValue(inputName, val, {
+      shouldValidate: true,
+    });
+  }, 1000);
 
   const changeHandler = (event) => {
     const { value } = event.target;
     const firstLetter = value.slice(0, 1);
 
-    setNameCounter(value.lengt);
+    setNameCounter(value.length);
 
-    setValue('recipeName', firstLetter.toUpperCase() + value.slice(1), {
-      shouldValidate: true,
-    });
+    debounceSetValue(firstLetter.toUpperCase() + value.slice(1));
   };
 
   return (
     <section>
       <Title>Название рецепта*</Title>
 
-      <FieldWrap
-        className={styles.wrap}
-        isError={!!formState.errors?.recipeName}
-      >
+      <FieldWrap className={styles.wrap} isError={!!inputError}>
         <textarea
-          {...register('recipeName', {
+          {...register(inputName, {
             required: 'Это поле обязательно к заполнению',
             minLength: {
               value: 2,
@@ -46,9 +54,9 @@ export const RecipeName = () => {
             },
           })}
           className={cn(styles.recipeName, {
-            [styles.recipeNameError]: formState.errors?.recipeName,
+            [styles.recipeNameError]: !!inputError,
           })}
-          aria-invalid={formState.errors?.recipeName ? 'true' : 'false'}
+          aria-invalid={!!inputError}
           type="text"
           maxLength={100}
           rows={nameCounter > 58 ? 2 : 1}
@@ -57,16 +65,10 @@ export const RecipeName = () => {
           onChange={changeHandler}
         />
 
-        <LetterCounter
-          count={nameCounter}
-          total={100}
-          isError={!!formState.errors?.recipeName}
-        />
+        <LetterCounter count={nameCounter} total={100} isError={!!inputError} />
       </FieldWrap>
 
-      {formState.errors?.recipeName && (
-        <ErrorMessage message={formState.errors?.recipeName.message} />
-      )}
+      {inputError && <ErrorMessage message={inputError.message} />}
     </section>
   );
 };

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
 import CookingStep from 'components/AddRecipeForm/CookingSteps/CookingStep/CookingStep';
-import { changeCurrentStage } from 'store/slices/form/formSlice';
+import { nextStep, prevStep } from 'store/slices/form/formSlice';
 import Button from 'ui/Button';
 import addIcon from 'assets/images/add.svg';
 import styles from './CookingSteps.module.scss';
@@ -21,7 +21,7 @@ const CookingSteps = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // dispatch(saveGeneralRecipeInfo(data));
-    dispatch(changeCurrentStage(4));
+    dispatch(nextStep());
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -29,7 +29,7 @@ const CookingSteps = () => {
   };
 
   const onGoBack = () => {
-    dispatch(changeCurrentStage(2));
+    dispatch(prevStep());
     window.scrollTo({
       top: 0,
       behavior: 'smooth',

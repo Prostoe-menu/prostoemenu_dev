@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { Modal } from 'components/Modal';
+import Modal from 'components/Modal';
 import { ToastNotifications } from 'components/Toast';
 import { Footer, Header } from './elements';
 import styles from './Layout.module.scss';

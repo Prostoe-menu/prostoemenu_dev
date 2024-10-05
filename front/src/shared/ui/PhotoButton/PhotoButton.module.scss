@@ -1,9 +1,12 @@
 @use 'styles/variables' as vars;
 
 .dropzoneContainer {
-  border-radius: 12px;
+  width: 180px;
+  aspect-ratio: 4 / 3; 
 }
+
 .dropzoneIcon {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,21 +14,19 @@
   gap: .5rem;
   padding: 2rem 0;
 
-  font-weight: 700;
-  color: vars.$color-secondary;
   background-color: vars.$bg-secondary;
-  box-sizing: border-box;
   border-radius: 12px;
-  transition: border 0.8s;
-  cursor: pointer;
   border: 1px solid vars.$bg-secondary;
+  transition: border 0.8s;
 
-  &:hover,
-  &_on-focus {
-    border: 1px solid #dbdbdb;
-  }
-
+  font-weight: 700;
+  color: vars.$color-secondary; 
   
+  cursor: pointer;
+
+  &:not(.dropzoneError):hover {
+    border-color: #dbdbdb;
+  }
 
   &_hidden {
     display: none;
@@ -33,7 +34,12 @@
 }
 
 .dropzoneError {
-    border: 1px solid #d14941;
+    border-width: 1px;
+    border-style: solid;
+    @include vars.error-border-color;
   }
 
-
+.errorMessage {
+  @include vars.error-form-style;
+  text-align: center;
+}

@@ -1,9 +1,7 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import {
-  changeCurrentStage,
-  saveGeneralRecipeInfo,
-} from 'store/slices/form/formSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectMainInfo } from 'store/slices/form/formSelect';
+import { nextStep, saveRecipeInfo } from 'store/slices/form/formSlice';
 import Button from 'ui/Button';
 import { RecipePhoto } from './sections/RecipePhoto/RecipePhoto';
 import { CookTime, Title } from './elements';
@@ -15,19 +13,10 @@ import {
 } from './sections';
 import styles from './MainInfo.module.scss';
 
-const defaultValues = {
-  recipeName: '',
-  recipeComplexity: 0,
-  portions: 0,
-  allhours: null,
-  allminutes: null,
-  cookhours: null,
-  cookminutes: null,
-  recipedesc: '',
-};
-
 const MainInfo = () => {
   const dispatch = useDispatch();
+
+  const defaultValues = useSelector(selectMainInfo);
 
   const methods = useForm({
     defaultValues,
@@ -37,8 +26,10 @@ const MainInfo = () => {
   const onSubmit = (data) => {
     // eslint-disable-next-line
     console.log('step1 data: ', data);
-    dispatch(saveGeneralRecipeInfo(data));
-    dispatch(changeCurrentStage(2));
+
+    dispatch(saveRecipeInfo(data));
+    dispatch(nextStep());
+
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -81,9 +72,7 @@ const MainInfo = () => {
         <RecipePhoto />
 
         <div className={styles.controls}>
-          <Button className={styles.button_primary} type="submit">
-            Далее
-          </Button>
+          <Button type="submit">Далее</Button>
         </div>
       </form>
     </FormProvider>

@@ -119,6 +119,7 @@ img {
   color: vars.$color-primary;
   opacity: 0.6;
   transition: all vars.$trans-300;
+  padding: 0;
 
   &:not(:disabled):hover {
     opacity: 1;

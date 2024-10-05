@@ -1,16 +1,14 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { Rating } from '@mui/material';
 import Tooltip from 'components/Tooltip/Tooltip';
 import TooltipDifficultyContent from 'components/Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
-import { saveRecipeComplexity } from 'store/slices/form/formSlice';
 import { ErrorMessage, Title } from '../../elements';
 import styles from './RecipeComplexity.module.scss';
 
-export const RecipeComplexity = () => {
-  const { control, clearErrors, formState } = useFormContext();
+const inputName = 'complexity';
 
-  const dispatch = useDispatch();
+export const RecipeComplexity = () => {
+  const { control, formState } = useFormContext();
 
   return (
     <div>
@@ -21,27 +19,27 @@ export const RecipeComplexity = () => {
 
       <ul className={styles.stars}>
         <Controller
-          name="rating"
+          name={inputName}
           control={control}
-          defaultValue={0}
-          rules={{ required: true }}
-          render={() => (
+          rules={{
+            required: 'Укажите сложность рецепта',
+            validate: (val) => val > 0 || 'Укажите сложность рецепта',
+          }}
+          render={({ field }) => (
             <Rating
-              name="recipeComplexity"
-              defaultValue={0}
+              {...field}
               max={3}
               size="large"
-              onClick={() => clearErrors('rating')}
-              onChange={(event, newValue) => {
-                dispatch(saveRecipeComplexity(newValue));
+              onChange={(e, newValue) => {
+                field.onChange(newValue);
               }}
             />
           )}
         />
       </ul>
 
-      {formState.errors?.rating?.type === 'required' && (
-        <ErrorMessage message={'Это поле обязательно к заполнению'} />
+      {formState.errors[inputName] && (
+        <ErrorMessage message={formState.errors[inputName]?.message} />
       )}
     </div>
   );

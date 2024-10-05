@@ -10,37 +10,41 @@ import SVGMinus from 'assets/images/minus.svg?react';
 import SVGPlus from 'assets/images/plus.svg?react';
 import styles from './RecipePortions.module.scss';
 
+const inputName = 'quantity';
+
 export const RecipePortions = () => {
-  const { register, formState, clearErrors } = useFormContext();
+  const { register, formState, setValue, getValues, clearErrors } =
+    useFormContext();
 
   const [portion, setPortion] = useState(0);
+
+  const inputError = formState.errors[inputName];
 
   function incrementPortion() {
     setPortion((prev) => prev + 1);
 
-    if (formState.errors?.portions) clearErrors('portions');
+    inputError && clearErrors(inputName);
   }
 
   function decrementPortion() {
     setPortion((prev) => prev - 1);
-
-    console.log(portion);
-
-    //trigger('portions');
-
-    //clearErrors('portions');
   }
 
   useEffect(() => {
-    console.log(portion);
-  }, [portion]);
+    const defaultPortions = getValues(inputName);
+    defaultPortions && setPortion(defaultPortions);
+  }, [getValues]);
+
+  useEffect(() => {
+    portion && setValue(inputName, portion);
+  }, [portion, setValue]);
 
   return (
     <div>
       <Title>Количество порций*</Title>
       <div
         className={cn(styles.wrap, {
-          [styles.error]: formState.errors?.portions,
+          [styles.error]: !!inputError,
         })}
       >
         <Button
@@ -53,15 +57,15 @@ export const RecipePortions = () => {
         </Button>
 
         <input
-          {...register('portions', {
+          {...register(inputName, {
             required: 'Укажите количество порций. Это обязательное поле',
+            valueAsNumber: true,
             min: { value: 1, message: 'Укажите количество порций' },
           })}
           type="text"
           placeholder="0"
-          value={portion}
           readOnly
-          aria-invalid={!!formState.errors?.portions}
+          aria-invalid={!!inputError}
           className={cn(styles.portion, {
             [styles.active]: portion > 0,
           })}
@@ -77,9 +81,7 @@ export const RecipePortions = () => {
         </Button>
       </div>
 
-      {formState.errors?.portions && (
-        <ErrorMessage message={formState.errors?.portions.message} />
-      )}
+      {inputError && <ErrorMessage message={inputError.message} />}
     </div>
   );
 };

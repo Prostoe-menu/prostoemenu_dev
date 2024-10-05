@@ -1,10 +1,3 @@
-const progressBarSteps = [
-  { id: 1, text: 'Основная информация', path: 'main' },
-  { id: 2, text: 'Ингредиенты', path: 'ingredients' },
-  { id: 3, text: 'Этапы готовки', path: 'stages' },
-  { id: 4, text: 'Дополнительная информация', path: 'additional-info' },
-];
-
 const defaultMeasureUnits = [
   {
     id: 1,
@@ -94,7 +87,6 @@ const AGREEMENT_URL =
   'https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FpLbl5zUkeYjYBOkGqqwoieqol9TU%2Bil2AbAW6HiflVfSX%2B%2Buiu0GjXWxHiex0GHIq%2FJ6bpmRyOJonT3VoXnDag%3D%3D&name=%D0%9F%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%BE%D0%B5%20%D1%81%D0%BE%D0%B3%D0%BB%D0%B0%D1%88%D0%B5%D0%BD%D0%B8%D0%B5.docx&nosw=1';
 
 export {
-  progressBarSteps,
   defaultMeasureUnits,
   TEXT_INPUT_PATTERN,
   TEXT_INPUT_ERROR_MESSAGE,
@@ -116,4 +108,7 @@ export const MAX_IMAGE_SIZE = 0.5; // MB
 
 export const MAX_IMAGE_SIZE_IN_BYTES = MAX_IMAGE_SIZE * 1048576; // 1 MB = 1,048,576 bytes
 
+// minimum image upload file's dimentions
+
 export const MIN_IMAGE_WIDTH = 600; // pixels
+export const MIN_IMAGE_HEIGHT = 600; // pixels

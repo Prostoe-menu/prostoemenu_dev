@@ -42,9 +42,9 @@ export const store = configureStore({
           PERSIST,
           PURGE,
           REGISTER,
-          'form/loadPhoto',
+          'form/saveRecipeInfo',
         ],
-        ignoredPaths: ['form.sourcePhoto'],
+        ignoredPaths: ['form.mainInfo.cover_path'],
       },
     }),
 });

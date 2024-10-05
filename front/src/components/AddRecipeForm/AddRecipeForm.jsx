@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import Ingredients from 'components/AddRecipeForm/Ingredients/Ingredients';
 import ProgressBar from 'components/AddRecipeForm/ProgressBar/ProgressBar';
-import AdditionalInfo from './AdditionalInfo/AdditionalInfo';
+import { selectStepIndex } from 'store/slices/form/formSelect';
 import CookingSteps from './CookingSteps/CookingSteps';
 import MainInfo from './MainInfo/MainInfo';
 import StepContainer from './StepContainer';
@@ -11,31 +11,32 @@ const STEPS = [
   {
     title: 'Основная информация',
     component: <MainInfo />,
+    path: 'main',
   },
   {
     title: 'Ингредиенты',
     component: <Ingredients />,
+    path: 'ingredients',
   },
   {
     title: 'Этапы готовки',
     component: <CookingSteps />,
-  },
-  {
-    title: 'Дополнительная информация',
-    component: <AdditionalInfo />,
+    path: 'steps',
   },
 ];
 
 const AddRecipeForm = () => {
-  const currentStepIndex = useSelector((state) => state.form.currentFormStage);
+  const currentStepIndex = useSelector(selectStepIndex);
 
-  const step = STEPS[currentStepIndex - 1];
+  const currentStep = STEPS[currentStepIndex - 1];
+
+  const { title, component } = currentStep;
 
   return (
     <section className={styles.container}>
-      <ProgressBar activeStep={currentStepIndex} />
+      <ProgressBar currentIndex={currentStepIndex} steps={STEPS} />
 
-      <StepContainer title={step.title}>{step.component}</StepContainer>
+      <StepContainer title={title}>{component}</StepContainer>
     </section>
   );
 };

@@ -12,3 +12,12 @@ $trans-300: 0.3s ease;
   border-color: $color-error;
 }
 
+@mixin error-form-style {
+  margin: 5px 0;
+  padding: 0;
+  
+  font-size: $font-size-footnotes;
+  line-height: $line-height-footnotes;
+  font-weight: 300;
+  color: $color-error;
+}

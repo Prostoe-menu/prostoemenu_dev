@@ -1,0 +1,21 @@
+.tooltipContainer {
+  display: flex;
+  gap: 5px;
+}
+
+.stars {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0 0 .6rem;
+}
+
+.star {
+  background-image: url('assets/images/star.svg');
+  background-position: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  margin-right: 16px;
+}

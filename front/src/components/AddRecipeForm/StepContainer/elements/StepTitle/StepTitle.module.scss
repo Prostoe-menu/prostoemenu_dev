@@ -1,0 +1,26 @@
+@use 'styles/variables' as vars;
+@use 'styles/color-variables' as color;
+
+.title {
+  font-family: vars.$font-heading;
+  font-style: normal;
+  font-weight: 400;
+  font-size: vars.$font-size-l;
+  line-height: vars.$line-height-l;
+  color: vars.$color-primary;
+  margin: 0;
+  padding: 0;
+}
+
+.subTitle {
+  color: color.$color-secondary;
+  font-size: 1rem;
+  margin: .2rem 0 2.7rem;
+}
+
+@media screen and (max-width: 36rem) {
+  .title {
+    font-size: vars.$font-size-s;
+    line-height: vars.$line-height-s;
+  }
+}

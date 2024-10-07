@@ -1,0 +1,66 @@
+@use 'styles/variables' as vars;
+
+.subtitle {
+  font-weight: 300;
+  font-size: vars.$font-size-xxs;
+  line-height: vars.$line-height-xxs;
+  margin: 0 0 1rem;
+}
+
+.description {
+  font-weight: 300;
+  // font-size: 12px;
+  // line-height: 20px;
+  margin: 0;
+  padding: 0;
+
+  max-width: 544px;
+  width: 100%;
+  height: 112px;
+  color: #818181;
+  border: none;
+  position: relative;
+  resize: none;
+
+  &:focus {
+    border: none;
+  }
+
+  &:focus-visible {
+    outline: 0;
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    background: #dbdbdb;
+    border-radius: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    width: 4px;
+    background: #dbdbdb;
+    border-radius: 2px;
+  }
+
+  &::-webkit-scrollbar-track {
+    width: 4px;
+    background: #f7f7f7;
+    border-radius: 2px;
+  }
+
+  &_error::placeholder {
+    color: red;
+  }
+
+  &_error:focus::placeholder {
+    color: transparent;
+  }
+}
+
+.wrap {  
+  height: 160px;  
+}
+
+.counter {
+  text-align: right;
+}

@@ -1,0 +1,61 @@
+@use 'styles/variables' as vars;
+
+$border-radius: 12px;
+
+.photoContainer {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.photoWrap {
+  width: 180px;
+  aspect-ratio: 4 / 3; 
+}
+
+.photoPreview {
+  width: 100%;
+  aspect-ratio: 4/3;
+  display: block;
+  border-radius: $border-radius;
+  border: 1px solid vars.$bg-secondary;
+}
+
+.addPhotoItem {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: 2rem 0;
+
+  background-color: vars.$bg-secondary;
+  border-radius: $border-radius;
+  border: 1px solid vars.$bg-secondary;
+  transition: border 0.8s;
+
+  font-weight: 700;
+  color: vars.$color-secondary; 
+  
+  cursor: pointer;
+
+  &:not(.addPhotoError):hover {
+    border-color: #dbdbdb;
+  }
+}
+
+.addPhotoError { 
+  @include vars.error-border-color;
+}
+
+.hidden {
+  width: 1px;
+  height: 1px;
+  visibility: hidden;
+}
+
+.errorMessage {
+  @include vars.error-form-style;
+}
+

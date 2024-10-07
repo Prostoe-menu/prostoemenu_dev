@@ -2,7 +2,39 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "*": ["./src/*"]
+      "*": [
+        "./src/*"
+      ],
+      "pages": [
+        "./src/pages/*"
+      ],
+      "components": [
+        "./src/components/*"
+      ],
+      "store": [
+        "./src/store"
+      ],
+      "assets": [
+        "./src/shared/assets"
+      ],
+      "helpers": [
+        "./src/shared/helpers/*"
+      ],
+      "hooks": [
+        "./src/shared/hooks"
+      ],
+      "test_utils": [
+        "./src/shared/test-utils"
+      ],
+      "utils": [
+        "./src/shared/utils"
+      ],
+      "styles": [
+        "./src/shared/styles"
+      ],
+      "ui": [
+        "./src/shared/ui/*"
+      ]
     }
   }
 }

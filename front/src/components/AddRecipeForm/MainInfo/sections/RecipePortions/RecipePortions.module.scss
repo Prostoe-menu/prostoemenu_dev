@@ -1,0 +1,54 @@
+@use 'styles/variables' as vars;
+
+.wrap {
+  display: flex;
+  box-sizing: border-box;
+  height: 40px;
+  border: 1px solid vars.$input-border-color;
+  border-radius: 8px;
+  padding: 0 17px; 
+  width: fit-content;
+  transition: border vars.$trans-300;  
+
+  &:hover {
+    border: 1px solid vars.$color-secondary;
+  }
+
+  &:focus {
+    outline: none;
+    border: 1px solid vars.$color-secondary;
+  }
+
+  &.error {
+    @include vars.error-border-color;
+  }
+}
+
+.portion {
+  font-family: 'Mulish';  
+  font-weight: 500;
+  margin: 0 0 1rem;
+  padding: 0;
+
+  text-align: center;
+  color: #818181;
+  margin: 0 20px;
+  border: none;
+  width: 25px;
+
+  &:focus {
+    border: none;
+  }
+
+  &:focus-visible {
+    outline: 0;
+  }
+
+  &:focus::placeholder {
+    color: transparent;
+  }  
+
+  &.active {
+    color: vars.$color-primary;
+  }
+}

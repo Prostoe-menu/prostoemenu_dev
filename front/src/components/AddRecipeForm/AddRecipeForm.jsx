@@ -1,27 +1,43 @@
 import { useSelector } from 'react-redux';
+import Ingredients from 'components/AddRecipeForm/Ingredients/Ingredients';
 import ProgressBar from 'components/AddRecipeForm/ProgressBar/ProgressBar';
-import StageFour from 'components/AddRecipeForm/Stages/StageFour';
-import StageOne from 'components/AddRecipeForm/Stages/StageOne';
-import StageThree from 'components/AddRecipeForm/Stages/StageThree';
-import StageTwo from 'components/AddRecipeForm/Stages/StageTwo';
-import PageTitle from 'components/PageTitle/PageTitle';
-import Style from './AddRecipeForm.module.scss';
+import { selectStepIndex } from 'store/slices/form/formSelect';
+import CookingSteps from './CookingSteps/CookingSteps';
+import MainInfo from './MainInfo/MainInfo';
+import StepContainer from './StepContainer';
+import styles from './AddRecipeForm.module.scss';
+
+const STEPS = [
+  {
+    title: 'Основная информация',
+    component: <MainInfo />,
+    path: 'main',
+  },
+  {
+    title: 'Ингредиенты',
+    component: <Ingredients />,
+    path: 'ingredients',
+  },
+  {
+    title: 'Этапы готовки',
+    component: <CookingSteps />,
+    path: 'steps',
+  },
+];
 
 const AddRecipeForm = () => {
-  const currentStage = useSelector((state) => state.form.currentFormStage);
+  const currentStepIndex = useSelector(selectStepIndex);
+
+  const currentStep = STEPS[currentStepIndex - 1];
+
+  const { title, component } = currentStep;
 
   return (
-    <main className={Style.content}>
-      <PageTitle>Добавить новый рецепт</PageTitle>
+    <section className={styles.container}>
+      <ProgressBar currentIndex={currentStepIndex} steps={STEPS} />
 
-      <div className={Style.container}>
-        <ProgressBar activeStep={currentStage} />
-        {currentStage === 1 && <StageOne />}
-        {currentStage === 2 && <StageTwo />}
-        {currentStage === 3 && <StageThree />}
-        {currentStage === 4 && <StageFour />}
-      </div>
-    </main>
+      <StepContainer title={title}>{component}</StepContainer>
+    </section>
   );
 };
 

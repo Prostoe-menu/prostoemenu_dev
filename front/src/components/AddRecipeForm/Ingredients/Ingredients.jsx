@@ -5,7 +5,8 @@ import { v4 as uuidV4 } from 'uuid';
 import Ingredient from 'components/AddRecipeForm/Ingredients/Ingredient/Ingredient';
 import {
   addEmptyIngredient,
-  changeCurrentStage,
+  nextStep,
+  prevStep,
   saveAllIngredients,
 } from 'store/slices/form/formSlice';
 import { addNotification } from 'store/slices/toast/toastSlice';
@@ -28,7 +29,7 @@ const Ingredients = () => {
 
   const onSubmit = () => {
     dispatch(saveAllIngredients());
-    dispatch(changeCurrentStage(3));
+    dispatch(nextStep());
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -64,7 +65,7 @@ const Ingredients = () => {
   };
 
   const onGoBack = () => {
-    dispatch(changeCurrentStage(1));
+    dispatch(prevStep());
     window.scrollTo({
       top: 0,
       behavior: 'smooth',

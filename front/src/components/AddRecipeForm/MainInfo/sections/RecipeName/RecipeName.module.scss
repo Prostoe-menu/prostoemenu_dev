@@ -1,0 +1,44 @@
+@use 'styles/variables' as vars;
+
+.wrap {
+  display: flex;
+  gap: 1rem 2rem;
+  justify-content: space-between;
+}
+
+.recipeName {
+  font-family: vars.$font-body; 
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  max-width: 483px;
+  width: 100%;
+  min-height: 24px;
+  color: vars.$color-primary;
+  resize: none;
+  overflow: hidden;
+  word-wrap: normal;  
+
+  &:focus {
+    border: none;
+    
+  }
+
+  &:focus-visible {
+    outline: 0;
+  }
+
+  &:focus::placeholder {
+    color: transparent;
+  }  
+}
+
+.recipeNameError {
+  &::placeholder {
+    color: vars.$color-error;
+  }
+}

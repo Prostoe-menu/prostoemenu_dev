@@ -1,0 +1,57 @@
+@use 'styles/variables' as vars;
+
+.photoContainer {
+  position: relative;
+  padding-bottom: 2rem;
+}
+
+.photoRequirements {
+  font-weight: 500;
+  font-size: vars.$font-size-xxs;
+  line-height: vars.$line-height-xxs;  
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  font-weight: 300;
+  margin-top: .3rem;
+ 
+  &::before {
+    display: block;
+    width: 8px;
+    height: 8px;
+    content: '';    
+    background-color: vars.$li-dot-color;
+    border-radius: 50%;
+  }
+}
+
+.reqlist_accent {
+  font-weight: bold;
+}
+
+.previewWrap {
+  width: 180px;
+  position: relative;
+}
+
+.preview {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.removeBtn {
+  position: absolute;
+  top: 3px;
+  right: 3px;  
+  background-color: vars.$bg-primary;
+  cursor: pointer;   
+}

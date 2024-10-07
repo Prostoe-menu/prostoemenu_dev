@@ -1,0 +1,14 @@
+@use 'styles/variables' as vars;
+
+.counter {
+  margin: 0;
+  font-size: vars.$font-size-xxs;
+  line-height: vars.$line-height-xxs;
+  color: vars.$color-secondary; 
+  font-weight: 300;
+  text-wrap: nowrap;
+}
+
+ .error {
+  color: vars.$color-error;
+}

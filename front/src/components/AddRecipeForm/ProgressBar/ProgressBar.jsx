@@ -1,30 +1,34 @@
 import { useDispatch } from 'react-redux';
 import cn from 'classnames';
-import { changeCurrentStage } from 'store/slices/form/formSlice';
-import { progressBarSteps } from 'utils/constants';
+import { goToStep } from 'store/slices/form/formSlice';
 import styles from './ProgressBar.module.scss';
 
-const ProgressBar = ({ activeStep }) => {
+const ProgressBar = ({ currentIndex, steps }) => {
   const dispatch = useDispatch();
 
+  const clickHandler = (event, stepIndex) => {
+    event.preventDefault();
+
+    dispatch(goToStep(stepIndex));
+  };
+
   return (
-    <aside className={styles.progress}>
-      <ul className={styles.list}>
-        {progressBarSteps.map((item, i) => (
-          <li
-            className={cn(styles.item, {
-              [styles.item_active]: i + 1 === activeStep,
-            })}
-            key={item.id}
-            onClick={() => {
-              dispatch(changeCurrentStage(i + 1));
-            }}
-          >
-            <div className={styles.round} />
-            <div className={styles.text}>{item.text}</div>
-          </li>
-        ))}
-      </ul>
+    <aside className={styles.progressWrap}>
+      <div className={styles.progress}>
+        <ul className={styles.list}>
+          {steps.map(({ title, path }, i) => (
+            <li
+              className={cn(styles.item, {
+                [styles.active]: i + 1 === currentIndex,
+              })}
+              key={path}
+              onClick={(event) => clickHandler(event, i + 1)}
+            >
+              {title}
+            </li>
+          ))}
+        </ul>
+      </div>
     </aside>
   );
 };

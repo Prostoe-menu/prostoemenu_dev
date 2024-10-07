@@ -1,78 +1,45 @@
 @use 'styles/variables' as vars;
 
-.photo {
+.dropzoneContainer {
+  width: 180px;
+  aspect-ratio: 4 / 3; 
+}
+
+.dropzoneIcon {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: 2rem 0;
+
+  background-color: vars.$bg-secondary;
   border-radius: 12px;
+  border: 1px solid vars.$bg-secondary;
+  transition: border 0.8s;
 
-  &__input {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
-    width: 100%;
-    min-height: 104px;
-    font-family: vars.$font-body;
-    font-size: vars.$font-size-xxs;
-    font-weight: 700;
-    line-height: vars.$line-height-xxs;
-    color: #818181;
-    background-color: #f6f6f6;
-    box-sizing: border-box;
-    border-radius: 12px;
-    transition: border 0.8s;
-    cursor: pointer;
-    border: 1px solid #f6f6f6;
+  font-weight: 700;
+  color: vars.$color-secondary; 
+  
+  cursor: pointer;
 
-    &:hover,
-    &_on-focus {
-      border: 1px solid #dbdbdb;
-    }
+  &:not(.dropzoneError):hover {
+    border-color: #dbdbdb;
+  }
 
-    &_error {
-      border: 1px solid #d14941;
-    }
-
-    &_hidden {
-      display: none;
-    }
+  &_hidden {
+    display: none;
   }
 }
 
-.preview {
-  width: 132px;
-  margin: 0 auto;
-
-  &_visible {
-    display: block;
+.dropzoneError {
+    border-width: 1px;
+    border-style: solid;
+    @include vars.error-border-color;
   }
 
-  &__container {
-    position: relative;
-    width: 100%;
-    min-height: 132px;
-  }
-
-  &__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  &__remove {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 20px;
-    height: 20px;
-    background-color: transparent;
-    background-image: url('assets/images/remove-img.svg');
-    border: none;
-    opacity: 0.6;
-    transition: opacity 0.6s;
-    cursor: pointer;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
+.errorMessage {
+  @include vars.error-form-style;
+  text-align: center;
 }

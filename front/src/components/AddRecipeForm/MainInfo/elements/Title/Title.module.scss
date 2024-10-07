@@ -1,0 +1,8 @@
+@use 'styles/font-variables' as vars;
+
+.title {
+  font-family: vars.$font-body;  
+  font-weight: 500;
+  margin: 0 0 1rem;
+  padding: 0;
+}

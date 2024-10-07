@@ -1,0 +1,24 @@
+
+@use 'styles/variables' as vars;
+
+.wrap {
+  box-sizing: border-box;  
+  padding: 9px 16px;
+  background: #ffffff;
+  border: 1px solid #E5E4E4;
+  border-radius: 8px; 
+  position: relative;
+
+  &:hover {
+    border: 1px solid #909090;
+  }
+
+  &:focus {
+    border: 1px solid #909090;
+  }    
+}
+
+.error {
+  border: 1px solid vars.$color-error;
+  color: vars.$color-error;
+}

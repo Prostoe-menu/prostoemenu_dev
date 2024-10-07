@@ -1,3 +1,11 @@
 import AddRecipeForm from 'components/AddRecipeForm';
+import PageTitle from 'components/PageTitle';
 
-export const AddRecipePage = () => <AddRecipeForm />;
+export const AddRecipePage = () => {
+  return (
+    <>
+      <PageTitle>Добавить новый рецепт</PageTitle>
+      <AddRecipeForm />
+    </>
+  );
+};

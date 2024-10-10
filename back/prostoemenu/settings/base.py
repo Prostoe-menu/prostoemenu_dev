@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "api",
     "measurements",
     "ingredients",
+    "users",
 ]
 
 REST_FRAMEWORK = {

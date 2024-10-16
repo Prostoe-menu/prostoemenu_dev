@@ -16,17 +16,24 @@ const ProgressBar = ({ currentIndex, steps }) => {
     <aside className={styles.progressWrap}>
       <div className={styles.progress}>
         <ul className={styles.list}>
-          {steps.map(({ title, path }, i) => (
-            <li
-              className={cn(styles.item, {
-                [styles.active]: i + 1 === currentIndex,
-              })}
-              key={path}
-              onClick={(event) => clickHandler(event, i + 1)}
-            >
-              {title}
-            </li>
-          ))}
+          {steps.map(({ title, path }, i) => {
+            if (i + 1 <= currentIndex) {
+              return (
+                <li
+                  className={cn(styles.item, styles.active)}
+                  key={path}
+                  onClick={(event) => clickHandler(event, i + 1)}
+                >
+                  {title}
+                </li>
+              );
+            }
+            return (
+              <li className={styles.item} key={path}>
+                {title}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </aside>

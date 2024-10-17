@@ -1,7 +1,14 @@
 .container {
   display: flex;
-  justify-content: flex-start;
-  gap: 4rem;
+  justify-content: flex-start;  
+
+  @media screen and (min-width: 981px) {
+    gap: 4rem;
+  }
+
+  @media screen and (max-width: 980px) {
+    gap: 3rem;
+  }
 
   @media screen and (max-width: 800px) {
     flex-wrap: wrap;

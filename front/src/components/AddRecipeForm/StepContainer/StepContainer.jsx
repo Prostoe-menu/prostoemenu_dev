@@ -1,9 +1,9 @@
 import StepTitle from './elements';
 import styles from './StepContainer.module.scss';
 
-const StepContainer = ({ title, children }) => (
+const StepContainer = ({ title, subtitle, children }) => (
   <section className={styles.stepContainer}>
-    <StepTitle>{title}</StepTitle>
+    <StepTitle subtitle={subtitle}>{title}</StepTitle>
     {children}
   </section>
 );

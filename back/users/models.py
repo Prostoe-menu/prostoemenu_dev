@@ -1,27 +1,19 @@
-from django.contrib.auth import get_user_model
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-User = get_user_model()
 
-
-class Profile(models.Model):
-    class GenderStatus(models.TextChoices):
-        MALE = "м", "Мужской"
-        FEMALE = "ж", "Женский"
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
-    gender = models.CharField(
-        max_length=1, choices=GenderStatus.choices, default=GenderStatus.FEMALE
-    )
-    birth_date = models.DateField(null=True)
+class User(AbstractUser):
+    birth_date = models.DateField(
+        blank=True,
+        null=True,
+        verbose_name="Дата рождения")
     avatar = models.ImageField(
-        null=True, upload_to="users", verbose_name="Фото пользователя"
+        blank=True,
+        null=True,
+        upload_to="users/avatar",
+        verbose_name="Аватар"
     )
-
-    class Meta:
-        ordering = ("user",)
-        verbose_name = "Профиль"
-        verbose_name_plural = "Профили"
+    is_verified = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.user.username}_profile"
+        return "%s %s" % (self.last_name, self.first_name)

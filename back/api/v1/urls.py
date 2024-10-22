@@ -4,6 +4,5 @@ urlpatterns = [
     path("measurements/", include("measurements.urls")),
     path("ingredients/", include("ingredients.urls")),
     path("recipes/", include("recipes.urls")),
-    path("users/", include("users.urls")),
     path("auth/", include("djoser.urls")),
 ]

@@ -142,7 +142,9 @@ DJOSER = {
     "USERNAME_RESET_CONFIRM_URL": "/username/reset/confirm/{uid}/{token}",
     "ACTIVATION_URL": "/activate/{uid}/{token}",
     "SEND_ACTIVATION_EMAIL": False,
-    "SERIALIZERS": {},
+    "SERIALIZERS": {
+        "user_create": "users.serializers.input.CustomUserCreateInputSerializer",
+    },
     "LOGIN_FIELD": "username",
 }
 
@@ -207,3 +209,12 @@ MIN_TEXT_FIELD_SEARCH_LENGTH = 3
 IMAGE_SOURCE_FOLDER = BASE_DIR.joinpath("data", "images", "recipe_images")
 
 DEFAULT_DISH_IMAGE = IMAGE_SOURCE_FOLDER.joinpath("default_dish_image.jpg")
+
+MALE_ABBR = "м"
+
+FEMALE_ABBR = "ж"
+
+GENDER_CHOICES = [
+    (MALE_ABBR, "мужской"),
+    (FEMALE_ABBR, "женский")
+]

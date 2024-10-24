@@ -54,9 +54,13 @@ INSTALLED_APPS = [
     "api",
     "measurements",
     "ingredients",
+    "users",
 ]
 
 REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
     ],
@@ -97,6 +101,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "prostoemenu.wsgi.application"
 
+AUTH_USER_MODEL = "users.User"
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarity"
@@ -136,7 +142,9 @@ DJOSER = {
     "USERNAME_RESET_CONFIRM_URL": "/username/reset/confirm/{uid}/{token}",
     "ACTIVATION_URL": "/activate/{uid}/{token}",
     "SEND_ACTIVATION_EMAIL": False,
-    "SERIALIZERS": {},
+    "SERIALIZERS": {
+        "user_create_password_retype": "users.serializers.input.CustomUserCreateInputSerializer",
+    },
     "LOGIN_FIELD": "username",
 }
 
@@ -249,3 +257,16 @@ MIN_TEXT_FIELD_SEARCH_LENGTH = 3
 IMAGE_SOURCE_FOLDER = BASE_DIR.joinpath("data", "images", "recipe_images")
 
 DEFAULT_DISH_IMAGE = IMAGE_SOURCE_FOLDER.joinpath("default_dish_image.jpg")
+
+MALE_ABBR = "м"
+
+FEMALE_ABBR = "ж"
+
+GENDER_CHOICES = [
+    (MALE_ABBR, "мужской"),
+    (FEMALE_ABBR, "женский")
+]
+
+GENDER_ABBR_LENGTH = 1
+
+MAX_USER_AGE = 120

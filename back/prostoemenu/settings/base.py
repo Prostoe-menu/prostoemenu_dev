@@ -143,7 +143,7 @@ DJOSER = {
     "ACTIVATION_URL": "/activate/{uid}/{token}",
     "SEND_ACTIVATION_EMAIL": False,
     "SERIALIZERS": {
-        "user_create": "users.serializers.input.CustomUserCreateInputSerializer",
+        "user_create_password_retype": "users.serializers.input.CustomUserCreateInputSerializer",
     },
     "LOGIN_FIELD": "username",
 }
@@ -218,3 +218,7 @@ GENDER_CHOICES = [
     (MALE_ABBR, "мужской"),
     (FEMALE_ABBR, "женский")
 ]
+
+GENDER_ABBR_LENGTH = 1
+
+MAX_USER_AGE = 120

@@ -47,7 +47,6 @@ const RecipeSearch = () => {
       </p>
       <div className={styles.search_container}>
         <DropdownSearch
-          inputClassName="input_type_home"
           inputPlaceholder="Начните вводить название продукта"
           notFoundMessage="Такого ингредиента не найдено"
           onChooseItem={handleIngredientSelection}

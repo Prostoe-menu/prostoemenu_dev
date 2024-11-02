@@ -1,0 +1,10 @@
+@use 'styles/mixins' as m;
+
+.error {
+ @include m.error-border-color;
+}
+
+.notFound {
+  margin: 0;
+  padding: 1rem;
+}

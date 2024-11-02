@@ -1,64 +1,38 @@
 @use 'styles/variables' as vars;
 
-.ingredients {
-  width: 100%;
-  box-sizing: border-box;
-}
+.ingredients {  
+  box-sizing: border-box;  
 
-.mobileTitle {
-  display: none;
-}
+  @media screen and (min-width: 577px) {
+    width: 100%;
+    margin-bottom: 3rem;
+  }
 
-.textContainer {
-  margin-top: 20px;
-}
-
-.text {
-  font-family: vars.$font-body;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 20px;
-  margin: 0;
+  @media screen and (max-width: 576px) {  
+    margin: 0 auto 3rem;
+  }
 }
 
 .list {
   box-sizing: border-box;
   list-style: none;
   padding: 0;
-  margin: 0;
-  margin-bottom: 28px;
+  margin: 0; 
+
+  @media screen and (max-width: 576px) {
+    margin-bottom: 24px;  
+  }
 }
 
-.icon {
-  width: 16px;
-  height: 16px;
-}
-
-.button {
-  width: 147px; 
-}
-
-@media screen and (max-width: 576px) {
-  .ingredients {
-    margin: 0 auto;
-    max-width: 328px;
-  }
-
-  .mobileTitle {
-    display: inline;
-  }
-
-  .textContainer {
-    margin-top: 12px;
-  }
-
-  .list {
-    margin-bottom: 24px;
-  }
+.ingredientItem {
+  display: grid;
+  grid-template-columns: auto 75px 144px 20px;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
 }
 
 .controls {
   display: flex;
-  justify-content: space-between;
+  gap: 2rem;
+  justify-content: right;
 }

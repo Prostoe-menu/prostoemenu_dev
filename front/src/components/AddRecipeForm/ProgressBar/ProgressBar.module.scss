@@ -1,9 +1,5 @@
 @use 'styles/variables' as vars;
 
-.progressWrap {
-  max-width: 300px;
-}
-
 .progress { 
   position: relative;
 }
@@ -11,6 +7,7 @@
 .list {
   margin: 0;
   list-style: none;
+
 
   @media screen and (min-width: 801px) {
     &::before {
@@ -27,12 +24,14 @@
     display: flex;
     gap: 2rem;
     padding-left: 1.4rem;
+    justify-content: space-between;
+    margin-bottom: 2rem;
 
     &::before {
       border-top: solid 2px vars.$li-dot-color;
       position: absolute;
       content: "";
-      top: 12px;
+      top: 50%;
       left: 0;
       right: 0;
     }

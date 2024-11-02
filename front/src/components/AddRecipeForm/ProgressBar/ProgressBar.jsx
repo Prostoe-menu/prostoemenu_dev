@@ -13,7 +13,7 @@ const ProgressBar = ({ currentIndex, steps }) => {
   };
 
   return (
-    <aside className={styles.progressWrap}>
+    <aside>
       <div className={styles.progress}>
         <ul className={styles.list}>
           {steps.map(({ title, path }, i) => {

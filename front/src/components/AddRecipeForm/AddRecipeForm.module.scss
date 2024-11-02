@@ -1,16 +1,15 @@
 .container {
-  display: flex;
-  justify-content: flex-start;  
-
-  @media screen and (min-width: 981px) {
+  @media screen and (min-width: 1036px) {
+    grid-template-columns: 300px auto;
     gap: 4rem;
   }
 
-  @media screen and (max-width: 980px) {
-    gap: 3rem;
+  @media screen and (min-width: 801px) and (max-width: 1035px) {    
+    grid-template-columns: 230px auto;
+    gap: 2rem;
   }
 
-  @media screen and (max-width: 800px) {
-    flex-wrap: wrap;
-  }
+   @media screen and (min-width: 801px) {
+    display: grid;
+   }
 }

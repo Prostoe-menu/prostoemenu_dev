@@ -104,11 +104,11 @@ export const FETCH_RECIPE_BY_ID_ERROR_MESSAGE =
 export const FETCH_RECIPES_BY_INGREDIENT_ERROR_MESSAGE =
   'Упс! Что-то пошло не так при поиске рецептов, но мы уже работаем над этим!';
 
-export const MAX_IMAGE_SIZE = 0.5; // MB
+export const MAX_IMAGE_SIZE = 5; // MB
 
 export const MAX_IMAGE_SIZE_IN_BYTES = MAX_IMAGE_SIZE * 1048576; // 1 MB = 1,048,576 bytes
 
-// minimum image upload file's dimentions
+// minimum image dimentions
 
 export const MIN_IMAGE_WIDTH = 600; // pixels
 export const MIN_IMAGE_HEIGHT = 600; // pixels

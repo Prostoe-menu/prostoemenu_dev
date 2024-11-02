@@ -18,7 +18,17 @@ const RecipeCard = ({ recipe }) => {
     <li>
       <article className={styles.recipe}>
         {imgUrl ? (
-          <img src={apiImageUrl + imgUrl} className={styles.img} alt={title} />
+          <Link
+            to={`/recipe/${id}`}
+            className={styles.link}
+            title="Посмотреть рецепт"
+          >
+            <img
+              src={apiImageUrl + imgUrl}
+              className={styles.img}
+              alt={title}
+            />
+          </Link>
         ) : (
           <div className={styles.defaultImg}>No Image</div>
         )}

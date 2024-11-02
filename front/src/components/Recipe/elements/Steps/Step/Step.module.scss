@@ -1,30 +1,53 @@
 @use 'styles/color-variables' as colors;
 @use 'styles/font-variables' as fonts;
 
+
+$image-max-width: 256px;
+
 .step,
 .stepWithImage {
-  padding-bottom: 2.5rem;
+  margin-bottom: 2.5rem;
 }
 
-.stepWithImage {
-  display: grid;
-  //grid-template-columns: 334px auto;
-  grid-template-columns: 120px auto;
-  gap: 2.19rem;
+.stepWithImage {  
+  @media screen and (min-width: 761px) {
+    display: grid;
+    grid-template-columns: $image-max-width auto;
+    gap: 2.19rem;
+  }
+
+  @media screen and (max-width: 760px) {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
 }
 
 .descriptionWrapper {
-  padding: 1.63rem 0;
+  display: flex;  
+  align-items: flex-start;
+  gap: 1rem;
+
+  @media screen and (min-width: 761px) {
+    flex-direction: column;
+  }
 }
 
 .image {
   width: 100%;
+  max-width: $image-max-width;
   height: auto;
-  // object-fit: cover;
   border-radius: 16px;
+  aspect-ratio: 4/3;
+
+  @media screen and (max-width: 760px) {
+    margin: 0 auto;
+  }
 }
 
 .number {
+  display: inline-block;
   border-radius: 10px;
   background-color: colors.$step-bg;
   padding: 0.5rem 0.88rem;
@@ -36,4 +59,5 @@
 
 .description {
   font-weight: 300;
+  margin: 0;
 }

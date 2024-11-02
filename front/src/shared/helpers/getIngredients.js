@@ -1,18 +1,27 @@
 import axios from 'axios';
 import { INGREDIENTS_URL } from 'utils/urls';
 
-const URL = `${import.meta.env.VITE_API_URL}${INGREDIENTS_URL}/?name=`;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const getIngredients = async (query) => {
-  if (query.length <= 2) return null;
+  if (!query) return null;
 
-  const reponse = await axios({
-    method: 'GET',
-    url: URL + query,
-    crossDomain: true,
-  });
+  try {
+    const response = await axios.get(
+      `${API_URL}${INGREDIENTS_URL}/?name=${query}`,
+      {
+        crossDomain: true,
+      }
+    );
 
-  return reponse.data;
+    if (response.status === 200) return response.data;
+
+    return null;
+  } catch (error) {
+    console.log('getIngredients_ERROR: ', error);
+
+    return null;
+  }
 };
 
 export default getIngredients;

@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 
 from .validators import UserAgeValidator
+from common.validators import AcceptedSymbolsValidator
 
 
 class CustomUserManager(BaseUserManager):
@@ -36,12 +37,10 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, email, first_name, last_name, password):
+    def create_superuser(self, username, email, password):
         user = self.model(
             username=username,
             email=self.normalize_email(email),
-            first_name=first_name,
-            last_name=last_name,
         )
 
         user.set_password(password)
@@ -53,6 +52,18 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+    first_name = models.CharField(
+        null=True,
+        blank=True,
+        max_length=django_settings.MAX_NAME_LENGTH,
+        validators=[AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS)]
+    )
+    last_name = models.CharField(
+        null=True,
+        blank=True,
+        max_length=django_settings.MAX_NAME_LENGTH,
+        validators=[AcceptedSymbolsValidator(django_settings.ACCEPTED_SYMBOLS)]
+    )
     gender = models.CharField(
         null=True,
         max_length=django_settings.GENDER_ABBR_LENGTH,
@@ -71,13 +82,7 @@ class User(AbstractUser):
 
     USERNAME_FIELD = "username"
     EMAIL_FIELD = "email"
-    # Дим, я хз зачем в required_fields нужны имя и фамилия, но без них юзер не создается.
-    # Если можешь объяснить, будет здорово
-    REQUIRED_FIELDS = [
-        "email",
-        "first_name",
-        "last_name",
-    ]
+    REQUIRED_FIELDS = ["email"]
 
     def __str__(self):
         return self.username

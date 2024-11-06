@@ -12,6 +12,11 @@ class UserAgeValidator:
         self.min_user_age = django_settings.MIN_USER_AGE
 
     def __call__(self, value):
+        if datetime.date.today() < value:
+            raise ValidationError(
+                f"Ошибка! Дата рождения еще не наступила: {value}"
+            )
+
         if (
             datetime.date.today() - datetime.timedelta(days=365 * self.max_user_age)
             > value
@@ -20,7 +25,7 @@ class UserAgeValidator:
                 f"Возраст пользователя не может быть более {self.max_user_age} лет"
             )
 
-        elif datetime.date.today() - datetime.timedelta(days=365 * self.min_user_age) < value:
+        if datetime.date.today() - datetime.timedelta(days=365 * self.min_user_age) < value:
             raise ValidationError(
                 f"Возраст пользователя не может быть менее {self.min_user_age} лет"
             )

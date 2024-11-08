@@ -165,6 +165,7 @@ SPECTACULAR_SETTINGS = {
     "SWAGGER_UI_DIST": "SIDECAR",
     "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
     "REDOC_DIST": "SIDECAR",
+    'PREPROCESSING_HOOKS': ["common.utils.custom_preprocessing_hook"],
 }
 
 LOGGING = {

@@ -63,6 +63,9 @@ const formSlice = createSlice({
       })
       .addCase(getMeasureOptions.fulfilled, (state, action) => {
         state.measureOptions = action.payload;
+      })
+      .addCase(getMeasureOptions.rejected, (_, action) => {
+        console.log(action.payload);
       });
   },
 });

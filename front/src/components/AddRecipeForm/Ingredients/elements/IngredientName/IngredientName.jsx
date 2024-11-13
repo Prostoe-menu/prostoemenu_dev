@@ -1,8 +1,9 @@
 import { forwardRef, useState } from 'react';
 import AsyncSelect from 'react-select/async';
 import cn from 'classnames';
-import getIngredients from 'helpers/getIngredients';
 import styles from './IngredientName.module.scss';
+
+import { API } from 'api/api';
 
 const IngredientName = forwardRef(function IngredientName(props, ref) {
   const { isError, onChange, value, ...params } = props;
@@ -11,18 +12,20 @@ const IngredientName = forwardRef(function IngredientName(props, ref) {
   const [currentValue, setCurrentValue] = useState(value);
 
   const loadOptions = async (inpValue) => {
-    if (inpValue.length < 3) return null;
+    if (!inpValue || inpValue.length < 3) return null;
 
-    return await getIngredients(inpValue)
-      .then((data) =>
-        data.results.map((item) => ({
+    return await API.getIngredients(inpValue)
+      .then(({ status, data }) => {
+        if (status != 200) return null;
+
+        return data.results.map((item) => ({
           value: item.id,
           label: item.name,
-        }))
-      )
+        }));
+      })
       .catch((error) => {
         console.log('getIngredients_ERROR: ', error);
-        return [];
+        return null;
       })
       .finally(() => {
         setMenuIsOpen(true);

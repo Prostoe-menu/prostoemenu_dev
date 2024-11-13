@@ -151,7 +151,7 @@ const Ingredients = () => {
           disabled={fields.length >= 20}
           onClick={(event) => {
             event.preventDefault();
-            append(initialIngredients[0], { shouldFocus: false });
+            append(initialIngredients.ingredients[0], { shouldFocus: false });
           }}
           aria-label="Добавить ингредиент"
         >

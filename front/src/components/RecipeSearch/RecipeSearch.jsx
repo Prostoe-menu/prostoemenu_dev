@@ -41,11 +41,13 @@ const RecipeSearch = () => {
   return (
     <section className={styles.section}>
       <h1 className={styles.title}>Из чего будем готовить?</h1>
+
       <p className={styles.text}>
         Поможем найти рецепт на основе ингредиентов, которые у вас уже есть или
         которые планируете купить.
       </p>
-      <div className={styles.search_container}>
+
+      <div className={styles.сontainer}>
         <DropdownSearch
           inputClassName="input_type_home"
           inputPlaceholder="Начните вводить название продукта"
@@ -56,15 +58,17 @@ const RecipeSearch = () => {
           requiredData={ingredientsApiData.results}
           isLoading={loading}
         />
+
         <Button
           type="button"
-          className={styles.search_btn}
           onClick={searchHandler}
+          className={styles.searchBtn}
         >
           Подобрать рецепт
         </Button>
+
+        <SelectedIngredients selected={selected} setSelected={setSelected} />
       </div>
-      <SelectedIngredients selected={selected} setSelected={setSelected} />
     </section>
   );
 };

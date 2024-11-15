@@ -16,12 +16,15 @@
   transition: border vars.$trans-300;
 
   &::placeholder {
-    font-family: vars.$font-body;
     font-style: normal;
     font-weight: 300;
     font-size: vars.$font-size-xxs;
     line-height: vars.$line-height-xxs;
     color: vars.$color-secondary;
+
+    @media screen and (max-width: 767px) {
+      font-size: .9rem;
+    }
   }
 
   &:hover {

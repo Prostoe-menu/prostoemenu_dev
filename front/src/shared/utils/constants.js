@@ -112,3 +112,5 @@ export const MAX_IMAGE_SIZE_IN_BYTES = MAX_IMAGE_SIZE * 1048576; // 1 MB = 1,048
 
 export const MIN_IMAGE_WIDTH = 600; // pixels
 export const MIN_IMAGE_HEIGHT = 600; // pixels
+
+export const MAX_VOLUME_LENGTH = 4;

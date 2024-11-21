@@ -4,9 +4,10 @@ import SelectedIngredients from 'components/SelectedIngredients/SelectedIngredie
 import { fetchRecipesByIngredients } from 'store/slices/search/searchThunk';
 import Button from 'ui/Button';
 import { DropdownSearch } from 'ui/Dropdown';
-import getIngredients from 'helpers/getIngredients';
 import useAsync from 'hooks/useAsync';
 import styles from './RecipeSearch.module.scss';
+
+import { API } from 'api/api';
 
 const RecipeSearch = () => {
   const [query, setQuery] = useState('');
@@ -15,7 +16,7 @@ const RecipeSearch = () => {
   const dispatch = useDispatch();
 
   const { value: ingredientsApiData, loading } = useAsync(
-    getIngredients,
+    API.getIngredients,
     query,
     true,
     800
@@ -49,13 +50,12 @@ const RecipeSearch = () => {
 
       <div className={styles.сontainer}>
         <DropdownSearch
-          inputClassName="input_type_home"
           inputPlaceholder="Начните вводить название продукта"
           notFoundMessage="Такого ингредиента не найдено"
           onChooseItem={handleIngredientSelection}
           inputValue={query}
           onInputChange={handleNameInput}
-          requiredData={ingredientsApiData.results}
+          requiredData={ingredientsApiData?.data?.results}
           isLoading={loading}
         />
 

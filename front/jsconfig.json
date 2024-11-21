@@ -5,6 +5,9 @@
       "*": [
         "./src/*"
       ],
+      "api": [
+        "./src/api/*"
+      ],
       "pages": [
         "./src/pages/*"
       ],

@@ -1,0 +1,118 @@
+@use 'styles/variables' as vars;
+
+@mixin error-text-color {
+  color: vars.$color-error;
+}
+
+@mixin error-border-color {
+  border-color: vars.$color-error;
+}
+
+@mixin error-form-style {
+  margin: 5px 0;
+  padding: 0;
+  
+  font-size: vars.$font-size-footnotes;
+  line-height: vars.$line-height-footnotes;
+  font-weight: 300;
+  @include error-text-color;
+}
+
+@mixin input-style {
+  box-sizing: border-box;
+  border: 1px solid vars.$input-border-color;
+  border-radius: vars.$input-border-radius;  
+
+  font-weight: 500;
+  font-size: vars.$font-size-xxs;
+  line-height: vars.$line-height-xxs;
+  color: vars.$color-primary;
+
+  margin: 0;
+  padding: 8px 16px;
+  transition: border vars.$trans-300;
+
+  &::placeholder {    
+    color: vars.$color-secondary;
+
+    @media screen and (max-width: 767px) {
+      font-size: .9rem;
+    }
+  }
+
+  &:hover {
+    border-color: vars.$color-secondary;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: vars.$color-secondary;
+  }  
+
+  &::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  &::-webkit-search-decoration {
+    display: none;
+  }
+
+  &::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  &::-webkit-search-results-button {
+    display: none;
+  }
+
+  &::-webkit-search-results-decoration {
+    display: none;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+}
+
+@mixin scrollbar-style {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: vars.$scrollbar-track;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: vars.$scrollbar-thumb;
+    border-radius: 100px;
+
+    &:hover {
+      background-color: vars.$scrollbar-thumb-hover;
+    }
+
+    &:active {
+      background-color: vars.$scrollbar-thumb-active;
+    }
+  }
+}
+
+@mixin dropdown-panel-style {  
+  margin: 2px 0;
+  padding: 3px 0;
+  background-color: vars.$bg-primary;
+  border-radius: vars.$input-border-radius;
+  box-shadow: 0px 4px 12px 5px vars.$shadow-color;
+}

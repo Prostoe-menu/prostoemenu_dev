@@ -15,14 +15,6 @@ const DropdownSearch = (props) => {
   const {
     dropdownClassName,
     selectItemRef,
-    inputClassName,
-    isInputError,
-    inputRegister,
-    inputName,
-    inputRequiredValue,
-    inputRequiredMessage,
-    inputPatternValue,
-    inputPatternMessage,
     onInputChange,
     inputPlaceholder,
     inputValue,
@@ -57,14 +49,6 @@ const DropdownSearch = (props) => {
       className={cn(styles.dropdownSearch, styles[dropdownClassName])}
     >
       <Input
-        inputClassName={inputClassName}
-        isError={isInputError}
-        register={inputRegister}
-        inputName={inputName}
-        requiredValue={inputRequiredValue}
-        requiredMessage={inputRequiredMessage}
-        patternValue={inputPatternValue}
-        patternMessage={inputPatternMessage}
         onChange={changeHandler}
         onKeyDown={(e) =>
           handleKeyboardNavigation(
@@ -78,8 +62,8 @@ const DropdownSearch = (props) => {
             onChooseItem
           )
         }
-        placeholderText={inputPlaceholder}
-        inputValue={inputValue}
+        placeholder={inputPlaceholder}
+        value={inputValue}
       />
 
       <ul

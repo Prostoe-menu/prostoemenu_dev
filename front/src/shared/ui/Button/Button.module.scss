@@ -73,12 +73,13 @@
 }
 
 .view-tertiary {
-  font-size: vars.$font-size-xs;
-  line-height: vars.$line-height-xs;
+  font-size: vars.$font-size-xxs;
+  line-height: vars.$line-height-xxs;
   color: vars.$color-primary;
   background-color: vars.$bg-primary;
   border: 1px solid vars.$btn-bg-tertiary-active;
   gap: 6px;  
+  padding: 6px 25px;
 
   &:hover {
     background: vars.$btn-bg-tertiary-hover;
@@ -108,12 +109,6 @@
     opacity: 1;
   }
 }
-/*
-img {
-  width: 20px;
-  height: 20px;
-}
-*/
 
 .view-icon {
   color: vars.$color-primary;

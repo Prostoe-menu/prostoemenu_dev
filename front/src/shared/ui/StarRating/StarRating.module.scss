@@ -11,10 +11,8 @@
 }
 
 .label {
-  font-family: vars.$font-body;
-  font-size: vars.$font-size-xs;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 700;
-  line-height: vars.$line-height-xs;
   color: vars.$color-secondary;
 }

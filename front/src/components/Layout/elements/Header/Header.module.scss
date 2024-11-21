@@ -1,25 +1,26 @@
 @use 'styles/variables' as vars;
 
 header {
-  max-width: 1440px;
-  width: 100%;
   box-sizing: border-box;
-  padding: 44px 72px;
-  display: flex;
-  align-items: center;
-  background: vars.$bg-primary;
   position: fixed;
   top: 0;
   z-index: 10;
+  width: 100%;
+  max-width: 1440px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  background-color: vars.$bg-primary;
+  
+  @media screen and (min-width: 768px) {
+    padding: 2.4rem 4rem;
+  }
 
-  @media screen and (max-width: 690px) {
-    padding-left: 16px;
-    padding-bottom: 16px;
-    padding-top: 30px;
+  @media screen and (max-width: 767px) {
+    padding: 1.9rem 1.5rem 1.5rem;
   }
 }
 
 .logo_link {
   height: 38px;
-  margin-right: 202px;
 }

@@ -1,10 +1,18 @@
 @use 'font-variables' as vars;
 @use 'color-variables' as colors;
 
-body {
-  font-family: vars.$font-body;
-  font-size: vars.$font-size-xs;
-  line-height: vars.$line-height-xs;
+html {
+  font-family: vars.$font-body;     
+
+  @media screen and (min-width: 768px) {
+    font-size: vars.$global-font-size;
+    line-height: vars.$line-height-xs;  
+  }  
+
+  @media screen and (max-width: 767px) {
+    font-size: vars.$global-font-size-mobile;
+    line-height: vars.$line-height-xxs;  
+  }
 }
 
 h1,
@@ -22,14 +30,24 @@ h4,
 
 h1,
 .h1 {
-  font-size: vars.$font-size-xxl;
-  line-height: vars.$line-height-xxl;
+  @media screen and (min-width: 768px) {
+    font-size: vars.$font-size-xxl;
+    line-height: vars.$line-height-xxl;
+  }
+
+  @media screen and (max-width: 767px) {
+    font-size: 1.8rem;
+  }
 }
 
 h2,
 .h2 {
   font-size: vars.$font-size-xl;
   line-height: vars.$line-height-xl;
+
+   @media screen and (max-width: 767px) {
+    font-size: 1.6rem;
+  }
 }
 
 h3,

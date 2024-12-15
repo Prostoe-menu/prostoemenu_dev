@@ -1,0 +1,69 @@
+@use 'styles/variables' as vars;
+@use 'styles/mixins' as m;
+
+.select-container {
+  width: 100%;
+  background-color: vars.$bg-primary;
+}
+
+.select {  
+  &__control {
+    width: 100%;
+    text-wrap: nowrap;
+    background-color: vars.$bg-primary;
+    
+    @include m.input-style;
+
+    &--is-focused {
+      border-color: vars.$color-secondary; 
+    }
+
+    &--is-error {
+      border-color: red; 
+    }
+  }
+
+  &__placeholder {
+    color: vars.$color-secondary;
+  }
+
+  &__menu {
+    font-size: 1rem;
+    @include m.dropdown-panel-style;
+
+    &-list {
+      @include m.scrollbar-style;
+      min-height: 2rem;
+    }
+  }
+
+  &__option {
+    padding: 6px 16px;  
+
+    &:hover:not(.selected), &:focus {
+      cursor: pointer;
+      background-color: vars.$option-hover-bg;
+    }
+
+    &--is-selected {
+      background-color: vars.$option-selected-bg;
+    }
+
+    &--is-focused {
+      background-color: vars.$option-hover-bg;
+    }
+  }
+
+  &__input {
+    text-wrap: nowrap;  
+  }
+}
+
+.inputError {
+  @include m.error-border-color;
+}
+
+.notFound {
+  margin: 0;
+  padding: 1rem;
+}

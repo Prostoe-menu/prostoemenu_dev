@@ -1,6 +1,5 @@
-import { v4 as uuidV4 } from 'uuid';
 import { createSlice } from '@reduxjs/toolkit';
-import postRecipe from './formThunk';
+import { getMeasureOptions, postRecipe } from './formThunk';
 
 const initialState = {
   step: 1,
@@ -15,10 +14,8 @@ const initialState = {
     cookminuts: null,
     quantity: 0,
   },
-  ingredients: [
-    { elementID: uuidV4(), ingredient: '', volume: '', measure: 'г' },
-  ],
-  steps: [],
+  ingredients: null,
+  measureOptions: null,
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -41,72 +38,8 @@ const formSlice = createSlice({
     saveRecipeInfo: (state, action) => {
       state.mainInfo = { ...action.payload };
     },
-
-    addEmptyIngredient: (state) => {
-      const updatedIngredients = [...state.ingredients];
-      const emptyIngredient = {
-        elementID: uuidV4(),
-        name: '',
-        volume: '',
-        measure: 'г',
-      };
-      updatedIngredients.push(emptyIngredient);
-      state.ingredients = updatedIngredients;
-    },
-    deleteIngredient: (state, action) => {
-      const updatedIngredients = state.ingredients.filter(
-        (ingredient) => ingredient.elementID !== action.payload
-      );
-      state.ingredients = updatedIngredients;
-    },
-    saveIngredient: (state, action) => {
-      const updatedIngredients = [...state.ingredients];
-      const ingredientIndex = updatedIngredients.findIndex(
-        (item) => item.elementID === action.payload.id
-      );
-      const storedIngredient = updatedIngredients[ingredientIndex];
-
-      updatedIngredients[ingredientIndex] = {
-        ...storedIngredient,
-        name: action.payload.name,
-        elementID: action.payload.id,
-      };
-
-      state.ingredients = updatedIngredients;
-    },
-    changeIngredientVolume: (state, action) => {
-      const updatedIngredients = [...state.ingredients];
-      const ingredientIndex = updatedIngredients.findIndex(
-        (item) => item.elementID === action.payload.id
-      );
-      const storedIngredient = updatedIngredients[ingredientIndex];
-      updatedIngredients[ingredientIndex] = {
-        ...storedIngredient,
-        volume: action.payload.volume,
-      };
-
-      state.ingredients = updatedIngredients;
-    },
-
-    changeIngredientMeasureUnits: (state, action) => {
-      const updatedIngredients = [...state.ingredients];
-      const ingredientIndex = updatedIngredients.findIndex(
-        (item) => item.elementID === action.payload.id
-      );
-      const storedIngredient = updatedIngredients[ingredientIndex];
-      updatedIngredients[ingredientIndex] = {
-        ...storedIngredient,
-        measure: action.payload.measureUnit.name,
-      };
-
-      state.ingredients = updatedIngredients;
-    },
-
-    saveAllIngredients: (state) => {
-      // delete all inputs without names
-
-      const filteredIngredients = state.ingredients.filter((item) => item.name);
-      state.ingredients = filteredIngredients;
+    saveIngredients: (state, action) => {
+      state.ingredients = action.payload;
     },
     resetState: () => {
       return { ...initialState };
@@ -120,26 +53,19 @@ const formSlice = createSlice({
       .addCase(postRecipe.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(postRecipe.fulfilled, (state) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.recipeName = null;
-        state.recipeDifficulty = null;
-        state.servingsNumber = 0;
-        state.cookingTime = 0;
-        state.timeAtStove = 0;
-        state.description = null;
-        state.finishedPhoto = null;
-        state.cookingSteps = [];
-        state.ingredients = [];
-        state.comment = null;
-        state.author = null;
-        state.email = null;
+      .addCase(postRecipe.fulfilled, () => {
+        return { ...initialState, isLoading: false, isSuccess: true };
       })
       .addCase(postRecipe.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = action.payload;
+      })
+      .addCase(getMeasureOptions.fulfilled, (state, action) => {
+        state.measureOptions = action.payload;
+      })
+      .addCase(getMeasureOptions.rejected, (_, action) => {
+        console.log(action.payload);
       });
   },
 });
@@ -149,16 +75,9 @@ export const {
   prevStep,
   goToStep,
   saveRecipeInfo,
+  saveIngredients,
   resetState,
   resetCoverPhoto,
-
-  saveAdditionalInfo,
-  addEmptyIngredient,
-  deleteIngredient,
-  saveIngredient,
-  changeIngredientVolume,
-  changeIngredientMeasureUnits,
-  saveAllIngredients,
 } = formSlice.actions;
 
 export default formSlice.reducer;

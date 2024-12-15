@@ -8,3 +8,7 @@ export const selectCoverPhoto = createSelector(
   [selectMainInfo],
   (data) => data.cover_path
 );
+
+export const selectIngredients = (state) => state.form.ingredients;
+
+export const selectMeasureOptions = (state) => state.form.measureOptions;

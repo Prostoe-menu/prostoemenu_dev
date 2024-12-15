@@ -34,3 +34,9 @@ export const formatMeasureUnit = (unit) => {
     ? unit.slice(0, -1)
     : unit;
 };
+
+export const isNumber = (inputStr) => {
+  const pattern = /^\d*\.?\d*$/;
+
+  return pattern.test(inputStr);
+};

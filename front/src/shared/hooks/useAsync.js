@@ -16,9 +16,7 @@ const useAsync = (callback, query, debounce, delay) => {
         setValue([]);
         setError(true);
       }
-    } catch (error) {
-      console.log('ERROR: ', error);
-
+    } catch (_) {
       setValue([]);
       setError(true);
     }

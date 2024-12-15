@@ -27,6 +27,7 @@ const RecipeCard = ({ recipe }) => {
               src={apiImageUrl + imgUrl}
               className={styles.img}
               alt={title}
+              loading="lazy"
             />
           </Link>
         ) : (

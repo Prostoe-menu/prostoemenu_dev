@@ -1,10 +1,5 @@
 @use 'styles/variables' as vars;
 
-progressWrap {
-  max-width: 300px;
-  cursor: pointer;
-}
-
 .progress { 
   position: relative;
 }
@@ -29,12 +24,14 @@ progressWrap {
     display: flex;
     gap: 2rem;
     padding-left: 1.4rem;
+    justify-content: space-between;
+    margin-bottom: 2rem;
 
     &::before {
-      border-top: solid 2px #f1b823;
+      border-top: solid 2px vars.$li-dot-color;
       position: absolute;
       content: "";
-      top: 12px;
+      top: 50%;
       left: 0;
       right: 0;
     }
@@ -46,7 +43,7 @@ progressWrap {
   gap: 28px;
   align-items: center;
   margin: 0;  
-  color: #818181;  
+  color: vars.$color-secondary;  
 
   &::before {
     content: '';
@@ -71,7 +68,7 @@ progressWrap {
   @media screen and (max-width: 800px) {
     font-size: vars.$font-size-xxs;
     line-height: vars.$line-height-xxs;
-    background-color: #fff;
+    background-color: vars.$bg-primary;
     z-index: 2;
     padding: 0 .5rem;
     position: relative;
@@ -83,29 +80,15 @@ progressWrap {
     }
   }
   
-
-  &:hover {
-    color: vars.$color-primary;
-    cursor: pointer;
-  }  
-
   &.active {    
     color: vars.$color-primary;
 
     &::before {
       background-color: vars.$li-dot-color;
     }
-  }
 
-  &_error {
-    .text {
-      color: #d14941;
+    &:hover {
+      cursor: pointer;
     }
-  }
-
-  &_active_with_error {
-    .text {
-      background-color: #ffd6d3;
-    }
-  }
+  }  
 }

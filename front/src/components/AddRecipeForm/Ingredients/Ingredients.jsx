@@ -1,139 +1,170 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidV4 } from 'uuid';
-import Ingredient from 'components/AddRecipeForm/Ingredients/Ingredient/Ingredient';
+import Select from 'react-select';
 import {
-  addEmptyIngredient,
+  selectIngredients,
+  selectMeasureOptions,
+} from 'store/slices/form/formSelect';
+import {
   nextStep,
   prevStep,
-  saveAllIngredients,
+  saveIngredients,
 } from 'store/slices/form/formSlice';
+import { getMeasureOptions } from 'store/slices/form/formThunk';
 import { addNotification } from 'store/slices/toast/toastSlice';
-// import RecipeTitle from 'components/AddRecipeForm/RecipeTitle/RecipeTitle';
 import Button from 'ui/Button';
-import getMeasurements from 'helpers/getMeasurements';
-import { defaultMeasureUnits } from 'utils/constants';
-import addIcon from 'assets/images/add.svg';
+import { IngredientName, VolumeInput } from './elements';
+import SVGAdd from 'assets/images/add.svg?react';
+import SVGDelete from 'assets/images/icon_cross.svg?react';
 import styles from './Ingredients.module.scss';
 
-// Компонент будет доработан после утверждения окончательного дизайна
+const initialIngredients = {
+  ingredients: [
+    {
+      ingredient: null,
+      measure: {
+        label: 'г.',
+        value: 1,
+      },
+      volume: null,
+    },
+  ],
+};
 
 const Ingredients = () => {
-  const { ingredients } = useSelector((state) => state.form);
-  const { register, handleSubmit } = useForm({ values: ingredients });
-  const dispatch = useDispatch();
-  const [measureUnits, setMeasureUnits] = useState([]);
-  const [errorType, setErrorType] = useState('');
-  const [errorRefName, setErrorRefName] = useState('');
+  const ingredients = useSelector(selectIngredients) || initialIngredients;
+  const measureOptions = useSelector(selectMeasureOptions);
 
-  const onSubmit = () => {
-    dispatch(saveAllIngredients());
+  const dispatch = useDispatch();
+
+  const { register, control, handleSubmit, formState } = useForm({
+    mode: 'onTouched',
+    shouldFocusError: false,
+    defaultValues: {
+      ...ingredients,
+    },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'ingredients',
+  });
+
+  const submitHandler = (data) => {
+    console.log('step2 data: ', data);
+
+    dispatch(saveIngredients(data));
     dispatch(nextStep());
+
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
-  };
-
-  const onError = (errors) => {
-    if (errors.ingredient) {
-      errors.ingredient.forEach((item) => {
-        if ('name' in item) {
-          setErrorType('name');
-
-          if (item.name.type === 'required' || item.name.type === 'pattern') {
-            dispatch(addNotification(item.name.message));
-          }
-          setErrorRefName(item.name.ref.name);
-        } else if ('quantity' in item) {
-          setErrorType('quantity');
-
-          if (
-            item.quantity.type === 'required' ||
-            item.quantity.type === 'min'
-          ) {
-            dispatch(addNotification(item.quantity.message));
-          }
-          setErrorRefName(item.quantity.ref.name);
-        }
-      });
-    } else {
-      setErrorType('other');
-      dispatch(addNotification('Что-то пошло не так'));
-    }
   };
 
   const onGoBack = () => {
     dispatch(prevStep());
+
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
   };
 
-  const addEmptyInput = () => {
-    dispatch(addEmptyIngredient());
-  };
+  useEffect(() => {
+    if (formState.errors.ingredients?.length > 0)
+      dispatch(addNotification('Все поля обязательны для заполнения!'));
+  }, [dispatch, formState.errors.ingredients?.length]);
 
   useEffect(() => {
-    getMeasurements()
-      .then((data) => {
-        const mappedData = data.map((item) => ({
-          id: uuidV4(),
-          name: item.abbreviation,
-        }));
-
-        return setMeasureUnits(mappedData);
-      })
-      // fallback case
-      .catch(() => setMeasureUnits(defaultMeasureUnits));
-  }, []);
+    if (!measureOptions) dispatch(getMeasureOptions());
+  }, [dispatch, measureOptions]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit, onError)}>
+    <form onSubmit={handleSubmit(submitHandler)}>
       <section className={styles.ingredients}>
-        {/* <RecipeTitle>
-        <span className={styles.mobileTitle}>2. </span>Ингредиенты*
-      </RecipeTitle> */}
-        <div className={styles.textContainer}>
-          <p className={styles.text}>
-            Добавьте ингредиенты для вашего блюда, укажите их количество.
-          </p>
-        </div>
         <ul className={styles.list}>
-          {ingredients.map((ingredient, index) => (
-            <li key={ingredient.elementID}>
-              <Ingredient
-                index={index}
-                register={register}
-                measureUnits={measureUnits}
-                ingredientData={ingredient}
-                hideButton={ingredients.length <= 1}
-                error={errorType}
-                name={errorRefName}
+          {fields.map((item, index) => (
+            <li key={item.id} id={item.id} className={styles.ingredientItem}>
+              <Controller
+                name={`ingredients.${index}.ingredient`}
+                render={({ field }) => (
+                  <IngredientName
+                    {...field}
+                    isError={
+                      !!formState.errors.ingredients?.[index]?.ingredient
+                    }
+                  />
+                )}
+                control={control}
+                rules={{ required: true }}
               />
+
+              <VolumeInput
+                {...register(`ingredients.${index}.volume`, {
+                  require: true,
+                  maxLength: 4,
+                  valueAsNumber: true,
+                  pattern: {
+                    value: /\d*\.*\d+/,
+                    message:
+                      'Можно использовать только цифры и точку. Например, 3.50, 125',
+                  },
+                  validate: (volumeValue) => {
+                    return volumeValue > 0;
+                  },
+                })}
+                isError={!!formState.errors.ingredients?.[index]?.volume}
+              />
+
+              <Controller
+                name={`ingredients.${index}.measure`}
+                render={({ field }) => {
+                  const { value, ...params } = field;
+                  return (
+                    <Select
+                      {...params}
+                      options={measureOptions}
+                      defaultValue={value}
+                      unstyled
+                      className="select-container"
+                      classNamePrefix="select"
+                    />
+                  );
+                }}
+                control={control}
+                rules={{ required: true }}
+              />
+              {fields.length > 1 && (
+                <Button type="button" view="icon" onClick={() => remove(index)}>
+                  <SVGDelete />
+                </Button>
+              )}
             </li>
           ))}
         </ul>
+
         <Button
+          type="button"
           view="tertiary"
-          className={styles.button_tertiary}
-          disabled={ingredients.length >= 20}
-          onClick={addEmptyInput}
+          disabled={fields.length >= 20}
+          onClick={(event) => {
+            event.preventDefault();
+            append(initialIngredients.ingredients[0], { shouldFocus: false });
+          }}
           aria-label="Добавить ингредиент"
         >
-          <img className={styles.icon} src={addIcon} alt="Иконка 'плюсик'" />
+          <SVGAdd />
           Добавить ингредиент
         </Button>
       </section>
+
       <div className={styles.controls}>
-        <Button view="secondary" onClick={onGoBack} className={styles.button}>
+        <Button view="secondary" onClick={onGoBack}>
           Назад
         </Button>
-        <Button type="submit" className={styles.button}>
-          Далее
-        </Button>
+        <Button type="submit">Далее</Button>
       </div>
     </form>
   );

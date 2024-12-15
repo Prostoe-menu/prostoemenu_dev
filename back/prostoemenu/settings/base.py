@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     "api",
     "measurements",
     "ingredients",
-#    "users",
+    "users",
 ]
 
 REST_FRAMEWORK = {
@@ -101,7 +101,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "prostoemenu.wsgi.application"
 
-#AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = "users.User"
 
 AUTH_PASSWORD_VALIDATORS = [
     {

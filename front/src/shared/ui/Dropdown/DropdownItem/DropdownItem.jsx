@@ -18,12 +18,18 @@ const DropdownItem = ({
     [styles.dropdownItem_active]: itemIndex === cursor,
   });
 
+  const handleOnMouseEnter = () => {
+    // Устанавливаем курсор на текущий элемент при наведении мыши
+    cursor(itemIndex);
+  };
+
   return (
     <li className={styles.listItem} key={item.id}>
       <div
         className={dropdownItemClass}
         onClick={onClick}
         onKeyDown={onKeyDown}
+        onMouseEnter={handleOnMouseEnter} // Добавили отслеживание наведения мыши
         role="button"
         tabIndex="0"
         aria-label={selectItemAriaLabelText}

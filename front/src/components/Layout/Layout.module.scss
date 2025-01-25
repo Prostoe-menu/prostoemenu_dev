@@ -5,16 +5,3 @@
   justify-content: center;
   min-height: 100vh;
 }
-
-.main {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 1440px;
-  padding: 8.3rem 72px 0 72px; 
-
-  @media screen and (max-width: 767px) {
-    padding-top: 7rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}

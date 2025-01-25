@@ -11,7 +11,7 @@ header {
   grid-template-columns: 1fr 1fr;
   align-items: center;
   background-color: vars.$bg-primary;
-  
+
   @media screen and (min-width: 768px) {
     padding: 2.4rem 4rem;
   }
@@ -23,4 +23,17 @@ header {
 
 .logo_link {
   height: 38px;
+}
+
+.main {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1440px;
+  padding: 8.3rem 72px 0 72px;
+
+  @media screen and (max-width: 767px) {
+    padding-top: 7rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 }

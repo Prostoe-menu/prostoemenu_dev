@@ -11,12 +11,14 @@ import {
 import storageSession from 'redux-persist/lib/storage/session';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import formReducer from './slices/form/formSlice';
+import ingredientsReducer from './slices/ingredients/ingredientsSlice';
 import recipeReducer from './slices/recipe/recipeSlice';
 import searchReducer from './slices/search/searchSlice';
 import toastReducer from './slices/toast/toastSlice';
 
 const rootReducer = combineReducers({
   form: formReducer,
+  ingredients: ingredientsReducer,
   toast: toastReducer,
   recipe: recipeReducer,
   search: searchReducer,

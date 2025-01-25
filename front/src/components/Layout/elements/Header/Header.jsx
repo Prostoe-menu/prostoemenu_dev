@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from 'components/Navbar';
+import { resetSelectedIngredients } from 'store/slices/ingredients/ingredientsSlice';
 import { reset } from 'store/slices/search/searchSlice';
 import Logo from 'ui/Logo';
 import navigation from 'utils/navigation';
@@ -20,6 +21,7 @@ const Header = () => {
         mainContentRef.current.scrollIntoView({ behavior: 'smooth' });
       }
       dispatch(reset());
+      dispatch(resetSelectedIngredients());
     } else {
       navigate('/');
     }
@@ -29,6 +31,7 @@ const Header = () => {
     if (location.pathname === '/') {
       const resetAndScroll = () => {
         dispatch(reset());
+        dispatch(resetSelectedIngredients());
 
         if (mainContentRef.current) {
           mainContentRef.current.scrollIntoView({ behavior: 'smooth' });

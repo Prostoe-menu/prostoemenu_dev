@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SelectedIngredients from 'components/SelectedIngredients/SelectedIngredients';
+import { setSelectedIngredients } from 'store/slices/ingredients/ingredientsSlice';
 import { fetchRecipesByIngredients } from 'store/slices/search/searchThunk';
 import Button from 'ui/Button';
 import { DropdownSearch } from 'ui/Dropdown';
@@ -10,10 +11,11 @@ import styles from './RecipeSearch.module.scss';
 import { API } from 'api/api';
 
 const RecipeSearch = () => {
-  const [query, setQuery] = useState('');
-  const [selected, setSelected] = useState([]);
-
   const dispatch = useDispatch();
+  const selectedIngredients = useSelector(
+    (state) => state.ingredients.selectedIngredients
+  );
+  const [query, setQuery] = useState('');
 
   const { value: ingredientsApiData, loading } = useAsync(
     API.getIngredients,
@@ -23,8 +25,10 @@ const RecipeSearch = () => {
   );
 
   const handleIngredientSelection = (ingredient) => {
-    if (!selected.includes(ingredient.name)) {
-      setSelected((prevSelected) => [...prevSelected, ingredient.name]);
+    if (!selectedIngredients.includes(ingredient.name)) {
+      dispatch(
+        setSelectedIngredients([...selectedIngredients, ingredient.name])
+      );
     }
     setQuery('');
   };
@@ -36,7 +40,7 @@ const RecipeSearch = () => {
   const searchHandler = (event) => {
     event.preventDefault();
 
-    dispatch(fetchRecipesByIngredients(selected));
+    dispatch(fetchRecipesByIngredients(selectedIngredients));
   };
 
   return (
@@ -67,7 +71,7 @@ const RecipeSearch = () => {
           Подобрать рецепт
         </Button>
 
-        <SelectedIngredients selected={selected} setSelected={setSelected} />
+        <SelectedIngredients />
       </div>
     </section>
   );

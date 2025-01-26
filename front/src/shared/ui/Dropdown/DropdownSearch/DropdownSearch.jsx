@@ -86,7 +86,8 @@ const DropdownSearch = (props) => {
             <DropdownItem
               item={item}
               itemIndex={idx}
-              cursor={setCursor} // Добавили обработку курсора
+              cursor={cursor}
+              setcursor={setCursor} // Добавили обработку курсора
               onKeyDown={(e) => {
                 // Этот код не влияет на работу с esc
                 if (e.key === 'Escape') {

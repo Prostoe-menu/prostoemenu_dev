@@ -10,6 +10,7 @@ const DropdownItem = ({
   item,
   itemIndex,
   cursor,
+  setcursor,
   onClick,
   onKeyDown,
   selectItemAriaLabelText,
@@ -20,7 +21,7 @@ const DropdownItem = ({
 
   const handleOnMouseEnter = () => {
     // Устанавливаем курсор на текущий элемент при наведении мыши
-    cursor(itemIndex);
+    setcursor(itemIndex);
   };
 
   return (

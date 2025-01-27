@@ -30,9 +30,6 @@ const Header = () => {
   useEffect(() => {
     if (location.pathname === '/') {
       const resetAndScroll = () => {
-        dispatch(reset());
-        dispatch(resetSelectedIngredients());
-
         if (mainContentRef.current) {
           mainContentRef.current.scrollIntoView({ behavior: 'smooth' });
         }

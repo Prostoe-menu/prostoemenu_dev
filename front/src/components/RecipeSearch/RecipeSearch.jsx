@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SelectedIngredients from 'components/SelectedIngredients/SelectedIngredients';
 import { setSelectedIngredients } from 'store/slices/ingredients/ingredientsSlice';
@@ -23,6 +23,10 @@ const RecipeSearch = () => {
     true,
     800
   );
+
+  useEffect(() => {
+    dispatch(fetchRecipesByIngredients(selectedIngredients));
+  }, [dispatch, selectedIngredients]);
 
   const handleIngredientSelection = (ingredient) => {
     if (!selectedIngredients.includes(ingredient.name)) {

@@ -6,6 +6,7 @@ import { fetchRecipesByIngredients } from 'store/slices/search/searchThunk';
 import Button from 'ui/Button';
 import { DropdownSearch } from 'ui/Dropdown';
 import useAsync from 'hooks/useAsync';
+import { RECIPE_SEARCH_TEXT } from 'utils/constants';
 import styles from './RecipeSearch.module.scss';
 
 import { API } from 'api/api';
@@ -49,17 +50,14 @@ const RecipeSearch = () => {
 
   return (
     <section className={styles.section}>
-      <h1 className={styles.title}>Из чего будем готовить?</h1>
+      <h1 className={styles.title}>{RECIPE_SEARCH_TEXT.title}</h1>
 
-      <p className={styles.text}>
-        Поможем найти рецепт на основе ингредиентов, которые у вас уже есть или
-        которые планируете купить.
-      </p>
+      <p className={styles.text}>{RECIPE_SEARCH_TEXT.hint}</p>
 
       <div className={styles.сontainer}>
         <DropdownSearch
-          inputPlaceholder="Начните вводить название продукта"
-          notFoundMessage="Такого ингредиента не найдено"
+          inputPlaceholder={RECIPE_SEARCH_TEXT.inputPlaceholder}
+          notFoundMessage={RECIPE_SEARCH_TEXT.notFoundMessage}
           onChooseItem={handleIngredientSelection}
           inputValue={query}
           onInputChange={handleNameInput}
@@ -72,7 +70,7 @@ const RecipeSearch = () => {
           onClick={searchHandler}
           className={styles.searchBtn}
         >
-          Подобрать рецепт
+          {RECIPE_SEARCH_TEXT.textBtn}
         </Button>
 
         <SelectedIngredients />

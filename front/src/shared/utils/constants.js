@@ -114,3 +114,11 @@ export const MIN_IMAGE_WIDTH = 600; // pixels
 export const MIN_IMAGE_HEIGHT = 600; // pixels
 
 export const MAX_VOLUME_LENGTH = 4;
+
+export const RECIPE_SEARCH_TEXT = {
+  title: 'Из чего будем готовить?',
+  hint: 'Поможем найти рецепт на основе ингредиентов, которые у вас уже есть или которые планируете купить.',
+  inputPlaceholder: 'Морковь',
+  notFoundMessage: 'Такого ингредиента не найдено',
+  textBtn: 'Подобрать рецепт',
+};

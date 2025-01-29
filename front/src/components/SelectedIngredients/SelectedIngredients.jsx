@@ -1,17 +1,24 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
+import {
+  resetSelected,
+  setSelected,
+} from 'store/slices/ingredients/ingredientsSlice';
 import Button from 'ui/Button';
 import styles from './SelectedIngredients.module.scss';
 
-const SelectedIngredients = ({ selected, setSelected }) => {
+const SelectedIngredients = () => {
+  const dispatch = useDispatch();
   const [isHover, setHover] = useState(false);
+  const selected = useSelector((state) => state.ingredients.selected);
 
   const removeIngredient = (item) => {
-    setSelected(selected.filter((el) => el !== item));
+    dispatch(setSelected(selected.filter((el) => el !== item)));
   };
 
   const removeAll = () => {
-    setSelected([]);
+    dispatch(resetSelected([]));
   };
   return (
     selected.length > 0 && (

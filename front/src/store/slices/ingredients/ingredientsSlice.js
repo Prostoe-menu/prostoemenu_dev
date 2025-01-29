@@ -3,18 +3,18 @@ import { createSlice } from '@reduxjs/toolkit';
 export const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState: {
-    ingredients: [],
+    selected: [],
   },
   reducers: {
-    setIngredients(state, action) {
-      state.ingredients = action.payload;
+    setSelected(state, action) {
+      state.selected = action.payload;
     },
-    resetiIngredients(state) {
-      state.ingredients = [];
+    resetSelected(state) {
+      state.selected = [];
     },
   },
 });
 
-export const { setIngredients, resetIngredients } = ingredientsSlice.actions;
+export const { setSelected, resetSelected } = ingredientsSlice.actions;
 
 export default ingredientsSlice.reducer;

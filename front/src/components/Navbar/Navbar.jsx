@@ -1,13 +1,12 @@
-import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import resetIngredients from 'utils/resetIngredients';
+import useResetIngredients from 'hooks/useResetIngredients';
 import styles from './Navbar.module.scss';
 
 const Navbar = ({ navigation }) => {
-  const dispatch = useDispatch();
+  const resetIngredients = useResetIngredients();
 
   const handleClick = (e) => {
-    if (e.target.dataset.value === 'Главная') resetIngredients(dispatch);
+    if (e.target.dataset.value === 'Главная') resetIngredients();
   };
 
   return (

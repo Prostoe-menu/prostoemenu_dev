@@ -1,16 +1,11 @@
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Logo from 'ui/Logo';
+import useResetIngredients from 'hooks/useResetIngredients';
 import { AGREEMENT_URL } from 'utils/constants';
-import resetIngredients from 'utils/resetIngredients';
 import styles from './Footer.module.scss';
 
 const Footer = () => {
-  const dispatch = useDispatch();
-
-  const handleReset = () => {
-    resetIngredients(dispatch);
-  };
+  const handleReset = useResetIngredients();
 
   return (
     <footer className={styles.footer}>

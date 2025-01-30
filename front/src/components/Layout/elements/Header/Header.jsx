@@ -1,17 +1,12 @@
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Navbar from 'components/Navbar';
 import Logo from 'ui/Logo';
+import useResetIngredients from 'hooks/useResetIngredients';
 import navigation from 'utils/navigation';
-import resetIngredients from 'utils/resetIngredients';
 import styles from './Header.module.scss';
 
 const Header = () => {
-  const dispatch = useDispatch();
-
-  const handleReset = () => {
-    resetIngredients(dispatch);
-  };
+  const handleReset = useResetIngredients();
 
   return (
     <header className={styles.header}>

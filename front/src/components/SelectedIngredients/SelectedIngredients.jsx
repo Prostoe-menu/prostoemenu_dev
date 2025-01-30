@@ -18,8 +18,9 @@ const SelectedIngredients = () => {
   };
 
   const removeAll = () => {
-    dispatch(resetSelected([]));
+    dispatch(resetSelected());
   };
+
   return (
     selected.length > 0 && (
       <ul className={styles.container}>

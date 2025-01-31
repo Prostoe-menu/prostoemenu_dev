@@ -7,7 +7,9 @@ const ErrorBoundary = () => {
   return (
     <div className={styles.container}>
       <h1>Uh oh, something went terribly wrong 😩</h1>
-      <pre>{error.message || JSON.stringify(error)}</pre>
+      <pre>
+        {(error as { message: string }).message || JSON.stringify(error)}
+      </pre>
       <button onClick={() => (window.location.href = '/')}>
         Click here to reload the app
       </button>

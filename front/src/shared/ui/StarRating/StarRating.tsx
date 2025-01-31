@@ -3,7 +3,12 @@ import { STARS_TOTAL } from 'utils/constants';
 import StarSVG from 'assets/images/star.svg?react';
 import styles from './StarRating.module.scss';
 
-const StarRating = ({ label, rating }) => {
+type TStarRatingProps = {
+  label: string;
+  rating: number;
+};
+
+const StarRating = ({ label, rating }: TStarRatingProps) => {
   const stars = [...Array(STARS_TOTAL)].map((_, idx) => {
     return (
       <StarSVG

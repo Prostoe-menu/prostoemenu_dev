@@ -1,6 +1,10 @@
 import styles from './ErrorMessage.module.scss';
 
-const ErrorMessage = ({ message }) => {
+type TErrorMessageProps = {
+  message: string;
+};
+
+const ErrorMessage = ({ message }: TErrorMessageProps) => {
   return <div className={styles.error}>{message}</div>;
 };
 

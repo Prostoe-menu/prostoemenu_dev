@@ -1,9 +1,7 @@
-const navigation = [
+export const NAVIGATION = [
   {
     name: 'Главная',
     route: '/',
     id: 1,
   },
 ];
-
-export default navigation;

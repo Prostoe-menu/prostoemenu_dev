@@ -3,7 +3,11 @@ import styles from './ConfirmModal.module.scss';
 
 // Компонент будет дорабатываться, когда будет имплементирован в логику кода
 
-const ConfirmModal = ({ onClickClose }) => (
+type TConfirmModalProps = {
+  onClickClose: () => void;
+};
+
+const ConfirmModal = ({ onClickClose }: TConfirmModalProps) => (
   <div className={styles.modalContainer}>
     <h2 className={styles.title}>Спасибо!</h2>
     <p className={styles.text}>
@@ -17,11 +21,10 @@ const ConfirmModal = ({ onClickClose }) => (
       After Main Page component is created, implement this requirement:
       "После закрытия модального окна происходит переход на главную страницу." */}
       <Button
-        btnClassName="button_bg_yellow"
-        isSubmit={false}
-        isDisabled={false}
-        ariaLabelText="Закрыть модальное окно"
-        onClickBtn={onClickClose}
+        view="secondary"
+        className="button_bg_yellow"
+        aria-label="Закрыть модальное окно"
+        onClick={onClickClose}
       >
         Хорошо
       </Button>

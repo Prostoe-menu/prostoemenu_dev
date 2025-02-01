@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import cn from 'classnames';
 import ReactPortal from 'components/ReactPortal/ReactPortal';
 import Button from 'ui/Button';
@@ -7,7 +7,16 @@ import styles from './Modal.module.scss';
 
 // Компонент будет дорабатываться, когда будет имплементирован в логику кода
 
-const Modal = ({ children, closeModal, isModalOpen }) => {
+type TModalProps = {
+  closeModal: () => void;
+  isModalOpen: boolean;
+};
+
+const Modal = ({
+  children,
+  closeModal,
+  isModalOpen,
+}: PropsWithChildren<TModalProps>) => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
   // const closeModal = () => setIsModalOpen(false);
 
@@ -16,7 +25,8 @@ const Modal = ({ children, closeModal, isModalOpen }) => {
   });
 
   useEffect(() => {
-    const closeOnEscapeKey = (e) => (e.key === 'Escape' ? closeModal() : null);
+    const closeOnEscapeKey = (e: KeyboardEvent) =>
+      e.key === 'Escape' ? closeModal() : null;
 
     document.body.addEventListener('keydown', closeOnEscapeKey);
 
@@ -33,7 +43,6 @@ const Modal = ({ children, closeModal, isModalOpen }) => {
         <div
           className={styles.overlay}
           role="button"
-          tabIndex="0"
           aria-label="Закрыть модальное окно"
           onClick={closeModal}
           onKeyDown={closeModal}

@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { STARS_TOTAL } from 'utils/constants';
-import StarSVG from 'assets/images/star.svg?react';
+import { ReactComponent as StarSVG } from 'assets/images/star.svg?react';
 import styles from './StarRating.module.scss';
 
 type TStarRatingProps = {

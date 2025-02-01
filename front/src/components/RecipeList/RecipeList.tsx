@@ -1,7 +1,13 @@
+import { IRecipe } from 'shared/types/recipe';
 import RecipeCard from './RecipeCard/RecipeCard';
 import styles from './RecipeList.module.scss';
 
-const RecipeList = ({ title, recipes }) => {
+type TRecipeListProps = {
+  title: string;
+  recipes: Array<IRecipe>;
+};
+
+const RecipeList: React.FC<TRecipeListProps> = ({ title, recipes }) => {
   if (!recipes) return;
 
   return (

@@ -3,7 +3,6 @@ import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundary';
 import Layout from 'components/Layout';
 import NotFound from 'components/NotFound';
 import HomePage from 'pages/HomePage';
-import Loader from 'ui/Loader';
 
 const router = createBrowserRouter([
   {
@@ -37,8 +36,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-const App = () => (
-  <RouterProvider router={router} fallbackElement={<Loader />} />
-);
+const App = () => <RouterProvider router={router} />;
 
 export default App;

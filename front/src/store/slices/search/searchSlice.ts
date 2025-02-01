@@ -1,7 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { fetchRecipesByIngredients } from './searchThunk';
 
-const initialState = {
+interface IRecipe {
+
+}
+
+type TInitialState = {
+  recipes: Array<IRecipe>;
+  isSearch: boolean;
+  isLoading: boolean;
+  isError: boolean;
+  errorMessage: string | null;
+}
+const initialState: TInitialState = {
   recipes: [],
   isSearch: false,
   isLoading: false,
@@ -30,7 +41,7 @@ const searchSlice = createSlice({
         state.isLoading = false;
         state.isSearch = false;
         state.isError = true;
-        state.errorMessage = action.payload;
+        state.errorMessage = action.payload as string;
       })
       .addCase(fetchRecipesByIngredients.pending, (state) => {
         state.isLoading = true;

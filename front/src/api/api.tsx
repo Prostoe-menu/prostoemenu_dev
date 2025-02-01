@@ -17,7 +17,7 @@ const getMeasureOptions = () => {
   });
 };
 
-const getRecipes = (url: string) => {
+const getRecipes = (url?: string) => {
   return instance.get(url ?? `${RECIPES_LIST_URL}`, {
     withCredentials: true,
   });

@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import styles from './Button.module.scss';
+import { PropsWithChildren } from 'react';
 
 /**
  * Компонент кнопки (с иконкой и без).
@@ -7,6 +8,14 @@ import styles from './Button.module.scss';
  * По умолчанию имеет type 'button'.
  * Имеет следующие стили: primary, secondary, tertiary, icon, cross (для кнопок удаления или закрытия компонента).
  * */
+
+type TButtonProps = {
+  view?: 'primary' | 'secondary' | 'tertiary' | 'icon' | 'cross';
+  type?: 'button' | 'submit';
+  iconPosition?: 'right' | 'left';
+  isHidden?: boolean;
+  className?: string;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = ({
   view = 'primary',
@@ -16,7 +25,7 @@ const Button = ({
   type = 'button',
   children,
   ...props
-}) => {
+}: PropsWithChildren<TButtonProps>) => {
   const btnClasses = cn(
     styles.button,
     styles[`view-${view}`],

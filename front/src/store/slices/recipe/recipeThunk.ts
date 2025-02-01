@@ -24,7 +24,7 @@ export const fetchRecipes = createAsyncThunk(
 
 export const fetchMoreRecipes = createAsyncThunk(
   'recipes/fetchMoreRecipes',
-  async (url, { rejectWithValue }) => {
+  async (url: string, { rejectWithValue }) => {
     return await API.getRecipes(url)
       .then((response) => {
         if (response.status !== 200)
@@ -40,7 +40,7 @@ export const fetchMoreRecipes = createAsyncThunk(
 
 export const fetchRecipeByID = createAsyncThunk(
   'recipes/fetchRecipeByID',
-  async (id, { rejectWithValue }) => {
+  async (id: string, { rejectWithValue }) => {
     return await API.getRecipeByID(id)
       .then((response) => {
         if (response.status !== 200)

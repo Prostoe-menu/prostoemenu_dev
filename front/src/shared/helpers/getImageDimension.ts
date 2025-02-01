@@ -1,4 +1,4 @@
-const getImageDimension = (dataURL) =>
+const getImageDimension = (dataURL: string) =>
   new Promise((resolve) => {
     const img = new Image();
     img.onload = () => {

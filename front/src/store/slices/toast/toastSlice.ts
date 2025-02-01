@@ -1,10 +1,19 @@
 import { v4 as uuidV4 } from 'uuid';
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 //   notification schema
 //   {id: number, message:string}
 
-const initialState = {
+type TNotification = {
+  id: string;
+  message: string;
+};
+
+type TInitialState = {
+  notifications: Array<TNotification>;
+};
+
+const initialState: TInitialState = {
   notifications: [],
 };
 
@@ -12,7 +21,7 @@ const toastSlice = createSlice({
   name: 'toast',
   initialState,
   reducers: {
-    addNotification: (state, action) => {
+    addNotification: (state, action: PayloadAction<string>) => {
       if (state.notifications.length === 0) {
         const updatedNotifications = [...state.notifications];
 
@@ -26,7 +35,7 @@ const toastSlice = createSlice({
         state.notifications = updatedNotifications;
       }
     },
-    deleteNotification: (state, action) => {
+    deleteNotification: (state, action: PayloadAction<string>) => {
       const filteredNotifications = state.notifications.filter(
         (item) => item.id !== action.payload
       );

@@ -1,9 +1,14 @@
 import { Link } from 'react-router-dom';
 import StarRating from 'ui/StarRating';
 import { timeFormat } from 'helpers/utils';
+import { IRecipe } from 'shared/types/recipe';
 import styles from './RecipeCard.module.scss';
 
-const RecipeCard = ({ recipe }) => {
+type TRecipeCardProps = {
+  recipe: IRecipe;
+};
+
+const RecipeCard: React.FC<TRecipeCardProps> = ({ recipe }) => {
   const {
     id,
     title,
@@ -40,7 +45,10 @@ const RecipeCard = ({ recipe }) => {
             </Link>
           </h3>
           <p className={styles.complexity}>
-            <StarRating label="Сложность" rating={parseInt(complexity)} />
+            <StarRating
+              label="Сложность"
+              rating={parseInt(String(complexity))}
+            />
           </p>
           <p className={styles.cookingTime}>{timeFormat(cookingTime)}</p>
         </div>

@@ -4,12 +4,16 @@ import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 import { addNotification } from 'store/slices/toast/toastSlice';
 import { MAX_IMAGE_SIZE_IN_BYTES } from 'utils/constants';
-import SVGIconCamera from 'assets/images/icon-camera.svg?react';
+import { ReactComponent as SVGIconCamera } from 'assets/images/icon-camera.svg?react';
 import 'cropperjs/dist/cropper.css';
 import styles from './PhotoButton.module.scss';
 
-const PhotoButton = ({ loadHandler }) => {
-  const [errorMessage, setErrorMessage] = useState(null);
+type TPhotoButtonProps = {
+  loadHandler: (files: Array<File>) => void;
+};
+
+const PhotoButton: React.FC<TPhotoButtonProps> = ({ loadHandler }) => {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const dispatch = useDispatch();
 
   const { getRootProps, getInputProps, isDragReject } = useDropzone({

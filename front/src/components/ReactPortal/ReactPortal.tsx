@@ -1,7 +1,7 @@
-import { useLayoutEffect, useState } from 'react';
+import { PropsWithChildren, useLayoutEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-function createWrapperAndAppendToBody(wrapperId) {
+function createWrapperAndAppendToBody(wrapperId: string) {
   const wrapperElement = document.createElement('div');
 
   wrapperElement.setAttribute('id', wrapperId);
@@ -10,8 +10,13 @@ function createWrapperAndAppendToBody(wrapperId) {
   return wrapperElement;
 }
 
-const ReactPortal = ({ children, wrapperId = 'react-portal-wrapper' }) => {
-  const [wrapperElement, setWrapperElement] = useState(null);
+const ReactPortal = ({
+  children,
+  wrapperId = 'react-portal-wrapper',
+}: PropsWithChildren<{ wrapperId: string }>) => {
+  const [wrapperElement, setWrapperElement] = useState<HTMLElement | null>(
+    null
+  );
 
   useLayoutEffect(() => {
     let element = document.getElementById(wrapperId);
@@ -25,7 +30,7 @@ const ReactPortal = ({ children, wrapperId = 'react-portal-wrapper' }) => {
     setWrapperElement(element);
 
     return () => {
-      if (systemCreated && element.parentNode) {
+      if (systemCreated && element?.parentNode) {
         element.parentNode.removeChild(element);
       }
     };

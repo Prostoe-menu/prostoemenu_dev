@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { KeyboardEvent, RefObject, useState } from 'react';
 import cn from 'classnames';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { DropdownItem } from 'ui/Dropdown';
 import { handleKeyboardNavigation } from 'helpers/useKeyboardNavigation';
+import ArrowDown from 'assets/images/arrow-down.svg?react';
 import styles from './DropdownMenu.module.scss';
 
 /**
@@ -10,7 +10,19 @@ import styles from './DropdownMenu.module.scss';
  * Адаптация стилей и логики происходит через пропсы.
  * */
 
-const DropdownMenu = ({
+type TDropdownMenuProps<T> = {
+  dropdownClassName: string;
+  isDropdownOpen: boolean;
+  setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  openDropdownAriaLabelText: string;
+  previewText: string;
+  selectItemInputRef: RefObject<HTMLUListElement>;
+  dropdownData: Array<T>;
+  chooseItem: (item: T) => void;
+  chooseItemAriaLabelText: string;
+};
+
+const DropdownMenu = <T extends { id: string; name: string }>({
   dropdownClassName,
   isDropdownOpen,
   setIsDropdownOpen,
@@ -20,21 +32,21 @@ const DropdownMenu = ({
   dropdownData,
   chooseItem,
   chooseItemAriaLabelText,
-}) => {
+}: TDropdownMenuProps<T>) => {
   const [cursor, setCursor] = useState(-1);
   const optionsClasses = cn(styles.options, {
     [styles.visible]: isDropdownOpen,
   });
 
   const toggleDropdown = () => setIsDropdownOpen((prevValue) => !prevValue);
-  const handleKeyDown = (e) =>
-    handleKeyboardNavigation(
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) =>
+    handleKeyboardNavigation<T>(
       e,
       selectItemInputRef,
-      isDropdownOpen,
+      dropdownData,
       cursor,
       setCursor,
-      dropdownData,
+      isDropdownOpen,
       setIsDropdownOpen,
       chooseItem
     );
@@ -46,17 +58,11 @@ const DropdownMenu = ({
         onClick={toggleDropdown}
         onKeyDown={handleKeyDown}
         role="button"
-        tabIndex="0"
+        tabIndex={0}
         aria-label={openDropdownAriaLabelText}
       >
         <span>{previewText}</span>
-        <ExpandMoreIcon
-          styles={{
-            color: '#818181',
-            stroke: '#ffffff',
-            strokeWidth: 1,
-          }}
-        />
+        <ArrowDown />
       </div>
       <ul className={optionsClasses} ref={selectItemInputRef}>
         {dropdownData?.map((item, idx) => (

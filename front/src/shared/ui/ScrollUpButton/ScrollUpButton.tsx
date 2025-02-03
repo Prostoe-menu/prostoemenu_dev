@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { MouseEvent, useCallback, useEffect, useState } from 'react';
 import Button from 'ui/Button';
 import SVGArrowUp from 'assets/images/arrow-up.svg?react';
 import styles from './ScrollUpButton.module.scss';
@@ -15,7 +15,7 @@ const ScrollUpButton = () => {
     window.scrollY > 700 ? setIsShow(true) : setIsShow(false);
   };
 
-  const clickHandler = useCallback((event) => {
+  const clickHandler = useCallback((event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     window.scrollTo({
       top: 0,

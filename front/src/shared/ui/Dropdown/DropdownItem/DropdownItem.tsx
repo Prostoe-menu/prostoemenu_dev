@@ -6,7 +6,17 @@ import styles from './DropdownItem.module.scss';
  * Адаптация стилей и логики происходит через пропсы.
  * */
 
-const DropdownItem = ({
+type TDropdownItemProps<T> = {
+  item: T;
+  itemIndex: number;
+  cursor: number;
+  selectItemAriaLabelText: string;
+  onClick: () => void;
+  onKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => void;
+  setcursor?: (index: number) => void;
+};
+
+const DropdownItem = <T extends { id: string; name: string }>({
   item,
   itemIndex,
   cursor,
@@ -14,14 +24,14 @@ const DropdownItem = ({
   onClick,
   onKeyDown,
   selectItemAriaLabelText,
-}) => {
+}: TDropdownItemProps<T>) => {
   const dropdownItemClass = cn(styles.dropdownItem, {
     [styles.dropdownItem_active]: itemIndex === cursor,
   });
 
   const handleOnMouseEnter = () => {
     // Устанавливаем курсор на текущий элемент при наведении мыши
-    setcursor(itemIndex);
+    setcursor && setcursor(itemIndex);
   };
 
   return (
@@ -32,11 +42,8 @@ const DropdownItem = ({
         onKeyDown={onKeyDown}
         onMouseEnter={handleOnMouseEnter} // Добавили отслеживание наведения мыши
         role="button"
-        tabIndex="0"
+        tabIndex={0}
         aria-label={selectItemAriaLabelText}
-        style={{
-          width: '100%',
-        }}
       >
         {item.name}
       </div>

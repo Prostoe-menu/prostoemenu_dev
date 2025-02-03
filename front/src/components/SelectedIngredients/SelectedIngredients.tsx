@@ -1,18 +1,27 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { v4 as uuidV4 } from 'uuid';
 import Button from 'ui/Button';
 import styles from './SelectedIngredients.module.scss';
 
-const SelectedIngredients = ({ selected, setSelected }) => {
+type TSelectedIngredientsProps = {
+  selected: string[];
+  setSelected: Dispatch<SetStateAction<string[]>>;
+};
+
+const SelectedIngredients = ({
+  selected,
+  setSelected,
+}: TSelectedIngredientsProps) => {
   const [isHover, setHover] = useState(false);
 
-  const removeIngredient = (item) => {
-    setSelected(selected.filter((el) => el !== item));
+  const removeIngredient = (item: string) => {
+    setSelected((prev: string[]) => prev.filter((el) => el !== item));
   };
 
   const removeAll = () => {
     setSelected([]);
   };
+
   return (
     selected.length > 0 && (
       <ul className={styles.container}>

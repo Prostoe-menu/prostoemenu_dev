@@ -1,10 +1,11 @@
-import { useSelector } from 'react-redux';
 import RecipeList from 'components/RecipeList';
-import { ErrorMessage, Loader } from 'ui';
+import Loader from 'ui/Loader';
+import ErrorMessage from 'ui/ErrorMessage';
+import { useAppSelector } from 'store/hooks';
 import styles from './SearchResults.module.scss';
 
 const SearchResults = () => {
-  const { recipes, isSearch, isLoading, isError, errorMessage } = useSelector(
+  const { recipes, isSearch, isLoading, errorMessage } = useAppSelector(
     (state) => state.search
   );
 
@@ -16,7 +17,7 @@ const SearchResults = () => {
     <>
       {isLoading && <Loader />}
 
-      {isError && <ErrorMessage message={errorMessage} />}
+      {errorMessage && <ErrorMessage message={errorMessage} />}
 
       {!count && (
         <>

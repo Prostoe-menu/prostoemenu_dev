@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import cn from 'classnames';
-import { DropdownItem, Input, Loader } from 'ui';
+import Input from 'ui/Input';
+import { DropdownItem } from 'ui/Dropdown';
 import { handleKeyboardNavigation } from 'helpers/useKeyboardNavigation';
 import useClickOutside from 'hooks/useClickOutside';
 import styles from './DropdownSearch.module.scss';
+import Loader from 'shared/ui/Loader';
 
 /**
  * Переиспользуемый компонент выпадающего меню для поиска.
@@ -11,26 +13,43 @@ import styles from './DropdownSearch.module.scss';
  * Адаптация стилей и логики происходит через пропсы.
  * */
 
-const DropdownSearch = (props) => {
+type TDropdownSearchProps<T extends { id: number }> = {
+  inputValue: string;
+  inputPlaceholder: string;
+  requiredData: Array<T>;
+  notFoundMessage: string;
+  isLoading: boolean;
+  onChooseItem: (item: T) => void;
+  onInputChange: (val: string) => void;
+  selectItemRef?: React.Ref<HTMLUListElement> | undefined;
+  ariaLabelText?: string;
+  dropdownClassName?: string;
+};
+
+const DropdownSearch = <T extends { id: number }>(
+  props: TDropdownSearchProps<T>
+) => {
   const {
     dropdownClassName,
     selectItemRef,
-    onInputChange,
     inputPlaceholder,
     inputValue,
-    onChooseItem,
     requiredData,
     notFoundMessage,
     ariaLabelText,
     isLoading,
+    onChooseItem,
+    onInputChange,
   } = props;
 
   const [cursor, setCursor] = useState(-1);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const inputRef = useClickOutside(() => setIsDropdownOpen(false));
+  const inputRef = useClickOutside<HTMLDivElement>(() =>
+    setIsDropdownOpen(false)
+  );
 
-  const changeHandler = (event) => {
+  const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
     onInputChange(value);
@@ -46,7 +65,9 @@ const DropdownSearch = (props) => {
   return (
     <div
       ref={inputRef}
-      className={cn(styles.dropdownSearch, styles[dropdownClassName])}
+      className={cn(styles.dropdownSearch, {
+        [styles.dropdownClassName]: dropdownClassName,
+      })}
     >
       <Input
         onChange={changeHandler}
@@ -54,10 +75,10 @@ const DropdownSearch = (props) => {
           handleKeyboardNavigation(
             e,
             selectItemRef,
-            isDropdownOpen,
+            requiredData,
             cursor,
             setCursor,
-            requiredData,
+            isDropdownOpen,
             setIsDropdownOpen,
             onChooseItem
           )
@@ -88,7 +109,7 @@ const DropdownSearch = (props) => {
               itemIndex={idx}
               cursor={cursor}
               setcursor={setCursor} // Добавили обработку курсора
-              onKeyDown={(e) => {
+              onKeyDown={(e: KeyboardEvent) => {
                 // Этот код не влияет на работу с esc
                 if (e.key === 'Escape') {
                   setIsDropdownOpen(false);

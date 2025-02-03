@@ -1,9 +1,10 @@
+import { AxiosResponse } from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 
-const useAsync = (callback, query, debounce, delay) => {
+const useAsync = <T>(callback: (query: string) => Promise<AxiosResponse<T, any>>, query: string, debounce: boolean, delay: number) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [value, setValue] = useState([]);
+  const [value, setValue] = useState<AxiosResponse<T, any> | null>(null);
 
   const callbackMemoized = useCallback(async () => {
     try {
@@ -13,11 +14,11 @@ const useAsync = (callback, query, debounce, delay) => {
         setValue(result);
         setError(false);
       } else {
-        setValue([]);
+        setValue(null);
         setError(true);
       }
     } catch (_) {
-      setValue([]);
+      setValue(null);
       setError(true);
     }
 

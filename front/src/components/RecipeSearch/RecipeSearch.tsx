@@ -1,39 +1,43 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import SelectedIngredients from 'components/SelectedIngredients/SelectedIngredients';
+import { MouseEvent, useState } from 'react';
+import SelectedIngredients from 'components/SelectedIngredients';
 import { fetchRecipesByIngredients } from 'store/slices/search/searchThunk';
 import Button from 'ui/Button';
 import { DropdownSearch } from 'ui/Dropdown';
 import useAsync from 'hooks/useAsync';
-import styles from './RecipeSearch.module.scss';
-
 import { API } from 'api/api';
+import { useAppDispatch } from 'store/hooks';
+import { IIngredient, TIngredientsResponse } from 'shared/types/ingredients';
+import styles from './RecipeSearch.module.scss';
 
 const RecipeSearch = () => {
   const [query, setQuery] = useState('');
-  const [selected, setSelected] = useState([]);
+  const [selected, setSelected] = useState<string[]>([]);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { value: ingredientsApiData, loading } = useAsync(
+  const { value: ingredientsApiData, loading } = useAsync<TIngredientsResponse>(
     API.getIngredients,
     query,
     true,
     800
   );
 
-  const handleIngredientSelection = (ingredient) => {
+  const getIngredientsItems = () => {
+    return ingredientsApiData?.data?.results || [];
+  };
+
+  const handleIngredientSelection = (ingredient: IIngredient) => {
     if (!selected.includes(ingredient.name)) {
       setSelected((prevSelected) => [...prevSelected, ingredient.name]);
     }
     setQuery('');
   };
 
-  const handleNameInput = (value) => {
+  const handleNameInput = (value: string) => {
     setQuery(value);
   };
 
-  const searchHandler = (event) => {
+  const searchHandler = (event: MouseEvent) => {
     event.preventDefault();
 
     dispatch(fetchRecipesByIngredients(selected));
@@ -55,7 +59,7 @@ const RecipeSearch = () => {
           onChooseItem={handleIngredientSelection}
           inputValue={query}
           onInputChange={handleNameInput}
-          requiredData={ingredientsApiData?.data?.results}
+          requiredData={getIngredientsItems()}
           isLoading={loading}
         />
 

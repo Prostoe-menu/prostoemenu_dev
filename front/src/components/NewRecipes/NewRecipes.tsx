@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import RecipeList from 'components/RecipeList';
 import { fetchRecipes } from 'store/slices/recipe/recipeThunk';
 import ErrorMessage from 'ui/ErrorMessage';
 import Loader from 'ui/Loader';
 import MoreRecipesButton from './MoreRecipesButton';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 const NewRecipes = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { recipes, next, isLoading, isError, errorMessage } = useSelector(
+  const { recipes, next, isLoading, isError, errorMessage } = useAppSelector(
     (state) => state.recipe
   );
 
@@ -21,7 +21,7 @@ const NewRecipes = () => {
     <>
       {isLoading && <Loader />}
 
-      {isError && <ErrorMessage message={errorMessage} />}
+      {isError && errorMessage && <ErrorMessage message={errorMessage} />}
 
       {!isLoading && !isError && recipes && (
         <RecipeList title="Вам может понравиться" recipes={recipes} />

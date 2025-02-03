@@ -3,8 +3,8 @@ import cn from 'classnames';
 import styles from './Input.module.scss';
 
 type TInputProps = {
-  className: string;
-  isError: boolean;
+  className?: string;
+  isError?: boolean;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 const Input = forwardRef<HTMLInputElement, TInputProps>(

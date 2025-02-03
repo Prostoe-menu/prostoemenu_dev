@@ -1,4 +1,6 @@
-export const scrollToSelected = (ref, cursor) => {
+import { Dispatch, SetStateAction, KeyboardEvent, RefObject } from "react";
+
+export const scrollToSelected = (ref: RefObject<HTMLElement> | undefined, cursor: number) => {
   const selectedItem = ref?.current?.children[cursor];
 
   if (selectedItem !== undefined) {
@@ -9,20 +11,20 @@ export const scrollToSelected = (ref, cursor) => {
   }
 };
 
-export const handleKeyboardNavigation = (
-  e,
-  ref,
-  isVisible,
-  cursor,
-  setCursor,
-  items,
-  setVisibility,
-  chooseItem
+export const handleKeyboardNavigation = <T,>(
+  e: KeyboardEvent<HTMLInputElement>,
+  ref: RefObject<HTMLElement> | undefined,
+  items: Array<T>,
+  cursor: number,
+  setCursor: Dispatch<SetStateAction<number>>,
+  isVisible: boolean,
+  setVisibility: Dispatch<SetStateAction<boolean>>,
+  chooseItem: (item: T) => void
 ) => {
   if (e.key === 'ArrowDown') {
     if (isVisible) {
       e.preventDefault();
-      setCursor((c) => (c < items.length - 1 ? c + 1 : c));
+      setCursor((c: number) => (c < items.length - 1 ? c + 1 : c));
     } else {
       setVisibility(true);
     }

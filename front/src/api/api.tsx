@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import { TIngredientsResponse } from 'shared/types/ingredients';
 import { INGREDIENTS_URL, RECIPES_LIST_URL } from 'utils/urls';
 
 const instance = axios.create({
@@ -6,21 +7,18 @@ const instance = axios.create({
 });
 
 const getIngredients = (query: string) => {
-  return instance.get(`${INGREDIENTS_URL}/?name=${query}`, {
-    withCredentials: true,
-  });
+  return instance.get<
+    TIngredientsResponse,
+    AxiosResponse<TIngredientsResponse>
+  >(`${INGREDIENTS_URL}/?name=${query}`);
 };
 
 const getMeasureOptions = () => {
-  return instance.get(`/measurements`, {
-    withCredentials: true,
-  });
+  return instance.get(`/measurements`);
 };
 
 const getRecipes = (url?: string) => {
-  return instance.get(url ?? `${RECIPES_LIST_URL}`, {
-    withCredentials: true,
-  });
+  return instance.get(url ?? `${RECIPES_LIST_URL}`);
 };
 
 const getRecipeByID = (id: string) => {

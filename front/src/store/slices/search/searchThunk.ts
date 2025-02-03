@@ -5,7 +5,7 @@ import { API } from 'api/api';
 
 export const fetchRecipesByIngredients = createAsyncThunk(
   'search/fetchRecipesByIngredients',
-  async (ingredientsArray, { rejectWithValue }) => {
+  async (ingredientsArray: Array<string>, { rejectWithValue }) => {
     return await API.getRecipesByIngredients(ingredientsArray)
       .then((response) => {
         if (response.status !== 200)

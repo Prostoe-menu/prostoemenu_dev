@@ -1,7 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { Action, PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { fetchMoreRecipes, fetchRecipeByID, fetchRecipes } from './recipeThunk';
+import { IRecipe } from 'shared/types/recipe';
 
-const initialState = {
+type TInitialState = {
+  recipes: Array<IRecipe>;
+  total: number;
+  next: number | null;
+  prev: number | null;
+  recipe: IRecipe | null;
+  isLoading: boolean;
+  isError: boolean;
+  errorMessage: string | null;
+}
+
+const initialState: TInitialState = {
   recipes: [],
   total: 0,
   next: null,
@@ -12,13 +24,13 @@ const initialState = {
   errorMessage: null,
 };
 
-const isPendingAction = (action) =>
+const isPendingAction = (action: Action) =>
   typeof action.type === 'string' &&
   action.type.startsWith('recipes') &&
   !action.type.startsWith('recipes/fetchMoreRecipes') &&
   action.type.endsWith('/pending');
 
-const isRejectedAction = (action) =>
+const isRejectedAction = (action: PayloadAction<string>) =>
   typeof action.type === 'string' &&
   action.type.startsWith('recipes') &&
   action.type.endsWith('/rejected');
@@ -28,12 +40,6 @@ const recipeSlice = createSlice({
   initialState,
   reducers: {
     resetReceiptState: () => initialState,
-    updateReceiptStore: (state, action) => {
-      state.isLoading = action.payload;
-      state.isError = false;
-      state.errorMessage = null;
-      state.recipes = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -73,7 +79,7 @@ const recipeSlice = createSlice({
           errorMessage: null,
         };
       })
-      .addMatcher(isRejectedAction, (state, action) => ({
+      .addMatcher(isRejectedAction, (state, action: PayloadAction<string>) => ({
         ...state,
         isLoading: false,
         isError: true,
@@ -82,6 +88,6 @@ const recipeSlice = createSlice({
   },
 });
 
-export const { resetRecipesState } = recipeSlice.actions;
+export const { resetReceiptState } = recipeSlice.actions;
 
 export default recipeSlice.reducer;

@@ -50,7 +50,7 @@ const RecipeSearch = () => {
 
       <div className={styles.сontainer}>
         <DropdownSearch
-          inputPlaceholder="Начните вводить название продукта"
+          inputPlaceholder="Морковь"
           notFoundMessage="Такого ингредиента не найдено"
           onChooseItem={handleIngredientSelection}
           inputValue={query}

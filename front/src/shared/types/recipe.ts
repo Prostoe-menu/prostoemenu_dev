@@ -1,6 +1,6 @@
 import { IIngredient } from "./ingredients";
 
-export type TIngredientItem = Omit<IIngredient, 'category' | 'sort'> & {
+export type TRecipeIngredient = Omit<IIngredient, 'category' | 'sort'> & {
   volume: number;
   measure: string;
 }
@@ -20,6 +20,6 @@ export interface IRecipe {
   cooking_time: number;
   oven_time: number;
   quantity: number;
-  ingredients: Array<TIngredientItem>;
+  ingredients: Array<TRecipeIngredient>;
   steps: Array<IStep>;
 }

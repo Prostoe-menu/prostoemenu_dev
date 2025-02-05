@@ -1,6 +1,11 @@
+import { IStep } from 'shared/types/recipe';
 import styles from './Step.module.scss';
 
-export const Step = ({ item }) => {
+type TStepProps = {
+  item: IStep;
+};
+
+export const Step = ({ item }: TStepProps) => {
   const { image, description, step_number: stepNumber } = item;
 
   const apiImageUrl = import.meta.env.VITE_IMAGE_URL ?? '';

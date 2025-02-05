@@ -1,7 +1,12 @@
 import { formatMeasureUnit } from 'helpers/utils';
 import styles from './Ingredients.module.scss';
+import { TRecipeIngredient } from 'shared/types/recipe';
 
-export const Ingredients = ({ list }) => {
+type TIngredientsProps = {
+  list: Array<TRecipeIngredient>;
+};
+
+export const Ingredients = ({ list }: TIngredientsProps) => {
   return (
     <section className={styles.ingredientsWrapper}>
       <h2 className={styles.title}>Вам понадобится</h2>

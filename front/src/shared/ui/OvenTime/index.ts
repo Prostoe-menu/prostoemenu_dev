@@ -1,1 +1,1 @@
-export { OvenTime } from './OvenTime';
+export { default } from './OvenTime';

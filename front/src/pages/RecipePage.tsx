@@ -1,33 +1,34 @@
-//import { useEffect } from 'react';
-//import { useDispatch, useSelector } from 'react-redux';
-
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-//import Recipe from 'components/Recipe';
-//import { fetchRecipeByID } from 'store/slices/recipe/recipeThunk';
-//import { ErrorMessage, Loader } from 'ui';
-//import ScrollUpButton from 'ui/ScrollUpButton';
+import Loader from 'ui/Loader';
+import Recipe from 'components/Recipe';
+import ErrorMessage from 'ui/ErrorMessage';
+import ScrollUpButton from 'ui/ScrollUpButton';
+import { fetchRecipeByID } from 'store/slices/recipe/recipeThunk';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 export const RecipePage = () => {
   const { id } = useParams();
-  //const dispatch = useDispatch();
-  // const { recipe, isLoading, isError, errorMessage } = useSelector(
-  //   (state) => state.recipe
-  // );
 
-  // useEffect(() => {
-  //   dispatch(fetchRecipeByID(id));
-  // }, [dispatch, id]);
+  const dispatch = useAppDispatch();
+
+  const { recipe, isLoading, isError, errorMessage } = useAppSelector(
+    (state) => state.recipe
+  );
+
+  useEffect(() => {
+    id && dispatch(fetchRecipeByID(id));
+  }, [dispatch, id]);
 
   return (
     <>
-      loading...
-      {/* {isError && <ErrorMessage message={errorMessage} />}
+      {isError && errorMessage && <ErrorMessage message={errorMessage} />}
 
       {isLoading && <Loader />}
 
       {!isLoading && !isError && recipe && <Recipe item={recipe} />}
 
-      <ScrollUpButton /> */}
+      <ScrollUpButton />
     </>
   );
 };

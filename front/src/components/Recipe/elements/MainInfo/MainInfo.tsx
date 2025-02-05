@@ -1,8 +1,14 @@
-import { CookingTime, OvenTime } from 'ui';
+import OvenTime from 'ui/OvenTime';
 import StarRating from 'ui/StarRating';
+import CookingTime from 'ui/CookingTime';
 import styles from './MainInfo.module.scss';
+import { IRecipe } from 'shared/types/recipe';
 
-export const MainInfo = ({ recipe }) => {
+type TMainInfoProps = {
+  recipe: IRecipe;
+};
+
+export const MainInfo = ({ recipe }: TMainInfoProps) => {
   const {
     title,
     description,
@@ -25,7 +31,7 @@ export const MainInfo = ({ recipe }) => {
         <h3 className={styles.title}>{title}</h3>
 
         <p className={styles.params}>
-          <StarRating label="Сложность" rating={parseInt(complexity)} />
+          <StarRating label="Сложность" rating={parseInt(String(complexity))} />
           <CookingTime minutes={cookingTime} />
           <OvenTime minutes={ovenTime} />
         </p>

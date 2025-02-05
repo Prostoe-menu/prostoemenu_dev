@@ -1,7 +1,12 @@
+import { IStep } from 'shared/types/recipe';
 import { Step } from './Step/Step';
 import styles from './Steps.module.scss';
 
-export const Steps = ({ list }) => {
+type TStepsProps = {
+  list: Array<IStep>;
+};
+
+export const Steps = ({ list }: TStepsProps) => {
   return (
     <>
       <h2 className={styles.title}>Способ приготовления</h2>

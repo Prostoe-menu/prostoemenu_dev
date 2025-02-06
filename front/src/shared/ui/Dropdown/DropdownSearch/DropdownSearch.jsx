@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import cn from 'classnames';
 import { DropdownItem, Input, Loader } from 'ui';
 import { handleKeyboardNavigation } from 'helpers/useKeyboardNavigation';
@@ -14,7 +14,6 @@ import styles from './DropdownSearch.module.scss';
 const DropdownSearch = (props) => {
   const {
     dropdownClassName,
-    selectItemRef,
     onInputChange,
     inputPlaceholder,
     inputValue,
@@ -24,6 +23,8 @@ const DropdownSearch = (props) => {
     ariaLabelText,
     isLoading,
   } = props;
+
+  const selectItemRefList = useRef(null);
 
   const [cursor, setCursor] = useState(-1);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -53,7 +54,7 @@ const DropdownSearch = (props) => {
         onKeyDown={(e) =>
           handleKeyboardNavigation(
             e,
-            selectItemRef,
+            selectItemRefList,
             isDropdownOpen,
             cursor,
             setCursor,
@@ -70,7 +71,7 @@ const DropdownSearch = (props) => {
         className={cn(styles.options, {
           [styles.visible]: isDropdownOpen,
         })}
-        ref={selectItemRef}
+        ref={selectItemRefList}
       >
         {isLoading && <Loader size="small" />}
 
@@ -87,7 +88,7 @@ const DropdownSearch = (props) => {
               item={item}
               itemIndex={idx}
               cursor={cursor}
-              setcursor={setCursor} // Добавили обработку курсора
+              setcursor={setCursor}
               onKeyDown={(e) => {
                 // Этот код не влияет на работу с esc
                 if (e.key === 'Escape') {

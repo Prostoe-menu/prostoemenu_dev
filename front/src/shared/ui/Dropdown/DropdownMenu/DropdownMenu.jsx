@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import cn from 'classnames';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { DropdownItem } from 'ui/Dropdown';
@@ -16,12 +16,13 @@ const DropdownMenu = ({
   setIsDropdownOpen,
   openDropdownAriaLabelText,
   previewText,
-  selectItemInputRef,
   dropdownData,
   chooseItem,
   chooseItemAriaLabelText,
 }) => {
+  const selectItemRefList = useRef(null);
   const [cursor, setCursor] = useState(-1);
+
   const optionsClasses = cn(styles.options, {
     [styles.visible]: isDropdownOpen,
   });
@@ -30,7 +31,7 @@ const DropdownMenu = ({
   const handleKeyDown = (e) =>
     handleKeyboardNavigation(
       e,
-      selectItemInputRef,
+      selectItemRefList,
       isDropdownOpen,
       cursor,
       setCursor,
@@ -58,7 +59,7 @@ const DropdownMenu = ({
           }}
         />
       </div>
-      <ul className={optionsClasses} ref={selectItemInputRef}>
+      <ul className={optionsClasses} ref={selectItemRefList}>
         {dropdownData?.map((item, idx) => (
           <DropdownItem
             item={item}

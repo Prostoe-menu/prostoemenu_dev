@@ -1,5 +1,10 @@
+export type TImageDimentions = {
+  height: number;
+  width: number;
+};
+
 const getImageDimension = (dataURL: string) =>
-  new Promise((resolve) => {
+  new Promise<TImageDimentions>((resolve) => {
     const img = new Image();
     img.onload = () => {
       resolve({

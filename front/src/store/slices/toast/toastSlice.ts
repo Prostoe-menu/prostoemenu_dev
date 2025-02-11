@@ -1,5 +1,5 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuidV4 } from 'uuid';
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 //   notification schema
 //   {id: number, message:string}

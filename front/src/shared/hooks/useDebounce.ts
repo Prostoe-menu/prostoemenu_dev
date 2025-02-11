@@ -1,16 +1,24 @@
-import { useCallback, useRef } from 'react';
+import { useRef } from 'react';
 
-export const useDebounce = (func, delay) => {
-  const inDebounce = useRef();
+/**
+ * Custom hook to debounce a function call.
+ *
+ * @param func - The function to debounce.
+ * @param delay - The debounce delay in milliseconds.
+ * @returns A debounced version of the function.
+ */
 
-  const debounce = useCallback(
-    function (...args) {
-      clearTimeout(inDebounce.current);
+export const useDebounce = <T extends unknown[]>(
+  func: (...args: T) => void,
+  delay: number
+) => {
+  const timerRef = useRef<number | null>(null);
 
-      inDebounce.current = setTimeout(() => func(...args), delay);
-    },
-    [func, delay]
-  );
+  return (...args: T) => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
 
-  return debounce;
+      timerRef.current = setTimeout(() => func(...args), delay);
+    }
+  };
 };

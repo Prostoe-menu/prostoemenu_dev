@@ -1,10 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { API } from 'api/api';
 import {
   FETCH_RECIPE_BY_ID_ERROR_MESSAGE,
   FETCH_RECIPES_ERROR_MESSAGE,
 } from 'utils/constants';
-
-import { API } from 'api/api';
 
 export const fetchRecipes = createAsyncThunk(
   'recipes/fetchRecipes',

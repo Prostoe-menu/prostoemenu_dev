@@ -1,10 +1,10 @@
 import { createPortal } from 'react-dom';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from 'store/hooks';
 import Toast from './Toast';
 import styles from './ToastNotifications.module.scss';
 
 const ToastNotifications = () => {
-  const { notifications } = useSelector((state) => state.toast);
+  const { notifications } = useAppSelector((state) => state.toast);
 
   const portalElement = document.getElementById('toast');
 
@@ -18,7 +18,7 @@ const ToastNotifications = () => {
             </Toast>
           ))}
         </div>,
-        portalElement
+        portalElement as Element
       )}
     </>
   );

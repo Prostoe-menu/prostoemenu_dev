@@ -1,10 +1,15 @@
-import { AxiosResponse } from 'axios';
 import { useCallback, useEffect, useState } from 'react';
+import { AxiosResponse } from 'axios';
 
-const useAsync = <T>(callback: (query: string) => Promise<AxiosResponse<T, any>>, query: string, debounce: boolean, delay: number) => {
+const useAsync = <T>(
+  callback: (query: string) => Promise<AxiosResponse<T>>,
+  query: string,
+  debounce: boolean,
+  delay: number
+) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [value, setValue] = useState<AxiosResponse<T, any> | null>(null);
+  const [value, setValue] = useState<AxiosResponse<T> | null>(null);
 
   const callbackMemoized = useCallback(async () => {
     try {
@@ -17,7 +22,8 @@ const useAsync = <T>(callback: (query: string) => Promise<AxiosResponse<T, any>>
         setValue(null);
         setError(true);
       }
-    } catch (_) {
+    } catch (error) {
+      console.log('useAsinc error: ', error);
       setValue(null);
       setError(true);
     }
@@ -37,7 +43,6 @@ const useAsync = <T>(callback: (query: string) => Promise<AxiosResponse<T, any>>
       callbackMemoized();
     }, delay);
 
-    // eslint-disable-next-line consistent-return
     return () => clearTimeout(timer);
   }, [callbackMemoized, query, debounce, delay]);
 

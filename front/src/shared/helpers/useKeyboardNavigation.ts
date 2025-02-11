@@ -1,6 +1,9 @@
-import { Dispatch, SetStateAction, KeyboardEvent, RefObject } from "react";
+import { Dispatch, KeyboardEvent, RefObject, SetStateAction } from 'react';
 
-export const scrollToSelected = (ref: RefObject<HTMLElement> | undefined, cursor: number) => {
+export const scrollToSelected = (
+  ref: RefObject<HTMLElement> | undefined,
+  cursor: number
+) => {
   const selectedItem = ref?.current?.children[cursor];
 
   if (selectedItem !== undefined) {
@@ -11,7 +14,7 @@ export const scrollToSelected = (ref: RefObject<HTMLElement> | undefined, cursor
   }
 };
 
-export const handleKeyboardNavigation = <T,>(
+export const handleKeyboardNavigation = <T>(
   e: KeyboardEvent<HTMLInputElement>,
   ref: RefObject<HTMLElement> | undefined,
   items: Array<T>,

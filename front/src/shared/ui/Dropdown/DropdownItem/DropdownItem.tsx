@@ -10,20 +10,20 @@ type TDropdownItemProps<T> = {
   item: T;
   itemIndex: number;
   cursor: number;
-  selectItemAriaLabelText: string;
+  selectItemAriaLabelText: string | undefined;
   onClick: () => void;
   onKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => void;
   setcursor?: (index: number) => void;
 };
 
-const DropdownItem = <T extends { id: string; name: string }>({
+const DropdownItem = <T extends { id: string | number; name: string }>({
   item,
   itemIndex,
   cursor,
   setcursor,
   onClick,
   onKeyDown,
-  selectItemAriaLabelText,
+  selectItemAriaLabelText = '',
 }: TDropdownItemProps<T>) => {
   const dropdownItemClass = cn(styles.dropdownItem, {
     [styles.dropdownItem_active]: itemIndex === cursor,
@@ -31,7 +31,7 @@ const DropdownItem = <T extends { id: string; name: string }>({
 
   const handleOnMouseEnter = () => {
     // Устанавливаем курсор на текущий элемент при наведении мыши
-    setcursor && setcursor(itemIndex);
+    return setcursor && setcursor(itemIndex);
   };
 
   return (

@@ -2,7 +2,7 @@ import { useRouteError } from 'react-router-dom';
 import styles from './ErrorBoundary.module.scss';
 
 const ErrorBoundary = () => {
-  let error = useRouteError();
+  const error = useRouteError();
 
   return (
     <div className={styles.container}>

@@ -1,7 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+  TAddRecipeIngredients,
+  TAddRecipeMainInfo,
+} from 'shared/types/addRecipe';
+import { IOption } from 'shared/types/measurements';
 import { getMeasureOptions, postRecipe } from './formThunk';
 
-const initialState = {
+type TInitialState = {
+  step: number;
+  mainInfo: TAddRecipeMainInfo;
+  ingredients: TAddRecipeIngredients | null;
+  measureOptions: Array<IOption> | null;
+  isLoading: boolean;
+  isError: boolean;
+  isSuccess: boolean;
+  errorMessage: string | null;
+};
+
+const initialState: TInitialState = {
   step: 1,
   mainInfo: {
     title: '',
@@ -32,17 +48,17 @@ const formSlice = createSlice({
     prevStep: (state) => {
       state.step -= 1;
     },
-    goToStep: (state, action) => {
+    goToStep: (state, action: PayloadAction<number>) => {
       state.step = action.payload;
     },
-    saveRecipeInfo: (state, action) => {
+    saveRecipeInfo: (state, action: PayloadAction<TAddRecipeMainInfo>) => {
       state.mainInfo = { ...action.payload };
     },
-    saveIngredients: (state, action) => {
+    saveIngredients: (state, action: PayloadAction<TAddRecipeIngredients>) => {
       state.ingredients = action.payload;
     },
     resetState: () => {
-      return { ...initialState };
+      return initialState;
     },
     resetCoverPhoto: (state) => {
       state.mainInfo.cover_path = null;
@@ -53,17 +69,21 @@ const formSlice = createSlice({
       .addCase(postRecipe.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(postRecipe.fulfilled, () => {
-        return { ...initialState, isLoading: false, isSuccess: true };
+      .addCase(postRecipe.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
       })
       .addCase(postRecipe.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.errorMessage = action.payload;
+        state.errorMessage = action.payload as string;
       })
-      .addCase(getMeasureOptions.fulfilled, (state, action) => {
-        state.measureOptions = action.payload;
-      })
+      .addCase(
+        getMeasureOptions.fulfilled,
+        (state, action: PayloadAction<Array<IOption>>) => {
+          state.measureOptions = action.payload;
+        }
+      )
       .addCase(getMeasureOptions.rejected, (_, action) => {
         console.log(action.payload);
       });

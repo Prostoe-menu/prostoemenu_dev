@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 import { addNotification } from 'store/slices/toast/toastSlice';
 import { MAX_IMAGE_SIZE_IN_BYTES } from 'utils/constants';
-import { ReactComponent as SVGIconCamera } from 'assets/images/icon-camera.svg?react';
+import SVGIconCamera from 'assets/images/icon-camera.svg?react';
 import 'cropperjs/dist/cropper.css';
 import styles from './PhotoButton.module.scss';
 

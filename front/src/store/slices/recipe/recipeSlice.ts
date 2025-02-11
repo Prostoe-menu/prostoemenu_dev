@@ -1,17 +1,17 @@
-import { Action, PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { IRecipe } from 'shared/types/recipe';
 import { fetchMoreRecipes, fetchRecipeByID, fetchRecipes } from './recipeThunk';
-import { IRecipe } from 'shared/types/recipe';
 
 type TInitialState = {
   recipes: Array<IRecipe>;
   total: number;
-  next: number | null;
-  prev: number | null;
+  next: string | null;
+  prev: string | null;
   recipe: IRecipe | null;
   isLoading: boolean;
   isError: boolean;
   errorMessage: string | null;
-}
+};
 
 const initialState: TInitialState = {
   recipes: [],

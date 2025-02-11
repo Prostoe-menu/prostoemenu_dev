@@ -1,9 +1,10 @@
-import { IIngredient } from "./ingredients";
+import { IIngredient } from './ingredients';
+import { IOption } from './measurements';
 
 export type TRecipeIngredient = Omit<IIngredient, 'category' | 'sort'> & {
-  volume: number;
-  measure: string;
-}
+  volume: number | null;
+  measure: IOption;
+};
 
 export interface IStep {
   step_number: number;

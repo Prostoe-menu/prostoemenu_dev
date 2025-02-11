@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
+import type { IRecipe } from 'shared/types/recipe';
 import { fetchRecipesByIngredients } from './searchThunk';
-import { IRecipe } from 'shared/types/recipe';
 
 type TInitialState = {
   recipes: {
     results: Array<IRecipe>;
     count: number;
-  },
+  };
   isSearch: boolean;
   isLoading: boolean;
   errorMessage: string | null;
-}
+};
 
 const initialState: TInitialState = {
   recipes: {

@@ -1,5 +1,6 @@
-import axios, { AxiosResponse } from 'axios';
-import { TIngredientsResponse } from 'shared/types/ingredients';
+import axios from 'axios';
+import { TAddRecipe } from 'shared/types/addRecipe';
+import { TIngredientsResponse, TMeasurementsResponse } from 'shared/types/api';
 import { INGREDIENTS_URL, RECIPES_LIST_URL } from 'utils/urls';
 
 const instance = axios.create({
@@ -7,14 +8,13 @@ const instance = axios.create({
 });
 
 const getIngredients = (query: string) => {
-  return instance.get<
-    TIngredientsResponse,
-    AxiosResponse<TIngredientsResponse>
-  >(`${INGREDIENTS_URL}/?name=${query}`);
+  return instance.get<TIngredientsResponse>(
+    `${INGREDIENTS_URL}/?name=${query}`
+  );
 };
 
 const getMeasureOptions = () => {
-  return instance.get(`/measurements`);
+  return instance.get<TMeasurementsResponse>(`/measurements`);
 };
 
 const getRecipes = (url?: string) => {
@@ -31,7 +31,7 @@ const getRecipesByIngredients = (ingredientsArray: Array<string>) => {
   return instance.get(`${RECIPES_LIST_URL}/?ingr=${searchParams}`);
 };
 
-const postRecipe = (recipeData: any) => {
+const postRecipe = (recipeData: TAddRecipe) => {
   return instance.post(`/recipes`, {
     data: recipeData,
     crossDomain: true,

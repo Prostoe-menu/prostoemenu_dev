@@ -1,11 +1,11 @@
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, RefObject, useState } from 'react';
 import cn from 'classnames';
-import Input from 'ui/Input';
 import { DropdownItem } from 'ui/Dropdown';
+import Input from 'ui/Input';
+import Loader from 'ui/Loader';
 import { handleKeyboardNavigation } from 'helpers/useKeyboardNavigation';
 import useClickOutside from 'hooks/useClickOutside';
 import styles from './DropdownSearch.module.scss';
-import Loader from 'shared/ui/Loader';
 
 /**
  * Переиспользуемый компонент выпадающего меню для поиска.
@@ -13,7 +13,7 @@ import Loader from 'shared/ui/Loader';
  * Адаптация стилей и логики происходит через пропсы.
  * */
 
-type TDropdownSearchProps<T extends { id: number }> = {
+type TDropdownSearchProps<T extends { id: number; name: string }> = {
   inputValue: string;
   inputPlaceholder: string;
   requiredData: Array<T>;
@@ -21,12 +21,12 @@ type TDropdownSearchProps<T extends { id: number }> = {
   isLoading: boolean;
   onChooseItem: (item: T) => void;
   onInputChange: (val: string) => void;
-  selectItemRef?: React.Ref<HTMLUListElement> | undefined;
+  selectItemRef?: RefObject<HTMLElement> | undefined;
   ariaLabelText?: string;
   dropdownClassName?: string;
 };
 
-const DropdownSearch = <T extends { id: number }>(
+const DropdownSearch = <T extends { id: number; name: string }>(
   props: TDropdownSearchProps<T>
 ) => {
   const {
@@ -45,9 +45,7 @@ const DropdownSearch = <T extends { id: number }>(
   const [cursor, setCursor] = useState(-1);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const inputRef = useClickOutside<HTMLDivElement>(() =>
-    setIsDropdownOpen(false)
-  );
+  const inputRef = useClickOutside(() => setIsDropdownOpen(false));
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;

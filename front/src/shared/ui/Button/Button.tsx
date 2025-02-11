@@ -1,6 +1,6 @@
+import { PropsWithChildren } from 'react';
 import cn from 'classnames';
 import styles from './Button.module.scss';
-import { PropsWithChildren } from 'react';
 
 /**
  * Компонент кнопки (с иконкой и без).

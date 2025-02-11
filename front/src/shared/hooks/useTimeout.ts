@@ -12,7 +12,6 @@ const useTimeout = (callback: () => void, delay: number) => {
 
     const id = setTimeout(() => savedCallback.current(), delay);
 
-    // eslint-disable-next-line consistent-return
     return () => clearTimeout(id);
   }, [delay]);
 };

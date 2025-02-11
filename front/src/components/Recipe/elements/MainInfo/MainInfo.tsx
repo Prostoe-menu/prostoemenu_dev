@@ -1,8 +1,8 @@
+import CookingTime from 'ui/CookingTime';
 import OvenTime from 'ui/OvenTime';
 import StarRating from 'ui/StarRating';
-import CookingTime from 'ui/CookingTime';
-import styles from './MainInfo.module.scss';
 import { IRecipe } from 'shared/types/recipe';
+import styles from './MainInfo.module.scss';
 
 type TMainInfoProps = {
   recipe: IRecipe;

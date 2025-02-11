@@ -1,6 +1,6 @@
 import { formatMeasureUnit } from 'helpers/utils';
-import styles from './Ingredients.module.scss';
 import { TRecipeIngredient } from 'shared/types/recipe';
+import styles from './Ingredients.module.scss';
 
 type TIngredientsProps = {
   list: Array<TRecipeIngredient>;
@@ -16,7 +16,7 @@ export const Ingredients = ({ list }: TIngredientsProps) => {
             <span>{item.name}</span>
             <span className={styles.divider}></span>
             <span className={styles.volume}>
-              {item.volume} {formatMeasureUnit(item.measure)}
+              {item.volume} {formatMeasureUnit(item.measure.label)}
             </span>
           </li>
         ))}

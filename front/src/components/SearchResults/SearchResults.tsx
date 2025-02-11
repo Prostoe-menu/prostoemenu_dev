@@ -1,7 +1,7 @@
 import RecipeList from 'components/RecipeList';
-import Loader from 'ui/Loader';
-import ErrorMessage from 'ui/ErrorMessage';
 import { useAppSelector } from 'store/hooks';
+import ErrorMessage from 'ui/ErrorMessage';
+import Loader from 'ui/Loader';
 import styles from './SearchResults.module.scss';
 
 const SearchResults = () => {

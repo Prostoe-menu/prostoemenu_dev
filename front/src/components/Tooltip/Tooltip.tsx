@@ -1,10 +1,14 @@
+import { JSX } from 'react';
 import styles from './Tooltip.module.scss';
 
-const Tooltip = ({ toolTipContent }) => (
+type TTooltip = {
+  toolTipContent: JSX.Element | string;
+};
+
+const Tooltip = ({ toolTipContent }: TTooltip) => (
   <div className={styles.container}>
     <div className={styles.tooltip}>{toolTipContent}</div>
     <svg
-      alt="Иконка дополнительной информации"
       width="16"
       height="16"
       viewBox="0 0 16 16"

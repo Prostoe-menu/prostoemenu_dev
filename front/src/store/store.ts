@@ -1,3 +1,4 @@
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import {
   FLUSH,
   PAUSE,
@@ -9,7 +10,6 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 import storageSession from 'redux-persist/lib/storage/session';
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import formReducer from './slices/form/formSlice';
 import recipeReducer from './slices/recipe/recipeSlice';
 import searchReducer from './slices/search/searchSlice';

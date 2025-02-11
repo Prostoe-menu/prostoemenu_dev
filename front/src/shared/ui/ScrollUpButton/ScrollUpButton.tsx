@@ -12,7 +12,7 @@ const ScrollUpButton = () => {
   }, []);
 
   const scrollHandler = () => {
-    window.scrollY > 700 ? setIsShow(true) : setIsShow(false);
+    return window.scrollY > 700 ? setIsShow(true) : setIsShow(false);
   };
 
   const clickHandler = useCallback((event: MouseEvent<HTMLButtonElement>) => {

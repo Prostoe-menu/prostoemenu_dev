@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Loader from 'ui/Loader';
 import Recipe from 'components/Recipe';
-import ErrorMessage from 'ui/ErrorMessage';
-import ScrollUpButton from 'ui/ScrollUpButton';
-import { fetchRecipeByID } from 'store/slices/recipe/recipeThunk';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { fetchRecipeByID } from 'store/slices/recipe/recipeThunk';
+import ErrorMessage from 'ui/ErrorMessage';
+import Loader from 'ui/Loader';
+import ScrollUpButton from 'ui/ScrollUpButton';
 
 export const RecipePage = () => {
   const { id } = useParams();
@@ -17,7 +17,7 @@ export const RecipePage = () => {
   );
 
   useEffect(() => {
-    id && dispatch(fetchRecipeByID(id));
+    if (id) dispatch(fetchRecipeByID(id));
   }, [dispatch, id]);
 
   return (

@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import RecipeList from 'components/RecipeList';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { fetchRecipes } from 'store/slices/recipe/recipeThunk';
 import ErrorMessage from 'ui/ErrorMessage';
 import Loader from 'ui/Loader';
 import MoreRecipesButton from './MoreRecipesButton';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 const NewRecipes = () => {
   const dispatch = useAppDispatch();
@@ -27,7 +27,7 @@ const NewRecipes = () => {
         <RecipeList title="Вам может понравиться" recipes={recipes} />
       )}
 
-      <MoreRecipesButton moreUrl={next} />
+      {next && <MoreRecipesButton moreUrl={next} />}
     </>
   );
 };

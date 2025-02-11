@@ -1,8 +1,8 @@
+import { PropsWithChildren } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteNotification } from 'store/slices/toast/toastSlice';
 import useTimeout from 'hooks/useTimeout';
 import styles from './Toast.module.scss';
-import { PropsWithChildren } from 'react';
 
 const Toast = ({ children, id }: PropsWithChildren<{ id: string }>) => {
   const dispatch = useDispatch();

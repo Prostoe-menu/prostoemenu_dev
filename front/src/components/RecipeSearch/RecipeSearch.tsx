@@ -1,12 +1,13 @@
 import { MouseEvent, useState } from 'react';
+import { API } from 'api/api';
 import SelectedIngredients from 'components/SelectedIngredients';
+import { useAppDispatch } from 'store/hooks';
 import { fetchRecipesByIngredients } from 'store/slices/search/searchThunk';
 import Button from 'ui/Button';
 import { DropdownSearch } from 'ui/Dropdown';
 import useAsync from 'hooks/useAsync';
-import { API } from 'api/api';
-import { useAppDispatch } from 'store/hooks';
-import { IIngredient, TIngredientsResponse } from 'shared/types/ingredients';
+import { TIngredientsResponse } from 'shared/types/api';
+import { IIngredient } from 'shared/types/ingredients';
 import styles from './RecipeSearch.module.scss';
 
 const RecipeSearch = () => {

@@ -1,8 +1,14 @@
-import { useFormContext } from 'react-hook-form';
+import { FieldValues, RegisterOptions, useFormContext } from 'react-hook-form';
 import cn from 'classnames';
 import styles from './CookTimeField.module.scss';
 
-export const CookTimeField = ({ name, label, params }) => {
+type TCookTimeFieldProps = {
+  name: string;
+  label: string;
+  params: RegisterOptions<FieldValues, string>;
+};
+
+export const CookTimeField = ({ name, label, params }: TCookTimeFieldProps) => {
   const {
     register,
     formState: { errors },

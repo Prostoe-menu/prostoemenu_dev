@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import cn from 'classnames';
 import {
@@ -12,7 +12,7 @@ import styles from './Description.module.scss';
 const inputName = 'description';
 
 export const Description = () => {
-  const [descCounter, setDescCounter] = useState(0);
+  const [descCounter, setDescCounter] = useState<number>(0);
 
   const {
     register,
@@ -20,7 +20,7 @@ export const Description = () => {
     formState: { errors },
   } = useFormContext();
 
-  function descChange(event) {
+  function descChange(event: ChangeEvent<HTMLTextAreaElement>) {
     setDescCounter(event.target.value.length);
   }
 
@@ -66,13 +66,13 @@ export const Description = () => {
         <LetterCounter
           count={descCounter}
           total={500}
-          isError={errors[inputName]}
+          isError={!!errors[inputName]}
           className={styles.counter}
         />
       </FieldWrap>
 
       {errors[inputName] && (
-        <ErrorMessage message={errors[inputName].message} />
+        <ErrorMessage message={errors[inputName].message as string} />
       )}
     </section>
   );

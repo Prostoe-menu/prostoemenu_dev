@@ -1,28 +1,35 @@
-import { useState } from 'react';
-import { PhotoButton } from 'ui';
+import { ChangeEvent, useState } from 'react';
+import PhotoButton from 'ui/PhotoButton';
 import styles from './CookingStep.module.scss';
 
-const CookingStep = ({ stepNumber }) => {
+type TCookingStepProps = {
+  stepNumber: number;
+};
+
+const CookingStep = ({ stepNumber }: TCookingStepProps) => {
   const [stepText, setStepText] = useState('');
 
-  const handleChangeStepDescription = (evt) => {
-    setStepText(evt.target.value);
+  const handleChangeStepDescription = (
+    event: ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setStepText(event.target.value);
   };
+
+  const loadHandler = () => {};
 
   return (
     <div className={styles.step}>
       <h3 className={styles.step__title}>Шаг {stepNumber}</h3>
       <fieldset className={styles.step__fieldset}>
         <div className={styles.step__photo}>
-          <PhotoButton />
+          <PhotoButton loadHandler={loadHandler} />
         </div>
         <div className={styles.step__description}>
           <textarea
             className={styles.step__input}
-            type="text"
             placeholder="Описание шага"
             value={stepText}
-            onChange={(evt) => handleChangeStepDescription(evt)}
+            onChange={handleChangeStepDescription}
             maxLength={500}
           />
           <div className={styles['step__letters-counter']}>

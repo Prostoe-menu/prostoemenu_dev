@@ -1,11 +1,18 @@
-import { createRef, useEffect } from 'react';
-import { Cropper } from 'react-cropper';
+import { createRef, useEffect, useRef } from 'react';
+import { Cropper, ReactCropperElement } from 'react-cropper';
 import Modal from 'components/Modal';
 import Button from 'ui/Button';
 import styles from './PhotoCropper.module.scss';
 
-const PhotoCropper = ({ photo, isOpen, cropHandler }) => {
-  const cropperRef = createRef();
+type TPhotoCropperProps = {
+  photo: File;
+  isOpen: boolean;
+  cropHandler: (blob: Blob | null, impPath: string) => void;
+};
+
+const PhotoCropper = ({ photo, isOpen, cropHandler }: TPhotoCropperProps) => {
+  const cropperRef = createRef<ReactCropperElement>();
+  const srcRef = useRef<string | undefined>(undefined);
 
   const getCropData = async () => {
     if (cropperRef.current?.cropper) {
@@ -25,20 +32,24 @@ const PhotoCropper = ({ photo, isOpen, cropHandler }) => {
   };
 
   useEffect(() => {
+    const photoURL = URL.createObjectURL(photo);
+
+    srcRef.current = photoURL;
+
     return () => {
-      URL.revokeObjectURL(photo);
+      URL.revokeObjectURL(photoURL);
     };
   }, [photo]);
 
   return (
     <>
-      <Modal isModalOpen={isOpen}>
+      <Modal isModalOpen={isOpen} closeModal={() => {}}>
         <Cropper
           ref={cropperRef}
           style={{ width: '100%' }}
           dragMode="move"
           aspectRatio={4 / 3}
-          src={URL.createObjectURL(photo)}
+          src={srcRef.current}
           movable={false}
           zoomable={false}
           viewMode={1}

@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Title } from 'components/AddRecipeForm/MainInfo/elements';
 import { resetCoverPhoto } from 'store/slices/form/formSlice';
-import { Button, UploadImageButton } from 'ui';
+import Button from 'ui/Button';
+import UploadImageButton from 'ui/UploadImageButton';
 import { MAX_IMAGE_SIZE } from 'utils/constants';
 import { ErrorMessage } from '../../elements';
 import { PhotoCropper } from './elements';
@@ -18,12 +19,13 @@ export const RecipePhoto = () => {
   const inputError = formState.errors[inputName];
 
   const [isCropperOpen, setIsCropperOpen] = useState(false);
-  const [uploadedPhoto, setUploadedPhoto] = useState(null);
-  const [preview, setPreview] = useState(
-    formState.defaultValues[inputName]?.photoUrl || null
+  const [uploadedPhoto, setUploadedPhoto] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(
+    (formState.defaultValues && formState.defaultValues[inputName]?.photoUrl) ||
+      null
   );
 
-  const cropHandler = (photoBlob, photoUrl) => {
+  const cropHandler = (photoBlob: Blob | null, photoUrl: string) => {
     setIsCropperOpen(false);
     setPreview(photoUrl);
 
@@ -36,14 +38,14 @@ export const RecipePhoto = () => {
 
   const dispatch = useDispatch();
 
-  const removePreviewHandler = (event) => {
+  const removePreviewHandler = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     dispatch(resetCoverPhoto());
     setPreview(null);
     setValue(inputName, null, { shouldValidate: true, shouldDirty: true });
   };
 
-  const loadHandler = (imageFile) => {
+  const loadHandler = (imageFile: File) => {
     setUploadedPhoto(imageFile);
     setIsCropperOpen(true);
   };
@@ -72,7 +74,7 @@ export const RecipePhoto = () => {
 
         {!preview && <UploadImageButton loadHandler={loadHandler} />}
 
-        {inputError && <ErrorMessage message={inputError.message} />}
+        {inputError && <ErrorMessage message={inputError.message as string} />}
       </div>
 
       <div className={styles.photoRequirements}>
@@ -88,7 +90,7 @@ export const RecipePhoto = () => {
         </ul>
       </div>
 
-      {isCropperOpen && (
+      {isCropperOpen && uploadedPhoto && (
         <PhotoCropper
           photo={uploadedPhoto}
           isOpen={isCropperOpen}

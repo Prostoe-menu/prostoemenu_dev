@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
 import CookingStep from 'components/AddRecipeForm/CookingSteps/CookingStep/CookingStep';
@@ -18,7 +18,7 @@ const CookingSteps = () => {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // dispatch(saveGeneralRecipeInfo(data));
     dispatch(nextStep());

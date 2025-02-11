@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import cn from 'classnames';
 import { useDebounce } from 'hooks/useDebounce';
@@ -11,18 +11,21 @@ export const RecipeName = () => {
   const { register, formState, setValue } = useFormContext();
 
   const [nameCounter, setNameCounter] = useState(
-    formState.defaultValues[inputName]?.length || 0
+    (formState &&
+      formState.defaultValues &&
+      formState.defaultValues[inputName]?.length) ||
+      0
   );
 
   const inputError = formState.errors[inputName];
 
-  const debounceSetValue = useDebounce((val) => {
+  const debounceSetValue = useDebounce((val: string) => {
     setValue(inputName, val, {
       shouldValidate: true,
     });
   }, 1000);
 
-  const changeHandler = (event) => {
+  const changeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.target;
     const firstLetter = value.slice(0, 1);
 
@@ -57,7 +60,6 @@ export const RecipeName = () => {
             [styles.recipeNameError]: !!inputError,
           })}
           aria-invalid={!!inputError}
-          type="text"
           maxLength={100}
           rows={nameCounter > 58 ? 2 : 1}
           wrap="soft"
@@ -68,7 +70,7 @@ export const RecipeName = () => {
         <LetterCounter count={nameCounter} total={100} isError={!!inputError} />
       </FieldWrap>
 
-      {inputError && <ErrorMessage message={inputError.message} />}
+      {inputError && <ErrorMessage message={inputError.message as string} />}
     </section>
   );
 };

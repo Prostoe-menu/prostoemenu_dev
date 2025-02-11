@@ -1,7 +1,12 @@
 import { useEffect } from 'react';
-import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import Select from 'react-select';
+import {
+  Controller,
+  SubmitHandler,
+  useFieldArray,
+  useForm,
+} from 'react-hook-form';
+import Select, { GroupBase, OptionsOrGroups } from 'react-select';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import {
   selectIngredients,
   selectMeasureOptions,
@@ -12,14 +17,16 @@ import {
   saveIngredients,
 } from 'store/slices/form/formSlice';
 import { getMeasureOptions } from 'store/slices/form/formThunk';
-import { addNotification } from 'store/slices/toast/toastSlice';
+//import { addNotification } from 'store/slices/toast/toastSlice';
 import Button from 'ui/Button';
+import { TAddRecipeIngredients } from 'shared/types/addRecipe';
+import { IOption } from 'shared/types/measurements';
 import { IngredientName, VolumeInput } from './elements';
 import SVGAdd from 'assets/images/add.svg?react';
 import SVGDelete from 'assets/images/icon_cross.svg?react';
 import styles from './Ingredients.module.scss';
 
-const initialIngredients = {
+const initialIngredients: TAddRecipeIngredients = {
   ingredients: [
     {
       ingredient: null,
@@ -33,12 +40,17 @@ const initialIngredients = {
 };
 
 const Ingredients = () => {
-  const ingredients = useSelector(selectIngredients) || initialIngredients;
-  const measureOptions = useSelector(selectMeasureOptions);
+  const ingredients = useAppSelector(selectIngredients) || initialIngredients;
+  const measureOptions = useAppSelector(selectMeasureOptions);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { register, control, handleSubmit, formState } = useForm({
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     mode: 'onTouched',
     shouldFocusError: false,
     defaultValues: {
@@ -51,7 +63,7 @@ const Ingredients = () => {
     name: 'ingredients',
   });
 
-  const submitHandler = (data) => {
+  const submitHandler: SubmitHandler<TAddRecipeIngredients> = (data) => {
     console.log('step2 data: ', data);
 
     dispatch(saveIngredients(data));
@@ -72,10 +84,11 @@ const Ingredients = () => {
     });
   };
 
-  useEffect(() => {
-    if (formState.errors.ingredients?.length > 0)
-      dispatch(addNotification('Все поля обязательны для заполнения!'));
-  }, [dispatch, formState.errors.ingredients?.length]);
+  console.log('errors: ', errors);
+  // useEffect(() => {
+  //   if (formState.errors?.ingredients?.length)
+  //     dispatch(addNotification('Все поля обязательны для заполнения!'));
+  // }, [dispatch, formState.errors.ingredients?.length]);
 
   useEffect(() => {
     if (!measureOptions) dispatch(getMeasureOptions());
@@ -89,33 +102,39 @@ const Ingredients = () => {
             <li key={item.id} id={item.id} className={styles.ingredientItem}>
               <Controller
                 name={`ingredients.${index}.ingredient`}
-                render={({ field }) => (
-                  <IngredientName
-                    {...field}
-                    isError={
-                      !!formState.errors.ingredients?.[index]?.ingredient
-                    }
-                  />
-                )}
+                render={({ field }) => {
+                  const { onChange, value } = field;
+                  console.log(errors);
+                  return (
+                    <IngredientName
+                      onChange={onChange}
+                      value={value}
+                      isError={false}
+                    />
+                  );
+                }}
                 control={control}
                 rules={{ required: true }}
               />
 
               <VolumeInput
                 {...register(`ingredients.${index}.volume`, {
-                  require: true,
+                  //require: true,
                   maxLength: 4,
                   valueAsNumber: true,
-                  pattern: {
-                    value: /\d*\.*\d+/,
-                    message:
-                      'Можно использовать только цифры и точку. Например, 3.50, 125',
-                  },
-                  validate: (volumeValue) => {
-                    return volumeValue > 0;
-                  },
+                  // pattern: {
+                  //   value: /\d*\.*\d+/,
+                  //   message:
+                  //     'Можно использовать только цифры и точку. Например, 3.50, 125',
+                  // },
+                  // validate: (volumeValue) => {
+                  //   return volumeValue && volumeValue > 0;
+                  // },
                 })}
-                isError={!!formState.errors.ingredients?.[index]?.volume}
+                isError={
+                  false
+                  //!!errors.ingredients?.[index]?.volume
+                }
               />
 
               <Controller
@@ -125,7 +144,12 @@ const Ingredients = () => {
                   return (
                     <Select
                       {...params}
-                      options={measureOptions}
+                      options={
+                        measureOptions as OptionsOrGroups<
+                          IOption,
+                          GroupBase<IOption>
+                        >
+                      }
                       defaultValue={value}
                       unstyled
                       className="select-container"

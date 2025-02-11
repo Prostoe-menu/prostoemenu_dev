@@ -1,8 +1,9 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { selectMainInfo } from 'store/slices/form/formSelect';
 import { nextStep, saveRecipeInfo } from 'store/slices/form/formSlice';
 import Button from 'ui/Button';
+import { TAddRecipeMainInfo } from 'shared/types/addRecipe';
 import { RecipePhoto } from './sections/RecipePhoto/RecipePhoto';
 import { CookTime, Title } from './elements';
 import {
@@ -14,17 +15,16 @@ import {
 import styles from './MainInfo.module.scss';
 
 const MainInfo = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const defaultValues = useSelector(selectMainInfo);
+  const defaultValues = useAppSelector(selectMainInfo);
 
   const methods = useForm({
     defaultValues,
     mode: 'onTouched',
   });
 
-  const onSubmit = (data) => {
-    // eslint-disable-next-line
+  const onSubmit = (data: TAddRecipeMainInfo) => {
     console.log('step1 data: ', data);
 
     dispatch(saveRecipeInfo(data));

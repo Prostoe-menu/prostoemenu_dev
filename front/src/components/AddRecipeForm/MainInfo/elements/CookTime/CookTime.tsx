@@ -4,7 +4,19 @@ import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import { CookTimeField } from './CookTimeField';
 import styles from './CookTime.module.scss';
 
-export const CookTime = ({ title, hoursName, minutesName, tooltip }) => {
+type TCookTimeProps = {
+  title: string;
+  hoursName: string;
+  minutesName: string;
+  tooltip?: string;
+};
+
+export const CookTime = ({
+  title,
+  hoursName,
+  minutesName,
+  tooltip,
+}: TCookTimeProps) => {
   const {
     getValues,
     clearErrors,
@@ -28,8 +40,8 @@ export const CookTime = ({ title, hoursName, minutesName, tooltip }) => {
               message: 'Только цифры',
             },
             validate: {
-              checkMinutes: (val) => {
-                val > 0 && clearErrors(minutesName);
+              checkMinutes: (val: number) => {
+                if (val > 0) clearErrors(minutesName);
 
                 return (
                   val > 0 ||
@@ -50,15 +62,15 @@ export const CookTime = ({ title, hoursName, minutesName, tooltip }) => {
               message: 'В 1 часе 59 минут',
             },
             validate: {
-              checkNumbers: (val) => {
+              checkNumbers: (val: string) => {
                 if (!val) return;
 
                 return (
                   /^\d{1,2}$/.test(val) || 'Можно использовать только цифры'
                 );
               },
-              checkHours: (val) => {
-                val > 0 && clearErrors(hoursName);
+              checkHours: (val: number) => {
+                if (val > 0) clearErrors(hoursName);
 
                 return val > 0 || getValues(hoursName) > 0;
               },
@@ -68,11 +80,11 @@ export const CookTime = ({ title, hoursName, minutesName, tooltip }) => {
       </div>
 
       {errors[hoursName] && (
-        <ErrorMessage message={errors[hoursName].message} />
+        <ErrorMessage message={errors[hoursName]?.message as string} />
       )}
 
       {errors[minutesName] && (
-        <ErrorMessage message={errors[minutesName].message} />
+        <ErrorMessage message={errors[minutesName]?.message as string} />
       )}
     </div>
   );

@@ -1,7 +1,17 @@
+import { PropsWithChildren } from 'react';
 import cn from 'classnames';
 import styles from './FieldWrap.module.scss';
 
-export const FieldWrap = ({ children, className, isError }) => {
+type TFieldWrapProps = {
+  className: string;
+  isError: boolean;
+};
+
+export const FieldWrap = ({
+  children,
+  className,
+  isError,
+}: PropsWithChildren<TFieldWrapProps>) => {
   return (
     <div
       className={cn(className, styles.wrap, {

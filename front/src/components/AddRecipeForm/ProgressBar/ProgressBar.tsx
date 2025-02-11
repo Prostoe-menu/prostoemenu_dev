@@ -1,12 +1,21 @@
+import { MouseEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 import { goToStep } from 'store/slices/form/formSlice';
 import styles from './ProgressBar.module.scss';
 
-const ProgressBar = ({ currentIndex, steps }) => {
+type TProgressBarProps = {
+  currentIndex: number;
+  steps: Array<{ title: string; path: string }>;
+};
+
+const ProgressBar = ({ currentIndex, steps }: TProgressBarProps) => {
   const dispatch = useDispatch();
 
-  const clickHandler = (event, stepIndex) => {
+  const clickHandler = (
+    event: MouseEvent<HTMLLIElement>,
+    stepIndex: number
+  ) => {
     event.preventDefault();
 
     dispatch(goToStep(stepIndex));

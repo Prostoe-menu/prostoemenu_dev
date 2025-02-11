@@ -5,7 +5,7 @@ import {
   ErrorMessage,
   Title,
 } from 'components/AddRecipeForm/MainInfo/elements';
-import { Button } from 'ui';
+import Button from 'ui/Button';
 import SVGMinus from 'assets/images/minus.svg?react';
 import SVGPlus from 'assets/images/plus.svg?react';
 import styles from './RecipePortions.module.scss';
@@ -23,7 +23,7 @@ export const RecipePortions = () => {
   function incrementPortion() {
     setPortion((prev) => prev + 1);
 
-    inputError && clearErrors(inputName);
+    return inputError && clearErrors(inputName);
   }
 
   function decrementPortion() {
@@ -32,11 +32,11 @@ export const RecipePortions = () => {
 
   useEffect(() => {
     const defaultPortions = getValues(inputName);
-    defaultPortions && setPortion(defaultPortions);
+    if (defaultPortions) setPortion(defaultPortions);
   }, [getValues]);
 
   useEffect(() => {
-    portion && setValue(inputName, portion);
+    if (portion) setValue(inputName, portion);
   }, [portion, setValue]);
 
   return (
@@ -81,7 +81,7 @@ export const RecipePortions = () => {
         </Button>
       </div>
 
-      {inputError && <ErrorMessage message={inputError.message} />}
+      {inputError && <ErrorMessage message={inputError.message as string} />}
     </div>
   );
 };

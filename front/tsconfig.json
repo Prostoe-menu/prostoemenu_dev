@@ -2,22 +2,21 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "build",
-    "target": "ESNext",
+    "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": [
-      "ESNext",
+      "ES2020",
       "DOM",
       "DOM.Iterable"
     ],
+    "module": "ESNext",
     "types": [
       "vite/client"
     ],
-    "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     /* Bundler mode */
-    "module": "ESNext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -70,6 +69,9 @@
   "include": [
     "src",
     "svg.d.ts"
+  ],
+  "exclude": [
+    "src/shared/test-utils/*"
   ],
   "references": [
     {

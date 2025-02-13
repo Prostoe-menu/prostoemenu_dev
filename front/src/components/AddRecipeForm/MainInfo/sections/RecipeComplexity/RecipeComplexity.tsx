@@ -1,6 +1,8 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import Tooltip from 'components/Tooltip/Tooltip';
 import TooltipDifficultyContent from 'components/Tooltip/TooltipDifficultyContent/TooltipDifficultyContent';
+import { Rating } from 'shared/ui/Rating';
+import { STARS_TOTAL } from 'shared/utils/constants';
 import { ErrorMessage, Title } from '../../elements';
 import styles from './RecipeComplexity.module.scss';
 
@@ -24,19 +26,15 @@ export const RecipeComplexity = () => {
             required: 'Укажите сложность рецепта',
             validate: (val) => val > 0 || 'Укажите сложность рецепта',
           }}
-          render={({ field }) => {
-            return <div {...field}>'***'</div>;
-          }}
-          // render={({ field }) => (
-          //   <Rating
-          //     {...field}
-          //     max={3}
-          //     size="large"
-          //     onChange={(e, newValue) => {
-          //       field.onChange(newValue);
-          //     }}
-          //   />
-          // )}
+          render={({ field }) => (
+            <Rating
+              {...field}
+              starsCount={STARS_TOTAL}
+              voteHandler={(newValue) => {
+                field.onChange(newValue);
+              }}
+            />
+          )}
         />
       </ul>
 

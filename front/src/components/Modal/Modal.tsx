@@ -9,24 +9,20 @@ import styles from './Modal.module.scss';
 
 type TModalProps = {
   closeModal: () => void;
-  isModalOpen: boolean;
 };
 
-const Modal = ({
-  children,
-  closeModal,
-  isModalOpen,
-}: PropsWithChildren<TModalProps>) => {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const closeModal = () => setIsModalOpen(false);
+const Modal = ({ children, closeModal }: PropsWithChildren<TModalProps>) => {
+  // const [isOpen, setIsOpen] = useState(false);
+  // const closeModal = () => setIsOpen(false);
 
   const modalClass = cn(styles.modal, {
-    [styles.visible]: isModalOpen,
+    [styles.visible]: true,
   });
 
   useEffect(() => {
-    const closeOnEscapeKey = (e: KeyboardEvent) =>
-      e.key === 'Escape' ? closeModal() : null;
+    const closeOnEscapeKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeModal();
+    };
 
     document.body.addEventListener('keydown', closeOnEscapeKey);
 
@@ -34,8 +30,6 @@ const Modal = ({
       document.body.removeEventListener('keydown', closeOnEscapeKey);
     };
   }, [closeModal]);
-
-  if (!isModalOpen) return null;
 
   return (
     <ReactPortal wrapperId="modal-container">
@@ -45,7 +39,6 @@ const Modal = ({
           role="button"
           aria-label="Закрыть модальное окно"
           onClick={closeModal}
-          onKeyDown={closeModal}
         />
         <div className={styles.content}>
           <div className={styles.closeButtonContainer}>

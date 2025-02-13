@@ -3,12 +3,14 @@ import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundary';
 import Layout from 'components/Layout';
 import NotFound from 'components/NotFound';
 import HomePage from 'pages/HomePage';
+import Loader from 'shared/ui/Loader';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
     errorElement: <ErrorBoundary />,
+    hydrateFallbackElement: <Loader />,
     children: [
       {
         index: true,

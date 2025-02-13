@@ -50,6 +50,10 @@ export const RecipePhoto = () => {
     setIsCropperOpen(true);
   };
 
+  const closePhotoCropperHandler = () => {
+    setIsCropperOpen(false);
+  };
+
   useEffect(() => {
     register(inputName, { required: 'Загрузите фото готового блюда' });
   }, [register]);
@@ -93,8 +97,8 @@ export const RecipePhoto = () => {
       {isCropperOpen && uploadedPhoto && (
         <PhotoCropper
           photo={uploadedPhoto}
-          isOpen={isCropperOpen}
           cropHandler={cropHandler}
+          closeHandler={closePhotoCropperHandler}
         />
       )}
     </section>

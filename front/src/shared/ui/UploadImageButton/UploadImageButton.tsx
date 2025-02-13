@@ -46,8 +46,6 @@ const UploadImageButton = ({ loadHandler }: TUploadImageButtonProps) => {
 
     if (!imgFile) return;
 
-    console.log('image size: ', imgFile.size, 'b');
-
     if (imgFile.size > MAX_IMAGE_SIZE_IN_BYTES) {
       setErrorMessage(`Размер фотографии больше ${MAX_IMAGE_SIZE}mb`);
       return false;
@@ -60,6 +58,7 @@ const UploadImageButton = ({ loadHandler }: TUploadImageButtonProps) => {
     if (res) {
       URL.revokeObjectURL(imgURL);
       loadHandler(imgFile);
+      event.target.value = '';
     }
   };
 

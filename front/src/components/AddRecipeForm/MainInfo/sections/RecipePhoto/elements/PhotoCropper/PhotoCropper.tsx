@@ -1,18 +1,23 @@
-import { createRef, useEffect, useRef } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import { Cropper, ReactCropperElement } from 'react-cropper';
 import Modal from 'components/Modal';
 import Button from 'ui/Button';
+import Loader from 'shared/ui/Loader/Loader';
 import styles from './PhotoCropper.module.scss';
 
 type TPhotoCropperProps = {
   photo: File;
-  isOpen: boolean;
+  closeHandler: () => void;
   cropHandler: (blob: Blob | null, impPath: string) => void;
 };
 
-const PhotoCropper = ({ photo, isOpen, cropHandler }: TPhotoCropperProps) => {
+const PhotoCropper = ({
+  photo,
+  closeHandler,
+  cropHandler,
+}: TPhotoCropperProps) => {
   const cropperRef = createRef<ReactCropperElement>();
-  const srcRef = useRef<string | undefined>(undefined);
+  const [src, setSrc] = useState<string | null>(null);
 
   const getCropData = async () => {
     if (cropperRef.current?.cropper) {
@@ -34,7 +39,7 @@ const PhotoCropper = ({ photo, isOpen, cropHandler }: TPhotoCropperProps) => {
   useEffect(() => {
     const photoURL = URL.createObjectURL(photo);
 
-    srcRef.current = photoURL;
+    setSrc(photoURL);
 
     return () => {
       URL.revokeObjectURL(photoURL);
@@ -43,26 +48,31 @@ const PhotoCropper = ({ photo, isOpen, cropHandler }: TPhotoCropperProps) => {
 
   return (
     <>
-      <Modal isModalOpen={isOpen} closeModal={() => {}}>
-        <Cropper
-          ref={cropperRef}
-          style={{ width: '100%' }}
-          dragMode="move"
-          aspectRatio={4 / 3}
-          src={srcRef.current}
-          movable={false}
-          zoomable={false}
-          viewMode={1}
-          minCropBoxHeight={600}
-          minCropBoxWidth={600}
-          background={false}
-          autoCropArea={1}
-          checkOrientation={false}
-        />
+      <Modal closeModal={closeHandler}>
+        {!src && <Loader />}
 
-        <Button onClick={getCropData} className={styles.btn}>
-          Обрезать фото
-        </Button>
+        {src && (
+          <>
+            <Cropper
+              ref={cropperRef}
+              style={{ width: '100%' }}
+              dragMode="move"
+              aspectRatio={4 / 3}
+              src={src}
+              movable={false}
+              zoomable={false}
+              viewMode={1}
+              minCropBoxHeight={600}
+              minCropBoxWidth={600}
+              background={false}
+              autoCropArea={1}
+              checkOrientation={false}
+            />
+            <Button onClick={getCropData} className={styles.btn}>
+              Обрезать фото
+            </Button>
+          </>
+        )}
       </Modal>
     </>
   );

@@ -16,7 +16,7 @@ export const Ingredients = ({ list }: TIngredientsProps) => {
             <span>{item.name}</span>
             <span className={styles.divider}></span>
             <span className={styles.volume}>
-              {item.volume} {formatMeasureUnit(item.measure.label)}
+              {item.volume} {formatMeasureUnit(item.measure)}
             </span>
           </li>
         ))}

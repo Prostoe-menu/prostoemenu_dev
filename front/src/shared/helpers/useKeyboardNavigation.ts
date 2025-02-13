@@ -1,7 +1,7 @@
 import { Dispatch, KeyboardEvent, RefObject, SetStateAction } from 'react';
 
 export const scrollToSelected = (
-  ref: RefObject<HTMLElement> | undefined,
+  ref: RefObject<HTMLUListElement | HTMLElement> | undefined,
   cursor: number
 ) => {
   const selectedItem = ref?.current?.children[cursor];
@@ -16,7 +16,7 @@ export const scrollToSelected = (
 
 export const handleKeyboardNavigation = <T>(
   e: KeyboardEvent<HTMLInputElement>,
-  ref: RefObject<HTMLElement> | undefined,
+  ref: RefObject<HTMLUListElement | HTMLElement> | undefined,
   items: Array<T>,
   cursor: number,
   setCursor: Dispatch<SetStateAction<number>>,
@@ -48,6 +48,8 @@ export const handleKeyboardNavigation = <T>(
     setVisibility(false); // Закрываем выпадающий список при нажатии Enter
     chooseItem(items[cursor]);
   }
+
+  if (!ref) return;
 
   scrollToSelected(ref, cursor);
 };

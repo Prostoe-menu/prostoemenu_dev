@@ -1,4 +1,5 @@
-import { IRecipe, TRecipeIngredient } from './recipe';
+import { IOption } from './measurements';
+import { IRecipe } from './recipe';
 
 export type TAddRecipeMainInfo = {
   title: string;
@@ -12,8 +13,10 @@ export type TAddRecipeMainInfo = {
   quantity: 0;
 };
 
-export type TAddRecipeIngredient = Omit<TRecipeIngredient, 'id' | 'name'> & {
+export type TAddRecipeIngredient = {
   ingredient: string | null;
+  volume: number | null;
+  measure: IOption;
 };
 
 export type TAddRecipeIngredients = {

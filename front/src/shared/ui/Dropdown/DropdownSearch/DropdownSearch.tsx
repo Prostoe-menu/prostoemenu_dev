@@ -21,7 +21,7 @@ type TDropdownSearchProps<T extends { id: number; name: string }> = {
   isLoading: boolean;
   onChooseItem: (item: T) => void;
   onInputChange: (val: string) => void;
-  selectItemRef?: RefObject<HTMLElement> | undefined;
+  selectItemRef?: RefObject<HTMLUListElement> | undefined;
   ariaLabelText?: string;
   dropdownClassName?: string;
 };

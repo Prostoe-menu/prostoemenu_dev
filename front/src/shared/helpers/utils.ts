@@ -30,7 +30,7 @@ const hourPlurals = (h: number) => {
 };
 
 export const formatMeasureUnit = (unit: string) => {
-  return unit.endsWith('.') ? unit.slice(0, -1) : unit;
+  return unit?.endsWith('.') ? unit.slice(0, -1) : unit;
 };
 
 export const isNumber = (inputStr: string) => {

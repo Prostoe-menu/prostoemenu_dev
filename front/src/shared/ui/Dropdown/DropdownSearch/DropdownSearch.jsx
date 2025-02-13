@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { DropdownItem, Input, Loader } from 'ui';
 import { handleKeyboardNavigation } from 'helpers/useKeyboardNavigation';
 import useClickOutside from 'hooks/useClickOutside';
+import SVGSearch from 'assets/images/search.svg?react';
 import styles from './DropdownSearch.module.scss';
 
 /**
@@ -72,6 +73,10 @@ const DropdownSearch = (props) => {
         placeholder={inputPlaceholder}
         value={inputValue}
       />
+
+      <div className={styles.searchIcon}>
+        <SVGSearch />
+      </div>
 
       <ul
         className={cn(styles.options, {

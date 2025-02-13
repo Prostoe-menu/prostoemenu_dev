@@ -30,6 +30,13 @@ const router = createBrowserRouter([
         },
       },
       {
+        path: '/register',
+        async lazy() {
+          const { RegisterPage } = await import('pages/RegisterPage');
+          return { Component: RegisterPage };
+        },
+      },
+      {
         path: '/*',
         element: <NotFound />,
       },

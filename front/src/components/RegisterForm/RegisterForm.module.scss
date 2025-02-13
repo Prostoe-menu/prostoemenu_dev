@@ -1,0 +1,104 @@
+.wrapper {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .image {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto;
+    position: relative;
+
+    &.simple {
+      background: url(/src/shared/assets/images/cat.png) center / contain no-repeat;
+    }
+    &.close {
+      background: url(/src/shared/assets/images/cat_close.png) center / contain no-repeat;
+
+      & .eye {
+        display: none;
+      }
+    }
+
+    .eye {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      top: 107px;
+      border-radius: 50%;
+      background-color: #ffffff;
+
+      &.left {
+        left: 96px;
+      }
+      &.right {
+        left: 136px;
+      }
+      .pupil {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        top: 5px;
+        left: 5px;
+        background-color: #000000;
+
+        &.lookDown {
+          width: 10px;
+          height: 10px;
+        }
+      }
+    }
+  }
+  .input {
+    box-sizing: border-box;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #e5e4e4;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #232323;
+    margin: 0;
+    padding: 8px 16px;
+    transition: border 0.3s ease;
+
+    &:hover {
+      border-color: #909090;
+    }
+    &:focus {
+      outline: none;
+      border-color: #909090;
+    }
+  }
+  .button {
+    box-sizing: border-box;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Mulish", sans-serif;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 12px 25px;
+    border-radius: 12px;
+
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.2222222222;
+    color: #ffffff;
+    background: #f1b823;
+    gap: 8px;
+
+    &:hover {
+      background: #f4a100;
+    }
+    &:active {
+      background: #f49300;
+    }
+  }
+}

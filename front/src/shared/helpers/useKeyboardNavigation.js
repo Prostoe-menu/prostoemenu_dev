@@ -40,8 +40,9 @@ export const handleKeyboardNavigation = (
 
   if (e.key === 'Enter') {
     e.preventDefault();
-    setVisibility(false); // Закрываем выпадающий список при нажатии Enter
     chooseItem(items[cursor]);
+    setVisibility(false);
+    setCursor(-1);
   }
 
   scrollToSelected(ref, cursor);

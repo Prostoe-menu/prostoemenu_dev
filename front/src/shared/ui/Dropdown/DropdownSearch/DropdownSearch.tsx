@@ -52,12 +52,19 @@ const DropdownSearch = <T extends { id: number; name: string }>(
 
     onInputChange(value);
 
-    if (value.length > 2) {
+    if (value.length > 2 && /^[a-zA-ZА-Яа-я]+$/.test(value)) {
       setIsDropdownOpen(true);
       return;
     }
 
     setIsDropdownOpen(false);
+
+    if (value.length > 0 && !/^[a-zA-ZА-Яа-я]+$/.test(value)) {
+      onInputChange('Используйте для ввода только буквы');
+      setTimeout(() => {
+        onInputChange(''); // Через 2 секунды возвращаем пустое значение инпута
+      }, 2000);
+    }
   };
 
   return (

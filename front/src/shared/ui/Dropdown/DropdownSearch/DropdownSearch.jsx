@@ -35,17 +35,23 @@ const DropdownSearch = (props) => {
 
     onInputChange(value);
 
-    if (value.length > 2 && /^[a-zA-ZА-Яа-я]+$/.test(value)) {
+    const isValidInput = /^(?!.* {2})[a-zA-ZА-Яа-я\s+a-zA-ZА-Яа-я]+$/.test(
+      value
+    );
+    const isValidInputOneSpace =
+      /^(?!.* {1})[a-zA-ZА-Яа-я\s+a-zA-ZА-Яа-я]+$/.test(value); // Проверка на 1 пробел, нажна, иначе допускается первый пробел вначале, по другому не получилось сделать, не срабатывает
+
+    if (value.length > 2 && isValidInput) {
       setIsDropdownOpen(true);
       return;
     }
 
     setIsDropdownOpen(false);
 
-    if (value.length > 0 && !/^[a-zA-ZА-Яа-я]+$/.test(value)) {
-      onInputChange('Используйте для ввода только буквы');
+    if (value.length > 0 && !isValidInputOneSpace) {
+      onInputChange('Используйте только буквы и 1 пробел (между словами)');
       setTimeout(() => {
-        onInputChange(''); // Через 2 секунды возвращаем пустое значение инпута
+        onInputChange('');
       }, 2000);
     }
   };

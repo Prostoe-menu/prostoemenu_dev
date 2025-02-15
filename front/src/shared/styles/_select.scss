@@ -1,5 +1,5 @@
-@use 'styles/variables' as vars;
-@use 'styles/mixins' as m;
+@use 'variables' as vars;
+@use 'mixins' as m;
 
 .select-container {
   width: 100%;

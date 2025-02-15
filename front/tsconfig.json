@@ -1,0 +1,81 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "build",
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "types": [
+      "vite/client"
+    ],
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "*": [
+        "src/*"
+      ],
+      "api/*": [
+        "src/api/*"
+      ],
+      "pages/*": [
+        "src/pages/*"
+      ],
+      "components/*": [
+        "src/components/*"
+      ],
+      "store/*": [
+        "src/store/*"
+      ],
+      "assets/*": [
+        "src/shared/assets/*"
+      ],
+      "helpers/*": [
+        "src/shared/helpers/*"
+      ],
+      "hooks/*": [
+        "src/shared/hooks/*"
+      ],
+      "test_utils": [
+        "src/shared/test-utils/*"
+      ],
+      "utils/*": [
+        "src/shared/utils/*"
+      ],
+      "styles/*": [
+        "src/shared/styles/*"
+      ],
+      "ui/*": [
+        "src/shared/ui/*"
+      ]
+    }
+  },
+  "include": [
+    "src",
+    "svg.d.ts"
+  ],
+  "exclude": [
+    "src/shared/test-utils/*"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}

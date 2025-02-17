@@ -69,7 +69,7 @@ const DropdownSearch = <T extends { id: number; name: string }>(
       onInputChange('Используйте буквы');
       setTimeout(() => {
         onInputChange('');
-      }, 2000);
+      }, 1500);
     }
   };
 

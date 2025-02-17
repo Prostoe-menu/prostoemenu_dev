@@ -1,0 +1,12 @@
+import { timeFormat } from 'helpers/utils';
+import styles from './CookingTime.module.scss';
+
+type TCookingTimeProps = {
+  minutes: number;
+};
+
+const CookingTime = ({ minutes }: TCookingTimeProps) => {
+  return <span className={styles.cookingTime}>{timeFormat(minutes)}</span>;
+};
+
+export default CookingTime;

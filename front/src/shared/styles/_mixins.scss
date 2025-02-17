@@ -1,4 +1,4 @@
-@use 'styles/variables' as vars;
+@use 'variables' as vars;
 
 @mixin error-text-color {
   color: vars.$color-error;

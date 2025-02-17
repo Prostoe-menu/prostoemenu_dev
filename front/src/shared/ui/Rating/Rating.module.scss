@@ -1,0 +1,26 @@
+@use 'styles/variables' as vars;
+
+.stars {
+  display: flex;
+  align-items: center;
+}
+
+.star {
+  display: block;
+  padding-right: .3rem;
+
+  &:hover{
+    fill: vars.$btn-bg-primary;
+  }
+}
+
+.active, .star:has(~ .star:hover)   {
+  fill: vars.$btn-bg-primary;
+}
+
+.label {
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  color: vars.$color-secondary;
+}

@@ -1,6 +1,7 @@
 @use 'styles/variables' as vars;
 
 .dropdownItem {
+  width: 100%;
   box-sizing: border-box;
   cursor: pointer;
   display: flex;

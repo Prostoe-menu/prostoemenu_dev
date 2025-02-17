@@ -50,23 +50,23 @@ const DropdownSearch = <T extends { id: number; name: string }>(
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    onInputChange(value);
+    let trimmedValue = value.replace(/^\s+/, '');
 
-    const isValidInput = /^(?!.* {2})[a-zA-ZА-Яа-я\s+a-zA-ZА-Яа-я]+$/.test(
-      value
-    );
-    const isValidInputOneSpace =
-      /^(?!.* {1})[a-zA-ZА-Яа-я\s+a-zA-ZА-Яа-я]+$/.test(value); // Проверка на 1 пробел, нужна, иначе допускается первый пробел вначале, по другому не получилось сделать, не срабатывает
+    trimmedValue = trimmedValue.replace(/\s+/g, ' ');
 
-    if (value.length > 2 && isValidInput) {
+    onInputChange(trimmedValue);
+
+    const isValidInput = /^[a-zA-ZА-Яа-я\s]+$/.test(trimmedValue);
+
+    if (trimmedValue.length > 2 && isValidInput) {
       setIsDropdownOpen(true);
       return;
     }
 
     setIsDropdownOpen(false);
 
-    if (value.length > 0 && !isValidInputOneSpace) {
-      onInputChange('Используйте только буквы и 1 пробел (между словами)');
+    if (trimmedValue.length > 0 && !isValidInput) {
+      onInputChange('Используйте буквы');
       setTimeout(() => {
         onInputChange('');
       }, 2000);

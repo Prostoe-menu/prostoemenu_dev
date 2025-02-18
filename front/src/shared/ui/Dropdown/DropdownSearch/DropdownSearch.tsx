@@ -50,7 +50,7 @@ const DropdownSearch = <T extends { id: number; name: string }>(
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    let trimmedValue = value.replace(/^\s+/, '');
+    let trimmedValue = value.trimStart();
 
     trimmedValue = trimmedValue.replace(/\s+/g, ' ');
 

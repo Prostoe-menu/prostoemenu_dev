@@ -50,20 +50,26 @@ const DropdownSearch = <T extends { id: number; name: string }>(
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    onInputChange(value);
+    let trimmedValue = value.trimStart();
 
-    if (value.length > 2 && /^[a-zA-ZА-Яа-я]+$/.test(value)) {
+    trimmedValue = trimmedValue.replace(/\s+/g, ' ');
+
+    onInputChange(trimmedValue);
+
+    const isValidInput = /^[a-zA-ZА-Яа-я\s]+$/.test(trimmedValue);
+
+    if (trimmedValue.length > 2 && isValidInput) {
       setIsDropdownOpen(true);
       return;
     }
 
     setIsDropdownOpen(false);
 
-    if (value.length > 0 && !/^[a-zA-ZА-Яа-я]+$/.test(value)) {
-      onInputChange('Используйте для ввода только буквы');
+    if (trimmedValue.length > 0 && !isValidInput) {
+      onInputChange('Используйте буквы');
       setTimeout(() => {
-        onInputChange(''); // Через 2 секунды возвращаем пустое значение инпута
-      }, 2000);
+        onInputChange('');
+      }, 1500);
     }
   };
 
